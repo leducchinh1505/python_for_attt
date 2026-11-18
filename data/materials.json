@@ -1,0 +1,374 @@
+{
+ "T1": {
+  "sections": [
+   {
+    "title": "Số học và Độ ưu tiên toán tử",
+    "source": "textbook",
+    "body": "Trong Python, cần lưu ý đặc biệt đến kết quả của phép chia và độ ưu tiên toán tử:\n- Phép chia `/` luôn trả về kiểu **float**.\n- Phép chia nguyên `//` làm tròn xuống (floor), không phải lấy phần nguyên. Ví dụ `-7 // 2` trả về `-4`.\n- Phép chia lấy dư `%` tuân theo công thức: `r = a - (a // b) * b`. Do đó `-7 % 2` bằng `1`.\n- Toán tử lũy thừa `**` có độ ưu tiên cao hơn toán tử âm `-`. \n\n```python\nprint(10 / 2)    # Output: 5.0\nprint(-7 // 2)   # Output: -4\nprint(-7 % 2)    # Output: 1\nprint(-2**2)     # Output: -4 (Tương đương -(2**2))\nprint((-2)**2)   # Output: 4\n```\n**Bẫy**: Nhầm lẫn giữa `-2**2` và `(-2)**2` là lỗi phổ biến nhất trong các câu hỏi tính toán."
+   },
+   {
+    "title": "Ép kiểu và Làm tròn (Banker's Rounding)",
+    "source": "supplement",
+    "body": "Cần phân biệt cách chuyển đổi dữ liệu và cơ chế làm tròn đặc thù của Python:\n- `int(x)` chỉ cắt bỏ phần thập phân, không làm tròn. `int(3.9)` ra `3`.\n- `int('3.5')` sẽ gây **ValueError**. Bạn phải chuyển qua float trước: `int(float('3.5'))`.\n- Hàm `round(x)` sử dụng cơ chế **Banker's Rounding**: Nếu phần thập phân là đúng `.5`, nó sẽ làm tròn về số **chẵn** gần nhất.\n\n```python\nprint(int(3.9))      # Output: 3\n# int('3.5')         # Lỗi ValueError\nprint(round(2.5))    # Output: 2\nprint(round(3.5))    # Output: 4\nprint(round(2.6))    # Output: 3\n```"
+   },
+   {
+    "title": "Chuỗi ký tự: Tính bất biến và Phép toán cơ bản",
+    "source": "textbook",
+    "body": "Chuỗi (string) trong Python là đối tượng **bất biến (immutable)**. Bạn không thể thay đổi ký tự tại một vị trí sau khi đã tạo.\n- Phép `+` dùng để nối chuỗi.\n- Phép `*` với số nguyên dùng để lặp chuỗi.\n- So sánh chuỗi (`<`, `>`, `==`) thực hiện theo thứ tự từ điển (Unicode).\n\n```python\ns = \"Python\"\n# s[0] = \"p\"         # Lỗi TypeError\ns2 = s + \"3.11\"\nprint(\"Hi\" * 3)      # Output: HiHiHi\nprint(\"10\" < \"2\")    # Output: True (So sánh ký tự '1' và '2')\n```"
+   },
+   {
+    "title": "Kỹ thuật Cắt chuỗi (Slicing) nâng cao",
+    "source": "textbook",
+    "body": "Cú pháp `s[start:stop:step]` cho phép trích xuất chuỗi con mạnh mẽ:\n- `start`: Chỉ số bắt đầu (mặc định 0).\n- `stop`: Chỉ số kết thúc (không bao gồm vị trí này).\n- `step`: Bước nhảy. Nếu `step` âm, chuỗi được duyệt ngược.\n\n```python\ns = \"PTIT_Python\"\nprint(s[0:4])        # Output: PTIT\nprint(s[::-1])       # Output: nohtyP_TITP (Đảo ngược chuỗi)\nprint(s[4:0:-1])     # Output: _TIT (lấy index 4, 3, 2, 1; không lấy index 0)\nprint(s[-6:])        # Output: Python (6 ký tự cuối)\n```"
+   },
+   {
+    "title": "Các phương thức String quan trọng",
+    "source": "textbook",
+    "body": "Các phương thức thường dùng để xử lý dữ liệu đầu vào:\n- `split()`: Tách chuỗi thành list (mặc định theo khoảng trắng).\n- `strip()`: Loại bỏ khoảng trắng ở hai đầu.\n- `join()`: Nối các phần tử của list thành chuỗi.\n- `find()`: Trả về index đầu tiên tìm thấy, nếu không thấy trả về `-1`.\n- `isdigit()`: Kiểm tra chuỗi chỉ chứa các chữ số hay không.\n\n```python\ndata = \"  12, 34, 56  \"\nclean_data = data.strip().split(\", \")\nprint(clean_data)    # Output: ['12', '34', '56']\nprint(\"-\".join(['A', 'B', 'C'])) # Output: A-B-C\n```"
+   },
+   {
+    "title": "Định dạng chuỗi (f-string) và Truthiness",
+    "source": "textbook",
+    "body": "Sử dụng f-string giúp định dạng chuỗi chuyên nghiệp, đặc biệt là làm tròn số khi hiển thị.\n- Cú pháp: `f\"{biến:.số_thập_phânf}\"`.\n- Khái niệm **Truthiness**: Các giá trị được coi là `False` bao gồm: `0`, `0.0`, `\"\"` (chuỗi rỗng), `[]` (list rỗng), `None`. Tất cả các giá trị khác là `True`.\n\n```python\npi = 3.14159\nprint(f\"Giá trị: {pi:.2f}\") # Output: Giá trị: 3.14\n\nx = \"\"\nif not x:\n    print(\"Chuỗi rỗng là False\") # Output: Chuỗi rỗng là False\n```"
+   },
+   {
+    "title": "Thuật toán xử lý tổng chữ số",
+    "source": "exam",
+    "body": "Trong các đề thi (như bài số Harshad), việc tính tổng các chữ số của một số nguyên là kỹ năng cơ bản. Có hai cách:\n1. Chuyển thành chuỗi để duyệt từng ký tự.\n2. Dùng toán tử `% 10` và `// 10` để lấy từng chữ số.\n\n```python\nn = 1234\n# Cách 1: String\ntong_1 = sum(int(d) for d in str(n))\n\n# Cách 2: Toán học\ntong_2 = 0\ntemp = n\nwhile temp > 0:\n    tong_2 += temp % 10\n    temp //= 10\nprint(tong_1, tong_2) # Output: 10 10\n```"
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "- **Chia cho 0**: Luôn gây lỗi `ZeroDivisionError`, cần kiểm tra mẫu số trước khi chia.\n- **Input là chuỗi**: Dữ liệu từ đề bài có thể chứa dấu cách thừa (dùng `strip()`) hoặc phân cách bởi ký tự lạ (dùng `split(',')`).\n- **So sánh số và chuỗi**: `10 == \"10\"` trả về `False`, không lỗi nhưng dẫn đến sai logic. `10 > \"2\"` gây `TypeError`.\n- **Thay đổi chuỗi**: Cố gắng dùng `s[0] = 'X'` sẽ làm chương trình dừng ngay lập tức."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Đã ép kiểu `int()` hoặc `float()` cho dữ liệu nhập vào chưa?\n- [ ] Đã xử lý trường hợp số âm với `//` và `%` chưa (nếu đề yêu cầu)?\n- [ ] Các kết quả số thực đã được làm tròn đúng định mức `f\"{:.2f}\"` chưa?\n- [ ] Tên biến có vi phạm từ khóa Python không?\n- [ ] Chuỗi kết quả có thừa/thiếu khoảng trắng do dùng `print()` mặc định không?"
+   }
+  ]
+ },
+ "T2": {
+  "sections": [
+   {
+    "title": "Cấu trúc Rẽ nhánh if/elif/else và Logic Ngắn mạch",
+    "source": "textbook",
+    "body": "Bản chất: Python kiểm tra các điều kiện từ trên xuống dưới. Khi một điều kiện đúng, khối lệnh tương ứng thực thi và toàn bộ các nhánh `elif/else` phía sau bị bỏ qua.\n\n- **Short-circuit (Ngắn mạch)**: \n    - Với `and`: Nếu vế trái sai, vế phải không bao giờ được tính toán.\n    - Với `or`: Nếu vế trái đúng, vế phải không bao giờ được tính toán.\n- **Giá trị trả về**: `a or b` trả về `a` nếu `a` Truthy, ngược lại trả về `b`. Tương tự với `and`.\n\n```python\nx = 10\ny = 0\n# Tránh lỗi chia cho 0 nhờ short-circuit\nif y != 0 and (x / y > 1):\n    print(\"Thỏa mãn\")\nelse:\n    print(\"Không thỏa mãn hoặc y=0\")\n# Output: Không thỏa mãn hoặc y=0\n\nres = \"Python\" or \"C++\"\nprint(res) \n# Output: Python\n```\n\n**Bẫy**: Đặt điều kiện bao quát lên trước điều kiện cụ thể trong chuỗi `if/elif` sẽ khiến các điều kiện cụ thể không bao giờ được xét đến."
+   },
+   {
+    "title": "Hàm range() và Vòng lặp for",
+    "source": "textbook",
+    "body": "Cú pháp: `range(start, stop[, step])`. Lưu ý: luôn dừng sát nút `stop` (không bao gồm `stop`).\n\n- `range(n)`: từ `0` đến `n-1`.\n- `range(1, 6)`: `1, 2, 3, 4, 5`.\n- `range(5, 0, -1)`: Bước nhảy âm dùng để duyệt lùi: `5, 4, 3, 2, 1`.\n- `range(1, 10, 2)`: Số lẻ `1, 3, 5, 7, 9`.\n\n```python\nfor i in range(3, 0, -1):\n    print(i, end=\" \")\n# Output: 3 2 1 \n```\n\n**Bẫy**: `range(1, 1)` hoặc `range(1, 10, -1)` sẽ trả về một đối tượng rỗng, vòng lặp không chạy lần nào."
+   },
+   {
+    "title": "Điều khiển Vòng lặp: break, continue và else",
+    "source": "textbook",
+    "body": "- `break`: Thoát ngay lập tức khỏi vòng lặp gần nhất chứa nó.\n- `continue`: Bỏ qua các lệnh còn lại trong lần lặp hiện tại, chuyển sang lần lặp kế tiếp.\n- `for...else` / `while...else`: Khối `else` chỉ chạy khi vòng lặp kết thúc **tự nhiên** (không bị ngắt bởi `break`).\n\n```python\nfor n in range(2, 5):\n    for x in range(2, n):\n        if n % x == 0:\n            break\n    else:\n        print(n, \"là số nguyên tố\")\n# Output: \n# 2 là số nguyên tố\n# 3 là số nguyên tố\n```"
+   },
+   {
+    "title": "Kỹ thuật Tách chữ số và Biến tích lũy",
+    "source": "exam",
+    "body": "Để xử lý các số (như kiểm tra số Harshad, Armstrong, đối xứng), ta dùng toán tử `%` và `//`.\n\n- `n % 10`: Lấy chữ số hàng đơn vị.\n- `n // 10`: Loại bỏ chữ số hàng đơn vị.\n- **Biến tích lũy**: Khởi tạo `tong = 0` (cho tổng) hoặc `tich = 1` (cho tích) trước vòng lặp.\n\n```python\nn = 123\ntong_cs = 0\ntemp = n\nwhile temp > 0:\n    tong_cs += temp % 10\n    temp //= 10\nprint(tong_cs) \n# Output: 6\n```"
+   },
+   {
+    "title": "Thuật toán kiểm tra số đặc biệt (Harshad, Nguyên tố)",
+    "source": "exam",
+    "body": "Trong đề thi PTIT, các bài toán kiểm tra tính chất số rất phổ biến:\n- **Số Harshad**: Số chia hết cho tổng các chữ số của chính nó.\n- **Số Nguyên tố**: Số lớn hơn 1, chỉ chia hết cho 1 và chính nó (duyệt từ 2 đến `sqrt(n)`).\n- **Số Hoàn hảo**: Tổng các ước thực sự bằng chính nó.\n\n```python\ndef is_harshad(n):\n    if n <= 0: return False\n    s = sum(int(d) for d in str(n))\n    return n % s == 0\n\nprint(is_harshad(18)) \n# Output: True (18 chia hết cho 1+8=9)\n```"
+   },
+   {
+    "title": "Tính tiền Bậc thang (Thuế, Điện, Nước)",
+    "source": "exam",
+    "body": "Đặc điểm: Giá thay đổi tùy theo ngưỡng (định mức). \n**Chiến thuật**: Chia khoảng và cộng dồn. Lưu ý đơn giá thường nhân với số lượng trong khoảng đó, không phải nhân toàn bộ với đơn giá cuối.\n\n```python\ndef tinh_nuoc(m3):\n    # Giả sử: 0-4m3: 10đ, >4m3: 20đ\n    tien = 0\n    if m3 <= 4:\n        tien = m3 * 10\n    else:\n        tien = 4 * 10 + (m3 - 4) * 20\n    return tien\n\nprint(tinh_nuoc(6))\n# Output: 80\n```\n\n**Lưu ý**: Đề thi thường yêu cầu làm tròn kết quả (dùng `round()`) hoặc ép kiểu `int()` tùy yêu cầu."
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "- **Vòng lặp vô tận**: Quên cập nhật biến điều kiện trong `while` (ví dụ quên `i += 1`).\n- **Sai lệch vị trí (Off-by-one)**: Dùng `range(n)` khi đề yêu cầu chạy đến `n` (phải dùng `range(n + 1)`).\n- **Nhầm lẫn giữa `break` và `return`**: `break` thoát vòng lặp, `return` thoát toàn bộ hàm.\n- **Sửa danh sách khi đang lặp**: Tránh dùng `for x in list_a` rồi `list_a.remove(x)`, sẽ gây bỏ sót phần tử. Nên tạo bản sao `for x in list_a[:]`."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Hàm đã `return` kết quả hay chỉ `print`? (Đề yêu cầu viết hàm thường phải `return`).\n- [ ] Đã xử lý các trường hợp biên (số âm, số 0, danh sách rỗng) chưa?\n- [ ] Tên hàm và tham số có khớp chính xác với yêu cầu của đề không?\n- [ ] Với bài toán ma trận, chỉ số dòng/cột bắt đầu từ 0 hay 1? (Python mặc định từ 0).\n- [ ] Các biến tích lũy (tổng, đếm) đã được khởi tạo đúng vị trí chưa (trong hay ngoài vòng lặp lồng)?"
+   }
+  ]
+ },
+ "T3": {
+  "sections": [
+   {
+    "title": "Các phương thức List cơ bản",
+    "source": "textbook",
+    "body": "List là danh sách có thứ tự và có thể thay đổi. Cần phân biệt rõ cách thêm và xóa phần tử.\n- `append(x)`: Thêm `x` vào cuối list.\n- `extend(iterable)`: Mở rộng list bằng cách thêm tất cả phần tử từ một iterable khác.\n- `insert(i, x)`: Chèn `x` vào vị trí chỉ số `i`.\n- `pop(i)`: Lấy ra và xóa phần tử tại chỉ số `i` (mặc định là cuối cùng).\n- `remove(x)`: Xóa phần tử đầu tiên có giá trị là `x` (gây lỗi `ValueError` nếu không thấy).\n- `del a[i]`: Câu lệnh xóa phần tử tại vị trí `i` hoặc xóa lát cắt (slice).\n\n```python\na = [1, 2]\na.append([3, 4]) # [1, 2, [3, 4]]\na.extend([5, 6]) # [1, 2, [3, 4], 5, 6]\na.pop(0) # Trả về 1, list còn [[3, 4], 5, 6]\n```"
+   },
+   {
+    "title": "Sắp xếp và Đảo ngược",
+    "source": "textbook",
+    "body": "Trong kỳ thi, việc nhầm lẫn giữa phương thức tại chỗ (in-place) và hàm trả về bản sao là lỗi phổ biến nhất.\n- `a.sort()`: Sắp xếp lại chính danh sách `a`, trả về **None**.\n- `sorted(a)`: Trả về một **danh sách mới** đã sắp xếp, `a` không đổi.\n- `a.reverse()`: Đảo ngược chính `a` tại chỗ.\n- `reversed(a)`: Trả về một iterator đảo ngược, không phải list.\n\n```python\nnums = [3, 1, 2]\nres = nums.sort()\nprint(res) # Output: None\nprint(nums) # Output: [1, 2, 3]\n\nnew_nums = sorted([5, 4, 6], reverse=True)\nprint(new_nums) # Output: [6, 5, 4]\n```"
+   },
+   {
+    "title": "Copy và Bẫy tham chiếu Ma trận",
+    "source": "supplement",
+    "body": "Khi gán `b = a`, cả hai biến cùng trỏ vào một vùng nhớ. Thay đổi `b` sẽ làm `a` thay đổi. Để sao chép thực sự, dùng `b = a[:]` hoặc `b = a.copy()`.\n**Bẫy nhân danh sách:** `[[0]*3]*2` tạo ra 2 dòng nhưng cả 2 dòng thực chất là **cùng một đối tượng**.\n\n```python\n# Bẫy tham chiếu\nm = [[0]*2]*2\nm[0][0] = 9\nprint(m) # Output: [[9, 0], [9, 0]]\n\n# Cách đúng để tạo ma trận\nm_right = [[0 for _ in range(2)] for _ in range(2)]\nm_right[0][0] = 9\nprint(m_right) # Output: [[9, 0], [0, 0]]\n```"
+   },
+   {
+    "title": "List Comprehension có điều kiện",
+    "source": "textbook",
+    "body": "Cú pháp rút gọn giúp tạo list mới từ list cũ một cách nhanh chóng.\n- Cú pháp: `[expression for item in iterable if condition]`\n\n```python\n# Lấy bình phương các số chẵn\nnums = [1, 2, 3, 4, 5, 6]\neven_sq = [x**2 for x in nums if x % 2 == 0]\nprint(even_sq) # Output: [4, 16, 36]\n\n# Kết hợp if-else (phải đặt trước for)\n# format: [val_if if cond else val_else for item in list]\nstatus = [\"Chẵn\" if x % 2 == 0 else \"Lẻ\" for x in range(3)]\nprint(status) # Output: ['Chẵn', 'Lẻ', 'Chẵn']\n```"
+   },
+   {
+    "title": "Tuple: Tính bất biến và Unpacking",
+    "source": "textbook",
+    "body": "Tuple tương tự list nhưng không thể sửa đổi sau khi tạo (immutable). Thường dùng để bảo vệ dữ liệu.\n- Tuple 1 phần tử: Phải có dấu phẩy `(1,)`, nếu viết `(1)` Python hiểu là số nguyên trong ngoặc đơn.\n- **Unpacking**: Gán các phần tử của tuple/list cho các biến đơn lẻ.\n\n```python\nt = (1, 2, 3)\n# t[0] = 10 # Lỗi TypeError\n\na, b = 10, 20\na, b = b, a # Hoán đổi giá trị dùng tuple unpacking\nprint(a, b) # Output: 20 10\n\nsingle = (5,) \nprint(type(single)) # Output: <class 'tuple'>\n```"
+   },
+   {
+    "title": "Xử lý Ma trận (List lồng nhau)",
+    "source": "exam",
+    "body": "Trong đề thi, ma trận thường được biểu diễn là list của các list (dòng).\n- Truy cập: `matrix[row_index][col_index]`.\n- Duyệt cột: Dùng vòng lặp theo chỉ số dòng hoặc `zip(*matrix)`.\n\n```python\nmatrix = [[1, 2, 3], [4, 5, 6]]\n# Tính tổng từng dòng\nrow_sums = [sum(row) for row in matrix]\n\n# Chuyển vị ma trận (Transpose)\ntransposed = [list(it) for it in zip(*matrix)]\nprint(transposed) # Output: [[1, 4], [2, 5], [3, 6]]\n```"
+   },
+   {
+    "title": "Hàm Enumerate và Zip",
+    "source": "supplement",
+    "body": "- `enumerate(iterable)`: Trả về cặp `(chỉ_số, giá_trị)`. Rất hữu ích khi cần vị trí phần tử.\n- `zip(*iterables)`: Ghép các iterable lại với nhau theo từng cặp phần tử tương ứng.\n\n```python\nnames = [\"An\", \"Bình\"]\nmarks = [8, 9]\n\nfor i, name in enumerate(names):\n    print(f\"{i}: {name}\") # Output: 0: An, 1: Bình\n\nfor name, mark in zip(names, marks):\n    print(f\"{name} được {mark}\") # Output: An được 8, Bình được 9\n```"
+   },
+   {
+    "title": "Bẫy thường gặp và Checklist",
+    "source": "exam",
+    "body": "### Bẫy cần tránh:\n- **Sửa list khi đang lặp**: Nếu dùng `for x in a:` rồi `a.remove(x)`, các phần tử sẽ bị nhảy cóc do chỉ số thay đổi. Giải pháp: Duyệt qua bản sao `for x in a[:]`.\n- **IndexError**: Truy cập `a[len(a)]` (chỉ số cao nhất luôn là `len-1`).\n- **In/Not in**: `x in a` có độ phức tạp O(n), với ma trận cần kiểm tra từng dòng.\n\n### Checklist trước khi nộp:\n- Đã xử lý trường hợp danh sách rỗng chưa?\n- Hàm có vô tình trả về `None` do dùng `list.sort()` không?\n- Đã sử dụng đúng yêu cầu về dòng/cột (bắt đầu từ 0 hay 1)?\n- Kiểm tra `pop()` trên list rỗng sẽ gây lỗi."
+   }
+  ]
+ },
+ "T4": {
+  "sections": [
+   {
+    "title": "Truy cập và xử lý KeyError",
+    "source": "textbook",
+    "body": "Trong Dictionary, việc truy cập khóa không tồn tại bằng `d[key]` sẽ gây lỗi **KeyError**. Để an toàn, ta dùng phương thức `.get(key, default)`.\n\n- `d[key]`: Trả về giá trị nếu có, nếu không có sẽ văng lỗi.\n- `d.get(key, default)`: Trả về `default` (mặc định là `None`) nếu không tìm thấy khóa.\n\n```python\nd = {\"name\": \"PTIT\", \"year\": 1953}\n# print(d[\"code\"]) # Lỗi KeyError\nprint(d.get(\"code\", \"N/A\")) # Output: N/A\n```"
+   },
+   {
+    "title": "Duyệt Dictionary và các View Objects",
+    "source": "textbook",
+    "body": "Python cung cấp 3 phương thức quan trọng để lấy dữ liệu từ dict:\n\n- `.keys()`: Danh sách các khóa.\n- `.values()`: Danh sách các giá trị.\n- `.items()`: Danh sách các cặp tuple `(key, value)`. Thường dùng trong vòng lặp `for`.\n\n```python\nscores = {\"Alice\": 8.5, \"Bob\": 9.0}\nfor name, score in scores.items():\n    print(f\"{name}: {score}\")\n# Output:\n# Alice: 8.5\n# Bob: 9.0\n```"
+   },
+   {
+    "title": "Dictionary lồng nhau (Nested Dictionary)",
+    "source": "exam",
+    "body": "Dạng bài thi thường dùng dict lồng nhau để quản lý dữ liệu phức tạp (như tỷ giá ngoại tệ). Truy cập bằng cách viết nhiều cặp ngoặc vuông liên tiếp.\n\n```python\nrates = {\n    \"USD\": {\"buy\": 25100, \"sell\": 25450},\n    \"EUR\": {\"buy\": 27200, \"sell\": 27800}\n}\n# Lấy giá bán của USD\nprint(rates[\"USD\"][\"sell\"]) # Output: 25450\n```"
+   },
+   {
+    "title": "Đếm tần suất xuất hiện",
+    "source": "exam",
+    "body": "Kỹ thuật dùng `.get(key, 0) + 1` rất phổ biến trong đề thi (ví dụ: đếm số Harshad, đếm từ trong file).\n\n```python\ndata = [1, 2, 2, 3, 1, 1]\ncounts = {}\nfor x in data:\n    counts[x] = counts.get(x, 0) + 1\nprint(counts) # Output: {1: 3, 2: 2, 3: 1}\n```"
+   },
+   {
+    "title": "Khóa (Key) và tính Hashable",
+    "source": "supplement",
+    "body": "Khóa của dict phải là kiểu dữ liệu **immutable** (bất biến) và **hashable**. \n- **Hợp lệ**: `int`, `float`, `str`, `tuple` (nếu tuple chỉ chứa các phần tử bất biến).\n- **Không hợp lệ**: `list`, `dict`, `set` (gây `TypeError: unhashable type`).\n- **Đặc biệt**: `1`, `1.0`, và `True` được coi là cùng một khóa vì chúng có giá trị bằng nhau.\n\n```python\nd = {1: \"int\", 1.0: \"float\", True: \"bool\"}\nprint(d) # Output: {1: 'bool'}\nprint(len(d)) # Output: 1\n```"
+   },
+   {
+    "title": "Sắp xếp Dictionary",
+    "source": "supplement",
+    "body": "Mặc định từ Python 3.7+, dict giữ thứ tự chèn. Để sắp xếp theo khóa hoặc giá trị, ta dùng hàm `sorted()` kết hợp `lambda`.\n\n```python\nprices = {\"Apple\": 50, \"Orange\": 20, \"Banana\": 30}\n# Sắp xếp theo giá trị tăng dần\nsorted_p = dict(sorted(prices.items(), key=lambda item: item[1]))\nprint(sorted_p) # Output: {'Orange': 20, 'Banana': 30, 'Apple': 50}\n```"
+   },
+   {
+    "title": "Set (Tập hợp) và các phép toán",
+    "source": "textbook",
+    "body": "Set chứa các phần tử duy nhất, không thứ tự. \n- Khởi tạo set rỗng phải dùng `set()`, dùng `{}` sẽ tạo ra dict rỗng.\n- Loại bỏ trùng lặp: `list(set(my_list))`.\n\nCác phép toán:\n- `&` (intersection): Giao.\n- `|` (union): Hợp.\n- `-` (difference): Hiệu.\n\n```python\na = {1, 2, 3}\nb = {3, 4, 5}\nprint(a & b) # Output: {3}\nprint(a | b) # Output: {1, 2, 3, 4, 5}\n```"
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "- **Lỗi Logic**: Nhầm lẫn giữa `d[k]` (lấy giá trị) và `k` (lấy khóa) khi duyệt `for k in d`.\n- **Lỗi Cú pháp**: Khai báo set rỗng bằng `s = {}` (thực tế đây là dict).\n- **Lỗi Thực thi**: Cố gắng dùng `list` làm key trong dict hoặc phần tử trong set.\n- **Lỗi So sánh**: Khóa `'1'` (chuỗi) khác hoàn toàn với khóa `1` (số).\n- **Lỗi Xóa**: Thay đổi kích thước dict (thêm/xóa phần tử) ngay khi đang lặp qua nó sẽ gây lỗi `RuntimeError`."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Đã dùng `.get()` để tránh crash khi khóa không tồn tại chưa?\n- [ ] Nếu đề yêu cầu sắp xếp kết quả, đã dùng `sorted()` chưa?\n- [ ] Các khóa của dict có phải là kiểu bất biến (string, int...) không?\n- [ ] Set đã dùng đúng cú pháp `set()` cho trường hợp rỗng chưa?\n- [ ] Khi tính toán tiền (như bài nước/ngoại tệ), đã chú ý ép kiểu số thực/số nguyên và làm tròn theo yêu cầu chưa?"
+   }
+  ]
+ },
+ "T5": {
+  "sections": [
+   {
+    "title": "Bản chất của return và print",
+    "source": "textbook",
+    "body": "Trong Python, `print()` chỉ hiển thị giá trị ra màn hình, còn **return** mới là lệnh kết thúc hàm và trả về giá trị để sử dụng tiếp. Nếu một hàm không có lệnh `return`, nó sẽ mặc định trả về `None`.\n\n- **Bản chất**: Lệnh `return` dừng thực thi hàm ngay lập tức.\n- **Ví dụ**:\n```python\ndef add(a, b):\n    print(a + b)\n\nresult = add(5, 3)\n# Output: 8\nprint(result)\n# Output: None\n```\n- **Bẫy**: Đề thi yêu cầu 'Viết hàm tính...' thường yêu cầu trả về giá trị (`return`), không phải in ra (`print`). Nếu dùng `print`, các hàm xử lý tiếp theo sẽ nhận giá trị `None` và gây lỗi `TypeError`."
+   },
+   {
+    "title": "Tham số mặc định và Đối số từ khóa",
+    "source": "textbook",
+    "body": "Python cho phép đặt giá trị mặc định cho tham số. Khi gọi hàm, ta có thể truyền đối số theo vị trí (positional) hoặc theo tên (keyword).\n\n- **Quy tắc vàng**: Tham số mặc định phải luôn **đứng sau** các tham số không có giá trị mặc định.\n- **Cú pháp**:\n```python\ndef greet(name, msg=\"Chào\"): \n    return f\"{msg}, {name}!\"\n\nprint(greet(\"An\")) # Output: Chào, An!\nprint(greet(msg=\"Hi\", name=\"Bình\")) # Keyword args. Output: Hi, Bình!\n```\n- **Bẫy**: Định nghĩa `def func(a=1, b):` sẽ gây lỗi `SyntaxError: non-default argument follows default argument`."
+   },
+   {
+    "title": "Bẫy tham số mặc định là Mutable (list, dict)",
+    "source": "supplement",
+    "body": "Giá trị mặc định chỉ được khởi tạo **một lần duy nhất** khi hàm được định nghĩa, không phải mỗi khi hàm được gọi. Nếu dùng một đối tượng thay đổi được (mutable) như `list` làm giá trị mặc định, nó sẽ 'nhớ' dữ liệu của các lần gọi trước.\n\n- **Ví dụ lỗi**:\n```python\ndef add_item(item, lst=[]):\n    lst.append(item)\n    return lst\n\nprint(add_item(1)) # [1]\nprint(add_item(2)) # Output: [1, 2] (Sai kỳ vọng là [2])\n```\n- **Cách sửa**: Dùng `lst=None` và kiểm tra `if lst is None: lst = []` bên trong hàm."
+   },
+   {
+    "title": "Phạm vi biến và UnboundLocalError",
+    "source": "textbook",
+    "body": "Biến bên trong hàm là **cục bộ** (local). Biến bên ngoài là **toàn cục** (global). \n\n- **Quy tắc**: Hàm có thể đọc biến global nhưng không thể sửa đổi nó trực tiếp trừ khi dùng từ khóa `global`.\n- **Lỗi UnboundLocalError**: Xảy ra khi bạn cố gắng gán giá trị cho một biến trong hàm mà biến đó trùng tên với biến global nhưng chưa được khai báo `global` trong hàm.\n```python\nx = 10\ndef update():\n    # x = x + 1  # Lỗi UnboundLocalError\n    global x\n    x += 1\nupdate()\nprint(x) # Output: 11\n```"
+   },
+   {
+    "title": "Biến tham số linh hoạt *args và **kwargs",
+    "source": "textbook",
+    "body": "- `*args`: Thu thập các đối số vị trí dư thừa vào một **tuple**.\n- `**kwargs`: Thu thập các đối số từ khóa dư thừa vào một **dictionary**.\n\n```python\ndef func(*args, **kwargs):\n    print(args) \n    print(kwargs)\n\nfunc(1, 2, a=3, b=4)\n# Output: (1, 2)\n# Output: {'a': 3, 'b': 4}\n```"
+   },
+   {
+    "title": "Lambda và Hàm bậc cao (map, filter, sorted)",
+    "source": "textbook",
+    "body": "**Lambda** là hàm ẩn danh một dòng. Kết quả của biểu thức sau dấu `:` tự động được trả về.\n\n- **map(func, iterable)**: Áp dụng hàm lên từng phần tử.\n- **filter(func, iterable)**: Giữ lại phần tử nếu hàm trả về `True`.\n- **Lưu ý**: Cả hai trả về iterator, cần ép kiểu `list()` để xem kết quả.\n- **Ví dụ sorted với lambda** (Thường dùng trong đề thi để sắp xếp danh sách sinh viên):\n```python\nstudents = [(\"An\", 8.5), (\"Bình\", 9.0), (\"Cường\", 7.0)]\n# Sắp xếp theo điểm giảm dần\nsorted_st = sorted(students, key=lambda x: x[1], reverse=True)\n# Output: [('Bình', 9.0), ('An', 8.5), ('Cường', 7.0)]\n```"
+   },
+   {
+    "title": "Truyền List vào hàm: Tham chiếu vs Gán lại",
+    "source": "textbook",
+    "body": "Khi truyền một `list` vào hàm:\n- Nếu dùng các phương thức làm thay đổi tại chỗ như `.append()`, `.sort()`, `.pop()`, danh sách gốc bên ngoài **sẽ bị thay đổi**.\n- Nếu gán tham số đó bằng một list mới (`lst = [1, 2]`), liên kết với danh sách gốc sẽ bị đứt, danh sách gốc **không đổi**.\n\n```python\ndef modify(my_list):\n    my_list.append(100) # Gốc thay đổi\n\ndef reassign(my_list):\n    my_list = [1, 2] # Gốc KHÔNG thay đổi\n```"
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "1. **Lỗi logic làm tròn**: Đề bài yêu cầu làm tròn hàng đơn vị (`round(x)`), sinh viên hay quên hoặc làm tròn sai kiểu (ví dụ dùng `int()` sẽ bị mất phần thập phân thay vì làm tròn).\n2. **Sai kiểu dữ liệu trả về**: Đề yêu cầu trả về một `dict` nhưng sinh viên lại `print` các cặp key-value.\n3. **Sắp xếp đối tượng**: Trong bài tập về Class, khi dùng `sorted(list_obj, key=lambda x: x.get_gpa())`, nhớ rằng `key` nhận vào từng phần tử của danh sách.\n4. **Giá trị trả về mặc định**: Khi viết hàm kiểm tra (is_harshad, is_prime...), luôn đảm bảo mọi nhánh `if/else` đều có `return True` hoặc `return False`."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Hàm đã có `return` chưa hay đang để `print`?\n- [ ] Các tham số mặc định đã đặt ở cuối danh sách tham số chưa?\n- [ ] Nếu dùng `map` hoặc `filter`, đã ép kiểu sang `list` chưa?\n- [ ] Tên hàm và số lượng tham số có đúng y hệt yêu cầu đề bài không?\n- [ ] Đã kiểm thử với các giá trị mẫu (test cases) đề bài cho chưa?"
+   }
+  ]
+ },
+ "T6": {
+  "sections": [
+   {
+    "title": "Mở và Đóng File với 'with'",
+    "source": "textbook",
+    "body": "Bản chất: Để làm việc với file, ta dùng hàm `open()`. Tuy nhiên, cách tốt nhất là dùng từ khóa **with**, giúp Python tự động đóng file sau khi kết thúc khối lệnh, tránh rò rỉ bộ nhớ.\n- **'r'**: Đọc file (mặc định). Lỗi `FileNotFoundError` nếu file không tồn tại.\n- **'w'**: Ghi file. **Lưu ý**: Sẽ xóa sạch nội dung cũ (ghi đè). Tạo file mới nếu chưa có.\n- **'a'**: Ghi thêm (append) vào cuối file, không xóa dữ liệu cũ.\n- **encoding='utf-8'**: Luôn nên dùng để tránh lỗi font tiếng Việt.\n\n```python\n# Ghi file\nwith open('test.txt', 'w', encoding='utf-8') as f:\n    f.write('Xin chào PTIT\\nLập trình Python')\n\n# Đọc file\nwith open('test.txt', 'r', encoding='utf-8') as f:\n    content = f.read()\n    print(content)\n# Output: \n# Xin chào PTIT\n# Lập trình Python\n```"
+   },
+   {
+    "title": "Các Phương Thức Đọc File",
+    "source": "textbook",
+    "body": "Cơ chế: Tùy nhu cầu xử lý mà chọn phương thức phù hợp:\n- `read()`: Đọc toàn bộ file thành 1 chuỗi duy nhất.\n- `readline()`: Đọc từng dòng một (mỗi lần gọi đọc một dòng).\n- `readlines()`: Đọc toàn bộ file và trả về một **list** các chuỗi, mỗi chuỗi là một dòng.\n- **Lặp trực tiếp**: `for line in f:` là cách hiệu quả nhất về bộ nhớ để duyệt từng dòng.\n\n```python\nfake_file_content = \"Dòng 1\\nDòng 2\\nDòng 3\"\nlines = fake_file_content.splitlines()\n\nfor line in lines:\n    print(line.strip()) # strip() để loại bỏ dấu xuống dòng \\n dư thừa\n# Output:\n# Dòng 1\n# Dòng 2\n# Dòng 3\n```"
+   },
+   {
+    "title": "Xử Lý Token và Lọc Dữ Liệu",
+    "source": "exam",
+    "body": "Bản chất: Đề thi thường yêu cầu đọc file chứa các giá trị cách nhau bởi khoảng trắng/xuống dòng (token), sau đó lọc ra các số để xử lý (ví dụ: đếm số Harshad).\n- Dùng `split()`: Tự động tách chuỗi theo khoảng trắng, tab, xuống dòng.\n- Dùng `isdigit()` hoặc `isnumeric()`: Kiểm tra chuỗi có phải là số nguyên dương không.\n\n```python\ndata = \"12  abc  24\\n  45  xyz\"\ntokens = data.split() # ['12', 'abc', '24', '45', 'xyz']\nnumbers = [int(t) for t in tokens if t.isdigit()]\nprint(numbers)\n# Output: [12, 24, 45]\n```"
+   },
+   {
+    "title": "Cấu Trúc Try-Except-Else-Finally",
+    "source": "textbook",
+    "body": "Cơ chế: Dùng để xử lý các tình huống lỗi khiến chương trình bị dừng đột ngột (crash).\n- **try**: Chứa code có nguy cơ gây lỗi.\n- **except**: Chạy khi có lỗi xảy ra trong khối `try`.\n- **else**: Chạy nếu khối `try` **không** có lỗi.\n- **finally**: Luôn luôn chạy dù có lỗi hay không (thường dùng để dọn dẹp tài nguyên).\n\n```python\ndef divide(a, b):\n    try:\n        res = a / b\n    except ZeroDivisionError:\n        print(\"Lỗi chia cho 0\")\n    else:\n        print(f\"Kết quả: {res}\")\n    finally:\n        print(\"Hoàn thành phép tính\")\n\ndivide(10, 2)\n# Output:\n# Kết quả: 5.0\n# Hoàn thành phép tính\n```"
+   },
+   {
+    "title": "Các Loại Exception Thường Gặp",
+    "source": "textbook",
+    "body": "Sinh viên cần phân biệt rõ các loại lỗi để bắt (catch) chính xác:\n- `FileNotFoundError`: Mở file không tồn tại (chế độ 'r').\n- `ValueError`: Ép kiểu sai (ví dụ `int('abc')`).\n- `ZeroDivisionError`: Chia cho số 0.\n- `KeyError`: Truy cập key không tồn tại trong dictionary.\n- `IndexError`: Truy cập chỉ số nằm ngoài phạm vi của list.\n- `TypeError`: Thực hiện toán tử trên các kiểu dữ liệu không phù hợp (ví dụ `'a' + 1`).\n- `NameError`: Sử dụng biến chưa được định nghĩa.\n\n```python\ntry:\n    with open('non_existent.txt', 'r') as f: pass\nexcept FileNotFoundError:\n    print(\"File không tìm thấy\")\n# Output: File không tìm thấy\n```"
+   },
+   {
+    "title": "Làm Việc với JSON",
+    "source": "textbook",
+    "body": "Cơ chế: JSON là định dạng phổ biến để lưu trữ dữ liệu có cấu trúc (như list, dict). Python dùng module `json`.\n- **Ghi**: `json.dump(obj, f)` (ghi vào file), `json.dumps(obj)` (trả về chuỗi JSON).\n- **Đọc**: `json.load(f)` (đọc từ file), `json.loads(s)` (đọc từ chuỗi).\n\n```python\nimport json\nstudent = {\"id\": \"B21\", \"gpa\": 3.2}\njson_str = json.dumps(student)\nprint(json_str)\n# Output: {\"id\": \"B21\", \"gpa\": 3.2}\n\nback_to_dict = json.loads(json_str)\nprint(back_to_dict['gpa'])\n# Output: 3.2\n```"
+   },
+   {
+    "title": "Bắt Nhiều Exception và Lệnh Raise",
+    "source": "supplement",
+    "body": "Cú pháp: Có thể bắt nhiều loại lỗi trên một dòng bằng `tuple` hoặc nhiều khối `except` kế tiếp nhau. Dùng `raise` để chủ động tạo ra lỗi.\n\n```python\ntry:\n    val = int(\"not_a_number\")\nexcept (ValueError, TypeError) as e:\n    print(f\"Có lỗi xảy ra: {e}\")\n\n# Chủ động báo lỗi\ndef check_age(age):\n    if age < 0:\n        raise ValueError(\"Tuổi không được âm\")\n```"
+   },
+   {
+    "title": "Bẫy Thường Gặp Khi Thi",
+    "source": "exam",
+    "body": "- **Quên `strip()`**: Khi đọc file bằng `readlines()`, mỗi phần tử sẽ có dấu `\\n` ở cuối, dễ gây lỗi khi so sánh chuỗi hoặc ép kiểu số.\n- **Nhầm lẫn `w` và `a`**: Đề yêu cầu ghi thêm dữ liệu nhưng dùng `w` dẫn đến mất dữ liệu cũ.\n- **Lỗi ép kiểu**: Khi đọc file, mọi thứ đều là string. Phải dùng `int()` hoặc `float()` trước khi tính toán.\n- **Đường dẫn file**: Khi thi, thường chỉ cần dùng tên file (ví dụ 'data.txt'), không nên dùng đường dẫn tuyệt đối (ví dụ 'C:/Users/...') vì máy giám khảo sẽ khác.\n- **Quên import**: Sử dụng `json` mà không `import json` hoặc dùng `math` mà không `import math`."
+   },
+   {
+    "title": "Checklist Trước Khi Nộp Bài",
+    "source": "exam",
+    "body": "- [ ] Đã dùng `with open(...)` để đảm bảo đóng file chưa?\n- [ ] Đã thêm `encoding='utf-8'` khi đọc/ghi file có tiếng Việt chưa?\n- [ ] Đã bắt lỗi `FileNotFoundError` khi đọc file để chương trình không bị crash chưa?\n- [ ] Đã dùng `split()` để tách token thay vì xử lý chuỗi thủ công chưa?\n- [ ] Các hàm xử lý file đã `return` đúng kiểu dữ liệu (dict, list) đề bài yêu cầu chưa?\n- [ ] Kiểm tra xem file kết quả có đúng định dạng JSON (nếu đề yêu cầu `json.dump`) chưa?"
+   }
+  ]
+ },
+ "T7": {
+  "sections": [
+   {
+    "title": "Khởi tạo Lớp và Đối tượng với __init__",
+    "source": "textbook",
+    "body": "Trong Python, **class** là một bản thiết kế (blueprint) để tạo ra các đối tượng. Phương thức `__init__` được gọi tự động khi một đối tượng mới được tạo ra để thiết lập các giá trị ban đầu cho thuộc tính.\n\nCú pháp:\n```python\nclass Student:\n    def __init__(self, name, gpa):\n        self.name = name  # Thuộc tính đối tượng\n        self.gpa = gpa\n\nsv1 = Student(\"An\", 3.5)\nprint(sv1.name)\n# Output: An\n```\n**Bẫy**: Nếu quên `self` làm tham số đầu tiên trong `__init__`, Python sẽ báo `TypeError` khi bạn khởi tạo đối tượng."
+   },
+   {
+    "title": "Tham số self và lỗi AttributeError",
+    "source": "textbook",
+    "body": "**self** đại diện cho chính thực thể (instance) đang được thao tác. Mọi phương thức bên trong lớp đều phải có `self` là tham số đầu tiên. Để truy cập thuộc tính trong cùng một lớp, ta bắt buộc dùng `self.ten_thuoc_tinh`.\n\nVí dụ lỗi phổ biến:\n```python\nclass Car:\n    def __init__(self, brand):\n        self.brand = brand\n    def show(self):\n        print(brand) # Lỗi! Phải là self.brand\n\n# c = Car(\"Toyota\")\n# c.show() # NameError: name 'brand' is not defined\n```\n**AttributeError**: Xảy ra khi bạn cố gắng truy cập một thuộc tính hoặc phương thức không tồn tại trên đối tượng đó (ví dụ gõ sai tên thuộc tính `self.id` thành `self.ID`)."
+   },
+   {
+    "title": "Thuộc tính Đối tượng vs Thuộc tính Lớp",
+    "source": "textbook",
+    "body": "- **Thuộc tính đối tượng (Instance attribute)**: Được định nghĩa bên trong `__init__`, mỗi đối tượng có một giá trị riêng.\n- **Thuộc tính lớp (Class attribute)**: Được định nghĩa trực tiếp trong thân class, dùng chung cho mọi đối tượng của lớp đó.\n\n```python\nclass Student:\n    school = \"PTIT\"  # Thuộc tính lớp\n    def __init__(self, name):\n        self.name = name # Thuộc tính đối tượng\n\nsv1 = Student(\"Binh\")\nsv2 = Student(\"Chi\")\nprint(sv1.school, sv2.school)\n# Output: PTIT PTIT\n```"
+   },
+   {
+    "title": "Hiển thị đối tượng với __str__",
+    "source": "supplement",
+    "body": "Khi `print(doi_tuong)`, mặc định Python sẽ in ra địa chỉ bộ nhớ. Để in ra thông tin dễ đọc, ta ghi đè phương thức magic `__str__`.\n\n```python\nclass Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def __str__(self):\n        return f\"Point({self.x}, {self.y})\"\n\np = Point(1, 2)\nprint(p)\n# Output: Point(1, 2)\n```"
+   },
+   {
+    "title": "Kế thừa và super()",
+    "source": "textbook",
+    "body": "Lớp con có thể kế thừa các thuộc tính và phương thức từ lớp cha. Hàm `super()` giúp lớp con gọi phương thức của lớp cha (thường dùng nhất trong `__init__`).\n\n```python\nclass Person:\n    def __init__(self, name):\n        self.name = name\n\nclass Student(Person):\n    def __init__(self, name, gpa):\n        super().__init__(name) # Gọi init của Person\n        self.gpa = gpa\n\nsv = Student(\"Dung\", 3.2)\nprint(sv.name, sv.gpa)\n# Output: Dung 3.2\n```"
+   },
+   {
+    "title": "Xử lý Danh sách Đối tượng (Sắp xếp và Lọc)",
+    "source": "exam",
+    "body": "Đề thi thực hành thường yêu cầu quản lý một danh sách đối tượng, sau đó lọc hoặc sắp xếp theo một tiêu chí (như GPA hoặc Tên).\n\n```python\nclass Student:\n    def __init__(self, name, gpa):\n        self.name = name\n        self.gpa = gpa\n\nds_sv = [Student(\"An\", 3.2), Student(\"Binh\", 3.8), Student(\"An\", 3.5)]\n\n# 1. Lọc sinh viên có GPA >= 3.5\nfiltered = [s for s in ds_sv if s.gpa >= 3.5]\n\n# 2. Sắp xếp theo gpa tăng dần, nếu gpa bằng nhau thì xếp theo tên\n# Dùng lambda trả về một tuple (tiêu chí 1, tiêu chí 2)\nsorted_sv = sorted(ds_sv, key=lambda s: (s.gpa, s.name))\n\nfor s in sorted_sv:\n    print(f\"{s.name}: {s.gpa}\")\n# Output:\n# An: 3.2\n# An: 3.5\n# Binh: 3.8\n```"
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "- **Quên tham số self**: Trong định nghĩa hàm `def get_gpa(self):`, nếu thiếu `self`, khi gọi `sv.get_gpa()` sẽ bị lỗi truyền dư tham số.\n- **Nhầm lẫn giữa phương thức và thuộc tính**: `sv.gpa` (truy cập biến) khác với `sv.get_gpa()` (gọi hàm).\n- **Sắp xếp sai yêu cầu**: Đề bài yêu cầu sắp xếp theo Tên (First Name) nhưng sinh viên lại sắp xếp theo cả Họ Tên, hoặc quên xử lý trường hợp các giá trị bằng nhau.\n- **Lỗi AttributeError**: Do gõ sai tên thuộc tính được định nghĩa trong `__init__` khi thực hiện logic lọc/sắp xếp ở hàm bên ngoài."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Mọi phương thức trong `class` đã có tham số đầu tiên là `self` chưa?\n- [ ] Các thuộc tính đã được gán qua `self.name = name` trong `__init__` chưa?\n- [ ] Hàm lọc đối tượng có trả về một `list` mới hay sửa trực tiếp list cũ (nên trả về list mới)?\n- [ ] Khi sử dụng `sorted()` với `lambda`, key đã truy cập đúng thuộc tính đối tượng chưa (ví dụ: `key=lambda x: x.gpa`)?\n- [ ] Đã kiểm tra trường hợp danh sách rỗng hoặc không có đối tượng nào thỏa mãn điều kiện lọc chưa?"
+   }
+  ]
+ },
+ "T8": {
+  "sections": [
+   {
+    "title": "Cơ chế Import và Quản lý Namespace",
+    "source": "textbook",
+    "body": "Trong Python, module là một file chứa các định nghĩa hàm và biến. Để sử dụng, ta dùng từ khóa **import**.\n- `import math`: Nạp cả module. Truy cập bằng `math.sqrt()` (Giữ sạch namespace).\n- `from math import sqrt, pi`: Nạp cụ thể thành phần. Dùng trực tiếp `sqrt()` (Dễ xung đột tên).\n- `import pandas as pd`: Đặt bí danh (alias) để viết code ngắn hơn.\n- `from math import *`: Nạp tất cả (Không khuyến khích vì dễ gây rối).\n\n```python\nimport math as m\nprint(m.pi) # Output: 3.141592653589793\n\nfrom math import gcd\nprint(gcd(12, 18)) # Output: 6\n```"
+   },
+   {
+    "title": "Thư viện math: Xử lý toán học",
+    "source": "textbook",
+    "body": "Cung cấp các hàm số học cơ bản. Lưu ý kết quả của `sqrt` luôn là **float**.\n- `math.sqrt(x)`: Căn bậc hai.\n- `math.ceil(x)`: Làm tròn lên (số nguyên nhỏ nhất >= x).\n- `math.floor(x)`: Làm tròn xuống (số nguyên lớn nhất <= x).\n- `math.gcd(a, b)`: Ước chung lớn nhất.\n\n```python\nimport math\nprint(math.ceil(4.1))  # Output: 5\nprint(math.floor(4.9)) # Output: 4\nprint(math.sqrt(16))   # Output: 4.0\n```"
+   },
+   {
+    "title": "Thư viện random: Tạo dữ liệu ngẫu nhiên",
+    "source": "textbook",
+    "body": "Quan trọng: `randint` bao gồm cả hai đầu mút, khác với `range` hay `randrange`.\n- `random.randint(a, b)`: Trả về số nguyên trong đoạn `[a, b]`.\n- `random.randrange(a, b)`: Trả về số nguyên trong khoảng `[a, b)`.\n- `random.choice(sequence)`: Chọn ngẫu nhiên 1 phần tử từ list/tuple.\n- `random.shuffle(list)`: Hoán vị ngẫu nhiên các phần tử **tại chỗ** (in-place) và trả về `None`.\n\n```python\nimport random\nitems = [1, 2, 3]\nrandom.shuffle(items)\nprint(items) # Output: [vị trí ngẫu nhiên]\nprint(random.randint(1, 3)) # Có thể ra 1, 2 hoặc 3\n```"
+   },
+   {
+    "title": "Thư viện statistics: Thống kê cơ bản",
+    "source": "textbook",
+    "body": "Thường dùng để xử lý danh sách điểm số (GPA) hoặc dữ liệu từ file.\n- `statistics.mean(data)`: Trung bình cộng.\n- `statistics.median(data)`: Trung vị.\n- `statistics.mode(data)`: Giá trị xuất hiện nhiều nhất.\n\n```python\nimport statistics\ngpas = [3.2, 3.5, 3.2, 4.0]\nprint(statistics.mean(gpas))   # Output: 3.475\nprint(statistics.mode(gpas))   # Output: 3.2\n```"
+   },
+   {
+    "title": "Thư viện datetime: Xử lý thời gian",
+    "source": "supplement",
+    "body": "Dùng để tính tuổi sinh viên hoặc quản lý ngày nhập học trong các bài tập Class.\n- `datetime.date.today()`: Lấy ngày hiện tại.\n- `date(year, month, day)`: Tạo đối tượng ngày.\n\n```python\nfrom datetime import date\ntoday = date(2024, 5, 20)\nbirth = date(2004, 5, 20)\nage = today.year - birth.year\nprint(age) # Output: 20\n```"
+   },
+   {
+    "title": "Cấu trúc if __name__ == '__main__':",
+    "source": "textbook",
+    "body": "Dùng để phân biệt khi module được chạy trực tiếp hay bị import bởi file khác.\n- Khi chạy trực tiếp file: `__name__` sẽ có giá trị là `'__main__'`.\n- Khi bị import: Code bên dưới khối lệnh này sẽ **không** bị thực thi.\n\n```python\ndef my_func():\n    return \"Hello\"\n\nif __name__ == \"__main__\":\n    # Khối này chỉ chạy khi thực thi trực tiếp file này\n    print(my_func())\n```"
+   },
+   {
+    "title": "Bẫy thường gặp khi thi",
+    "source": "exam",
+    "body": "- **Sai lầm với random.shuffle**: Viết `a = random.shuffle(my_list)` sẽ khiến `a` nhận giá trị `None`. Phải gọi hàm xong rồi mới dùng `my_list`.\n- **Nhầm lẫn đầu mút**: `random.randint(1, 5)` có thể ra 5, nhưng `random.randrange(1, 5)` thì không bao giờ ra 5.\n- **Lỗi NameError**: Sử dụng `sqrt()` mà chỉ `import math` thay vì `from math import sqrt`.\n- **Lỗi làm tròn**: Dùng `round()` của Python có cơ chế làm tròn đến số chẵn gần nhất (Banker's rounding), trong khi đề bài tính tiền nước thường yêu cầu làm tròn số học thuần túy hoặc dùng `math.ceil`/`math.floor`."
+   },
+   {
+    "title": "Checklist trước khi nộp bài",
+    "source": "exam",
+    "body": "- [ ] Đã đặt tất cả lệnh `import` lên đầu file chưa?\n- [ ] Có dùng thư viện ngoài (như numpy, pandas) không? (Chỉ được dùng Standard Library).\n- [ ] Tên module có trùng với tên biến hay tên hàm không?\n- [ ] Nếu đề yêu cầu viết hàm, đã để các câu lệnh kiểm thử (test case) vào trong khối `if __name__ == '__main__':` chưa?\n- [ ] Các hàm `math` nhận vào giá trị hợp lệ chưa? (Ví dụ: `sqrt` không nhận số âm)."
+   }
+  ]
+ }
+}

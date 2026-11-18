@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Exam Trainer</title>
+<style>
+:root{
+  --bg:#f6f6f4;--panel:#ffffff;--panel-2:#f1f1ee;--line:#e2e1dc;--line-strong:#cfcdc6;
+  --text:#1d1d1b;--muted:#6b6a65;--faint:#9a9890;
+  --accent:#2f6fd6;--accent-bg:#e8f0fc;--accent-text:#1d4f9e;
+  --ok:#2e7d32;--ok-bg:#e8f4e9;--bad:#c62828;--bad-bg:#fbeaea;--warn:#a15c00;--warn-bg:#fdf2e1;
+  --code-bg:#f3f2ef;--radius:8px;--mono:ui-monospace,"Cascadia Code","Consolas","SFMono-Regular",monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#161615;--panel:#1f1f1d;--panel-2:#262624;--line:#33332f;--line-strong:#45443f;
+  --text:#ecebe6;--muted:#a3a29b;--faint:#77766f;
+  --accent:#6ea0f0;--accent-bg:#1b2b45;--accent-text:#a9c6f6;
+  --ok:#7cc47f;--ok-bg:#1b3020;--bad:#f08a8a;--bad-bg:#3a1d1d;--warn:#e7b360;--warn-bg:#3a2c14;--code-bg:#191918;}}
+:root[data-theme="dark"]{
+  --bg:#161615;--panel:#1f1f1d;--panel-2:#262624;--line:#33332f;--line-strong:#45443f;
+  --text:#ecebe6;--muted:#a3a29b;--faint:#77766f;
+  --accent:#6ea0f0;--accent-bg:#1b2b45;--accent-text:#a9c6f6;
+  --ok:#7cc47f;--ok-bg:#1b3020;--bad:#f08a8a;--bad-bg:#3a1d1d;--warn:#e7b360;--warn-bg:#3a2c14;--code-bg:#191918;}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);padding:7px 14px}
+button:hover{background:var(--panel-2)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.primary:hover{filter:brightness(1.08);background:var(--accent)}
+button.ghost{border-color:transparent;background:transparent}
+button.ghost:hover{background:var(--panel-2)}
+button.danger{color:var(--bad);border-color:var(--bad)}
+button:disabled{opacity:.5;cursor:not-allowed}
+select,input[type=text],input[type=number],input[type=search]{background:var(--panel);border:1px solid var(--line-strong);border-radius:var(--radius);padding:6px 10px}
+.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}
+.side{background:var(--panel);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.brand{font-weight:600;font-size:16px;padding:0 10px 14px}
+.brand small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.nav a{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:var(--radius);color:var(--text);text-decoration:none;font-size:14px}
+.nav a:hover{background:var(--panel-2)}
+.nav a.on{background:var(--accent-bg);color:var(--accent-text);font-weight:500}
+.nav .sep{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);padding:12px 10px 4px}
+.pill{font-size:11px;padding:1px 7px;border-radius:10px;background:var(--panel-2);color:var(--muted)}
+.pill.bad{background:var(--bad-bg);color:var(--bad)}
+.side .py{margin-top:auto;font-size:12px;color:var(--muted);padding:10px}
+.main{padding:28px 32px 60px;max-width:1080px;width:100%}
+h1{font-size:22px;margin:0 0 4px;font-weight:600}
+h2{font-size:17px;margin:28px 0 10px;font-weight:600}
+h3{font-size:15px;margin:18px 0 8px;font-weight:600}
+h4{font-size:14px;margin:14px 0 6px;font-weight:600}
+.sub{color:var(--muted);margin:0 0 20px;font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.metric .l{font-size:12px;color:var(--muted)}
+.metric .v{font-size:24px;font-weight:600}
+.metric .d{font-size:12px;color:var(--faint)}
+.bar{height:6px;background:var(--panel-2);border-radius:3px;overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent)}
+.bar.ok>i{background:var(--ok)}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:var(--panel-2);color:var(--muted);margin-right:4px;white-space:nowrap}
+.badge.src-textbook{background:var(--accent-bg);color:var(--accent-text)}
+.badge.src-exam{background:var(--warn-bg);color:var(--warn)}
+.badge.src-supplement{background:var(--ok-bg);color:var(--ok)}
+.st{font-size:12px;padding:2px 9px;border-radius:10px;white-space:nowrap}
+.st-0{background:var(--panel-2);color:var(--muted)}.st-1{background:var(--accent-bg);color:var(--accent-text)}
+.st-2{background:var(--accent-bg);color:var(--accent-text)}.st-3{background:var(--bad-bg);color:var(--bad)}
+.st-4{background:var(--warn-bg);color:var(--warn)}.st-5{background:var(--ok-bg);color:var(--ok)}
+pre.code,textarea.code{font-family:var(--mono);font-size:13.5px;line-height:1.55;background:var(--code-bg);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:8px 0 12px;white-space:pre;overflow-x:auto;tab-size:4}
+code{font-family:var(--mono);font-size:.92em;background:var(--code-bg);padding:1px 5px;border-radius:4px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;margin:0 0 8px;padding:10px 14px;background:var(--panel)}
+.opt .k{font-weight:600;min-width:18px;color:var(--muted)}
+.opt .t{font-family:var(--mono);font-size:13.5px;white-space:pre-wrap;word-break:break-word}
+.opt .t.plain{font-family:inherit;font-size:14.5px}
+.opt.sel{border:1.5px solid var(--accent);background:var(--accent-bg)}
+.opt.wrong{border:1.5px solid var(--bad);background:var(--bad-bg)}
+.opt.right{border:1.5px solid var(--ok);background:var(--ok-bg)}
+.fb{border-radius:var(--radius);padding:12px 14px;margin:10px 0;font-size:14.5px}
+.fb.ok{background:var(--ok-bg);color:var(--ok)}.fb.bad{background:var(--bad-bg);color:var(--bad)}.fb.warn{background:var(--warn-bg);color:var(--warn)}
+.fb .body{color:var(--text);margin-top:4px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.muted{color:var(--muted)}.small{font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--muted);font-size:13px}
+.tblwrap{overflow-x:auto}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.editor{display:flex;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--code-bg);overflow:hidden}
+.editor .gut{font-family:var(--mono);font-size:13.5px;line-height:1.55;padding:12px 8px;color:var(--faint);text-align:right;user-select:none;min-width:38px;white-space:pre;overflow:hidden}
+.editor textarea{flex:1;border:0;outline:0;resize:vertical;background:transparent;font-family:var(--mono);font-size:13.5px;line-height:1.55;padding:12px;min-height:320px;white-space:pre;overflow:auto;tab-size:4}
+.out{font-family:var(--mono);font-size:13px;white-space:pre-wrap;word-break:break-word;background:var(--code-bg);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;min-height:44px;max-height:320px;overflow:auto}
+.out .err{color:var(--bad)}
+.tc{border:1px solid var(--line);border-radius:var(--radius);padding:8px 12px;margin-bottom:6px;font-size:13px}
+.tc.ok{border-color:var(--ok);background:var(--ok-bg)}.tc.bad{border-color:var(--bad);background:var(--bad-bg)}
+.tc pre{margin:4px 0;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;color:var(--text)}
+.list-item{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius);margin-bottom:6px;background:var(--panel);cursor:pointer}
+.list-item:hover{border-color:var(--line-strong)}
+.md p{margin:6px 0 10px}.md ul{margin:4px 0 10px;padding-left:22px}.md li{margin:2px 0}
+.navgrid{display:flex;flex-wrap:wrap;gap:6px}
+.navgrid button{min-width:42px;padding:5px 8px;font-size:13px}
+.navgrid button.done{background:var(--accent-bg);border-color:var(--accent)}
+.navgrid button.cur{outline:2px solid var(--accent)}
+.timer{font-variant-numeric:tabular-nums;font-weight:600;font-size:18px}
+.empty{color:var(--muted);text-align:center;padding:30px}
+.kbd{font-size:12px;color:var(--faint)}
+@media (max-width:1180px){.lab{grid-template-columns:1fr}}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;padding:8px;border-right:0;border-bottom:1px solid var(--line)}
+  .brand,.nav .sep,.side .py{display:none}
+  .nav{display:flex;gap:2px}.nav a{white-space:nowrap}
+  .main{padding:18px 16px 50px}
+  .lab{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">Python Exam Trainer<small>Luyện thi Lập trình với Python</small></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="py" id="pystatus"></div>
+  </aside>
+  <main class="main" id="view"></main>
+</div>
+<script id="bank" type="application/json">/*__BANK__*/</script>
+<script>
+"use strict";
+const BANK = JSON.parse(document.getElementById('bank').textContent);
+const HARNESS_SRC = /*__HARNESS__*/"";
+const PYODIDE_URL = 'https://cdn.jsdelivr.net/pyodide/v0.26.4/full/';
+const STORE_KEY = 'pyExamTrainer.v1';
+const TOPICS = BANK.topics;
+const TOPIC = Object.fromEntries(TOPICS.map(t => [t.id, t]));
+const MCQ = BANK.mcq, CODING = BANK.coding;
+const Q_BY_ID = Object.fromEntries(MCQ.map(q => [q.id, q]));
+const C_BY_ID = Object.fromEntries(CODING.map(c => [c.id, c]));
+const CAT = {theory:'Thiếu kiến thức lý thuyết',concept:'Hiểu sai bản chất',syntax:'Nhầm lẫn cú pháp',execution:'Không hiểu cách Python thực thi',logic:'Sai tư duy logic',edge:'Bỏ sót trường hợp biên',method:'Chọn sai phương pháp',implementation:'Code sai khi triển khai'};
+const SRC = {textbook:'Giáo trình',exam:'Dạng đề cũ',supplement:'Bổ sung'};
+const TYPE = {output:'Đọc code',theory:'Lý thuyết',error:'Tìm lỗi',compare:'So sánh'};
+const DIFF = {1:'Dễ',2:'Trung bình',3:'Khó'};
+const STATUS = ['Not Started','Learning','Practicing','Weak','Reviewing','Mastered'];
+const RULE = {mcqMin:15, window:10, acc:0.9, codeMin:3};
+const ruleFor = t => TOPIC[t].priority === 1 ? RULE : {mcqMin:10, window:10, acc:0.9, codeMin:2};
+
+/* ---------------- storage ---------------- */
+function defaults(){return {version:1,created:Date.now(),counter:0,q:{},c:{},errors:[],mocks:[],read:{},remedy:null,activeMock:null,
+  settings:{theme:'auto',timeoutSec:8,mockMcq:20,mockCode:3,mockMinutes:90,mcqWeight:40}}}
+let S;
+function load(){
+  try{const raw=localStorage.getItem(STORE_KEY); S=raw?Object.assign(defaults(),JSON.parse(raw)):defaults();
+    S.settings=Object.assign(defaults().settings,S.settings||{});}
+  catch(e){S=defaults();}
+}
+let storageOk=true;
+function save(){try{localStorage.setItem(STORE_KEY,JSON.stringify(S));storageOk=true}catch(e){storageOk=false}}
+load();
+function applyTheme(){if(S.settings.theme==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',S.settings.theme)}
+applyTheme();
+
+/* ---------------- helpers ---------------- */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pct = (a,b)=> b? Math.round(a*100/b) : 0;
+const fmtDate = ts => new Date(ts).toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function weightedPick(items){const tot=items.reduce((s,x)=>s+x.w,0);if(!tot)return null;let r=Math.random()*tot;for(const x of items){r-=x.w;if(r<=0)return x.item}return items[items.length-1].item}
+function inline(s){return esc(s).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')}
+function md(src){
+  const out=[],L=String(src||'').replace(/\r/g,'').split('\n');let i=0,para=[],list=[];
+  const fp=()=>{if(para.length){out.push('<p>'+inline(para.join(' '))+'</p>');para=[]}};
+  const fl=()=>{if(list.length){out.push('<ul>'+list.map(x=>'<li>'+inline(x)+'</li>').join('')+'</ul>');list=[]}};
+  while(i<L.length){const l=L[i];
+    if(l.trim().startsWith('```')){fp();fl();const b=[];i++;while(i<L.length&&!L[i].trim().startsWith('```')){b.push(L[i]);i++}i++;out.push('<pre class="code">'+esc(b.join('\n'))+'</pre>');continue}
+    if(/^\s*[-*] /.test(l)){fp();list.push(l.replace(/^\s*[-*] /,''));i++;continue}
+    if(/^#{1,4} /.test(l)){fp();fl();out.push('<h4>'+inline(l.replace(/^#+ /,''))+'</h4>');i++;continue}
+    if(!l.trim()){fp();fl();i++;continue}
+    fl();para.push(l);i++}
+  fp();fl();return out.join('');
+}
+const srcBadge = s => `<span class="badge src-${esc(s)}">${esc(SRC[s]||s)}</span>`;
+const isPlain = q => q.type==='theory' || q.options.some(o=>o.length>60 && /\s[a-zà-ỹ]+\s/i.test(o) && !/[()\[\]=]/.test(o));
+
+/* ---------------- stats & mastery ---------------- */
+const qs = id => S.q[id] || (S.q[id] = {first:null,firstTs:0,attempts:0,spoiled:false,due:null,lastOk:null});
+const peekQ = id => S.q[id] || {};
+const peekC = id => S.c[id] || {};
+const isSeen = q => peekQ(q.id).first !== null && peekQ(q.id).first !== undefined;
+function topicStats(t){
+  const rule=ruleFor(t);
+  const firsts=MCQ.filter(q=>q.topic===t&&isSeen(q)&&!peekQ(q.id).spoiled).map(q=>({ok:peekQ(q.id).first,ts:peekQ(q.id).firstTs})).sort((a,b)=>a.ts-b.ts);
+  const firstOk=firsts.filter(x=>x.ok).length;
+  const win=firsts.slice(-rule.window);const winAcc=win.length?win.filter(x=>x.ok).length/win.length:0;
+  const codes=CODING.filter(c=>c.topic===t);
+  const indep=codes.filter(c=>peekC(c.id).indep);
+  const indepHard=indep.some(c=>c.difficulty>=2);
+  const openErr=S.errors.filter(e=>e.topic===t&&e.status!=='resolved').length;
+  const unseen=MCQ.filter(q=>q.topic===t&&!isSeen(q)).length;
+  const mcqOk=firsts.length>=rule.mcqMin&&winAcc>=rule.acc;
+  const codeOk=indep.length>=rule.codeMin&&indepHard;
+  const mastered=mcqOk&&codeOk&&openErr===0;
+  const anyCode=codes.some(c=>peekC(c.id).subs);
+  let st=0;
+  if(mastered)st=5;
+  else if(firsts.length>=5&&firstOk/firsts.length<0.6)st=3;
+  else if(openErr>0)st=4;
+  else if(firsts.length||anyCode)st=2;
+  else if(S.read[t])st=1;
+  return {rule,n:firsts.length,firstOk,acc:firsts.length?firstOk/firsts.length:null,winAcc,winN:win.length,indep:indep.length,indepHard,codeTotal:codes.length,openErr,unseen,mcqOk,codeOk,mastered,status:st,mcqTotal:MCQ.filter(q=>q.topic===t).length};
+}
+function globalStats(){
+  let n=0,ok=0,att=0;
+  for(const q of MCQ){const s=peekQ(q.id);if(s.first!==null&&s.first!==undefined){n++;if(s.first)ok++}att+=s.attempts||0}
+  const indep=CODING.filter(c=>peekC(c.id).indep).length;
+  const open=S.errors.filter(e=>e.status!=='resolved').length;
+  const tagCount={};for(const e of S.errors)for(const t of e.tags||[])tagCount[t]=(tagCount[t]||0)+1;
+  const topTags=Object.entries(tagCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  return {n,ok,att,indep,open,topTags,mastered:TOPICS.filter(t=>topicStats(t.id).mastered).length};
+}
+function nextStep(){
+  const order=TOPICS.slice().sort((a,b)=>a.priority-b.priority);
+  for(const t of order){const s=topicStats(t.id);if(s.mastered)continue;
+    if(!S.read[t.id])return {t:t.id,text:`Đọc tài liệu ${t.id}: ${t.name}`,href:`#/learn/${t.id}`};
+    if(s.openErr>0&&s.n>=5)return {t:t.id,text:`Ôn ${s.openErr} lỗi chưa khắc phục ở ${t.id}`,href:`#/review`};
+    if(!s.mcqOk)return {t:t.id,text:`Luyện trắc nghiệm ${t.id} (${s.n}/${s.rule.mcqMin} câu, ${s.winN?Math.round(s.winAcc*100)+'% ở '+s.winN+' câu gần nhất':'chưa làm'})`,href:`#/quiz/${t.id}`};
+    if(!s.codeOk)return {t:t.id,text:`Làm bài code ${t.id} (${s.indep}/${s.rule.codeMin} bài tự giải)`,href:`#/code?topic=${t.id}`};
+    if(s.openErr>0)return {t:t.id,text:`Ôn lỗi ${t.id}`,href:'#/review'};
+  }
+  return {text:'Mọi chủ đề đã đạt. Làm một đề thi thử để kiểm tra lại.',href:'#/mock'};
+}
+
+/* ---------------- error log ---------------- */
+function logError(o){
+  let e=S.errors.find(x=>x.itemId===o.itemId&&x.status!=='resolved');
+  if(e){e.count=(e.count||1)+1;e.ts=Date.now();e.mistake=o.mistake;if(o.category)e.category=o.category;return e}
+  e=Object.assign({id:'E'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),ts:Date.now(),status:'open',hits:0,count:1},o);
+  S.errors.unshift(e);return e;
+}
+function creditTags(topic,tags,itemId){
+  const hit=[];
+  for(const e of S.errors){
+    if(e.status==='resolved'||e.itemId===itemId||e.topic!==topic)continue;
+    if(!(e.tags||[]).some(t=>tags.includes(t)))continue;
+    if((e.hitItems||[]).includes(itemId))continue;
+    e.hitItems=(e.hitItems||[]).concat(itemId);e.hits=(e.hits||0)+1;
+    if(e.hits>=2){e.status='resolved';e.resolvedTs=Date.now()}else e.status='retesting';
+    hit.push(e);
+  }
+  return hit;
+}
+const errStatus = e => e.status==='resolved'?'Đã khắc phục':e.status==='retesting'?`Đang kiểm tra lại (${e.hits}/2)`:'Chưa kiểm tra lại';
+
+/* ---------------- adaptive selection ---------------- */
+function targetDiff(t){const s=topicStats(t);if(s.n<3)return 1;const a=s.winAcc;return a<0.6?1:a<0.85?2:3}
+function pickQuestion(cfg){
+  const ex=cfg.exclude||new Set();
+  let pool=MCQ.filter(q=>(!cfg.topic||q.topic===cfg.topic)&&!ex.has(q.id));
+  if(cfg.tags)pool=pool.filter(q=>q.tags.some(t=>cfg.tags.includes(t)));
+  if(!pool.length)return null;
+  const rem=S.remedy;
+  if(rem&&cfg.mode!=='review'){
+    const cand=pool.filter(q=>!isSeen(q)&&q.tags.some(t=>rem.tags.includes(t)));
+    if(cand.length){
+      const best=cand.map(q=>({item:q,w:(q.topic===rem.topic?3:1)*(q.reserve?2:1)}));
+      rem.left--;if(rem.left<=0)S.remedy=null;save();
+      const pq=weightedPick(best);
+      return {q:pq,why:(pq.reserve?'Câu dự phòng':'Câu mới')+' cùng kiến thức với câu bạn vừa sai'};
+    }
+    S.remedy=null;
+  }
+  const errTags=new Set(S.errors.filter(e=>e.status!=='resolved').flatMap(e=>e.tags||[]));
+  const tw={},td={};
+  for(const t of TOPICS){const s=topicStats(t.id);
+    tw[t.id]=(1+(s.acc===null?0.3:(1-s.acc)*1.5)+0.4*Math.min(s.openErr,4))*(t.priority===1?1:0.6)*(s.mastered?0.4:1);
+    td[t.id]=targetDiff(t.id)}
+  const scored=pool.map(q=>{const st=peekQ(q.id);let w,why;
+    const due=st.due!==null&&st.due!==undefined&&S.counter>=st.due;
+    if(cfg.mode==='review'){
+      if(due){w=5;why='Câu đến hạn ôn lại'}else if(isSeen(q)&&st.lastOk===false){w=3;why='Câu đã từng sai'}
+      else if(!isSeen(q)&&q.tags.some(t=>errTags.has(t))){w=2.5;why='Câu mới cùng kiến thức với lỗi chưa khắc phục'}
+      else return null;
+    }else if(due){w=4.5;why='Câu đến hạn ôn lại'}
+    else if(!isSeen(q)){w=q.reserve?0.8:3;why=q.reserve?'Câu dự phòng':'Câu chưa làm';if(q.tags.some(t=>errTags.has(t))){w*=1.4;why+=', liên quan lỗi đang mở'}if(st.spoiled)w*=0.3}
+    else{w=0.15;why='Ôn lại (đã hết câu mới)'}
+    if(!cfg.topic)w*=tw[q.topic];
+    w*=[1,0.6,0.35][Math.abs(q.difficulty-td[q.topic])]||0.35;
+    return {item:q,w,why}}).filter(Boolean);
+  if(!scored.length)return null;
+  const strong=scored.filter(x=>x.why!=='Ôn lại (đã hết câu mới)');
+  const use=strong.length?strong:scored;
+  const q=weightedPick(use);
+  return {q,why:use.find(x=>x.item===q).why};
+}
+
+/* ---------------- Pyodide worker ---------------- */
+const WORKER_SRC = `
+const HARNESS = ${JSON.stringify(HARNESS_SRC)};
+let py=null, ready=null;
+async function init(){
+  importScripts('${PYODIDE_URL}pyodide.js');
+  py = await loadPyodide({indexURL:'${PYODIDE_URL}'});
+  py.runPython(HARNESS);
+  py.runPython('import json, os, tempfile');
+}
+self.onmessage = async (e) => {
+  const m = e.data;
+  try {
+    if (!ready) ready = init();
+    await ready;
+    if (m.type === 'init') { self.postMessage({id:m.id, ok:true}); return; }
+    py.globals.set('__payload__', JSON.stringify(m.payload));
+    const fn = m.type === 'run' ? 'run_program(p["src"], p.get("stdin",""), p.get("files"))' : 'run_tests(p["src"], p["ex"])';
+    const out = py.runPython('os.chdir(tempfile.mkdtemp())\\np = json.loads(__payload__)\\njson.dumps(' + fn + ')');
+    self.postMessage({id:m.id, ok:true, result: JSON.parse(out)});
+  } catch (err) {
+    self.postMessage({id:m.id, ok:false, error: String(err && err.message || err)});
+  }
+};`;
+const Py = {
+  worker:null, ready:null, status:'idle', error:'', seq:0, pending:new Map(),
+  setStatus(s,err){this.status=s;this.error=err||'';renderPyStatus();document.dispatchEvent(new Event('pystatus'))},
+  start(){
+    if(this.ready)return this.ready;
+    this.setStatus('loading');
+    try{
+      this.worker=new Worker(URL.createObjectURL(new Blob([WORKER_SRC],{type:'text/javascript'})));
+    }catch(e){this.setStatus('error','Trình duyệt không cho tạo Web Worker: '+e.message);return Promise.reject(e)}
+    this.worker.onmessage=e=>{const p=this.pending.get(e.data.id);if(p){this.pending.delete(e.data.id);p(e.data)}};
+    this.worker.onerror=e=>{e.preventDefault();const msg='Không tải được Pyodide. Cần kết nối Internet ở lần chạy code đầu tiên.';
+      for(const [,p] of this.pending)p({ok:false,error:msg});this.pending.clear();this.kill();this.setStatus('error',msg)};
+    this.ready=this.call('init',{},180000).then(r=>{if(!r.ok){throw new Error(r.timeout?'Tải Pyodide quá lâu (180 giây).':r.error)}this.setStatus('ready')})
+      .catch(err=>{this.kill();this.setStatus('error',String(err.message||err));throw err});
+    return this.ready;
+  },
+  call(type,payload,ms){return new Promise(res=>{const id=++this.seq;const t=setTimeout(()=>{this.pending.delete(id);res({ok:false,timeout:true})},ms);
+    this.pending.set(id,d=>{clearTimeout(t);res(d)});this.worker.postMessage({id,type,payload})})},
+  kill(){if(this.worker)this.worker.terminate();this.worker=null;this.ready=null},
+  async exec(type,payload,ms){
+    try{await this.start()}catch(e){return {ok:false,error:this.error||String(e)}}
+    const r=await this.call(type,payload,ms||S.settings.timeoutSec*1000);
+    if(r.timeout){this.kill();this.setStatus('idle');return {ok:false,timeout:true,error:`Quá thời gian ${Math.round((ms||S.settings.timeoutSec*1000)/1000)} giây. Có thể chương trình bị lặp vô hạn hoặc đang chờ input() mà không có dữ liệu.`}}
+    return r;
+  }
+};
+function renderPyStatus(){const el=$('#pystatus');if(!el)return;
+  const m={idle:'Python: chưa tải',loading:'Python: đang tải…',ready:'Python: sẵn sàng',error:'Python: lỗi tải'};
+  el.textContent=m[Py.status]+(navigator.onLine?'':' (offline)');}
+window.addEventListener('online',renderPyStatus);window.addEventListener('offline',renderPyStatus);
+
+/* ---------------- editor ---------------- */
+function editorHTML(id,value){return `<div class="editor"><div class="gut" id="${id}-gut">1</div><textarea id="${id}" class="ed" spellcheck="false" autocapitalize="off" autocomplete="off">${esc(value)}</textarea></div>`}
+function bindEditor(id,onChange,onRun){
+  const ta=$('#'+id),gut=$('#'+id+'-gut');
+  const sync=()=>{const n=ta.value.split('\n').length;gut.textContent=Array.from({length:n},(_,i)=>i+1).join('\n');gut.scrollTop=ta.scrollTop};
+  ta.addEventListener('input',()=>{sync();onChange&&onChange(ta.value)});ta.addEventListener('scroll',()=>{gut.scrollTop=ta.scrollTop});
+  ta.addEventListener('keydown',e=>{
+    const v=ta.value,s=ta.selectionStart,en=ta.selectionEnd;
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();onRun&&onRun();return}
+    if(e.key==='Tab'){e.preventDefault();
+      const ls=v.lastIndexOf('\n',s-1)+1;
+      if(e.shiftKey){const ln=v.slice(ls);const m=ln.match(/^ {1,4}/);if(m){ta.value=v.slice(0,ls)+v.slice(ls+m[0].length);ta.selectionStart=ta.selectionEnd=Math.max(ls,s-m[0].length)}}
+      else if(s!==en&&v.slice(s,en).includes('\n')){const block=v.slice(ls,en).split('\n').map(l=>'    '+l).join('\n');ta.value=v.slice(0,ls)+block+v.slice(en);ta.selectionStart=ls;ta.selectionEnd=ls+block.length}
+      else{ta.setRangeText('    ',s,en,'end')}
+      ta.dispatchEvent(new Event('input'));return}
+    if(e.key==='Enter'){const ls=v.lastIndexOf('\n',s-1)+1;const line=v.slice(ls,s);let ind=line.match(/^\s*/)[0];if(/:\s*$/.test(line))ind+='    ';
+      e.preventDefault();ta.setRangeText('\n'+ind,s,en,'end');ta.dispatchEvent(new Event('input'))}
+  });
+  sync();return ta;
+}
+
+/* ---------------- router ---------------- */
+const NAV=[['sep','Tổng quan'],['dashboard','Dashboard'],['progress','Tiến độ'],['sep','Học'],['learn','Tài liệu học'],['bank','Ngân hàng câu hỏi'],['sep','Luyện tập'],['quiz','Trắc nghiệm'],['code','Coding Lab'],['review','Ôn tập'],['errors','Error Log'],['mock','Thi thử'],['sep','Hệ thống'],['settings','Cài đặt và sao lưu']];
+function renderNav(cur){
+  const open=S.errors.filter(e=>e.status!=='resolved').length;
+  $('#nav').innerHTML=NAV.map(([k,l])=>k==='sep'?`<div class="sep">${l}</div>`:`<a href="#/${k}" class="${cur===k?'on':''}">${l}${k==='errors'&&open?`<span class="pill bad">${open}</span>`:''}${k==='mock'&&S.activeMock?'<span class="pill bad">đang thi</span>':''}</a>`).join('');
+}
+let cleanup=null;
+function route(){
+  if(cleanup){cleanup();cleanup=null}
+  const h=location.hash.replace(/^#\/?/,'')||'dashboard';
+  const [path,query]=h.split('?');const parts=path.split('/');const params=new URLSearchParams(query||'');
+  const page=parts[0];renderNav(page);
+  const v=$('#view');v.innerHTML='';window.scrollTo(0,0);
+  const fn={dashboard:viewDashboard,progress:viewProgress,learn:viewLearn,bank:viewBank,quiz:viewQuiz,code:viewCode,review:viewReview,errors:viewErrors,mock:viewMock,settings:viewSettings}[page]||viewDashboard;
+  fn(v,parts.slice(1),params);
+  if(!storageOk)v.insertAdjacentHTML('afterbegin','<div class="fb bad">Trình duyệt không cho lưu tiến độ (localStorage bị chặn). Hãy xuất file sao lưu thường xuyên.</div>');
+}
+window.addEventListener('hashchange',route);
+
+/* ---------------- Dashboard ---------------- */
+function topicRow(t){const s=topicStats(t.id);
+  return `<tr><td><strong>${t.id}</strong> ${esc(t.name)}<div class="small muted">Ưu tiên ${t.priority===1?'cao':'trung bình'} · ${esc(t.chapters)}</div></td>
+  <td style="min-width:150px"><div class="small">${s.n}/${s.rule.mcqMin} câu · ${s.winN?Math.round(s.winAcc*100)+'% gần nhất':'–'}</div><div class="bar ${s.mcqOk?'ok':''}"><i style="width:${Math.min(100,pct(s.n,s.rule.mcqMin))}%"></i></div></td>
+  <td style="min-width:120px"><div class="small">${s.indep}/${s.rule.codeMin} bài tự giải</div><div class="bar ${s.codeOk?'ok':''}"><i style="width:${Math.min(100,pct(s.indep,s.rule.codeMin))}%"></i></div></td>
+  <td>${s.openErr?`<span class="st st-3">${s.openErr} lỗi mở</span>`:'<span class="small muted">0</span>'}</td>
+  <td><span class="st st-${s.status}">${STATUS[s.status]}</span></td></tr>`}
+function viewDashboard(v){
+  const g=globalStats(),ns=nextStep();
+  v.innerHTML=`<h1>Dashboard</h1><p class="sub">${MCQ.length} câu trắc nghiệm và ${CODING.length} bài code đã soạn sẵn, không cần mạng để luyện trắc nghiệm.</p>
+  <div class="grid">
+    <div class="metric"><div class="l">Câu trắc nghiệm đã làm</div><div class="v">${g.n}<span class="small muted"> / ${MCQ.length}</span></div><div class="d">${g.att} lượt trả lời</div></div>
+    <div class="metric"><div class="l">Đúng ở lần đầu</div><div class="v">${g.n?pct(g.ok,g.n)+'%':'–'}</div><div class="d">${g.ok} câu đúng ngay lần đầu</div></div>
+    <div class="metric"><div class="l">Bài code tự giải</div><div class="v">${g.indep}<span class="small muted"> / ${CODING.length}</span></div><div class="d">không gợi ý, không xem lời giải</div></div>
+    <div class="metric"><div class="l">Lỗi chưa khắc phục</div><div class="v" style="color:${g.open?'var(--bad)':'inherit'}">${g.open}</div><div class="d">${g.mastered}/${TOPICS.length} chủ đề thành thạo</div></div>
+  </div>
+  <div class="card" style="margin-top:14px"><div class="row"><div><div class="small muted">Việc nên làm tiếp</div><div style="font-weight:500">${esc(ns.text)}</div></div><span class="spacer"></span><a href="${ns.href}"><button class="primary">Bắt đầu</button></a></div></div>
+  ${S.activeMock?`<div class="fb warn">Bạn đang có một đề thi thử chưa nộp. <a href="#/mock">Quay lại bài thi</a></div>`:''}
+  <h2>Tiến độ theo chủ đề</h2>
+  <div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Chủ đề</th><th>Trắc nghiệm</th><th>Coding</th><th>Lỗi</th><th>Trạng thái</th></tr></thead><tbody>${TOPICS.map(topicRow).join('')}</tbody></table></div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+    <div class="card"><h3 style="margin-top:0">Kiến thức hay nhầm</h3>${g.topTags.length?g.topTags.map(([t,n])=>`<div class="row small" style="margin:4px 0"><code>${esc(t)}</code><span class="spacer"></span><span class="muted">${n} lần</span></div>`).join(''):'<div class="small muted">Chưa có lỗi nào được ghi nhận.</div>'}</div>
+    <div class="card"><h3 style="margin-top:0">Chủ đề cần ôn</h3>${(()=>{const w=TOPICS.map(t=>[t,topicStats(t.id)]).filter(([,s])=>s.status===3||s.status===4);return w.length?w.map(([t,s])=>`<div class="row small" style="margin:4px 0"><a href="#/quiz/${t.id}">${t.id} ${esc(t.name)}</a><span class="spacer"></span><span class="st st-${s.status}">${STATUS[s.status]}</span></div>`).join(''):'<div class="small muted">Chưa có chủ đề yếu.</div>'})()}</div>
+  </div>
+  <p class="small muted">Điều kiện thành thạo một chủ đề: ít nhất ${RULE.mcqMin} câu trắc nghiệm làm lần đầu, đúng từ ${RULE.acc*100}% trở lên ở ${RULE.window} câu gần nhất; tự giải ít nhất ${RULE.codeMin} bài code (có bài từ mức trung bình) không dùng gợi ý; và không còn lỗi đang mở. Chủ đề ưu tiên trung bình cần 10 câu và 2 bài. Câu làm lại và câu đã xem đáp án không được tính.</p>`;
+}
+
+/* ---------------- Progress ---------------- */
+function viewProgress(v){
+  const g=globalStats();
+  const rows=TOPICS.map(t=>{const s=topicStats(t.id);
+    return `<tr><td><strong>${t.id}</strong> ${esc(t.name)}</td><td>${S.read[t.id]?'Đã đọc':'<span class="muted">Chưa đọc</span>'}</td>
+    <td>${s.n} câu, đúng lần đầu ${s.acc===null?'–':Math.round(s.acc*100)+'%'}<div class="small muted">${s.winN?`${Math.round(s.winAcc*100)}% ở ${s.winN} câu gần nhất`:''} · còn ${s.unseen} câu mới</div></td>
+    <td>${s.indep}/${s.codeTotal} tự giải${s.indepHard?'':'<div class="small muted">chưa có bài mức trung bình</div>'}</td>
+    <td><span class="st st-${s.status}">${STATUS[s.status]}</span><div class="small muted">${s.mcqOk?'TN đạt':'TN chưa đạt'} · ${s.codeOk?'Code đạt':'Code chưa đạt'}${s.openErr?' · '+s.openErr+' lỗi mở':''}</div></td></tr>`}).join('');
+  const mocks=S.mocks.slice(-10);
+  const chart=mocks.length?`<svg viewBox="0 0 ${Math.max(mocks.length*60,300)} 150" style="width:100%;max-width:640px;height:auto" role="img" aria-label="Điểm thi thử">
+    ${mocks.map((m,i)=>{const h=Math.round(m.score*11);return `<rect x="${i*60+14}" y="${125-h}" width="32" height="${h}" rx="3" fill="var(--accent)"/><text x="${i*60+30}" y="${120-h}" text-anchor="middle" font-size="12" fill="var(--text)">${m.score.toFixed(1)}</text><text x="${i*60+30}" y="142" text-anchor="middle" font-size="11" fill="var(--muted)">#${S.mocks.length-mocks.length+i+1}</text>`}).join('')}
+    <line x1="0" y1="125.5" x2="100%" y2="125.5" stroke="var(--line-strong)"/></svg>`:'<div class="small muted">Chưa có bài thi thử.</div>';
+  v.innerHTML=`<h1>Tiến độ</h1><p class="sub">Số liệu chi tiết để biết chủ đề nào đã đủ điều kiện thành thạo.</p>
+  <div class="grid">
+    <div class="metric"><div class="l">Tổng lượt trả lời</div><div class="v">${g.att}</div></div>
+    <div class="metric"><div class="l">Tỷ lệ đúng lần đầu</div><div class="v">${g.n?pct(g.ok,g.n)+'%':'–'}</div><div class="d">${g.ok}/${g.n} câu</div></div>
+    <div class="metric"><div class="l">Bài code tự giải</div><div class="v">${g.indep}</div></div>
+    <div class="metric"><div class="l">Lỗi đã khắc phục</div><div class="v">${S.errors.filter(e=>e.status==='resolved').length}<span class="small muted"> / ${S.errors.length}</span></div></div>
+  </div>
+  <h2>Theo chủ đề</h2><div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Chủ đề</th><th>Lý thuyết</th><th>Trắc nghiệm</th><th>Coding</th><th>Mastery</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <h2>Điểm thi thử</h2><div class="card">${chart}</div>`;
+}
+
+/* ---------------- Learning materials ---------------- */
+function viewLearn(v,[tid]){
+  tid=tid&&TOPIC[tid]?tid:TOPICS[0].id;const t=TOPIC[tid];const m=BANK.materials[tid]||{sections:[]};
+  v.innerHTML=`<h1>Tài liệu học</h1><p class="sub">Mỗi mục ghi rõ nguồn: ${srcBadge('textbook')} có trong giáo trình, ${srcBadge('exam')} rút ra từ đề thi cũ, ${srcBadge('supplement')} kiến thức bổ sung ngoài giáo trình.</p>
+  <div class="row" style="margin-bottom:14px">${TOPICS.map(x=>`<a href="#/learn/${x.id}"><button class="${x.id===tid?'primary':''}">${x.id}</button></a>`).join('')}</div>
+  <div class="card"><div class="row"><div><h2 style="margin:0">${t.id}. ${esc(t.name)}</h2><div class="small muted">${esc(t.chapters)}</div></div><span class="spacer"></span>
+  <button id="read">${S.read[tid]?'Đã đánh dấu đã học':'Đánh dấu đã học'}</button><a href="#/quiz/${tid}"><button class="primary">Luyện trắc nghiệm</button></a></div></div>
+  ${m.sections.map(s=>`<div class="card md"><div class="row"><h3 style="margin:0">${esc(s.title)}</h3><span class="spacer"></span>${srcBadge(s.source)}</div>${md(s.body)}</div>`).join('')||'<div class="empty">Chưa có tài liệu.</div>'}`;
+  $('#read').onclick=()=>{S.read[tid]=!S.read[tid];save();route()};
+}
+
+/* ---------------- Question bank ---------------- */
+function viewBank(v,_,params){
+  const f={topic:params.get('topic')||'',kind:params.get('kind')||'mcq',diff:'',type:'',status:'',q:''};
+  v.innerHTML=`<h1>Ngân hàng câu hỏi</h1><p class="sub">Xem toàn bộ câu hỏi. Mở đáp án của câu chưa làm thì câu đó sẽ không được tính vào điều kiện thành thạo.</p>
+  <div class="card row">
+    <select id="f-kind"><option value="mcq">Trắc nghiệm</option><option value="code">Bài code</option></select>
+    <select id="f-topic"><option value="">Mọi chủ đề</option>${TOPICS.map(t=>`<option value="${t.id}">${t.id} ${esc(t.name)}</option>`).join('')}</select>
+    <select id="f-diff"><option value="">Mọi độ khó</option><option value="1">Dễ</option><option value="2">Trung bình</option><option value="3">Khó</option></select>
+    <select id="f-type"><option value="">Mọi dạng</option>${Object.entries(TYPE).map(([k,l])=>`<option value="${k}">${l}</option>`).join('')}</select>
+    <select id="f-status"><option value="">Mọi trạng thái</option><option value="new">Chưa làm</option><option value="ok">Đúng lần đầu</option><option value="bad">Sai lần đầu</option><option value="reserve">Câu dự phòng</option></select>
+    <input type="search" id="f-q" placeholder="Tìm theo nội dung hoặc tag" style="flex:1;min-width:160px">
+  </div><div id="bank-list"></div>`;
+  $('#f-kind').value=f.kind;$('#f-topic').value=f.topic;
+  const draw=()=>{
+    for(const k of ['kind','topic','diff','type','status','q'])f[k]=$('#f-'+k).value;
+    $('#f-type').disabled=f.kind==='code';
+    const list=$('#bank-list');
+    if(f.kind==='code'){
+      const items=CODING.filter(c=>(!f.topic||c.topic===f.topic)&&(!f.diff||c.difficulty==f.diff)&&(!f.q||(c.title+c.statement+c.tags.join(' ')).toLowerCase().includes(f.q.toLowerCase()))
+        &&(!f.status||(f.status==='new'&&!peekC(c.id).subs)||(f.status==='ok'&&peekC(c.id).indep)||(f.status==='bad'&&peekC(c.id).subs&&!peekC(c.id).passed)||(f.status==='reserve'&&c.reserve)));
+      list.innerHTML=`<div class="small muted" style="margin:6px 0">${items.length} bài</div>`+items.map(c=>`<a href="#/code/${c.id}" style="color:inherit;text-decoration:none"><div class="list-item"><code>${c.id}</code><div style="flex:1">${esc(c.title)}<div class="small muted">${c.tags.map(esc).join(', ')}</div></div>${srcBadge(c.source)}<span class="badge">${DIFF[c.difficulty]}</span>${codeBadge(c)}</div></a>`).join('');
+      return}
+    const items=MCQ.filter(q=>{const s=peekQ(q.id);
+      return (!f.topic||q.topic===f.topic)&&(!f.diff||q.difficulty==f.diff)&&(!f.type||q.type===f.type)&&
+      (!f.q||(q.question+' '+q.code+' '+q.tags.join(' ')).toLowerCase().includes(f.q.toLowerCase()))&&
+      (!f.status||(f.status==='new'&&!isSeen(q))||(f.status==='ok'&&s.first===true)||(f.status==='bad'&&s.first===false)||(f.status==='reserve'&&q.reserve))});
+    list.innerHTML=`<div class="small muted" style="margin:6px 0">${items.length} câu</div>`+items.map(q=>{const s=peekQ(q.id);
+      const stat=isSeen(q)?(s.first?'<span class="st st-5">Đúng lần đầu</span>':'<span class="st st-3">Sai lần đầu</span>'):s.spoiled?'<span class="st st-4">Đã xem đáp án</span>':'<span class="st st-0">Chưa làm</span>';
+      return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer;list-style:none"><div class="row"><code>${q.id}</code><span style="flex:1">${esc(q.question)}</span>${q.reserve?'<span class="badge">dự phòng</span>':''}<span class="badge">${TYPE[q.type]}</span><span class="badge">${DIFF[q.difficulty]}</span>${stat}</div></summary>
+      ${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}<ol type="A" style="margin:6px 0 10px">${q.options.map(o=>`<li><code style="white-space:pre-wrap">${esc(o)}</code></li>`).join('')}</ol>
+      <div class="small muted">Tags: ${q.tags.map(esc).join(', ')} · ${srcBadge(q.source)}</div>
+      <div class="ans" data-id="${q.id}">${isSeen(q)||s.spoiled?answerBlock(q):`<button class="reveal" data-id="${q.id}" style="margin-top:8px">Hiện đáp án</button>`}</div></details>`}).join('');
+    $$('.reveal',list).forEach(b=>b.onclick=()=>{const q=Q_BY_ID[b.dataset.id];
+      if(!confirm('Câu này chưa làm. Xem đáp án thì câu sẽ không được tính vào điều kiện thành thạo. Vẫn xem?'))return;
+      qs(q.id).spoiled=true;save();b.parentElement.innerHTML=answerBlock(q)});
+  };
+  $$('select,input',v).forEach(el=>el.addEventListener('input',draw));draw();
+}
+const answerBlock=q=>`<div class="fb ok" style="margin-top:8px">Đáp án: ${'ABCD'[q.answer]}<div class="body">${inline(q.explanation)}</div></div>`;
+function codeBadge(c){const s=peekC(c.id);if(s.indep)return '<span class="st st-5">Tự giải</span>';if(s.passed)return '<span class="st st-4">Đạt (có trợ giúp)</span>';if(s.subs)return '<span class="st st-3">Chưa đạt</span>';return '<span class="st st-0">Chưa làm</span>'}
+
+/* ---------------- Quiz ---------------- */
+let session=null;
+function newSession(cfg){session={cfg,count:0,firstOk:0,asked:new Set(),cur:null};}
+function viewQuiz(v,[tid],params){
+  const mode=params.get('mode')||'practice';const tags=params.get('tags')?params.get('tags').split(','):null;
+  const topic=tid&&TOPIC[tid]?tid:'';
+  const key=JSON.stringify([mode,topic,tags]);
+  if(!session||session.key!==key){newSession({mode,topic,tags});session.key=key}
+  const title=mode==='review'?'Ôn tập':tags?'Ôn theo lỗi':'Trắc nghiệm';
+  v.innerHTML=`<h1>${title}</h1><p class="sub">${mode==='review'?'Câu đến hạn, câu đã sai và câu mới cùng kiến thức với lỗi đang mở.':tags?'Luyện các câu cùng kiến thức: '+tags.map(esc).join(', '):'Hệ thống tự chọn câu dựa trên chủ đề yếu, lỗi cũ, độ khó và câu chưa làm.'}</p>
+  ${mode==='practice'&&!tags?`<div class="row" style="margin-bottom:12px"><span class="small muted">Chủ đề:</span><a href="#/quiz"><button class="${!topic?'primary':''}">Tự động</button></a>${TOPICS.map(t=>`<a href="#/quiz/${t.id}"><button class="${t.id===topic?'primary':''}" title="${esc(t.name)}">${t.id}</button></a>`).join('')}</div>`:''}
+  <div class="row small muted" style="margin-bottom:8px"><span id="sess"></span><span class="spacer"></span><span class="kbd">Phím 1–4 hoặc A–D để chọn, Enter để nộp / sang câu</span></div>
+  <div class="card" id="qcard"></div>`;
+  nextQuestion();
+  const onKey=e=>{if(e.target.matches('input,textarea,select'))return;const k=e.key.toLowerCase();
+    const idx='1234'.indexOf(k)>=0?'1234'.indexOf(k):'abcd'.indexOf(k);
+    if(idx>=0&&k.length===1){const b=$$('.opt')[idx];b&&b.click()}
+    else if(e.key==='Enter'){const nb=$('#next');if(nb&&nb.offsetParent){nb.click()}else{const sb=$('#submit');sb&&sb.offsetParent&&sb.click()}}};
+  document.addEventListener('keydown',onKey);cleanup=()=>document.removeEventListener('keydown',onKey);
+}
+function nextQuestion(){
+  const c=session.cfg;
+  if(session.cur&&!session.cur.done){renderQuestion();return}
+  const p=pickQuestion({topic:c.topic,mode:c.mode,tags:c.tags,exclude:session.asked});
+  if(!p){$('#qcard').innerHTML=`<div class="empty">${c.mode==='review'?'Không còn câu nào cần ôn. ':'Đã hết câu trong phạm vi này. '}<a href="#/dashboard">Về Dashboard</a></div>`;updSess();return}
+  session.asked.add(p.q.id);
+  session.cur={q:p.q,why:p.why,sel:-1,tries:0,wrong:[],done:false,isFirst:!isSeen(p.q)};
+  renderQuestion();
+}
+function updSess(){const el=$('#sess');if(el)el.textContent=`Phiên này: ${session.count} câu, đúng lần đầu ${session.firstOk}`}
+function renderQuestion(){
+  const cur=session.cur,q=cur.q;updSess();
+  const plain=isPlain(q);
+  $('#qcard').innerHTML=`<div class="row" style="margin-bottom:8px"><span class="badge">${q.topic} · ${esc(TOPIC[q.topic].name)}</span><span class="badge">${TYPE[q.type]}</span><span class="badge">${DIFF[q.difficulty]}</span>${srcBadge(q.source)}<span class="spacer"></span><span class="small muted">${esc(cur.why)}${cur.isFirst?'':' · đã từng làm, không tính thành thạo'}</span></div>
+  <div style="font-size:16px;margin:6px 0 4px">${inline(q.question)}</div>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+  <div id="opts">${q.options.map((o,i)=>`<button class="opt" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="t ${plain?'plain':''}">${esc(o)}</span></button>`).join('')}</div>
+  <div id="qerr" class="small" style="color:var(--bad);min-height:18px"></div><div id="qfb"></div>
+  <div class="row"><button class="primary" id="submit">Nộp đáp án</button><button id="next" style="display:none">Câu tiếp theo</button><span class="spacer"></span><code class="small muted">${q.id}</code></div>`;
+  paintOpts();
+  $$('.opt').forEach(b=>b.onclick=()=>{if(cur.done)return;const i=+b.dataset.i;if(cur.wrong.includes(i))return;cur.sel=i;$('#qerr').textContent='';paintOpts()});
+  $('#submit').onclick=submitAnswer;$('#next').onclick=()=>{nextQuestion()};
+  if(cur.done)finishView();else if(cur.tries===1)hintView();
+}
+function paintOpts(){const cur=session.cur;$$('.opt').forEach(b=>{const i=+b.dataset.i;b.className='opt'+(cur.wrong.includes(i)?' wrong':'')+(cur.done&&i===cur.q.answer?' right':'')+(!cur.done&&i===cur.sel?' sel':'')})}
+function hintView(){const q=session.cur.q;$('#qfb').innerHTML=`<div class="fb warn"><strong>Chưa đúng.</strong> Gợi ý:<div class="body">${inline(q.hint)}</div><div class="body small muted">Hãy chọn lại một phương án khác.</div></div>`}
+function finishView(){const cur=session.cur,q=cur.q;const ok=cur.result!=='wrong';
+  $('#qfb').innerHTML=`<div class="fb ${ok?'ok':'bad'}"><strong>${cur.result==='first'?'Đúng ngay lần đầu.':cur.result==='second'?'Đúng ở lần thứ hai (sau gợi ý).':'Vẫn chưa đúng. Đáp án là '+'ABCD'[q.answer]+'.'}</strong><div class="body">${inline(q.explanation)}</div>
+  ${cur.credited&&cur.credited.length?`<div class="body small">Tiến triển khắc phục lỗi: ${cur.credited.map(e=>esc(e.itemId)+' → '+errStatus(e)).join('; ')}</div>`:''}
+  ${!ok||cur.result==='second'?`<div class="body small muted">Đã ghi vào Error Log (${esc(CAT[q.errorCategory]||q.errorCategory)}). Câu tiếp theo sẽ ưu tiên kiến thức này.</div>`:''}</div>`;
+  $('#submit').style.display='none';$('#next').style.display='';paintOpts();
+}
+function submitAnswer(){
+  const cur=session.cur,q=cur.q;
+  if(cur.sel<0){$('#qerr').textContent='Chọn một phương án trước khi nộp.';return}
+  const st=qs(q.id);
+  if(cur.sel===q.answer){
+    cur.done=true;cur.result=cur.tries?'second':'first';
+    if(cur.tries===0){
+      if(cur.isFirst){st.first=true;st.firstTs=Date.now();session.firstOk++;cur.credited=creditTags(q.topic,q.tags,q.id)}
+      st.due=null;st.lastOk=true;
+    }else{st.lastOk=false;st.due=S.counter+5}
+    st.attempts++;S.counter++;session.count++;save();finishView();return}
+  cur.wrong.push(cur.sel);cur.tries++;
+  if(cur.tries===1){
+    if(cur.isFirst){st.first=false;st.firstTs=Date.now()}
+    st.lastOk=false;
+    logError({topic:q.topic,itemId:q.id,kind:'mcq',question:q.question+(q.code?'\n'+q.code:''),mistake:`Chọn ${'ABCD'[cur.sel]}: ${q.options[cur.sel]}`,category:q.errorCategory,tags:q.tags,rootCause:`${CAT[q.errorCategory]||''}. ${q.hint}`,correct:q.explanation});
+    S.remedy={tags:q.tags,topic:q.topic,left:2};
+    cur.sel=-1;save();paintOpts();hintView();return}
+  cur.done=true;cur.result='wrong';st.attempts++;st.due=S.counter+4;S.counter++;session.count++;
+  const e=S.errors.find(x=>x.itemId===q.id&&x.status!=='resolved');if(e)e.mistake+=` → lần 2 chọn ${'ABCD'[cur.sel]}: ${q.options[cur.sel]}`;
+  save();finishView();
+}
+
+/* ---------------- Coding lab ---------------- */
+function viewCode(v,[cid],params){
+  if(cid&&C_BY_ID[cid])return viewExercise(v,C_BY_ID[cid]);
+  const tf=params.get('topic')||'';
+  const items=CODING.filter(c=>!tf||c.topic===tf);
+  v.innerHTML=`<h1>Coding Lab</h1><p class="sub">Viết code, chạy thử và nộp để chấm với bộ test. Code chạy bằng Pyodide ngay trong trình duyệt; lần đầu cần Internet để tải (khoảng 10 MB).</p>
+  <div class="row" style="margin-bottom:12px"><a href="#/code"><button class="${!tf?'primary':''}">Tất cả</button></a>${TOPICS.map(t=>`<a href="#/code?topic=${t.id}"><button class="${t.id===tf?'primary':''}">${t.id}</button></a>`).join('')}</div>
+  ${items.map(c=>`<a href="#/code/${c.id}" style="color:inherit;text-decoration:none"><div class="list-item"><code>${c.id}</code><div style="flex:1">${esc(c.title)}<div class="small muted">${esc(TOPIC[c.topic].name)}${c.reserve?' · bài dự phòng':''}</div></div>${srcBadge(c.source)}<span class="badge">${DIFF[c.difficulty]}</span>${codeBadge(c)}</div></a>`).join('')}`;
+}
+function exerciseInfo(c,showTests){
+  return `<div class="row" style="margin-bottom:6px"><span class="badge">${c.topic}</span><span class="badge">${DIFF[c.difficulty]}</span>${srcBadge(c.source)}<span class="badge">${c.mode==='stdio'?'Nhập/xuất chuẩn':'Viết hàm'}</span></div>
+  <h2 style="margin:6px 0">${esc(c.title)}</h2><div class="md">${md(c.statement)}</div>
+  ${c.ioFormat?`<h4>Input / Output</h4><div class="md">${md(c.ioFormat)}</div>`:''}
+  ${c.constraints?`<h4>Ràng buộc</h4><div class="md">${md(c.constraints)}</div>`:''}
+  ${c.examples?`<h4>Ví dụ</h4><pre class="code">${esc(c.examples)}</pre>`:''}
+  ${c.files&&Object.keys(c.files).length?`<h4>File có sẵn khi chạy</h4>${Object.entries(c.files).map(([n,t])=>`<div class="small"><code>${esc(n)}</code></div><pre class="code" style="max-height:140px">${esc(t)}</pre>`).join('')}`:''}
+  ${showTests?`<h4>Test dùng để chấm (${c.tests.length})</h4>${c.tests.map((t,i)=>`<pre class="code" style="margin:4px 0">${esc(c.mode==='stdio'?'# Test '+(i+1)+' – input:\n'+t.input:'# Test '+(i+1)+'\n'+(t.setup?t.setup+'\n':'')+t.call+'  # mong đợi: '+t.expected)}</pre>`).join('')}`:''}`;
+}
+function viewExercise(v,c){
+  const st=S.c[c.id]||(S.c[c.id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
+  if(st.code===undefined)st.code=c.starter||'';
+  v.innerHTML=`<div class="row" style="margin-bottom:10px"><a href="#/code?topic=${c.topic}">← Danh sách bài</a><span class="spacer"></span>${codeBadge(c)}</div>
+  <div class="lab"><div class="card">${exerciseInfo(c,true)}
+    <div id="helpbox"></div>
+    <div class="row" style="margin-top:12px"><button id="btn-hint">${st.hint?'Xem lại gợi ý':'Gợi ý'}</button><button id="btn-sol">Xem lời giải</button></div>
+    <div class="small muted" style="margin-top:6px">Dùng gợi ý hoặc xem lời giải thì bài này không được tính là tự giải.</div></div>
+  <div><div class="card" style="padding:14px">${editorHTML('ed',st.code)}
+    <div class="row" style="margin-top:10px"><button id="btn-run">Chạy thử</button><button class="primary" id="btn-sub">Nộp bài</button><button class="ghost" id="btn-reset">Khôi phục code ban đầu</button><span class="spacer"></span><span class="kbd">Ctrl+Enter: chạy thử</span></div>
+    ${c.mode==='stdio'?`<div style="margin-top:10px"><div class="small muted">Dữ liệu nhập cho "Chạy thử" (mỗi dòng một lần input()):</div><textarea id="stdin" class="code" style="width:100%;min-height:70px;white-space:pre">${esc(c.tests[0]?c.tests[0].input:'')}</textarea></div>`:''}
+    </div>
+    <div class="card" style="padding:14px"><div class="row"><strong>Kết quả</strong><span class="spacer"></span><span class="small muted" id="runstat"></span></div><div id="result" style="margin-top:8px"><div class="out muted">Chưa chạy.</div></div></div>
+    <div class="card small muted">Đã nộp ${st.subs} lần${st.history.length?` · lần gần nhất đạt ${st.history[st.history.length-1].pass}/${st.history[st.history.length-1].total} test`:''}</div>
+  </div></div>`;
+  bindEditor('ed',val=>{st.code=val;save()},()=>run());
+  const help=$('#helpbox');
+  const showHint=()=>{help.innerHTML=`<div class="fb warn"><strong>Gợi ý</strong><div class="body">${md(c.hint)}</div></div>`};
+  const showSol=()=>{help.innerHTML=`<div class="fb ok"><strong>Lời giải mẫu</strong><pre class="code">${esc(c.solution)}</pre><div class="body md">${md(c.explanation)}</div>${c.commonMistakes&&c.commonMistakes.length?`<div class="body"><strong>Lỗi thường gặp</strong><ul>${c.commonMistakes.map(m=>'<li>'+inline(m)+'</li>').join('')}</ul></div>`:''}</div>`};
+  if(st.solution)showSol();else if(st.hint)showHint();
+  $('#btn-hint').onclick=()=>{if(!st.hint&&!st.passed&&!confirm('Dùng gợi ý thì bài này không được tính là tự giải. Tiếp tục?'))return;if(!st.passed)st.hint=true;save();showHint()};
+  $('#btn-sol').onclick=()=>{
+    const fails=st.history.filter(h=>h.pass<h.total).length;
+    if(!st.passed&&fails<3){alert(`Lời giải chỉ mở sau khi bạn đã nộp sai ít nhất 3 lần (hiện tại: ${fails}). Hãy thử dùng gợi ý trước.`);return}
+    if(!st.passed&&!confirm('Xem lời giải thì bài này không được tính là tự giải và sẽ ghi vào Error Log. Tiếp tục?'))return;
+    if(!st.passed)st.solution=true;save();showSol()};
+  $('#btn-reset').onclick=()=>{if(!confirm('Thay code hiện tại bằng code khởi đầu?'))return;st.code=c.starter||'';save();route()};
+  const res=$('#result'),rs=$('#runstat');
+  const busy=b=>{$('#btn-run').disabled=b;$('#btn-sub').disabled=b;rs.textContent=b?(Py.status==='ready'?'Đang chạy…':'Đang tải Python (lần đầu có thể mất 10–30 giây)…'):''};
+  async function run(){
+    busy(true);const r=await Py.exec('run',{src:$('#ed').value,stdin:$('#stdin')?$('#stdin').value:'',files:c.files||{}});busy(false);
+    if(!r.ok){res.innerHTML=`<div class="out"><span class="err">${esc(r.error)}</span></div>`;return}
+    const o=r.result;res.innerHTML=`<div class="out">${esc(o.stdout)||'<span class="muted">(không in ra gì)</span>'}${o.error?`\n<span class="err">${esc(o.error)}</span>`:''}</div>`;
+  }
+  $('#btn-run').onclick=run;
+  $('#btn-sub').onclick=async()=>{
+    busy(true);const r=await Py.exec('test',{src:$('#ed').value,ex:c},Math.max(S.settings.timeoutSec*2,12)*1000);busy(false);
+    if(!r.ok){res.innerHTML=`<div class="out"><span class="err">${esc(r.error)}</span></div>`;
+      if(r.timeout)recordSubmission(c,st,[],'timeout');return}
+    const list=r.result;recordSubmission(c,st,list);
+    const pass=list.filter(x=>x.ok).length;
+    res.innerHTML=`<div class="fb ${pass===list.length?'ok':'bad'}"><strong>${pass}/${list.length} test đạt.</strong>${pass===list.length?`<div class="body">${st.indep?'Bài được tính là tự giải.':'Bài đạt nhưng không tính là tự giải vì đã dùng gợi ý hoặc lời giải.'}${st.variant?` Thử biến thể: <a href="#/code/${st.variant}">${st.variant}</a>`:''}</div>`:'<div class="body">Sửa lỗi ở test đầu tiên bị sai rồi nộp lại.</div>'}</div>`+
+      list.map((x,i)=>{const t=c.tests[i];return `<div class="tc ${x.ok?'ok':'bad'}"><strong>Test ${i+1}: ${x.ok?'Đạt':'Sai'}</strong>
+      ${c.mode==='stdio'?`<pre>Input:\n${esc(t.input)}</pre>`:`<pre>${esc((t.setup?t.setup+'\n':'')+t.call)}</pre>`}
+      ${x.ok?'':`<pre>Mong đợi: ${esc(t.expected)}\nNhận được: ${esc(c.mode==='stdio'?x.got:x.got)}</pre>`}${x.error?`<pre style="color:var(--bad)">${esc(x.error)}</pre>`:''}${x.printed&&!x.ok?`<pre class="muted">Bạn in ra: ${esc(x.printed)}</pre>`:''}</div>`}).join('');
+  };
+}
+function codeErrCategory(list,kind){
+  if(kind==='timeout')return 'logic';
+  const e=list.find(x=>x.errType);if(!e)return null;
+  if(['SyntaxError','IndentationError','TabError'].includes(e.errType))return 'syntax';
+  if(['NameError','AttributeError','TypeError','UnboundLocalError'].includes(e.errType))return 'implementation';
+  if(['IndexError','KeyError','ZeroDivisionError','ValueError','FileNotFoundError','EOFError'].includes(e.errType))return 'edge';
+  return 'execution';
+}
+function recordSubmission(c,st,list,kind){
+  st.subs++;const pass=list.filter(x=>x.ok).length,total=c.tests.length;
+  st.history.push({ts:Date.now(),pass,total});if(st.history.length>30)st.history.shift();
+  if(kind!=='timeout'&&pass===total){
+    if(!st.passed){st.passed=true;st.passedTs=Date.now();
+      if(!st.hint&&!st.solution){st.indep=true;creditTags(c.topic,c.tags,c.id)}}
+    const variant=CODING.find(x=>x.id!==c.id&&x.topic===c.topic&&!peekC(x.id).passed&&x.tags.some(t=>c.tags.includes(t)));st.variant=variant?variant.id:null;
+  }else{
+    const first=list.findIndex(x=>!x.ok);
+    const cat=codeErrCategory(list,kind)||c.errorCategory;
+    logError({topic:c.topic,itemId:c.id,kind:'code',question:c.title,mistake:kind==='timeout'?'Chạy quá thời gian':`${pass}/${total} test đạt; test ${first+1} sai${list[first]&&list[first].errType?' ('+list[first].errType+')':''}`,category:cat,tags:c.tags,rootCause:CAT[cat]||cat,correct:(c.commonMistakes||[]).join(' · ')||c.hint});
+  }
+  save();
+}
+
+/* ---------------- Error log ---------------- */
+function viewErrors(v,_,params){
+  const fl=params.get('f')||'open';
+  const items=S.errors.filter(e=>fl==='all'||(fl==='open'?e.status!=='resolved':e.status==='resolved'));
+  v.innerHTML=`<h1>Error Log</h1><p class="sub">Mỗi lỗi chỉ được đánh dấu đã khắc phục khi bạn làm đúng ngay lần đầu 2 câu hoặc bài khác cùng kiến thức (không dùng gợi ý).</p>
+  <div class="row" style="margin-bottom:12px">${[['open','Chưa khắc phục'],['resolved','Đã khắc phục'],['all','Tất cả']].map(([k,l])=>`<a href="#/errors?f=${k}"><button class="${fl===k?'primary':''}">${l}</button></a>`).join('')}</div>
+  ${items.length?items.map(e=>`<div class="card"><div class="row"><span class="badge">${e.topic}</span><code>${esc(e.itemId)}</code><span class="badge">${esc(CAT[e.category]||e.category)}</span>${e.count>1?`<span class="badge">sai ${e.count} lần</span>`:''}<span class="spacer"></span><span class="st ${e.status==='resolved'?'st-5':e.status==='retesting'?'st-4':'st-3'}">${errStatus(e)}</span></div>
+    <table style="margin-top:8px"><tbody>
+    <tr><th style="width:150px">Câu hỏi</th><td><pre class="code" style="margin:0;white-space:pre-wrap">${esc(e.question)}</pre></td></tr>
+    <tr><th>Bạn đã làm</th><td>${esc(e.mistake)}</td></tr>
+    <tr><th>Nguyên nhân gốc</th><td>${inline(e.rootCause||'')}</td></tr>
+    <tr><th>Hiểu đúng</th><td>${e.status==='open'&&e.kind==='code'&&!(peekC(e.itemId).passed)?'<span class="muted">Hiện sau khi bạn làm đạt bài này.</span>':inline(e.correct||'')}</td></tr>
+    <tr><th>Kiến thức</th><td>${(e.tags||[]).map(t=>`<code>${esc(t)}</code>`).join(' ')}</td></tr>
+    <tr><th>Thời gian</th><td class="small muted">${fmtDate(e.ts)}${e.resolvedTs?' · khắc phục '+fmtDate(e.resolvedTs):''}</td></tr></tbody></table>
+    ${e.status!=='resolved'?`<div class="row" style="margin-top:8px"><a href="#/quiz?mode=tags&tags=${encodeURIComponent((e.tags||[]).join(','))}"><button>Luyện câu cùng kiến thức</button></a>${e.kind==='code'?`<a href="#/code/${e.itemId}"><button>Mở lại bài code</button></a>`:''}</div>`:''}</div>`).join(''):'<div class="empty">Không có lỗi nào trong mục này.</div>'}`;
+}
+
+/* ---------------- Review ---------------- */
+function viewReview(v){
+  const due=MCQ.filter(q=>{const s=peekQ(q.id);return s.due!==null&&s.due!==undefined});
+  const wrong=MCQ.filter(q=>peekQ(q.id).lastOk===false);
+  const open=S.errors.filter(e=>e.status!=='resolved');
+  const byTag={};for(const e of open)for(const t of e.tags||[])(byTag[t]=byTag[t]||[]).push(e);
+  const codeTodo=CODING.filter(c=>peekC(c.id).subs&&!peekC(c.id).passed);
+  v.innerHTML=`<h1>Ôn tập</h1><p class="sub">Tập trung vào những gì bạn từng sai. Câu làm lại không được tính thành thạo; lỗi chỉ được khắc phục qua câu mới cùng kiến thức.</p>
+  <div class="grid"><div class="metric"><div class="l">Câu cần ôn</div><div class="v">${new Set([...due,...wrong].map(q=>q.id)).size}</div></div>
+  <div class="metric"><div class="l">Lỗi đang mở</div><div class="v">${open.length}</div></div>
+  <div class="metric"><div class="l">Bài code chưa đạt</div><div class="v">${codeTodo.length}</div></div></div>
+  <div class="card" style="margin-top:14px"><div class="row"><div><strong>Phiên ôn tập tự động</strong><div class="small muted">Trộn câu đến hạn, câu đã sai và câu mới cùng kiến thức với lỗi đang mở.</div></div><span class="spacer"></span><a href="#/quiz?mode=review"><button class="primary">Bắt đầu ôn</button></a></div></div>
+  <h2>Theo kiến thức đang yếu</h2>${Object.keys(byTag).length?Object.entries(byTag).sort((a,b)=>b[1].length-a[1].length).map(([t,es])=>`<div class="list-item" style="cursor:default"><code>${esc(t)}</code><span class="small muted" style="flex:1">${es.length} lỗi · ${[...new Set(es.map(e=>e.topic))].join(', ')}</span><a href="#/quiz?mode=tags&tags=${encodeURIComponent(t)}"><button>Luyện</button></a></div>`).join(''):'<div class="small muted">Không có lỗi đang mở.</div>'}
+  <h2>Bài code chưa đạt</h2>${codeTodo.length?codeTodo.map(c=>`<a href="#/code/${c.id}" style="color:inherit;text-decoration:none"><div class="list-item"><code>${c.id}</code><span style="flex:1">${esc(c.title)}</span>${codeBadge(c)}</div></a>`).join(''):'<div class="small muted">Không có.</div>'}
+  <h2>Bẫy cần nhớ</h2>${TOPICS.map(t=>{const sec=(BANK.materials[t.id]||{sections:[]}).sections.find(s=>/bẫy/i.test(s.title));return sec?`<details class="card"><summary style="cursor:pointer"><strong>${t.id}</strong> ${esc(sec.title)}</summary><div class="md">${md(sec.body)}</div></details>`:''}).join('')}`;
+}
+
+/* ---------------- Mock exam ---------------- */
+function buildMock(){
+  const nM=S.settings.mockMcq,nC=S.settings.mockCode;
+  const p1=TOPICS.filter(t=>t.priority===1).map(t=>t.id);
+  const pick=[];const used=new Set();
+  const per=Math.floor(nM/p1.length);
+  const take=(ids,n)=>{const c=shuffle(MCQ.filter(q=>ids.includes(q.topic)&&!used.has(q.id))).sort((a,b)=>(isSeen(a)-isSeen(b))||(a.reserve-b.reserve));for(const q of c.slice(0,n)){pick.push(q.id);used.add(q.id)}};
+  for(const t of p1)take([t],per);
+  take(TOPICS.map(t=>t.id),nM-pick.length);
+  const examTopics=['T2','T3','T4','T6','T7'];
+  const pool=shuffle(CODING.filter(c=>!c.reserve)).sort((a,b)=>((peekC(a.id).passed?1:0)-(peekC(b.id).passed?1:0))||((b.source==='exam')-(a.source==='exam')));
+  const codes=[];const tused=new Set();
+  for(const c of pool){if(codes.length>=nC)break;if(examTopics.includes(c.topic)&&!tused.has(c.topic)&&c.difficulty>=2){codes.push(c.id);tused.add(c.topic)}}
+  for(const c of pool){if(codes.length>=nC)break;if(!codes.includes(c.id)&&!tused.has(c.topic)){codes.push(c.id);tused.add(c.topic)}}
+  return {start:Date.now(),minutes:S.settings.mockMinutes,mcq:shuffle(pick),code:codes,ans:{},codeSrc:Object.fromEntries(codes.map(id=>[id,C_BY_ID[id].starter||''])),cur:0};
+}
+let mockTimer=null;
+function viewMock(v,[sub]){
+  if(sub==='result')return viewMockResult(v);
+  const M=S.activeMock;
+  if(!M){
+    const last=S.mocks[S.mocks.length-1];
+    v.innerHTML=`<h1>Thi thử</h1><p class="sub">Mô phỏng một buổi thi: không có gợi ý và không chấm cho tới khi nộp bài.</p>
+    <div class="fb warn"><strong>Lưu ý:</strong><div class="body">Cấu trúc đề thi chính thức chưa được công bố. Đề thi thử này dùng cấu trúc tự suy ra: ${S.settings.mockMcq} câu trắc nghiệm + ${S.settings.mockCode} bài code trong ${S.settings.mockMinutes} phút, điểm = ${S.settings.mcqWeight}% trắc nghiệm + ${100-S.settings.mcqWeight}% code. Phần code dựa theo đề 2025 (5 câu thực hành). Bạn có thể đổi các thông số này trong Cài đặt.</div></div>
+    <div class="card"><div class="row"><div><strong>Đề mới</strong><div class="small muted">Ưu tiên câu chưa làm, chia đều các chủ đề ưu tiên cao; bài code lấy từ các dạng đề cũ ở nhiều chủ đề khác nhau.</div></div><span class="spacer"></span><button class="primary" id="start">Bắt đầu thi</button></div></div>
+    ${last?`<div class="card small">Lần gần nhất (${fmtDate(last.ts)}): <strong>${last.score.toFixed(1)}/10</strong> · trắc nghiệm ${last.mcqOk}/${last.mcqTotal} · code ${Math.round(last.codeRatio*100)}%. <a href="#/mock/result">Xem lại</a></div>`:''}`;
+    $('#start').onclick=()=>{S.activeMock=buildMock();save();route()};return}
+  const total=M.mcq.length+M.code.length;
+  const endAt=M.start+M.minutes*60000;
+  v.innerHTML=`<div class="row" style="margin-bottom:10px"><h1 style="margin:0">Đang thi thử</h1><span class="spacer"></span><span class="timer" id="timer"></span><button class="primary" id="finish">Nộp bài</button></div>
+  <div class="card"><div class="navgrid" id="navg"></div></div><div id="mbody"></div>`;
+  const tick=()=>{const left=endAt-Date.now();if(left<=0){clearInterval(mockTimer);gradeMock();return}
+    const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);const el=$('#timer');if(el){el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.style.color=left<300000?'var(--bad)':''}};
+  clearInterval(mockTimer);mockTimer=setInterval(tick,1000);tick();cleanup=()=>clearInterval(mockTimer);
+  const drawNav=()=>{$('#navg').innerHTML=[...M.mcq.map((id,i)=>`<button data-i="${i}" class="${M.ans[id]!==undefined?'done':''} ${M.cur===i?'cur':''}">${i+1}</button>`),...M.code.map((id,j)=>`<button data-i="${M.mcq.length+j}" class="${(M.codeSrc[id]||'')!==(C_BY_ID[id].starter||'')?'done':''} ${M.cur===M.mcq.length+j?'cur':''}">Code ${j+1}</button>`)].join('');
+    $$('#navg button').forEach(b=>b.onclick=()=>{M.cur=+b.dataset.i;save();drawNav();drawBody()})};
+  const drawBody=()=>{const b=$('#mbody');
+    if(M.cur<M.mcq.length){const q=Q_BY_ID[M.mcq[M.cur]];const plain=isPlain(q);
+      b.innerHTML=`<div class="card"><div class="small muted">Câu ${M.cur+1}/${M.mcq.length} · ${q.topic}</div><div style="font-size:16px;margin:6px 0">${inline(q.question)}</div>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+      ${q.options.map((o,i)=>`<button class="opt ${M.ans[q.id]===i?'sel':''}" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="t ${plain?'plain':''}">${esc(o)}</span></button>`).join('')}
+      <div class="row"><button id="prev" ${M.cur===0?'disabled':''}>Câu trước</button><button id="nxt">Câu sau</button></div></div>`;
+      $$('.opt',b).forEach(o=>o.onclick=()=>{M.ans[q.id]=+o.dataset.i;save();drawNav();drawBody()});
+    }else{const id=M.code[M.cur-M.mcq.length];const c=C_BY_ID[id];
+      b.innerHTML=`<div class="lab"><div class="card">${exerciseInfo(c,false)}<div class="small muted">Bộ test sẽ được chạy khi nộp bài.</div></div><div><div class="card" style="padding:14px">${editorHTML('med',M.codeSrc[id])}
+      <div class="row" style="margin-top:10px"><button id="mrun">Chạy thử</button><span class="small muted" id="mrs"></span></div>
+      ${c.mode==='stdio'?`<textarea id="mstdin" class="code" style="width:100%;min-height:60px" placeholder="Dữ liệu nhập cho chạy thử"></textarea>`:''}<div class="out" id="mout" style="margin-top:8px"></div></div>
+      <div class="row"><button id="prev">Câu trước</button><button id="nxt" ${M.cur===total-1?'disabled':''}>Câu sau</button></div></div></div>`;
+      const runIt=async()=>{$('#mrs').textContent='Đang chạy…';const r=await Py.exec('run',{src:$('#med').value,stdin:$('#mstdin')?$('#mstdin').value:'',files:c.files||{}});$('#mrs').textContent='';
+        $('#mout').innerHTML=r.ok?esc(r.result.stdout)+(r.result.error?`\n<span class="err">${esc(r.result.error)}</span>`:''):`<span class="err">${esc(r.error)}</span>`};
+      bindEditor('med',val=>{M.codeSrc[id]=val;save()},runIt);$('#mrun').onclick=runIt;
+    }
+    const pv=$('#prev'),nx=$('#nxt');if(pv)pv.onclick=()=>{M.cur=Math.max(0,M.cur-1);save();drawNav();drawBody()};if(nx)nx.onclick=()=>{M.cur=Math.min(total-1,M.cur+1);save();drawNav();drawBody()};
+  };
+  drawNav();drawBody();
+  $('#finish').onclick=()=>{const un=M.mcq.filter(id=>M.ans[id]===undefined).length;if(!confirm(`Nộp bài?${un?` Còn ${un} câu trắc nghiệm chưa chọn.`:''}`))return;gradeMock()};
+}
+async function gradeMock(){
+  const M=S.activeMock;if(!M||M.grading)return;M.grading=true;clearInterval(mockTimer);
+  $('#view').innerHTML='<h1>Đang chấm bài…</h1><p class="sub" id="gp">Chạy bộ test cho các bài code.</p>';
+  const byTopic={};const add=(t,ok,tot)=>{byTopic[t]=byTopic[t]||{ok:0,tot:0};byTopic[t].ok+=ok;byTopic[t].tot+=tot};
+  const mcqRes=M.mcq.map(id=>{const q=Q_BY_ID[id];const a=M.ans[id];const ok=a===q.answer;add(q.topic,ok?1:0,1);
+    const st=qs(id);if(!isSeen(q)){st.first=ok;st.firstTs=Date.now();if(ok)creditTags(q.topic,q.tags,id)}
+    st.attempts++;st.lastOk=ok;if(!ok){st.due=S.counter+3;logError({topic:q.topic,itemId:id,kind:'mcq',question:q.question+(q.code?'\n'+q.code:''),mistake:a===undefined?'Bỏ trống (thi thử)':`Chọn ${'ABCD'[a]}: ${q.options[a]} (thi thử)`,category:q.errorCategory,tags:q.tags,rootCause:`${CAT[q.errorCategory]||''}. ${q.hint}`,correct:q.explanation})}
+    S.counter++;return {id,a,ok}});
+  const codeRes=[];
+  for(const id of M.code){const c=C_BY_ID[id];const el=$('#gp');if(el)el.textContent=`Chấm ${c.id}…`;
+    const r=await Py.exec('test',{src:M.codeSrc[id],ex:c},Math.max(15,S.settings.timeoutSec*2)*1000);
+    let pass=0,list=[],err=null;if(r.ok){list=r.result;pass=list.filter(x=>x.ok).length}else err=r.error;
+    const st=S.c[id]||(S.c[id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
+    if(r.ok||r.timeout)recordSubmission(c,st,list,r.timeout?'timeout':undefined);
+    add(c.topic,pass/c.tests.length,1);codeRes.push({id,pass,total:c.tests.length,err,results:list})}
+  const mcqOk=mcqRes.filter(x=>x.ok).length;
+  const codeRatio=codeRes.length?codeRes.reduce((s,x)=>s+x.pass/x.total,0)/codeRes.length:0;
+  const w=S.settings.mcqWeight/100;
+  const score=10*((mcqRes.length?mcqOk/mcqRes.length:0)*(codeRes.length?w:1)+codeRatio*(mcqRes.length?1-w:1));
+  S.mocks.push({ts:Date.now(),score,mcqOk,mcqTotal:mcqRes.length,codeRatio,byTopic,minutesUsed:Math.round((Date.now()-M.start)/60000),detail:{mcq:mcqRes,code:codeRes.map(x=>({id:x.id,pass:x.pass,total:x.total,err:x.err}))},codeSrc:M.codeSrc});
+  S.activeMock=null;save();location.hash='#/mock/result';route();
+}
+function viewMockResult(v){
+  const m=S.mocks[S.mocks.length-1];if(!m){location.hash='#/mock';return}
+  const prev=S.mocks[S.mocks.length-2];
+  const weak=Object.entries(m.byTopic).filter(([,x])=>x.ok/x.tot<0.7).map(([t])=>t);
+  v.innerHTML=`<h1>Kết quả thi thử</h1><p class="sub">${fmtDate(m.ts)} · làm trong ${m.minutesUsed} phút · thang điểm suy luận (${S.settings.mcqWeight}% trắc nghiệm, ${100-S.settings.mcqWeight}% code)</p>
+  <div class="grid"><div class="metric"><div class="l">Điểm</div><div class="v">${m.score.toFixed(1)}/10</div><div class="d">${prev?(m.score>=prev.score?'+':'')+(m.score-prev.score).toFixed(1)+' so với lần trước':'Lần thi đầu tiên'}</div></div>
+  <div class="metric"><div class="l">Trắc nghiệm</div><div class="v">${m.mcqOk}/${m.mcqTotal}</div></div>
+  <div class="metric"><div class="l">Code (tỷ lệ test đạt)</div><div class="v">${Math.round(m.codeRatio*100)}%</div></div></div>
+  <h2>Theo chủ đề</h2><div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Chủ đề</th><th>Đạt</th><th></th></tr></thead><tbody>${Object.entries(m.byTopic).sort().map(([t,x])=>`<tr><td>${t} ${esc(TOPIC[t].name)}</td><td>${Math.round(x.ok*10)/10}/${x.tot}</td><td style="width:40%"><div class="bar ${x.ok/x.tot>=0.7?'ok':''}"><i style="width:${pct(x.ok,x.tot)}%"></i></div></td></tr>`).join('')}</tbody></table></div>
+  <div class="card"><strong>Kế hoạch cải thiện</strong><div class="md">${weak.length?md(weak.map(t=>`- ${t} ${TOPIC[t].name}: đọc lại mục "Bẫy" trong tài liệu, làm phiên ôn theo lỗi, rồi luyện thêm câu mới.`).join('\n')):'<p>Không có chủ đề dưới 70%. Hãy thi thêm một đề để xác nhận.</p>'}</div><div class="row"><a href="#/review"><button class="primary">Ôn lỗi vừa mắc</button></a><a href="#/mock"><button>Thi đề mới</button></a></div></div>
+  <h2>Chi tiết trắc nghiệm</h2>${m.detail.mcq.map((x,i)=>{const q=Q_BY_ID[x.id];if(!q)return '';return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer"><span class="st ${x.ok?'st-5':'st-3'}">${x.ok?'Đúng':'Sai'}</span> Câu ${i+1}: ${esc(q.question)} <code class="small">${q.id}</code></summary>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+    <div class="small">Bạn chọn: ${x.a===undefined?'bỏ trống':'ABCD'[x.a]+'. '+esc(q.options[x.a])}<br>Đáp án: ${'ABCD'[q.answer]}. ${esc(q.options[q.answer])}</div><div class="fb ${x.ok?'ok':'bad'}"><div class="body">${inline(q.explanation)}</div></div></details>`}).join('')}
+  <h2>Chi tiết code</h2>${m.detail.code.map(x=>{const c=C_BY_ID[x.id];return c?`<div class="card"><div class="row"><strong>${esc(c.title)}</strong><code>${c.id}</code><span class="spacer"></span><span class="st ${x.pass===x.total?'st-5':'st-3'}">${x.pass}/${x.total} test</span></div>${x.err?`<div class="out"><span class="err">${esc(x.err)}</span></div>`:''}<pre class="code">${esc((m.codeSrc||{})[x.id]||'')}</pre><a href="#/code/${c.id}"><button>Mở trong Coding Lab</button></a></div>`:''}).join('')}`;
+}
+
+/* ---------------- Settings ---------------- */
+function viewSettings(v){
+  const st=S.settings;
+  v.innerHTML=`<h1>Cài đặt và sao lưu</h1><p class="sub">Tiến độ được lưu trong trình duyệt này (localStorage). Hãy xuất file sao lưu để không mất dữ liệu khi xóa dữ liệu trình duyệt hoặc đổi máy.</p>
+  <div class="card"><h3 style="margin-top:0">Giao diện và chạy code</h3>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Giao diện</label><select id="s-theme"><option value="auto">Theo hệ thống</option><option value="light">Sáng</option><option value="dark">Tối</option></select></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian chạy tối đa (giây)</label><input type="number" id="s-timeout" min="2" max="60" value="${st.timeoutSec}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Python (Pyodide 0.26.4)</label><span class="small muted" id="pyst"></span><button id="s-load">Tải trước</button></div></div>
+  <div class="card"><h3 style="margin-top:0">Thi thử (cấu trúc tự suy ra)</h3>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Số câu trắc nghiệm</label><input type="number" id="s-mcq" min="5" max="60" value="${st.mockMcq}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Số bài code</label><input type="number" id="s-code" min="0" max="5" value="${st.mockCode}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian (phút)</label><input type="number" id="s-min" min="10" max="240" value="${st.mockMinutes}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Tỷ trọng trắc nghiệm (%)</label><input type="number" id="s-w" min="0" max="100" value="${st.mcqWeight}"></div>
+    <div id="s-err" class="small" style="color:var(--bad)"></div><button class="primary" id="s-save">Lưu cài đặt</button></div>
+  <div class="card"><h3 style="margin-top:0">Sao lưu dữ liệu</h3>
+    <div class="row"><button id="exp">Xuất file JSON</button><label><button id="impbtn">Nhập từ file JSON</button><input type="file" id="imp" accept="application/json,.json" hidden></label><span class="spacer"></span><button class="danger" id="reset">Xóa toàn bộ tiến độ</button></div>
+    <div class="small muted" id="imsg" style="margin-top:8px"></div></div>
+  <div class="card small muted">Ngân hàng: ${MCQ.length} câu trắc nghiệm (${MCQ.filter(q=>q.reserve).length} câu dự phòng), ${CODING.length} bài code. Nội dung soạn ${esc(BANK.meta.generated)}. ${esc(BANK.meta.note)}</div>`;
+  $('#s-theme').value=st.theme;
+  const ps=()=>{const e=$('#pyst');if(e)e.textContent={idle:'Chưa tải',loading:'Đang tải…',ready:'Sẵn sàng',error:'Lỗi: '+Py.error}[Py.status]};ps();
+  document.addEventListener('pystatus',ps);cleanup=()=>document.removeEventListener('pystatus',ps);
+  $('#s-load').onclick=()=>Py.start().catch(()=>{});
+  $('#s-theme').onchange=e=>{st.theme=e.target.value;save();applyTheme()};
+  $('#s-save').onclick=()=>{
+    const n=(id,a,b)=>{const x=Number($(id).value);return Number.isInteger(x)&&x>=a&&x<=b?x:null};
+    const vals={timeoutSec:n('#s-timeout',2,60),mockMcq:n('#s-mcq',5,60),mockCode:n('#s-code',0,5),mockMinutes:n('#s-min',10,240),mcqWeight:n('#s-w',0,100)};
+    const bad=Object.entries(vals).filter(([,x])=>x===null);
+    if(bad.length){$('#s-err').textContent='Có giá trị không hợp lệ. Kiểm tra lại các ô (số nguyên trong khoảng cho phép).';return}
+    Object.assign(st,vals);save();$('#s-err').textContent='';$('#s-save').textContent='Đã lưu';setTimeout(()=>{const b=$('#s-save');if(b)b.textContent='Lưu cài đặt'},1500)};
+  $('#exp').onclick=()=>{const blob=new Blob([JSON.stringify({app:'pyExamTrainer',exported:new Date().toISOString(),data:S},null,1)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`python-exam-progress-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+  $('#impbtn').onclick=()=>$('#imp').click();
+  $('#imp').onchange=async e=>{const f=e.target.files[0];if(!f)return;
+    try{const j=JSON.parse(await f.text());const d=j.data||j;
+      if(!d||typeof d!=='object'||d.version!==1||typeof d.q!=='object'||!Array.isArray(d.errors))throw new Error('File không đúng định dạng sao lưu của ứng dụng.');
+      if(!confirm('Nhập file này sẽ thay thế toàn bộ tiến độ hiện tại. Tiếp tục?'))return;
+      S=Object.assign(defaults(),d);S.settings=Object.assign(defaults().settings,d.settings||{});save();applyTheme();$('#imsg').textContent='Đã nhập dữ liệu.';session=null;renderNav('settings')}
+    catch(err){$('#imsg').textContent='Không nhập được: '+err.message}finally{e.target.value=''}};
+  $('#reset').onclick=()=>{if(!confirm('Xóa toàn bộ tiến độ, Error Log và lịch sử thi thử?'))return;if(!confirm('Thao tác này không hoàn tác được. Bạn đã xuất file sao lưu chưa? Bấm OK để xóa.'))return;
+    S=defaults();save();session=null;route()};
+}
+
+renderPyStatus();route();
+</script>
+</body>
+</html>
