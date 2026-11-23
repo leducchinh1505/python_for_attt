@@ -11,6 +11,12 @@ App bám theo format này ở hai chỗ:
 - **Thi thử**: hai phần tính giờ riêng (50 câu / 20 phút, rồi 2 bài / 15 phút). Tỷ trọng điểm thầy chưa công bố, app tạm tính 50/50.
 - **Luyện tốc độ**: mỗi câu có đồng hồ riêng 24 giây.
 
+## Cách chấm bài code
+- Mỗi bài là một chương trình hoàn chỉnh: tự đọc dữ liệu bằng `input()` và tự `print` kết quả. Mỗi bài có 10–15 test.
+- Bài yêu cầu viết hàm thì chương trình chính phải **gọi** hàm đó; chỉ viết hàm, hoặc in đúng kết quả mà không gọi hàm, đều không đạt.
+- So theo giá trị: bỏ qua khoảng trắng và dấu câu, `8.0` bằng `8`, cho phép chữ mô tả trước kết quả (ví dụ `Kết quả: 8`); chữ hoa/thường phải đúng (trừ True/False/None).
+- Mỗi dòng dữ liệu nhập là một lần `input()`, kể cả dòng trống.
+
 ## Mở app
 - Bấm đúp `index.html` để mở trong Chrome hoặc Edge.
 - Nếu trình duyệt chặn chạy code khi mở file trực tiếp, chạy lệnh sau trong thư mục này rồi mở http://localhost:8765:

@@ -115,29 +115,69 @@ def _prep_files(files):
             f.write(content)
 
 
-def _exec(src, filename, ns, stdin=''):
+def _exec(src, filename, ns, stdin=None, calls=None):
+    """Chạy src. Nếu `calls` là một set thì ghi lại (tên, qualname) của mọi hàm người dùng
+    tự định nghĩa đã được gọi (bỏ <module>, <lambda>, <genexpr>, ...)."""
     out = io.StringIO()
     inp = io.StringIO(stdin or '')
+    # Mỗi dòng của dữ liệu nhập là một lần input(), kể cả dòng trống:
+    # '' là một dòng trống, '0\n' là hai dòng ('0' và dòng trống).
+    # stdin None (chấm phần hàm theo kiểu cũ): không có dòng nhập nào.
+    lines = [] if stdin is None else stdin.replace('\r\n', '\n').split('\n')
+    pos = [0]
 
     def fake_input(prompt=''):
-        line = inp.readline()
-        if line == '':
+        if pos[0] >= len(lines):
             raise EOFError('chương trình gọi input() nhiều hơn số dòng dữ liệu nhập')
-        return line.rstrip('\n').rstrip('\r')
+        pos[0] += 1
+        return lines[pos[0] - 1]
+
+    def prof(frame, event, arg):
+        if event == 'call':
+            co = frame.f_code
+            if co.co_filename == USER_FILE and not co.co_name.startswith('<'):
+                calls.add((co.co_name, getattr(co, 'co_qualname', co.co_name)))
 
     old = sys.stdout, sys.stdin, builtins.input
     sys.stdout, sys.stdin, builtins.input = out, inp, fake_input
     err = None
     try:
         _register(filename, src)
-        exec(compile(src, filename, 'exec'), ns)
+        code = compile(src, filename, 'exec')
+        if calls is not None:
+            sys.setprofile(prof)
+        exec(code, ns)
     except SystemExit:
         pass
     except BaseException as e:
         err = _fmt_exc(e)
     finally:
+        if calls is not None:
+            sys.setprofile(None)
         sys.stdout, sys.stdin, builtins.input = old
     return out.getvalue()[:MAX_OUT], err
+
+
+def _check_required_call(required, calls, ns):
+    """Đề yêu cầu viết hàm (tên trong `required`) và chương trình phải GỌI nó.
+    Trả (ok, note, error_message)."""
+    if not required:
+        return True, None, None
+    names = [required] if isinstance(required, str) else list(required)
+    if any(n in names for n, _ in calls):
+        return True, None, None
+    defined = [n for n in names if isinstance(ns.get(n), type(_check_required_call))
+               and ns[n].__code__.co_filename == USER_FILE]
+    top_called = sorted({n for n, q in calls if '.' not in q})
+    if not defined and top_called:
+        return True, (f'Tên hàm khác đề (đề yêu cầu `{names[0]}`), đã chấp nhận hàm `{top_called[0]}` '
+                      'vì chương trình có viết và gọi hàm.'), None
+    want = ', '.join(f'`{n}`' for n in names)
+    if defined:
+        return False, None, (f'Chương trình có định nghĩa hàm {want} nhưng không gọi nó. '
+                             'Đề yêu cầu viết hàm rồi gọi hàm để tính và in kết quả.')
+    return False, None, (f'Đề yêu cầu viết hàm {want} và gọi hàm đó trong chương trình, '
+                         'nhưng chương trình không gọi hàm nào do bạn tự viết.')
 
 
 def run_program(src, stdin='', files=None):
@@ -152,10 +192,20 @@ def run_tests(src, ex):
         _prep_files(ex.get('files'))
         _prep_files(t.get('files'))
         if ex['mode'] == 'stdio':
-            out, err = _exec(src, USER_FILE, {'__name__': '__main__'}, t.get('input', ''))
+            required = ex.get('requireFunction')
+            calls = set() if required else None
+            ns = {'__name__': '__main__'}
+            out, err = _exec(src, USER_FILE, ns, t.get('input', ''), calls)
             match_ok, note = _match_stdout(out, t['expected'], t.get('input', ''))
             ok = err is None and match_ok
-            results.append({'ok': ok, 'got': out, 'error': err[1] if err else None, 'errType': err[0] if err else None,
+            error, err_type = (err[1], err[0]) if err else (None, None)
+            if err is None:
+                call_ok, call_note, call_err = _check_required_call(required, calls or set(), ns)
+                if not call_ok:
+                    ok, error, err_type = False, call_err, 'ChuaGoiHam'
+                elif call_note:
+                    note = ' '.join(x for x in (note, call_note) if x)
+            results.append({'ok': ok, 'got': out, 'error': error, 'errType': err_type,
                             'note': note if ok else None})
             continue
         ns = {'__name__': '__bai_lam__'}

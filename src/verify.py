@@ -78,6 +78,9 @@ def check_mcq(q):
     return out
 
 
+MAIN_MARK = '# ===== Chương trình chính ====='
+
+
 def check_code(ex):
     out = []
     if not 10 <= len(ex['tests']) <= 15:
@@ -97,6 +100,21 @@ def check_code(ex):
             out.append(f"test {i}: expected không khớp chặt với lời giải mẫu (note: {r['note']})")
     if res0 and all(r['ok'] for r in res0):
         out.append('code khởi đầu đã qua hết test')
+    if ex['mode'] == 'function':
+        out.append('bài dạng function: phải là chương trình tự đọc input và in kết quả (mode stdio + requireFunction)')
+    if ex.get('requireFunction'):
+        if MAIN_MARK not in ex['solution']:
+            out.append(f'lời giải thiếu dòng {MAIN_MARK!r}')
+        else:
+            with tempfile.TemporaryDirectory() as d:
+                cwd = os.getcwd()
+                os.chdir(d)
+                try:
+                    res1 = harness.run_tests(ex['solution'].split(MAIN_MARK)[0], ex)
+                finally:
+                    os.chdir(cwd)
+            if any(r['ok'] for r in res1):
+                out.append('chỉ viết hàm (không có chương trình chính) mà vẫn qua test')
     return out
 
 

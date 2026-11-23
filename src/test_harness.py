@@ -246,5 +246,81 @@ class FixRound1(unittest.TestCase):
         self.assertFalse(func("def f():" + NL + "    return '?'", 'f()', "'.'")['ok'])
 
 
+class InputLines(unittest.TestCase):
+    """Mỗi dòng dữ liệu nhập là một lần input(), kể cả dòng trống."""
+    def test_empty_input_is_one_empty_line(self):
+        ex = {'mode': 'stdio', 'tests': [{'input': '', 'expected': '0'}]}
+        r = run('s = input()\nprint(len(s))', ex)[0]
+        self.assertTrue(r['ok'], r)
+
+    def test_trailing_empty_line(self):
+        ex = {'mode': 'stdio', 'tests': [{'input': '0\n', 'expected': '0 []'}]}
+        r = run('n = int(input())\nds = input().split()\nprint(n, ds)', ex)[0]
+        self.assertTrue(r['ok'], r)
+
+    def test_reading_past_end_is_eof(self):
+        ex = {'mode': 'stdio', 'tests': [{'input': '5', 'expected': '5'}]}
+        r = run('a = input()\nb = input()\nprint(a)', ex)[0]
+        self.assertFalse(r['ok']); self.assertEqual(r['errType'], 'EOFError')
+
+
+class RequireFunctionCall(unittest.TestCase):
+    """Bài 'viết hàm' chấm như chương trình: phải tự đọc input, gọi hàm và in kết quả."""
+    EX = {'mode': 'stdio', 'requireFunction': ['tong'],
+          'tests': [{'input': '2 3', 'expected': '5'}, {'input': '10 -4', 'expected': '6'}]}
+
+    def check(self, src):
+        return run(src, self.EX)
+
+    def test_function_called_passes(self):
+        src = 'def tong(a, b):\n    return a + b\na, b = map(int, input().split())\nprint(tong(a, b))'
+        rs = self.check(src)
+        self.assertTrue(all(r['ok'] for r in rs)); self.assertTrue(all(r['note'] is None for r in rs))
+
+    def test_function_only_fails(self):
+        rs = self.check('def tong(a, b):\n    return a + b')
+        self.assertFalse(any(r['ok'] for r in rs))
+
+    def test_correct_output_without_calling_function_fails(self):
+        src = 'def tong(a, b):\n    return a + b\na, b = map(int, input().split())\nprint(a + b)'
+        rs = self.check(src)
+        self.assertFalse(any(r['ok'] for r in rs))
+        self.assertEqual(rs[0]['errType'], 'ChuaGoiHam')
+        self.assertIn('không gọi', rs[0]['error'])
+
+    def test_no_function_at_all_fails(self):
+        rs = self.check('a, b = map(int, input().split())\nprint(a + b)')
+        self.assertFalse(any(r['ok'] for r in rs))
+        self.assertEqual(rs[0]['errType'], 'ChuaGoiHam')
+
+    def test_other_function_name_accepted_with_note(self):
+        src = 'def cong(a, b):\n    return a + b\na, b = map(int, input().split())\nprint(cong(a, b))'
+        rs = self.check(src)
+        self.assertTrue(all(r['ok'] for r in rs)); self.assertIn('cong', rs[0]['note'])
+
+    def test_lambda_does_not_count(self):
+        src = 'f = lambda a, b: a + b\na, b = map(int, input().split())\nprint(f(a, b))'
+        self.assertFalse(any(r['ok'] for r in self.check(src)))
+
+    def test_method_alone_does_not_satisfy(self):
+        src = ('class C:\n    def tong(self, a, b):\n        return a + b\n'
+               'a, b = map(int, input().split())\nprint(C().tong(a, b))')
+        # phương thức trùng tên vẫn tính (co_name == 'tong'): đề yêu cầu hàm tên tong và nó đã được gọi
+        self.assertTrue(all(r['ok'] for r in self.check(src)))
+
+    def test_wrong_value_still_fails(self):
+        src = 'def tong(a, b):\n    return a - b\na, b = map(int, input().split())\nprint(tong(a, b))'
+        self.assertFalse(any(r['ok'] for r in self.check(src)))
+
+    def test_profiler_cleared_after_run(self):
+        self.check('def tong(a, b):\n    return a + b\nprint(tong(*map(int, input().split())))')
+        self.assertIsNone(sys.getprofile())
+
+    def test_no_requirement_keeps_old_behavior(self):
+        ex = {'mode': 'stdio', 'tests': [{'input': '2 3', 'expected': '5'}]}
+        r = run('a, b = map(int, input().split())\nprint(a + b)', ex)[0]
+        self.assertTrue(r['ok'])
+
+
 if __name__ == '__main__':
     unittest.main()
