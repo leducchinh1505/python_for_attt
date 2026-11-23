@@ -39,6 +39,9 @@ class StdioTests(unittest.TestCase):
         r = stdio('8.0', '8')
         self.assertTrue(r['ok']); self.assertIsNotNone(r['note'])
 
+    def test_float_close(self):
+        self.assertTrue(stdio('0.30000000000000004', '0.3')['ok'])
+
     def test_descriptive_prefix(self):
         r = stdio('Kết quả: 8', '8')
         self.assertTrue(r['ok']); self.assertIn('chữ mô tả', r['note'])
@@ -56,10 +59,39 @@ class StdioTests(unittest.TestCase):
     def test_extra_value_word(self):
         self.assertFalse(stdio('True False', 'True')['ok'])
 
-    def test_prefix_word_not_in_expected_is_accepted(self):
-        # documented behaviour: 'usd' is not in expected, so it counts as descriptive text
-        r = stdio('USD EUR', 'EUR')
+    def test_prefix_word_from_stdin_is_rejected(self):
+        # 'USD' là dữ liệu nhập vào, không phải chữ mô tả
+        self.assertFalse(stdio('USD EUR', 'EUR', 'USD 25100\nEUR 27200')['ok'])
+
+    def test_prefix_word_from_stdin_case_insensitive(self):
+        self.assertFalse(stdio('usd EUR', 'EUR', 'USD 25100\nEUR 27200')['ok'])
+
+    def test_prefix_word_not_in_stdin_or_expected_is_accepted(self):
+        r = stdio('Max EUR', 'EUR', 'USD 25100\nEUR 27200')
         self.assertTrue(r['ok']); self.assertIn('chữ mô tả', r['note'])
+
+    def test_label_prefix_with_stdin(self):
+        r = stdio('Kết quả: 8', '8', '3 5')
+        self.assertTrue(r['ok']); self.assertIn('chữ mô tả', r['note'])
+
+    def test_case_differs_fails(self):
+        self.assertFalse(stdio('nguyen van a', 'Nguyen Van A')['ok'])
+
+    def test_case_differs_label_line_fails(self):
+        self.assertFalse(stdio('Tên: nguyen', 'Nguyen')['ok'])
+
+    def test_value_word_case_insensitive(self):
+        r = stdio('true', 'True')
+        self.assertTrue(r['ok']); self.assertIsNotNone(r['note'])
+
+    def test_value_word_prefix_rejected_any_case(self):
+        self.assertFalse(stdio('TRUE False', 'False')['ok'])
+
+    def test_big_int_not_close(self):
+        self.assertFalse(stdio('1000000001', '1000000000')['ok'])
+
+    def test_big_int_with_label_not_close(self):
+        self.assertFalse(stdio('Tổng: 1000000001', '1000000000')['ok'])
 
     def test_empty_expected_empty_got(self):
         r = stdio('', '')
@@ -104,9 +136,33 @@ class FunctionTests(unittest.TestCase):
     def test_print_wrong_value(self):
         self.assertFalse(func('def f(x):\n    print(x + 5)', 'f(2)', '3')['ok'])
 
-    def test_string_case(self):
-        r = func("def f():\n    return 'bill: 2'", 'f()', "'Bill: 2'")
+    def test_string_case_fails(self):
+        self.assertFalse(func("def f():\n    return 'bill: 2'", 'f()', "'Bill: 2'")['ok'])
+
+    def test_string_punct_spacing(self):
+        r = func("def f():\n    return 'Bill : 2'", 'f()', "'Bill: 2'")
         self.assertTrue(r['ok']); self.assertIsNotNone(r['note'])
+
+    def test_string_value_word_case(self):
+        r = func("def f():\n    return 'true'", 'f()', "'True'")
+        self.assertTrue(r['ok']); self.assertIsNotNone(r['note'])
+
+    def test_print_case_fails(self):
+        self.assertFalse(func("def f():\n    print('nguyen')", 'f()', "'Nguyen'")['ok'])
+
+    def test_big_int_string(self):
+        self.assertFalse(func("def f():\n    return '1000000001'", 'f()', "'1000000000'")['ok'])
+
+    def test_alias_note_kept_on_failure(self):
+        r = func('def g(x):\n    return x', 'f(2)', '3')
+        self.assertFalse(r['ok']); self.assertIn('`g`', r['note'])
+
+    def test_alias_note_kept_on_error(self):
+        r = func('def g(x):\n    return 1 / 0', 'f(2)', '3')
+        self.assertFalse(r['ok']); self.assertEqual(r['errType'], 'ZeroDivisionError'); self.assertIn('`g`', r['note'])
+
+    def test_no_note_on_plain_failure(self):
+        self.assertIsNone(func('def f(x):\n    return x', 'f(2)', '3')['note'])
 
     def test_bool_vs_int(self):
         self.assertFalse(func('def f():\n    return 1', 'f()', 'True')['ok'])
@@ -115,6 +171,41 @@ class FunctionTests(unittest.TestCase):
         r = func('def f():\n    return 1', 'f()', '1')
         for k in ('ok', 'got', 'printed', 'error', 'errType', 'note'):
             self.assertIn(k, r)
+
+
+def load_ex(ex_id):
+    import json
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    with open(os.path.join(root, 'data', 'coding.json'), encoding='utf-8') as fh:
+        data = json.load(fh)
+    exs = data if isinstance(data, list) else data.get('exercises', data)
+    return next(e for e in exs if e['id'] == ex_id)
+
+
+class FixFinal(unittest.TestCase):
+    def test_T1_C02_identity_fails(self):
+        ex = load_ex('T1-C02')
+        bad = run('def standardize_name(raw_name):\n    return raw_name', ex)
+        self.assertLess(sum(r['ok'] for r in bad), len(ex['tests']) // 2)
+        good = run(ex['solution'], ex)
+        self.assertTrue(all(r['ok'] and r['note'] is None for r in good))
+
+    def test_T4_C11_running_max_fails(self):
+        ex = load_ex('T4-C11')
+        src = NL.join([
+            'n = int(input())', 'mx = -1',
+            'for _ in range(n):', '    p = input().split()',
+            '    if int(p[1]) > mx:', '        mx = int(p[1])', "        print(p[0], end=' ')",
+        ])
+        self.assertFalse(all(r['ok'] for r in run(src, ex)))
+        good = run(ex['solution'], ex)
+        self.assertTrue(all(r['ok'] and r['note'] is None for r in good))
+
+    def test_T4_C11_label_passes(self):
+        ex = load_ex('T4-C11')
+        src = ex['solution'].replace('print(best_currency)', "print('Kết quả:', best_currency)")
+        self.assertNotEqual(src, ex['solution'])
+        self.assertTrue(all(r['ok'] for r in run(src, ex)))
 
 
 class FilesPerTest(unittest.TestCase):

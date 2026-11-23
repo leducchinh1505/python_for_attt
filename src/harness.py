@@ -31,7 +31,7 @@ def _cmp_loose(a, b):
     if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
         return len(a) == len(b) and all(_cmp_loose(x, y) for x, y in zip(a, b))
     if isinstance(a, str) and isinstance(b, str):
-        return a == b or (bool(_tokens(b)) and _tokens(a) == _tokens(b))
+        return a == b or (bool(_tokens(b)) and _toks_eq(_tokens(a), _tokens(b)))
     if isinstance(a, dict) and isinstance(b, dict):
         return a.keys() == b.keys() and all(_cmp_loose(a[k], b[k]) for k in a)
     if isinstance(a, (set, frozenset)) and isinstance(b, (set, frozenset)):
@@ -40,30 +40,36 @@ def _cmp_loose(a, b):
 
 
 def _tokens(s):
-    return _TOKEN_RE.findall(s.lower())
+    return _TOKEN_RE.findall(s)
 
 
 def _tok_eq(a, b):
     if _NUM_RE.match(a) and _NUM_RE.match(b):
+        if '.' not in a and '.' not in b:
+            return int(a) == int(b)
         return math.isclose(float(a), float(b), rel_tol=1e-9, abs_tol=1e-6)
-    return a == b
+    if a == b:
+        return True
+    # Chữ phân biệt hoa/thường, trừ các từ giá trị (True/true, None/none, ...).
+    return a.lower() == b.lower() and a.lower() in VALUE_WORDS
 
 
 def _toks_eq(xs, ys):
     return len(xs) == len(ys) and all(_tok_eq(x, y) for x, y in zip(xs, ys))
 
 
-def _match_stdout(got, expected):
+def _match_stdout(got, expected, stdin=''):
     if _norm(got) == _norm(expected):
         return True, None
     gt, et = _tokens(got), _tokens(expected)
     if et and _toks_eq(gt, et):
-        return True, 'Đúng giá trị; khác cách trình bày (khoảng trắng/dấu câu/hoa thường).'
+        return True, 'Đúng giá trị; khác cách trình bày (khoảng trắng/dấu câu).'
     g_lines = [l for l in _norm(got).split(chr(10)) if l.strip()]
     e_lines = [l for l in _norm(expected).split(chr(10)) if l.strip()]
     if not e_lines or len(g_lines) != len(e_lines):
         return False, None
-    e_all = set(et)
+    e_all = {w.lower() for w in et}
+    in_all = {w.lower() for w in _tokens(stdin or '')}
     for gl, el in zip(g_lines, e_lines):
         g, e = _tokens(gl), _tokens(el)
         if not e:
@@ -76,7 +82,8 @@ def _match_stdout(got, expected):
         if k <= 0 or not _toks_eq(g[k:], e):
             return False, None
         prefix = g[:k]
-        if any(_NUM_RE.match(w) or w in VALUE_WORDS or w in e_all for w in prefix):
+        if any(_NUM_RE.match(w) or w.lower() in VALUE_WORDS or w.lower() in e_all or w.lower() in in_all
+               for w in prefix):
             return False, None
     return True, 'Đúng giá trị; có thêm chữ mô tả trước kết quả.'
 
@@ -146,7 +153,7 @@ def run_tests(src, ex):
         _prep_files(t.get('files'))
         if ex['mode'] == 'stdio':
             out, err = _exec(src, USER_FILE, {'__name__': '__main__'}, t.get('input', ''))
-            match_ok, note = _match_stdout(out, t['expected'])
+            match_ok, note = _match_stdout(out, t['expected'], t.get('input', ''))
             ok = err is None and match_ok
             results.append({'ok': ok, 'got': out, 'error': err[1] if err else None, 'errType': err[0] if err else None,
                             'note': note if ok else None})
@@ -168,11 +175,14 @@ def run_tests(src, ex):
                 ns[want] = mine[0][1]
         code = (t.get('setup') or '') + '\n__ket_qua__ = (' + t['call'] + ')\n'
         out2, err2 = _exec(code, TEST_FILE, ns)
-        if err2:
-            results.append({'ok': False, 'got': '', 'printed': out2, 'error': err2[1], 'errType': err2[0], 'note': None})
-            continue
+        alias_note = None
         if alias and ns.get(alias[0]) is alias[2]:
-            notes.append(f'Tên hàm khác đề (đề yêu cầu `{alias[0]}`), đã chấm bằng hàm `{alias[1]}`.')
+            alias_note = f'Tên hàm khác đề (đề yêu cầu `{alias[0]}`), đã chấm bằng hàm `{alias[1]}`.'
+            notes.append(alias_note)
+        if err2:
+            results.append({'ok': False, 'got': '', 'printed': out2, 'error': err2[1], 'errType': err2[0],
+                            'note': alias_note})
+            continue
         got = ns.get('__ket_qua__')
         ok = False
         try:
@@ -189,7 +199,8 @@ def run_tests(src, ex):
                     notes.append('Hàm dùng print thay vì return; được chấp nhận, nhưng đề yêu cầu trả về (return) giá trị.')
         except Exception:
             ok = False
-        note = ' '.join(notes) if ok and notes else None
+        # Test sai vẫn giữ ghi chú tên hàm để học sinh biết hàm nào đã được gọi.
+        note = (' '.join(notes) or None) if ok else alias_note
         results.append({'ok': ok, 'got': repr(got), 'printed': out2, 'error': None, 'errType': None, 'note': note})
     return results
 
