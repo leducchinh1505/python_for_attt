@@ -686,6 +686,14 @@ function viewCode(v,[cid],params){
   <div class="row" style="margin-bottom:12px"><a href="#/code"><button class="${!tf?'primary':''}">Tất cả</button></a>${TOPICS.map(t=>`<a href="#/code?topic=${t.id}"><button class="${t.id===tf?'primary':''}">${t.id}</button></a>`).join('')}</div>
   ${items.map(c=>`<a href="#/code/${c.id}" style="color:inherit;text-decoration:none"><div class="list-item"><code>${c.id}</code><div style="flex:1">${esc(c.title)}<div class="small muted">${esc(TOPIC[c.topic].name)}${c.reserve?' · bài dự phòng':''}</div></div>${srcBadge(c.source)}<span class="badge">${DIFF[c.difficulty]}</span>${codeBadge(c)}</div></a>`).join('')}`;
 }
+function testHTML(c,t,i){
+  const body=c.mode==='stdio'?'Input:\n'+(t.input||'')+'\n\nOutput mong đợi:\n'+(t.expected||''):(t.setup?t.setup+'\n':'')+t.call+'\n\nGiá trị mong đợi: '+t.expected;
+  const fl=t.files&&Object.keys(t.files).length?Object.entries(t.files).map(([n,x])=>`<div class="small">File <code>${esc(n)}</code>:</div><pre class="code" style="margin:2px 0;max-height:120px">${esc(x)}</pre>`).join(''):'';
+  return `<div style="margin:8px 0"><div class="small"><strong>Test ${i+1}</strong></div><pre class="code" style="margin:2px 0">${esc(body)}</pre>${fl}</div>`;
+}
+function gradingRule(c){
+  return `<div class="small muted" style="margin-top:8px"><strong>Cách chấm:</strong> chạy ${c.tests.length} test, so theo giá trị; không phân biệt khoảng trắng, dấu câu, hoa/thường; chấp nhận chữ mô tả trước kết quả (ví dụ <code>Kết quả: 8</code>); <code>8.0</code> bằng <code>8</code>.${c.mode==='function'?' Bài viết hàm: chấp nhận list/tuple tương đương, tên hàm khác nếu code chỉ định nghĩa một hàm, và print thay vì return (sẽ có nhắc).':''}</div>`;
+}
 function exerciseInfo(c,showTests){
   return `<div class="row" style="margin-bottom:6px"><span class="badge">${c.topic}</span><span class="badge">${DIFF[c.difficulty]}</span>${srcBadge(c.source)}<span class="badge">${c.mode==='stdio'?'Nhập/xuất chuẩn':'Viết hàm'}</span></div>
   <h2 style="margin:6px 0">${esc(c.title)}</h2><div class="md">${md(c.statement)}</div>
@@ -693,7 +701,7 @@ function exerciseInfo(c,showTests){
   ${c.constraints?`<h4>Ràng buộc</h4><div class="md">${md(c.constraints)}</div>`:''}
   ${c.examples?`<h4>Ví dụ</h4><pre class="code">${esc(c.examples)}</pre>`:''}
   ${c.files&&Object.keys(c.files).length?`<h4>File có sẵn khi chạy</h4>${Object.entries(c.files).map(([n,t])=>`<div class="small"><code>${esc(n)}</code></div><pre class="code" style="max-height:140px">${esc(t)}</pre>`).join('')}`:''}
-  ${showTests?`<h4>Test dùng để chấm (${c.tests.length})</h4>${c.tests.map((t,i)=>`<pre class="code" style="margin:4px 0">${esc(c.mode==='stdio'?'# Test '+(i+1)+' – input:\n'+t.input:'# Test '+(i+1)+'\n'+(t.setup?t.setup+'\n':'')+t.call+'  # mong đợi: '+t.expected)}</pre>`).join('')}`:''}`;
+  ${showTests?`<details class="card" style="padding:8px 12px;margin-top:10px"><summary style="cursor:pointer"><strong>Bộ test (${c.tests.length})</strong></summary>${c.tests.map((t,i)=>testHTML(c,t,i)).join('')}</details>`:`<div class="small muted" style="margin-top:8px">Chấm bằng ${c.tests.length} test khi nộp bài.</div>`}`;
 }
 function viewExercise(v,c){
   const st=S.c[c.id]||(S.c[c.id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
@@ -704,6 +712,7 @@ function viewExercise(v,c){
     <div class="row" style="margin-top:12px"><button id="btn-hint">${st.hint?'Xem lại gợi ý':'Gợi ý'}</button><button id="btn-sol">Xem lời giải</button></div>
     <div class="small muted" style="margin-top:6px">Dùng gợi ý hoặc xem lời giải thì bài này không được tính là tự giải.</div></div>
   <div><div class="card" style="padding:14px">${editorHTML('ed',st.code)}
+    ${gradingRule(c)}
     <div class="row" style="margin-top:10px"><button id="btn-run">Chạy thử</button><button class="primary" id="btn-sub">Nộp bài</button><button class="ghost" id="btn-reset">Khôi phục code ban đầu</button><span class="spacer"></span><span class="kbd">Ctrl+Enter: chạy thử</span></div>
     ${c.mode==='stdio'?`<div style="margin-top:10px"><div class="small muted">Dữ liệu nhập cho "Chạy thử" (mỗi dòng một lần input()):</div><textarea id="stdin" class="code" style="width:100%;min-height:70px;white-space:pre">${esc(c.tests[0]?c.tests[0].input:'')}</textarea></div>`:''}
     </div>
@@ -736,10 +745,12 @@ function viewExercise(v,c){
       if(r.timeout)recordSubmission(c,st,[],'timeout');return}
     const list=r.result;recordSubmission(c,st,list);
     const pass=list.filter(x=>x.ok).length;
-    res.innerHTML=`<div class="fb ${pass===list.length?'ok':'bad'}"><strong>${pass}/${list.length} test đạt.</strong>${pass===list.length?`<div class="body">${st.indep?'Bài được tính là tự giải.':'Bài đạt nhưng không tính là tự giải vì đã dùng gợi ý hoặc lời giải.'}${st.variant?` Thử biến thể: <a href="#/code/${st.variant}">${st.variant}</a>`:''}</div>`:'<div class="body">Sửa lỗi ở test đầu tiên bị sai rồi nộp lại.</div>'}</div>`+
-      list.map((x,i)=>{const t=c.tests[i];return `<div class="tc ${x.ok?'ok':'bad'}"><strong>Test ${i+1}: ${x.ok?'Đạt':'Sai'}</strong>
+    res.innerHTML=`<div class="fb ${pass===list.length?'ok':'bad'}"><strong>${pass}/${list.length} test đạt (${pct(pass,list.length)}%)</strong>${pass===list.length?`<div class="body">${st.indep?'Bài được tính là tự giải.':'Bài đạt nhưng không tính là tự giải vì đã dùng gợi ý hoặc lời giải.'}${st.variant?` Thử biến thể: <a href="#/code/${st.variant}">${st.variant}</a>`:''}</div>`:'<div class="body">Sửa lỗi ở test đầu tiên bị sai rồi nộp lại.</div>'}</div>`+
+      list.map((x,i)=>{const t=c.tests[i];
+      if(x.ok)return `<div class="tc ok"><strong>Test ${i+1}: Đạt</strong>${x.note?` <span class="small" style="color:var(--warn,#b45309)">${esc(x.note)}</span>`:''}</div>`;
+      return `<div class="tc bad"><strong>Test ${i+1}: Sai</strong>
       ${c.mode==='stdio'?`<pre>Input:\n${esc(t.input)}</pre>`:`<pre>${esc((t.setup?t.setup+'\n':'')+t.call)}</pre>`}
-      ${x.ok?'':`<pre>Mong đợi: ${esc(t.expected)}\nNhận được: ${esc(c.mode==='stdio'?x.got:x.got)}</pre>`}${x.error?`<pre style="color:var(--bad)">${esc(x.error)}</pre>`:''}${x.printed&&!x.ok?`<pre class="muted">Bạn in ra: ${esc(x.printed)}</pre>`:''}</div>`}).join('');
+      <pre>Mong đợi: ${esc(t.expected)}\nNhận được: ${esc(x.got)}</pre>${x.error?`<pre style="color:var(--bad)">${esc(x.error)}</pre>`:''}${x.printed?`<pre class="muted">Bạn in ra: ${esc(x.printed)}</pre>`:''}</div>`}).join('');
   };
 }
 function codeErrCategory(list,kind){
@@ -864,7 +875,8 @@ function viewMock(v,[sub]){
       $$('.opt',b).forEach(o=>o.onclick=()=>{M.ans[q.id]=+o.dataset.i;save();drawNav();drawBody();tick()});
       $('#prev').onclick=()=>go(Math.max(0,M.cur-1));$('#nxt').onclick=()=>go(Math.min(M.mcq.length-1,M.cur+1));
     }else{const id=M.code[M.curCode];const c=C_BY_ID[id];
-      b.innerHTML=`<div class="lab"><div class="card">${exerciseInfo(c,false)}<div class="small muted">Bộ test sẽ được chạy khi nộp bài.</div></div><div><div class="card" style="padding:14px">${editorHTML('med',M.codeSrc[id])}
+      b.innerHTML=`<div class="lab"><div class="card">${exerciseInfo(c,false)}</div><div><div class="card" style="padding:14px">${editorHTML('med',M.codeSrc[id])}
+      ${gradingRule(c)}
       <div class="row" style="margin-top:10px"><button id="mrun">Chạy thử</button><span class="small muted" id="mrs"></span></div>
       ${c.mode==='stdio'?`<textarea id="mstdin" class="code" style="width:100%;min-height:60px" placeholder="Dữ liệu nhập cho chạy thử"></textarea>`:''}<div class="out" id="mout" style="margin-top:8px"></div></div>
       <div class="row"><button id="prev" ${M.curCode===0?'disabled':''}>Bài trước</button><button id="nxt" ${M.curCode===M.code.length-1?'disabled':''}>Bài sau</button></div></div></div>`;
@@ -904,12 +916,13 @@ async function gradeMock(){
     if(untouched){pass=0;err='Chưa làm bài (code giữ nguyên như ban đầu), tính 0 điểm.'}
     const st=S.c[id]||(S.c[id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
     if(!untouched&&(r.ok||r.timeout))recordSubmission(c,st,list,r.timeout?'timeout':undefined);
-    add(c.topic,pass/c.tests.length,1);codeRes.push({id,pass,total:c.tests.length,err,results:list})}
+    add(c.topic,pass/c.tests.length,1);const fl=untouched?[]:list.map((x,i)=>x.ok?-1:i).filter(i=>i>=0).slice(0,15);
+    codeRes.push({id,pass,total:c.tests.length,err,fails:fl,failErrs:fl.map(i=>String(list[i].error||'').split('\n').filter(Boolean).pop()||''),notes:untouched?[]:[...new Set(list.map(x=>x.note).filter(Boolean))]})}
   const mcqOk=mcqRes.filter(x=>x.ok).length;
   const codeRatio=codeRes.length?codeRes.reduce((s,x)=>s+x.pass/x.total,0)/codeRes.length:0;
   const w=S.settings.mcqWeight/100;
   const score=10*((mcqRes.length?mcqOk/mcqRes.length:0)*(codeRes.length?w:1)+codeRatio*(mcqRes.length?1-w:1));
-  S.mocks.push({ts:Date.now(),score,mcqOk,mcqTotal:mcqRes.length,codeRatio,byTopic,minutesUsed:Math.round((Date.now()-M.start)/60000),mcqSec:M.mcqSec,codeSec,w:S.settings.mcqWeight,detail:{mcq:mcqRes,code:codeRes.map(x=>({id:x.id,pass:x.pass,total:x.total,err:x.err}))},codeSrc:M.codeSrc});
+  S.mocks.push({ts:Date.now(),score,mcqOk,mcqTotal:mcqRes.length,codeRatio,byTopic,minutesUsed:Math.round((Date.now()-M.start)/60000),mcqSec:M.mcqSec,codeSec,w:S.settings.mcqWeight,detail:{mcq:mcqRes,code:codeRes},codeSrc:M.codeSrc});
   S.activeMock=null;save();location.hash='#/mock/result';route();
 }
 function viewMockResult(v){
@@ -924,7 +937,7 @@ function viewMockResult(v){
   <div class="card"><strong>Kế hoạch cải thiện</strong><div class="md">${weak.length?md(weak.map(t=>`- ${t} ${TOPIC[t].name}: đọc lại mục "Bẫy" trong tài liệu, làm phiên ôn theo lỗi, rồi luyện thêm câu mới.`).join('\n')):'<p>Không có chủ đề dưới 70%. Hãy thi thêm một đề để xác nhận.</p>'}</div><div class="row"><a href="#/review"><button class="primary">Ôn lỗi vừa mắc</button></a><a href="#/mock"><button>Thi đề mới</button></a></div></div>
   <h2>Chi tiết trắc nghiệm</h2>${m.detail.mcq.map((x,i)=>{const q=Q_BY_ID[x.id];if(!q)return '';return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer"><span class="st ${x.ok?'st-5':'st-3'}">${x.ok?'Đúng':'Sai'}</span> Câu ${i+1}: ${esc(q.question)} <code class="small">${q.id}</code></summary>${qBody(q,14,true)}
     <div class="small">Bạn chọn: ${x.a===undefined?'bỏ trống':'ABCD'[x.a]+'. '+esc(q.options[x.a])}<br>Đáp án: ${'ABCD'[q.answer]}. ${esc(q.options[q.answer])}</div><div class="fb ${x.ok?'ok':'bad'}"><div class="body">${inline(q.explanation)}</div></div></details>`}).join('')}
-  <h2>Chi tiết code</h2>${m.detail.code.map(x=>{const c=C_BY_ID[x.id];return c?`<div class="card"><div class="row"><strong>${esc(c.title)}</strong><code>${c.id}</code><span class="spacer"></span><span class="st ${x.pass===x.total?'st-5':'st-3'}">${x.pass}/${x.total} test</span></div>${x.err?`<div class="out"><span class="err">${esc(x.err)}</span></div>`:''}<pre class="code">${esc((m.codeSrc||{})[x.id]||'')}</pre><a href="#/code/${c.id}"><button>Mở trong Coding Lab</button></a></div>`:''}).join('')}`;
+  <h2>Chi tiết code</h2>${m.detail.code.map(x=>{const c=C_BY_ID[x.id];return c?`<div class="card"><div class="row"><strong>${esc(c.title)}</strong><code>${c.id}</code><span class="spacer"></span><span class="st ${x.pass===x.total?'st-5':'st-3'}">${x.pass}/${x.total} test</span></div>${x.err?`<div class="out"><span class="err">${esc(x.err)}</span></div>`:''}${Array.isArray(x.fails)&&x.fails.length?`<div class="small" style="margin:6px 0"><strong>Test sai:</strong> ${x.fails.map((f,k)=>'Test '+(f+1)+(x.failErrs&&x.failErrs[k]?' ('+esc(x.failErrs[k])+')':'')).join('; ')}</div>`:''}${Array.isArray(x.notes)&&x.notes.length?`<div class="small" style="margin:6px 0;color:var(--warn,#b45309)">${x.notes.map(esc).join('<br>')}</div>`:''}<pre class="code">${esc((m.codeSrc||{})[x.id]||'')}</pre><a href="#/code/${c.id}"><button>Mở trong Coding Lab</button></a></div>`:''}).join('')}`;
 }
 
 /* ---------------- Settings ---------------- */
