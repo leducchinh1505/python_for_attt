@@ -917,7 +917,7 @@ async function gradeMock(){
     const st=S.c[id]||(S.c[id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
     if(!untouched&&(r.ok||r.timeout))recordSubmission(c,st,list,r.timeout?'timeout':undefined);
     add(c.topic,pass/c.tests.length,1);const fl=untouched?[]:list.map((x,i)=>x.ok?-1:i).filter(i=>i>=0).slice(0,15);
-    codeRes.push({id,pass,total:c.tests.length,err,fails:fl,failErrs:fl.map(i=>String(list[i].error||'').split('\n').filter(Boolean).pop()||''),notes:untouched?[]:[...new Set(list.map(x=>x.note).filter(Boolean))]})}
+    codeRes.push({id,pass,total:c.tests.length,err,fails:fl,failErrs:fl.map(i=>(String(list[i].error||'').split('\n').filter(Boolean).pop()||'').slice(0,200)),notes:untouched?[]:[...new Set(list.map(x=>x.note).filter(Boolean))]})}
   const mcqOk=mcqRes.filter(x=>x.ok).length;
   const codeRatio=codeRes.length?codeRes.reduce((s,x)=>s+x.pass/x.total,0)/codeRes.length:0;
   const w=S.settings.mcqWeight/100;
