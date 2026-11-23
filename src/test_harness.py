@@ -23,6 +23,8 @@ def func(src, call, expected, setup=''):
     ex = {'mode': 'function', 'tests': [{'setup': setup, 'call': call, 'expected': expected}]}
     return run(src, ex)[0]
 
+NL = chr(10)
+
 
 class StdioTests(unittest.TestCase):
     def test_exact(self):
@@ -131,6 +133,26 @@ class FilesPerTest(unittest.TestCase):
             {'call': 'f()', 'expected': "'B'", 'files': {'d.txt': 'B'}},
         ]}
         self.assertEqual([r['ok'] for r in run(src, ex)], [True, True])
+
+
+class FixRound1(unittest.TestCase):
+    def test_noop_vs_empty_list(self):
+        self.assertFalse(func('def f(): pass', 'f()', '[]')['ok'])
+
+    def test_noop_vs_empty_string(self):
+        self.assertFalse(func('def f(): pass', 'f()', "''")['ok'])
+
+    def test_stars_wrong_shape(self):
+        self.assertFalse(stdio(NL.join(['**', '**', '*']), NL.join(['***', '**', '*']))['ok'])
+
+    def test_stars_vs_letters(self):
+        self.assertFalse(stdio(NL.join('abc'), NL.join(['***', '**', '*']))['ok'])
+
+    def test_stars_trailing_spaces(self):
+        self.assertTrue(stdio(NL.join(['***  ', '**', '*  ']), NL.join(['***', '**', '*']))['ok'])
+
+    def test_punct_strings_differ(self):
+        self.assertFalse(func("def f():" + NL + "    return '?'", 'f()', "'.'")['ok'])
 
 
 if __name__ == '__main__':

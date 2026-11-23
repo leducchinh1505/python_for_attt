@@ -31,7 +31,7 @@ def _cmp_loose(a, b):
     if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
         return len(a) == len(b) and all(_cmp_loose(x, y) for x, y in zip(a, b))
     if isinstance(a, str) and isinstance(b, str):
-        return a == b or _tokens(a) == _tokens(b)
+        return a == b or (bool(_tokens(b)) and _tokens(a) == _tokens(b))
     if isinstance(a, dict) and isinstance(b, dict):
         return a.keys() == b.keys() and all(_cmp_loose(a[k], b[k]) for k in a)
     if isinstance(a, (set, frozenset)) and isinstance(b, (set, frozenset)):
@@ -57,7 +57,7 @@ def _match_stdout(got, expected):
     if _norm(got) == _norm(expected):
         return True, None
     gt, et = _tokens(got), _tokens(expected)
-    if _toks_eq(gt, et):
+    if et and _toks_eq(gt, et):
         return True, 'Đúng giá trị; khác cách trình bày (khoảng trắng/dấu câu/hoa thường).'
     g_lines = [l for l in _norm(got).split(chr(10)) if l.strip()]
     e_lines = [l for l in _norm(expected).split(chr(10)) if l.strip()]
@@ -66,6 +66,10 @@ def _match_stdout(got, expected):
     e_all = set(et)
     for gl, el in zip(g_lines, e_lines):
         g, e = _tokens(gl), _tokens(el)
+        if not e:
+            if gl.rstrip() != el.rstrip():
+                return False, None
+            continue
         if _toks_eq(g, e):
             continue
         k = len(g) - len(e)
@@ -180,7 +184,7 @@ def run_tests(src, ex):
                 notes.append('Đúng giá trị; khác kiểu list/tuple hoặc cách viết chuỗi.')
             elif got is None and exp is not None:
                 pt = _tokens(out2)
-                if _toks_eq(pt, _tokens(str(exp))) or _toks_eq(pt, _tokens(repr(exp))):
+                if pt and (_toks_eq(pt, _tokens(str(exp))) or _toks_eq(pt, _tokens(repr(exp)))):
                     ok = True
                     notes.append('Hàm dùng print thay vì return; được chấp nhận, nhưng đề yêu cầu trả về (return) giá trị.')
         except Exception:
