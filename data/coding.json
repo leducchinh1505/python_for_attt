@@ -182,7 +182,7 @@
   "topic": "T1",
   "difficulty": 3,
   "title": "Thử thách toán tử và kiểu dữ liệu",
-  "statement": "Cho một chuỗi `n_str` (biểu diễn một số thực) và một số nguyên `m`. Hãy thực hiện các yêu cầu sau:\n1. Chuyển đổi `n_str` thành số nguyên `n` (bằng cách chuyển sang kiểu `float` rồi ép kiểu sang `int`).\n2. Tính `res_div`: kết quả phép chia lấy nguyên của `n` cho `m` (`n // m`).\n3. Tính `res_mod`: kết quả phép chia lấy dư của `n` cho `m` (`n % m`).\n4. Tính `res_pow`: giá trị của biểu thức `-n**2` (lưu ý trong Python, toán tử lũy thừa `**` có độ ưu tiên cao hơn dấu âm `-`).\n5. Tính `digit_sum`: tổng các chữ số của giá trị tuyệt đối của `n`.\n\n**Input:**\n- Dòng 1: Chuỗi `n_str` biểu diễn số thực.\n- Dòng 2: Số nguyên `m` (`m` khác 0).\n\n**Output:**\nMột dòng duy nhất chứa bốn số nguyên `res_div`, `res_mod`, `res_pow`, `digit_sum` theo đúng thứ tự và cách nhau bởi một dấu cách.",
+  "statement": "Cho một chuỗi `n_str` (biểu diễn một số thực) và một số nguyên `m`. Hãy thực hiện các yêu cầu sau:\n1. Chuyển đổi `n_str` thành số nguyên `n` (bằng cách chuyển sang kiểu `float` rồi ép kiểu sang `int`).\n2. Tính `res_div`: kết quả phép chia lấy nguyên của `n` cho `m` (`n // m`).\n3. Tính `res_mod`: kết quả phép chia lấy dư của `n` cho `m` (`n % m`).\n4. Tính `res_pow`: giá trị của biểu thức `-n**2` (lưu ý trong Python, toán tử lũy thừa `**` có độ ưu tiên cao hơn dấu âm `-`).\n5. Tính `digit_sum`: tổng các chữ số của giá trị tuyệt đối của `n`.\n\n**Input:**\n- Dòng 1: Chuỗi `n_str` biểu diễn số thực.\n- Dòng 2: Số nguyên `m` (`m` khác 0).\n\n**Output:**\nMột dòng duy nhất chứa bốn số nguyên `res_div`, `res_mod`, `res_pow`, `digit_sum` theo đúng thứ tự và cách nhau bởi một dấu cách.\nSố `n` được lấy bằng `int(float(...))`: bỏ phần thập phân, làm tròn về phía 0 (ví dụ `-5.8` thành `-5`).",
   "ioFormat": "Input:\nDòng 1: Chuỗi n_str.\nDòng 2: Số nguyên m.\nOutput:\nDòng 1: Bốn số nguyên cách nhau bởi dấu cách.",
   "constraints": "m khác 0. n_str là chuỗi biểu diễn số thực hợp lệ.",
   "examples": "Input:\n7.9\n-3\nOutput:\n-3 -2 -49 7",
@@ -903,7 +903,7 @@
   "topic": "T3",
   "difficulty": 3,
   "title": "Phân tích ma trận vuông",
-  "statement": "Cho một ma trận vuông cấp `n x n`. Hãy tính tổng các phần tử trên đường chéo chính, tổng các phần tử trên đường chéo phụ và tìm ma trận chuyển vị của ma trận đó.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên dương `n` là kích thước ma trận.\n- `n` dòng tiếp theo, mỗi dòng chứa `n` số (nguyên hoặc thực) cách nhau bởi dấu cách đại diện cho một hàng của ma trận.\n\n**Output:**\nIn ra 3 dòng tương ứng với 3 kết quả, định dạng theo kiểu `khóa: giá_trị` và được sắp xếp theo thứ tự bảng chữ cái của khóa:\n- `anti: <giá_trị>` (Tổng các phần tử trên đường chéo phụ)\n- `main: <giá_trị>` (Tổng các phần tử trên đường chéo chính)\n- `transpose: <giá_trị>` (Ma trận chuyển vị dưới dạng list các list của Python)\n\n*Lưu ý:* Giá trị số cần giữ nguyên kiểu dữ liệu (nguyên hoặc thực) như đầu vào. Ma trận chuyển vị in trực tiếp bằng hàm `print()` lên list kết quả.",
+  "statement": "Cho một ma trận vuông cấp `n x n`. Hãy tính tổng các phần tử trên đường chéo chính, tổng các phần tử trên đường chéo phụ và tìm ma trận chuyển vị của ma trận đó.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên dương `n` là kích thước ma trận.\n- `n` dòng tiếp theo, mỗi dòng chứa `n` số (nguyên hoặc thực) cách nhau bởi dấu cách đại diện cho một hàng của ma trận.\n\n**Output:**\nIn ra 3 dòng tương ứng với 3 kết quả, định dạng theo kiểu `khóa: giá_trị` và được sắp xếp theo thứ tự bảng chữ cái của khóa:\n- `anti: <giá_trị>` (Tổng các phần tử trên đường chéo phụ)\n- `main: <giá_trị>` (Tổng các phần tử trên đường chéo chính)\n- `transpose: <giá_trị>` (Ma trận chuyển vị dưới dạng list các list của Python)\n\n*Lưu ý:* Giá trị số cần giữ nguyên kiểu dữ liệu (nguyên hoặc thực) như đầu vào. Ma trận chuyển vị in trực tiếp bằng hàm `print()` lên list kết quả.\nMỗi phần tử đọc là `float` nếu chuỗi nhập có dấu `.`, ngược lại là `int`; các tổng và ma trận chuyển vị in bằng `print()` mặc định và giữ nguyên kiểu từng phần tử.",
   "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: các phần tử của ma trận.\nOutput:\nanti: <giá trị>\nmain: <giá trị>\ntranspose: <danh sách hàng của ma trận chuyển vị>",
   "constraints": "Ma trận kích thước n x n, 1 <= n <= 50.",
   "examples": "Input:\n2\n1 2\n3 4\nOutput:\nanti: 5\nmain: 5\ntranspose: [[1, 3], [2, 4]]",
@@ -2152,7 +2152,7 @@
   "topic": "T4",
   "difficulty": 2,
   "title": "Phân tích tập hợp ký tự",
-  "statement": "Cho hai chuỗi ký tự `str1` và `str2`. Hãy thực hiện phân tích các ký tự xuất hiện trong hai chuỗi theo hai yêu cầu:\n1. Tìm các ký tự xuất hiện ở cả hai chuỗi (phần giao).\n2. Tìm các ký tự chỉ xuất hiện ở chuỗi `str1` mà không xuất hiện ở chuỗi `str2` (phần hiệu).\n\nLưu ý: Dấu cách cũng được tính là một ký tự.\n\n**Input:**\n- Dòng 1: Chuỗi ký tự thứ nhất `str1`.\n- Dòng 2: Chuỗi ký tự thứ hai `str2`.\n\n**Output:**\n- Dòng 1 in kết quả phần giao theo định dạng: `common: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `common: Rỗng`.\n- Dòng 2 in kết quả phần hiệu theo định dạng: `only_str1: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `only_str1: Rỗng`.",
+  "statement": "Cho hai chuỗi ký tự `str1` và `str2`. Hãy thực hiện phân tích các ký tự xuất hiện trong hai chuỗi theo hai yêu cầu:\n1. Tìm các ký tự xuất hiện ở cả hai chuỗi (phần giao).\n2. Tìm các ký tự chỉ xuất hiện ở chuỗi `str1` mà không xuất hiện ở chuỗi `str2` (phần hiệu).\n\nLưu ý: Dấu cách cũng được tính là một ký tự.\n\n**Input:**\n- Dòng 1: Chuỗi ký tự thứ nhất `str1`.\n- Dòng 2: Chuỗi ký tự thứ hai `str2`.\n\n**Output:**\n- Dòng 1 in kết quả phần giao theo định dạng: `common: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `common: Rỗng`.\n- Dòng 2 in kết quả phần hiệu theo định dạng: `only_str1: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `only_str1: Rỗng`.\nCác ký tự được sắp xếp theo `sorted()` của Python (theo mã Unicode: chữ số đứng trước chữ hoa, chữ hoa đứng trước chữ thường).",
   "ioFormat": "Input:\nDòng 1: Chuỗi 1\nDòng 2: Chuỗi 2\nOutput:\ncommon: các_ký_tự (hoặc Rỗng)\nonly_str1: các_ký_tự (hoặc Rỗng)",
   "constraints": "Chuỗi có thể chứa khoảng trắng và ký tự số.",
   "examples": "Input:\nabc\nbcd\nOutput:\ncommon: b c\nonly_str1: a",
@@ -2509,7 +2509,7 @@
   "topic": "T4",
   "difficulty": 1,
   "title": "Tính tổng tiền thanh toán",
-  "statement": "Cho một danh mục giá của các mặt hàng và một đơn đặt hàng. Hãy tính tổng số tiền phải trả cho đơn hàng đó. Nếu một mặt hàng trong đơn hàng không tồn tại trong danh mục giá, hãy bỏ qua mặt hàng đó.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng mặt hàng trong danh mục giá).\n- `n` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `đơn_giá` (số thực) cách nhau một khoảng trắng.\n- Dòng tiếp theo là số nguyên `m` (số lượng mặt hàng trong đơn hàng).\n- `m` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `số_lượng` (số nguyên) cách nhau một khoảng trắng.\n\n**Output:**\n- Một số duy nhất là tổng số tiền. Kết quả được in ra theo định dạng của hàm `print()` trong Python (ví dụ: in `40.0` nếu kết quả là số thực có phần thập phân bằng 0, hoặc in `0` nếu không có mặt hàng nào được tính).",
+  "statement": "Cho một danh mục giá của các mặt hàng và một đơn đặt hàng. Hãy tính tổng số tiền phải trả cho đơn hàng đó. Nếu một mặt hàng trong đơn hàng không tồn tại trong danh mục giá, hãy bỏ qua mặt hàng đó.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng mặt hàng trong danh mục giá).\n- `n` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `đơn_giá` (số thực) cách nhau một khoảng trắng.\n- Dòng tiếp theo là số nguyên `m` (số lượng mặt hàng trong đơn hàng).\n- `m` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `số_lượng` (số nguyên) cách nhau một khoảng trắng.\n\n**Output:**\n- Một số thực duy nhất là tổng số tiền, in bằng `print()` của Python (ví dụ `40.0`; nếu không có mặt hàng nào được tính thì in `0.0`).\n- Tên các mặt hàng trong danh mục giá không trùng nhau; tên các mặt hàng trong đơn hàng cũng không trùng nhau.",
   "ioFormat": "Input:\n- Dòng 1: n\n- n dòng: tên_món đơn_giá\n- Dòng n+2: m\n- m dòng: tên_món số_lượng\nOutput:\n- Tổng số tiền.",
   "constraints": "Đơn giá và số lượng luôn >= 0.",
   "examples": "Input:\n2\nbread 10\nmilk 20\n2\nbread 2\nmilk 1\nOutput:\n40.0",
@@ -2526,11 +2526,11 @@
    },
    {
     "input": "0\n1\napple 10",
-    "expected": "0"
+    "expected": "0.0"
    },
    {
     "input": "1\na 100\n0",
-    "expected": "0"
+    "expected": "0.0"
    },
    {
     "input": "2\ncoke 1.5\npepsi 1.5\n2\ncoke 2\npepsi 2",
@@ -2554,7 +2554,7 @@
    },
    {
     "input": "0\n0",
-    "expected": "0"
+    "expected": "0.0"
    },
    {
     "input": "1\nx 2.5\n1\nx 4",
@@ -2562,7 +2562,7 @@
    },
    {
     "input": "1\nx 10\n2\ny 3\nz 4",
-    "expected": "0"
+    "expected": "0.0"
    },
    {
     "input": "2\ntea 12.5\ncake 30\n3\ntea 2\ncake 1\npie 9",
@@ -2582,7 +2582,7 @@
   "commonMistakes": [
    "Truy cập trực tiếp prices[item] mà không kiểm tra sự tồn tại gây lỗi KeyError"
   ],
-  "solution": "def calculate_total(prices, order):\n    total = 0\n    for item, qty in order.items():\n        if item in prices:\n            total += prices[item] * qty\n    return total\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\ntry:\n    line_m = input().strip()\n    m = int(line_m) if line_m else 0\nexcept EOFError:\n    m = 0\n\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\nprint(calculate_total(prices, order))",
+  "solution": "def calculate_total(prices, order):\n    total = 0.0\n    for item, qty in order.items():\n        if item in prices:\n            total += prices[item] * qty\n    return total\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\ntry:\n    line_m = input().strip()\n    m = int(line_m) if line_m else 0\nexcept EOFError:\n    m = 0\n\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\nprint(calculate_total(prices, order))",
   "errorCategory": "implementation",
   "tags": [
    "dict-access-get",
@@ -2686,7 +2686,7 @@
   "topic": "T4",
   "difficulty": 2,
   "title": "Đảo ngược Dictionary",
-  "statement": "Cho một dictionary chứa các cặp khóa và giá trị đều là chuỗi ký tự. Hãy đảo ngược dictionary này sao cho các giá trị cũ trở thành khóa mới, và các khóa cũ tương ứng trở thành một danh sách các giá trị của khóa mới đó. Danh sách các khóa cũ này phải được sắp xếp theo thứ tự tăng dần.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng cặp khóa-giá trị).\n- `n` dòng tiếp theo, mỗi dòng gồm `khóa` và `giá_trị` (chuỗi không chứa khoảng trắng) cách nhau một khoảng trắng.\n\n**Output:**\n- Nếu `n = 0`, in ra `Rỗng`.\n- Ngược lại, in mỗi cặp khóa mới và danh sách các giá trị tương ứng trên một dòng theo định dạng `khóa_mới: v1 v2 ...` (với `v1, v2...` là các khóa cũ đã được sắp xếp tăng dần và cách nhau bởi một dấu cách). Các dòng được in theo thứ tự tăng dần của `khóa_mới`.",
+  "statement": "Cho một dictionary chứa các cặp khóa và giá trị đều là chuỗi ký tự. Hãy đảo ngược dictionary này sao cho các giá trị cũ trở thành khóa mới, và các khóa cũ tương ứng trở thành một danh sách các giá trị của khóa mới đó. Danh sách các khóa cũ này phải được sắp xếp theo thứ tự tăng dần.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng cặp khóa-giá trị).\n- `n` dòng tiếp theo, mỗi dòng gồm `khóa` và `giá_trị` (chuỗi không chứa khoảng trắng) cách nhau một khoảng trắng.\n\n**Output:**\n- Nếu `n = 0`, in ra `Rỗng`.\n- Ngược lại, in mỗi cặp khóa mới và danh sách các giá trị tương ứng trên một dòng theo định dạng `khóa_mới: v1 v2 ...` (với `v1, v2...` là các khóa cũ đã được sắp xếp tăng dần và cách nhau bởi một dấu cách). Các dòng được in theo thứ tự tăng dần của `khóa_mới`.\nMọi phép sắp xếp đều so sánh dạng chuỗi (ví dụ `10` đứng trước `2`).",
   "ioFormat": "Input:\n- Dòng 1: n\n- n dòng: khóa giá_trị\nOutput:\n- Mỗi dòng `khóa_mới: v1 v2 ...` theo thứ tự sorted() của khóa mới, hoặc `Rỗng`.",
   "constraints": "Khóa và giá trị là chuỗi không chứa khoảng trắng; các khóa khác nhau.",
   "examples": "Input:\n3\na 1\nb 2\nc 1\nOutput:\n1: a c\n2: b",
@@ -3307,7 +3307,7 @@
   "topic": "T5",
   "difficulty": 2,
   "title": "Quản lý kho hàng",
-  "statement": "Quản lý danh sách hàng hóa trong kho. Mỗi mặt hàng gồm có tên, giá và số lượng (sl). Bạn cần sắp xếp danh sách hàng hóa theo yêu cầu:\n- Nếu tham số `sap_xep_nguoc` là `0` (False): Sắp xếp theo `gia` tăng dần.\n- Nếu tham số `sap_xep_nguoc` là `1` (True): Sắp xếp theo `gia` giảm dần.\n- Trong cả hai trường hợp, nếu `gia` bằng nhau, luôn sắp xếp theo số lượng (`sl`) giảm dần.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng hàng hóa.\n- `n` dòng tiếp theo: Mỗi dòng gồm tên hàng (chuỗi), giá (số thực) và số lượng (số nguyên), cách nhau bởi dấu cách.\n- Dòng cuối: Số `0` hoặc `1` tương ứng với giá trị của `sap_xep_nguoc`.\n\n**Output:**\n- In ra `n` dòng, mỗi dòng là một dictionary chứa thông tin hàng hóa theo định dạng `print()` của Python. Thứ tự các khóa trong dictionary phải là `'ten'`, `'gia'`, `'sl'`. Giá trị `gia` in ở dạng số thực (ví dụ: `10.0`).",
+  "statement": "Quản lý danh sách hàng hóa trong kho. Mỗi mặt hàng gồm có tên, giá và số lượng (sl). Bạn cần sắp xếp danh sách hàng hóa theo yêu cầu:\n- Nếu tham số `sap_xep_nguoc` là `0` (False): Sắp xếp theo `gia` tăng dần.\n- Nếu tham số `sap_xep_nguoc` là `1` (True): Sắp xếp theo `gia` giảm dần.\n- Trong cả hai trường hợp, nếu `gia` bằng nhau, luôn sắp xếp theo số lượng (`sl`) giảm dần.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng hàng hóa.\n- `n` dòng tiếp theo: Mỗi dòng gồm tên hàng (chuỗi), giá (số thực) và số lượng (số nguyên), cách nhau bởi dấu cách.\n- Dòng cuối: Số `0` hoặc `1` tương ứng với giá trị của `sap_xep_nguoc`.\n\n**Output:**\n- In ra `n` dòng, mỗi dòng là một dictionary chứa thông tin hàng hóa theo định dạng `print()` của Python. Thứ tự các khóa trong dictionary phải là `'ten'`, `'gia'`, `'sl'`. Giá trị `gia` in ở dạng số thực (ví dụ: `10.0`).\nTên hàng là chuỗi không chứa khoảng trắng. Nếu hai mặt hàng bằng nhau ở mọi tiêu chí sắp xếp thì giữ nguyên thứ tự nhập.",
   "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: <tên> <giá> <số lượng>.\nDòng cuối: 0 hoặc 1.\nOutput:\nn dòng, mỗi dòng là một dictionary.",
   "constraints": "ds_hang không rỗng; gia > 0; sl >= 0",
   "examples": "Input:\n2\nA 10 5\nB 10 10\n0\nOutput:\n{'ten': 'B', 'gia': 10.0, 'sl': 10}\n{'ten': 'A', 'gia': 10.0, 'sl': 5}",
@@ -4293,7 +4293,7 @@
   "topic": "T8",
   "difficulty": 2,
   "title": "Thống kê điểm thi",
-  "statement": "Cho một danh sách điểm số của sinh viên dưới dạng các số thực. Hãy thực hiện thống kê các thông số sau:\n- `cao_nhat`: Điểm số cao nhất trong danh sách.\n- `so_dat`: Số lượng bài có điểm từ `5.0` trở lên.\n- `tb`: Điểm trung bình của danh sách, làm tròn đến 2 chữ số thập phân.\n- `trung_vi`: Điểm trung vị của danh sách.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm (`0 <= n <= 1000`).\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách. Nếu `n=0`, dòng này sẽ để trống.\n\n**Output:**\n- Nếu danh sách rỗng (`n=0`), in ra `None`.\n- Nếu danh sách không rỗng, in ra 4 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`cao_nhat`, `so_dat`, `tb`, `trung_vi`). Các giá trị số thực in theo định dạng mặc định của hàm `print()` trong Python.",
+  "statement": "Cho một danh sách điểm số của sinh viên dưới dạng các số thực. Hãy thực hiện thống kê các thông số sau:\n- `cao_nhat`: Điểm số cao nhất trong danh sách.\n- `so_dat`: Số lượng bài có điểm từ `5.0` trở lên.\n- `tb`: Điểm trung bình của danh sách, làm tròn đến 2 chữ số thập phân.\n- `trung_vi`: Điểm trung vị của danh sách.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm (`0 <= n <= 1000`).\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách. Nếu `n=0`, dòng này sẽ để trống.\n\n**Output:**\n- Nếu danh sách rỗng (`n=0`), in ra `None`.\n- Nếu danh sách không rỗng, in ra 4 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`cao_nhat`, `so_dat`, `tb`, `trung_vi`). Các giá trị số thực in theo định dạng mặc định của hàm `print()` trong Python.\nCác điểm được đọc dưới dạng số thực, nên `cao_nhat`, `tb`, `trung_vi` in dạng số thực (ví dụ `9.0`), còn `so_dat` là số nguyên.",
   "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực cách nhau bởi dấu cách.\nOutput:\n- 'None' hoặc 4 dòng thông tin thống kê theo thứ tự bảng chữ cái của tên khóa.",
   "constraints": "0 <= len(ds_diem) <= 1000; 0 <= điểm <= 10.",
   "examples": "Input:\n4\n7 8 4 9\nOutput:\ncao_nhat: 9.0\nso_dat: 3\ntb: 7.0\ntrung_vi: 7.5",
@@ -4383,7 +4383,7 @@
   "topic": "T8",
   "difficulty": 3,
   "title": "Xác minh tuổi và số chính phương",
-  "statement": "Cho ngày sinh và một mốc thời gian cụ thể theo định dạng `YYYY-MM-DD`. Hãy tính tuổi của người đó tại mốc thời gian này và kiểm tra xem số tuổi đó có phải là một số chính phương hay không.\n\nQuy tắc tính tuổi: Tuổi được tính dựa trên ngày và tháng chính xác. Ví dụ, nếu sinh ngày `2000-05-21`, thì đến ngày `2024-05-20` vẫn tính là `23` tuổi, phải đến ngày `2024-05-21` mới tròn `24` tuổi.\n\n**Input:**\n- Dòng đầu tiên chứa chuỗi ngày sinh `birth_str`.\n- Dòng thứ hai chứa chuỗi mốc thời gian `ref_str`.\n\n**Output:**\n- Một dòng duy nhất gồm hai giá trị: số tuổi (số nguyên) và kết quả kiểm tra số chính phương (`True` hoặc `False`), cách nhau bởi một dấu cách.",
+  "statement": "Cho ngày sinh và một mốc thời gian cụ thể theo định dạng `YYYY-MM-DD`. Hãy tính tuổi của người đó tại mốc thời gian này và kiểm tra xem số tuổi đó có phải là một số chính phương hay không.\n\nQuy tắc tính tuổi: Tuổi được tính dựa trên ngày và tháng chính xác. Ví dụ, nếu sinh ngày `2000-05-21`, thì đến ngày `2024-05-20` vẫn tính là `23` tuổi, phải đến ngày `2024-05-21` mới tròn `24` tuổi.\n\n**Input:**\n- Dòng đầu tiên chứa chuỗi ngày sinh `birth_str`.\n- Dòng thứ hai chứa chuỗi mốc thời gian `ref_str`.\n\n**Output:**\n- Một dòng duy nhất gồm hai giá trị: số tuổi (số nguyên) và kết quả kiểm tra số chính phương (`True` hoặc `False`), cách nhau bởi một dấu cách.\nSố chính phương là số nguyên không âm có dạng `k*k` với `k` nguyên (số `0` cũng là số chính phương).",
   "ioFormat": "Input:\n- Dòng 1: birth_str (YYYY-MM-DD)\n- Dòng 2: ref_str (YYYY-MM-DD)\nOutput:\n- Một dòng: tuổi và True/False.",
   "constraints": "ref_str >= birth_str",
   "examples": "Input:\n2000-01-01\n2025-01-01\nOutput:\n25 True",
@@ -4468,7 +4468,7 @@
   "topic": "T8",
   "difficulty": 2,
   "title": "Phân tích điểm số sinh viên",
-  "statement": "Cho một danh sách các điểm số (số thực). Hãy tính toán hai giá trị sau:\n1. `mean_floor`: Giá trị trung bình của danh sách điểm, sau đó làm tròn xuống (floor) để lấy phần nguyên.\n2. `mode`: Giá trị xuất hiện nhiều nhất trong danh sách. Nếu có nhiều giá trị cùng có tần suất xuất hiện cao nhất, lấy giá trị đầu tiên được tìm thấy.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm số.\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách.\n\n**Output:**\n- In ra 2 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`mean_floor`, `mode`). Các giá trị số thực in theo định dạng mặc định của Python.",
+  "statement": "Cho một danh sách các điểm số (số thực). Hãy tính toán hai giá trị sau:\n1. `mean_floor`: Giá trị trung bình của danh sách điểm, sau đó làm tròn xuống (floor) để lấy phần nguyên.\n2. `mode`: Giá trị xuất hiện nhiều nhất trong danh sách. Nếu có nhiều giá trị cùng có tần suất xuất hiện cao nhất, lấy giá trị đầu tiên được tìm thấy.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm số.\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách.\n\n**Output:**\n- In ra 2 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`mean_floor`, `mode`). Các giá trị số thực in theo định dạng mặc định của Python.\nCác điểm được đọc dưới dạng số thực (`float`), nên `mode` in dạng số thực (ví dụ `10.0`); `mean_floor` là số nguyên `math.floor(sum(scores) / len(scores))`.",
   "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực.\nOutput:\n- 2 dòng: mean_floor và mode theo thứ tự bảng chữ cái của khóa.",
   "constraints": "scores không rỗng",
   "examples": "Input:\n5\n8.5 9.0 7.0 8.5 10.0\nOutput:\nmean_floor: 8\nmode: 8.5",
@@ -4543,7 +4543,7 @@
    "Dùng int() thay vì math.floor() (mặc dù với số dương kết quả giống nhau nhưng bản chất khác nhau với số âm)",
    "Quên import module"
   ],
-  "solution": "import math\nimport statistics\n\ndef score_analysis(scores):\n    avg = statistics.mean(scores)\n    mode_val = statistics.mode(scores)\n    return {\n        \"mean_floor\": math.floor(avg),\n        \"mode\": mode_val\n    }\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nscores = list(map(float, input().split()))\nres = score_analysis(scores)\nfor k in sorted(res):\n    print(f\"{k}: {res[k]}\")",
+  "solution": "import math\nimport statistics\n\ndef score_analysis(scores):\n    avg = sum(scores) / len(scores)\n    mode_val = statistics.mode(scores)\n    return {\n        \"mean_floor\": math.floor(avg),\n        \"mode\": mode_val\n    }\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nscores = list(map(float, input().split()))\nres = score_analysis(scores)\nfor k in sorted(res):\n    print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "statistics-module",
