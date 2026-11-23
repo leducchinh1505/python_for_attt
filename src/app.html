@@ -164,12 +164,6 @@ function migrate(){
   if(!st.settingsVer||st.settingsVer<2){Object.assign(st,MOCK_DEFAULTS);delete st.mockMinutes;st.settingsVer=2}
   if(S.activeMock&&!S.activeMock.phase)S.activeMock=null;
   if(!Array.isArray(S.speed))S.speed=[];
-  /* gradingVer 2: bài "viết hàm" giờ chấm như chương trình (tự đọc input, gọi hàm, in kết quả).
-     Kết quả "đạt" cũ của các bài này được chấm theo cách cũ nên đặt lại; code đã viết vẫn giữ. */
-  if((S.gradingVer||1)<2){
-    for(const c of CODING)if(c.requireFunction&&S.c[c.id]){const st=S.c[c.id];st.passed=false;st.indep=false;st.variant=null}
-    S.gradingVer=2;
-  }
 }
 let S;
 function load(){
@@ -698,10 +692,10 @@ function testHTML(c,t,i){
   return `<div style="margin:8px 0"><div class="small"><strong>Test ${i+1}</strong></div><pre class="code" style="margin:2px 0">${esc(body)}</pre>${fl}</div>`;
 }
 function gradingRule(c){
-  return `<div class="small muted" style="margin-top:8px"><strong>Cách chấm:</strong> chạy ${c.tests.length} test, so theo giá trị; bỏ qua khoảng trắng và dấu câu, nhưng chữ hoa/thường phải đúng (trừ True/False/None); chấp nhận chữ mô tả trước kết quả (ví dụ <code>Kết quả: 8</code>); <code>8.0</code> bằng <code>8</code>. Chương trình phải tự đọc dữ liệu bằng <code>input()</code> và tự <code>print</code> kết quả.${c.requireFunction&&c.requireFunction.length?` Đề yêu cầu viết hàm ${c.requireFunction.map(n=>'<code>'+esc(n)+'</code>').join(', ')} và chương trình chính phải <strong>gọi</strong> hàm đó; tính kết quả mà không gọi hàm thì test không đạt.`:''}${c.mode==='function'?' Bài viết hàm: chấp nhận list/tuple tương đương, tên hàm khác nếu code chỉ định nghĩa một hàm, và print thay vì return (sẽ có nhắc).':''}</div>`;
+  return `<div class="small muted" style="margin-top:8px"><strong>Cách chấm (như thi đấu):</strong> chạy ${c.tests.length} test; chương trình tự đọc dữ liệu bằng <code>input()</code> và in kết quả bằng <code>print</code>. Output được so từng từ/số theo đúng thứ tự, chỉ bỏ qua khoảng trắng thừa và dòng trống cuối; dấu câu, chữ hoa/thường phải đúng, <code>8.0</code> khác <code>8</code>, không in thêm chữ mô tả. Riêng số thực được lệch tối đa 1e-6. Không bắt buộc viết hàm.</div>`;
 }
 function exerciseInfo(c,showTests){
-  return `<div class="row" style="margin-bottom:6px"><span class="badge">${c.topic}</span><span class="badge">${DIFF[c.difficulty]}</span>${srcBadge(c.source)}<span class="badge">${c.requireFunction&&c.requireFunction.length?'Viết hàm + chương trình':c.mode==='stdio'?'Nhập/xuất chuẩn':'Viết hàm'}</span></div>
+  return `<div class="row" style="margin-bottom:6px"><span class="badge">${c.topic}</span><span class="badge">${DIFF[c.difficulty]}</span>${srcBadge(c.source)}<span class="badge">${c.mode==='stdio'?'Nhập/xuất chuẩn':'Viết hàm'}</span></div>
   <h2 style="margin:6px 0">${esc(c.title)}</h2><div class="md">${md(c.statement)}</div>
   ${c.ioFormat?`<h4>Input / Output</h4><div class="md">${md(c.ioFormat)}</div>`:''}
   ${c.constraints?`<h4>Ràng buộc</h4><div class="md">${md(c.constraints)}</div>`:''}
@@ -762,7 +756,6 @@ function viewExercise(v,c){
 function codeErrCategory(list,kind){
   if(kind==='timeout')return 'logic';
   const e=list.find(x=>x.errType);if(!e)return null;
-  if(e.errType==='ChuaGoiHam')return 'method';
   if(['SyntaxError','IndentationError','TabError'].includes(e.errType))return 'syntax';
   if(['NameError','AttributeError','TypeError','UnboundLocalError'].includes(e.errType))return 'implementation';
   if(['IndexError','KeyError','ZeroDivisionError','ValueError','FileNotFoundError','EOFError'].includes(e.errType))return 'edge';

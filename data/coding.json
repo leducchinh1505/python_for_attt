@@ -4,12 +4,12 @@
   "topic": "T1",
   "difficulty": 1,
   "title": "Làm tròn và Định dạng",
-  "statement": "Trong lập trình Python, hàm `round()` sử dụng cơ chế 'Banker's rounding'. Hãy viết hàm `format_bill(amount)` nhận vào một số thực `amount`. Hàm thực hiện làm tròn `amount` về số nguyên gần nhất theo quy tắc trên, sau đó trả về một chuỗi có định dạng 'Bill: X' (với X là kết quả sau khi làm tròn).\n\n**Chương trình chính:** Đọc từ bàn phím một số thực `amount` trên một dòng. Gọi hàm `format_bill` và in kết quả ra màn hình.",
-  "ioFormat": "Input:\nDòng 1: Một số thực amount.\nOutput:\nDòng 1: Chuỗi ký tự định dạng 'Bill: X'.",
+  "statement": "Trong lập trình Python, hàm `round()` sử dụng cơ chế 'Banker's rounding' (làm tròn đến số nguyên gần nhất; nếu số đó nằm chính giữa hai số nguyên thì sẽ làm tròn về phía số nguyên chẵn). Cho một số thực `amount`, hãy thực hiện làm tròn số này theo quy tắc trên và in kết quả ra màn hình.\n\n**Input:**\nMột dòng duy nhất chứa số thực `amount`.\n\n**Output:**\nMột dòng duy nhất có định dạng `Bill: X`, với `X` là số nguyên thu được sau khi làm tròn.",
+  "ioFormat": "Input:\nDòng 1: Một số thực amount.\nOutput:\nDòng 1: Chuỗi 'Bill: X'.",
   "constraints": "amount là số thực.",
   "examples": "Input:\n2.5\nOutput:\nBill: 2",
   "mode": "stdio",
-  "starter": "def format_bill(amount):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\namount = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef format_bill(amount):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\namount = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -73,35 +73,32 @@
     "expected": "Bill: 0"
    }
   ],
-  "hint": "Sử dụng hàm round(amount) và f-string để định dạng chuỗi.",
+  "hint": "Có thể viết hàm `format_bill(amount)` để thực hiện làm tròn bằng `round()` và trả về chuỗi bằng f-string. Sử dụng hàm round(amount) và f-string để định dạng chuỗi.",
   "explanation": "Hàm round() trong Python 3 làm tròn đến số nguyên gần nhất. Nếu số đó nằm chính giữa (ví dụ .5), nó sẽ làm tròn đến số nguyên chẵn gần nhất (2.5 -> 2, 3.5 -> 4). Sử dụng f-string f'Bill: {value}' để trả về kết quả.",
   "commonMistakes": [
    "Nhầm lẫn round() luôn làm tròn lên như trong toán học phổ thông",
    "Sử dụng format string cũ % thay vì f-string"
   ],
-  "solution": "def format_bill(amount):\n    return f\"Bill: {round(amount)}\"\n\n# ===== Chương trình chính =====\namount = float(input())\nprint(format_bill(amount))",
+  "solution": "def format_bill(amount):\n    return f\"Bill: {round(amount)}\"\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\namount = float(input())\nprint(format_bill(amount))",
   "errorCategory": "concept",
   "tags": [
    "round",
    "fstring-format"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "format_bill"
-  ]
+  "reserve": false
  },
  {
   "id": "T1-C02",
   "topic": "T1",
   "difficulty": 2,
   "title": "Chuẩn hóa họ tên",
-  "statement": "Viết hàm `standardize_name(raw_name)` để chuẩn hóa một chuỗi họ tên. Quy tắc chuẩn hóa: Loại bỏ các khoảng trắng thừa ở đầu, cuối và giữa các từ (giữa các từ chỉ để lại một dấu cách); viết hoa chữ cái đầu mỗi từ, các chữ cái còn lại viết thường. Trả về chuỗi đã chuẩn hóa.\n\n**Chương trình chính:** Đọc từ bàn phím một dòng văn bản `raw_name`. Gọi hàm `standardize_name` và in kết quả ra màn hình.",
-  "ioFormat": "Input:\nDòng 1: Chuỗi ký tự raw_name.\nOutput:\nDòng 1: Chuỗi đã được chuẩn hóa.",
+  "statement": "Cho một chuỗi văn bản `raw_name` đại diện cho họ tên của một người. Hãy chuẩn hóa chuỗi này theo các quy tắc sau:\n1. Loại bỏ các khoảng trắng thừa ở đầu và cuối chuỗi.\n2. Các từ trong tên chỉ được cách nhau bởi đúng một dấu cách (loại bỏ các khoảng trắng thừa ở giữa).\n3. Viết hoa chữ cái đầu tiên của mỗi từ, các chữ cái còn lại trong từ đó phải viết thường.\n\n**Input:**\nMột dòng duy nhất chứa chuỗi `raw_name`.\n\n**Output:**\nMột dòng duy nhất chứa chuỗi đã được chuẩn hóa.",
+  "ioFormat": "Input:\nDòng 1: Chuỗi raw_name.\nOutput:\nDòng 1: Chuỗi đã được chuẩn hóa.",
   "constraints": "Chuỗi đầu vào có thể chứa nhiều khoảng trắng và chữ hoa/thường hỗn hợp.",
   "examples": "Input:\n  nguYen   vAn  A  \nOutput:\nNguyen Van A",
   "mode": "stdio",
-  "starter": "def standardize_name(raw_name):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nraw_name = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef standardize_name(raw_name):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nraw_name = input()\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -165,35 +162,32 @@
     "expected": "X Y"
    }
   ],
-  "hint": "Sử dụng các phương thức split() để tách từ (loại bỏ khoảng trắng thừa), title() hoặc capitalize() cho từng từ, và join() để nối lại.",
+  "hint": "Có thể viết hàm `standardize_name(raw_name)` sử dụng `split()` để tách các từ và `capitalize()` cho từng từ. Sử dụng các phương thức split() để tách từ (loại bỏ khoảng trắng thừa), title() hoặc capitalize() cho từng từ, và join() để nối lại.",
   "explanation": "Phương thức split() không tham số sẽ tự động gom các khoảng trắng thừa. Sau khi split, ta có danh sách các từ. Dùng title() để chuẩn hóa từng từ hoặc toàn bộ chuỗi rồi mới xử lý khoảng trắng.",
   "commonMistakes": [
    "Sử dụng replace('  ', ' ') chỉ thay thế được 2 dấu cách thành 1, không xử lý được 3 dấu cách trở lên",
    "Không xử lý khoảng trắng ở đầu và cuối chuỗi"
   ],
-  "solution": "def standardize_name(raw_name):\n    words = raw_name.split()\n    return \" \".join(word.capitalize() for word in words)\n\n# ===== Chương trình chính =====\nraw_name = input()\nprint(standardize_name(raw_name))",
+  "solution": "def standardize_name(raw_name):\n    words = raw_name.split()\n    return \" \".join(word.capitalize() for word in words)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nraw_name = input()\nprint(standardize_name(raw_name))",
   "errorCategory": "implementation",
   "tags": [
    "string-methods",
    "string-immutable"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "standardize_name"
-  ]
+  "reserve": false
  },
  {
   "id": "T1-C03",
   "topic": "T1",
   "difficulty": 3,
   "title": "Thử thách toán tử và kiểu dữ liệu",
-  "statement": "Viết hàm `math_logic_challenge(n_str, m)` thực hiện các bước sau:\n1. Chuyển đổi `n_str` (chuỗi số thực, ví dụ '12.5') thành số nguyên `n` bằng cách chuyển sang float rồi ép kiểu int.\n2. Tính `res_div` là kết quả phép chia lấy nguyên `n // m`.\n3. Tính `res_mod` là kết quả phép chia lấy dư `n % m`.\n4. Tính `res_pow` là giá trị của biểu thức `-n**2` (lưu ý độ ưu tiên toán tử).\n5. Tính `digit_sum` là tổng các chữ số của giá trị tuyệt đối của `n`.\nTrả về kết quả dưới dạng một tuple: `(res_div, res_mod, res_pow, digit_sum)`.\n\n**Chương trình chính:** Đọc từ bàn phím chuỗi `n_str` ở dòng thứ nhất và số nguyên `m` ở dòng thứ hai. Gọi hàm `math_logic_challenge` và in các thành phần của tuple kết quả trên một dòng, cách nhau bởi dấu cách.",
-  "ioFormat": "Input:\nDòng 1: Chuỗi n_str biểu diễn số thực.\nDòng 2: Số nguyên m (m != 0).\nOutput:\nDòng 1: Bốn số nguyên res_div, res_mod, res_pow, digit_sum cách nhau bởi dấu cách.",
+  "statement": "Cho một chuỗi `n_str` (biểu diễn một số thực) và một số nguyên `m`. Hãy thực hiện các yêu cầu sau:\n1. Chuyển đổi `n_str` thành số nguyên `n` (bằng cách chuyển sang kiểu `float` rồi ép kiểu sang `int`).\n2. Tính `res_div`: kết quả phép chia lấy nguyên của `n` cho `m` (`n // m`).\n3. Tính `res_mod`: kết quả phép chia lấy dư của `n` cho `m` (`n % m`).\n4. Tính `res_pow`: giá trị của biểu thức `-n**2` (lưu ý trong Python, toán tử lũy thừa `**` có độ ưu tiên cao hơn dấu âm `-`).\n5. Tính `digit_sum`: tổng các chữ số của giá trị tuyệt đối của `n`.\n\n**Input:**\n- Dòng 1: Chuỗi `n_str` biểu diễn số thực.\n- Dòng 2: Số nguyên `m` (`m` khác 0).\n\n**Output:**\nMột dòng duy nhất chứa bốn số nguyên `res_div`, `res_mod`, `res_pow`, `digit_sum` theo đúng thứ tự và cách nhau bởi một dấu cách.",
+  "ioFormat": "Input:\nDòng 1: Chuỗi n_str.\nDòng 2: Số nguyên m.\nOutput:\nDòng 1: Bốn số nguyên cách nhau bởi dấu cách.",
   "constraints": "m khác 0. n_str là chuỗi biểu diễn số thực hợp lệ.",
   "examples": "Input:\n7.9\n-3\nOutput:\n-3 -2 -49 7",
   "mode": "stdio",
-  "starter": "def math_logic_challenge(n_str, m):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nn_str = input()\nm = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef math_logic_challenge(n_str, m):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn_str = input()\nm = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -257,14 +251,14 @@
     "expected": "1 0 -2025 9"
    }
   ],
-  "hint": "Lưu ý: int('3.5') sẽ gây lỗi, phải dùng int(float('3.5')). Trong Python, toán tử ** có ưu tiên cao hơn toán tử dấu âm (-).",
+  "hint": "Có thể viết hàm `math_logic_challenge(n_str, m)` để thực hiện các bước tính toán và trả về một tuple. Lưu ý: int('3.5') sẽ gây lỗi, phải dùng int(float('3.5')). Trong Python, toán tử ** có ưu tiên cao hơn toán tử dấu âm (-).",
   "explanation": "Bước 1 dùng int(float(n_str)). Bước 2 & 3 chú ý chia số âm: 7 // -3 = -3 và 7 % -3 = -2. Bước 4: -n**2 tương đương -(n**2). Bước 5: Chuyển abs(n) thành chuỗi để duyệt qua từng chữ số.",
   "commonMistakes": [
    "Ép kiểu trực tiếp int('7.9') dẫn đến lỗi ValueError",
    "Hiểu sai kết quả chia lấy dư với số âm",
    "Nhầm lẫn -n**2 thành (-n)**2"
   ],
-  "solution": "def math_logic_challenge(n_str, m):\n    n = int(float(n_str))\n    res_div = n // m\n    res_mod = n % m\n    res_pow = -n**2\n    digit_sum = sum(int(d) for d in str(abs(n)))\n    return (res_div, res_mod, res_pow, digit_sum)\n\n# ===== Chương trình chính =====\nn_str = input()\nm = int(input())\nres = math_logic_challenge(n_str, m)\nprint(*res)",
+  "solution": "def math_logic_challenge(n_str, m):\n    n = int(float(n_str))\n    res_div = n // m\n    res_mod = n % m\n    res_pow = -n**2\n    digit_sum = sum(int(d) for d in str(abs(n)))\n    return (res_div, res_mod, res_pow, digit_sum)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn_str = input()\nm = int(input())\nres = math_logic_challenge(n_str, m)\nprint(*res)",
   "errorCategory": "execution",
   "tags": [
    "floor-div-mod",
@@ -273,22 +267,19 @@
    "type-conversion"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "math_logic_challenge"
-  ]
+  "reserve": false
  },
  {
   "id": "T1-C04",
   "topic": "T1",
   "difficulty": 2,
   "title": "Phân tích đặc điểm chuỗi",
-  "statement": "Viết hàm `analyze_string_properties(s)` để thực hiện các yêu cầu sau:\n1. Kiểm tra chuỗi `s` có phải là chuỗi đối xứng (palindrome) hay không sau khi đã loại bỏ khoảng trắng và chuyển về chữ thường.\n2. Đếm số lượng từ trong chuỗi `s` gốc (các từ cách nhau bởi khoảng trắng).\n3. Kiểm tra xem chuỗi `s` có trống rỗng hoặc chỉ chứa toàn khoảng trắng hay không bằng cách sử dụng tính chất 'Truthiness'.\nTrả về một tuple: `(is_palindrome, word_count, is_blank)`.\n\n**Chương trình chính:** Đọc từ bàn phím một dòng văn bản `s`. Gọi hàm `analyze_string_properties` và in các thành phần của tuple kết quả trên một dòng, cách nhau bởi dấu cách.",
-  "ioFormat": "Input:\nDòng 1: Một dòng văn bản s.\nOutput:\nDòng 1: Ba giá trị đại diện cho is_palindrome (True/False), word_count (số nguyên) và is_blank (True/False) cách nhau bởi dấu cách.",
+  "statement": "Cho một dòng văn bản `s`. Hãy phân tích và in ra các thông tin sau:\n1. Kiểm tra chuỗi có đối xứng (`palindrome`) hay không. Một chuỗi được coi là đối xứng nếu sau khi loại bỏ tất cả khoảng trắng và chuyển tất cả ký tự về chữ thường, chuỗi đó đọc từ trái sang phải hay từ phải sang trái đều giống nhau.\n2. Đếm số lượng từ trong chuỗi `s` ban đầu (các từ phân tách nhau bởi ít nhất một khoảng trắng).\n3. Kiểm tra xem chuỗi `s` có trống rỗng hoặc chỉ chứa toàn khoảng trắng hay không (sử dụng tính chất Truthiness).\n\n**Input:**\nMột dòng duy nhất chứa chuỗi văn bản `s`.\n\n**Output:**\nMột dòng duy nhất chứa ba giá trị: kết quả kiểm tra đối xứng (`True` hoặc `False`), số lượng từ (số nguyên), và kết quả kiểm tra chuỗi trống (`True` hoặc `False`). Các giá trị cách nhau bởi một dấu cách.",
+  "ioFormat": "Input:\nDòng 1: Chuỗi văn bản s.\nOutput:\nDòng 1: is_palindrome (bool), word_count (int), is_blank (bool) cách nhau bởi dấu cách.",
   "constraints": "Chuỗi s có thể chứa ký tự đặc biệt, số.",
   "examples": "Input:\n  A man a plan a canal Panama  \nOutput:\nTrue 7 False",
   "mode": "stdio",
-  "starter": "def analyze_string_properties(s):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\ns = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef analyze_string_properties(s):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns = input()\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -352,13 +343,13 @@
     "expected": "False 4 False"
    }
   ],
-  "hint": "Dùng s.strip().lower().replace(' ', '') để chuẩn bị chuỗi kiểm tra đối xứng. Dùng 'not s.strip()' để kiểm tra tính trống rỗng.",
+  "hint": "Có thể viết hàm `analyze_string_properties(s)` để thực hiện các thao tác xử lý chuỗi và tính toán. Dùng s.strip().lower().replace(' ', '') để chuẩn bị chuỗi kiểm tra đối xứng. Dùng 'not s.strip()' để kiểm tra tính trống rỗng.",
   "explanation": "Palindrome là chuỗi đọc xuôi hay ngược đều giống nhau. Ta làm sạch chuỗi rồi so sánh với bản đảo ngược của nó `s[::-1]`. Word count dựa trên len(s.split()). is_blank dựa trên việc sau khi strip() chuỗi có còn ký tự nào không (chuỗi rỗng có giá trị logic là False).",
   "commonMistakes": [
    "Quên không chuyển chuỗi về chữ thường trước khi kiểm tra đối xứng",
    "Đếm từ bằng cách đếm dấu cách (sai nếu có nhiều dấu cách liên tiếp)"
   ],
-  "solution": "def analyze_string_properties(s):\n    cleaned = s.strip().lower().replace(\" \", \"\")\n    is_palindrome = (cleaned == cleaned[::-1])\n    word_count = len(s.split())\n    is_blank = not s.strip()\n    return (is_palindrome, word_count, is_blank)\n\n# ===== Chương trình chính =====\ns = input()\nres = analyze_string_properties(s)\nprint(*res)",
+  "solution": "def analyze_string_properties(s):\n    cleaned = s.strip().lower().replace(\" \", \"\")\n    is_palindrome = (cleaned == cleaned[::-1])\n    word_count = len(s.split())\n    is_blank = not s.strip()\n    return (is_palindrome, word_count, is_blank)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns = input()\nres = analyze_string_properties(s)\nprint(*res)",
   "errorCategory": "logic",
   "tags": [
    "string-index-slice",
@@ -366,22 +357,19 @@
    "string-methods"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "analyze_string_properties"
-  ]
+  "reserve": true
  },
  {
   "id": "T2-C01",
   "topic": "T2",
   "difficulty": 1,
   "title": "Tính tiền điện sinh hoạt",
-  "statement": "Viết hàm `tinh_tien_dien(kwh)` để tính số tiền điện phải trả dựa trên biểu giá lũy tiến sau:\n- Bậc 1: Cho 50kWh đầu tiên: 1678 đ/kWh\n- Bậc 2: Cho kWh từ 51 đến 100: 1734 đ/kWh\n- Bậc 3: Cho kWh từ 101 đến 200: 2014 đ/kWh\n- Bậc 4: Cho kWh từ 201 trở lên: 2536 đ/kWh\nHàm trả về tổng số tiền là số nguyên (làm tròn xuống). Nếu kwh <= 0, trả về 0.\n\n**Chương trình chính:** Đọc từ bàn phím một số thực `kwh` trên một dòng. Gọi hàm `tinh_tien_dien` và in kết quả là một số nguyên duy nhất.",
-  "ioFormat": "Input:\nDòng 1: Số thực kwh.\nOutput:\nDòng 1: Một số nguyên là tổng số tiền điện.",
+  "statement": "Tính tiền điện phải trả dựa trên số lượng điện tiêu thụ `kwh` (số thực) theo biểu giá lũy tiến từng bậc như sau:\n- Bậc 1: Cho 50 kWh đầu tiên: 1678 đ/kWh.\n- Bậc 2: Cho kWh từ 51 đến 100: 1734 đ/kWh.\n- Bậc 3: Cho kWh từ 101 đến 200: 2014 đ/kWh.\n- Bậc 4: Cho kWh từ 201 trở lên: 2536 đ/kWh.\n\nNếu `kwh` nhỏ hơn hoặc bằng 0, tổng tiền điện là 0. Kết quả cuối cùng phải được in ra dưới dạng số nguyên (làm tròn xuống).\n\n**Input:**\nMột dòng duy nhất chứa số thực `kwh`.\n\n**Output:**\nMột dòng duy nhất chứa một số nguyên là tổng số tiền điện tính được.",
+  "ioFormat": "Input:\nDòng 1: Số thực kwh.\nOutput:\nDòng 1: Một số nguyên duy nhất.",
   "constraints": "kwh >= 0",
   "examples": "Input:\n120\nOutput:\n210880",
   "mode": "stdio",
-  "starter": "def tinh_tien_dien(kwh):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nkwh = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef tinh_tien_dien(kwh):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nkwh = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -445,35 +433,32 @@
     "expected": "128117"
    }
   ],
-  "hint": "Sử dụng cấu trúc if-elif để tách các khoảng kwh. Tính tiền từng phần (phần trong định mức và phần vượt định mức).",
+  "hint": "Có thể viết hàm `tinh_tien_dien(kwh)` sử dụng cấu trúc `if-elif` để phân loại và tính tiền theo từng bậc. Sử dụng cấu trúc if-elif để tách các khoảng kwh. Tính tiền từng phần (phần trong định mức và phần vượt định mức).",
   "explanation": "Với kwh=120: Tiền = 50*1678 + 50*1734 + 20*2014. Cần trừ dần kwh sau mỗi bậc hoặc dùng các mốc cố định.",
   "commonMistakes": [
    "Lấy toàn bộ kwh nhân với đơn giá của bậc cao nhất",
    "Tính sai khoảng cách giữa các bậc (ví dụ bậc 2 tính cho 100kWh thay vì 50kWh)"
   ],
-  "solution": "def tinh_tien_dien(kwh):\n    if kwh <= 0:\n        return 0\n    total = 0\n    if kwh <= 50:\n        total = kwh * 1678\n    elif kwh <= 100:\n        total = 50 * 1678 + (kwh - 50) * 1734\n    elif kwh <= 200:\n        total = 50 * 1678 + 50 * 1734 + (kwh - 100) * 2014\n    else:\n        total = 50 * 1678 + 50 * 1734 + 100 * 2014 + (kwh - 200) * 2536\n    return int(total)\n\n# ===== Chương trình chính =====\nkwh = float(input())\nprint(tinh_tien_dien(kwh))",
+  "solution": "def tinh_tien_dien(kwh):\n    if kwh <= 0:\n        return 0\n    total = 0\n    if kwh <= 50:\n        total = kwh * 1678\n    elif kwh <= 100:\n        total = 50 * 1678 + (kwh - 50) * 1734\n    elif kwh <= 200:\n        total = 50 * 1678 + 50 * 1734 + (kwh - 100) * 2014\n    else:\n        total = 50 * 1678 + 50 * 1734 + 100 * 2014 + (kwh - 200) * 2536\n    return int(total)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nkwh = float(input())\nprint(tinh_tien_dien(kwh))",
   "errorCategory": "logic",
   "tags": [
    "if-elif",
    "tiered-pricing"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "tinh_tien_dien"
-  ]
+  "reserve": false
  },
  {
   "id": "T2-C02",
   "topic": "T2",
   "difficulty": 2,
   "title": "Số Harshad và liệt kê",
-  "statement": "Số Harshad (hay số Niven) là số nguyên dương chia hết cho tổng các chữ số của nó. \n1) Viết hàm is_harshad(n) trả về True nếu n là số Harshad, ngược lại False.\n2) Viết hàm get_harshads_in_range(a, b) trả về danh sách các số Harshad trong đoạn [a, b] (bao gồm cả a và b).\n\n**Chương trình chính:** \n- Dòng 1: Nhập chế độ (1 để kiểm tra một số, 2 để tìm trong đoạn).\n- Nếu chế độ là 1: Dòng 2 nhập số nguyên `n`. In kết quả của hàm `is_harshad(n)`.\n- Nếu chế độ là 2: Dòng 2 nhập `a` và `b` cách nhau bởi dấu cách. In danh sách kết quả trên một dòng, các phần tử cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: Số nguyên 1 hoặc 2 (chế độ).\nDòng 2: Số nguyên n (nếu chế độ 1) hoặc hai số a, b cách nhau bởi dấu cách (nếu chế độ 2).\nOutput:\nKết quả hàm is_harshad (True/False) hoặc danh sách các số Harshad cách nhau bởi dấu cách.",
+  "statement": "Số Harshad (hay số Niven) là một số nguyên dương chia hết cho tổng các chữ số của nó. Bài toán yêu cầu thực hiện xử lý dựa trên một trong hai chế độ:\n- Chế độ 1: Kiểm tra một số nguyên có phải là số Harshad hay không.\n- Chế độ 2: Tìm tất cả các số Harshad trong một đoạn cho trước.\n\n**Input:**\n- Dòng 1: Một số nguyên `mode` (nhận giá trị 1 hoặc 2).\n- Dòng 2: Nếu `mode` là 1, nhập một số nguyên dương `n`. Nếu `mode` là 2, nhập hai số nguyên dương `a` và `b` cách nhau bởi dấu cách.\n\n**Output:**\n- Nếu `mode` là 1: In `True` nếu `n` là số Harshad, ngược lại in `False`.\n- Nếu `mode` là 2: In các số Harshad trong đoạn `[a, b]` trên một dòng, cách nhau bởi dấu cách. Nếu không tìm thấy số nào, in `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: Số nguyên 1 hoặc 2 (chế độ).\nDòng 2: Số nguyên n (nếu chế độ 1) hoặc hai số a, b cách nhau bởi dấu cách (nếu chế độ 2).\nOutput:\nKết quả True/False hoặc danh sách các số Harshad cách nhau bởi dấu cách (hoặc 'Rỗng').",
   "constraints": "n > 0; 1 <= a <= b <= 1000",
   "examples": "Input:\n2\n1 10\nOutput:\n1 2 3 4 5 6 7 8 9 10",
   "mode": "stdio",
-  "starter": "def is_harshad(n):\n    pass\n\ndef get_harshads_in_range(a, b):\n    pass\n\n# ===== Chương trình chính =====\nmode = int(input())\nif mode == 1:\n    n = int(input())\n    # Gọi hàm và in kết quả\nelse:\n    a, b = map(int, input().split())\n    # Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef is_harshad(n):\n    pass\n\ndef get_harshads_in_range(a, b):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nmode = int(input())\nif mode == 1:\n    n = int(input())\n    # Gọi hàm và in kết quả\nelse:\n    a, b = map(int, input().split())\n    # Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -537,13 +522,13 @@
     "expected": "990 999 1000"
    }
   ],
-  "hint": "Để tính tổng chữ số, sử dụng vòng lặp while với n % 10 và n // 10. Hàm liệt kê sử dụng for i in range(a, b+1).",
+  "hint": "Có thể viết hàm `is_harshad(n)` trả về giá trị boolean để kiểm tra một số có phải là số Harshad hay không. Để tính tổng chữ số, sử dụng vòng lặp while với n % 10 và n // 10. Hàm liệt kê sử dụng for i in range(a, b+1).",
   "explanation": "Sử dụng accumulator để cộng dồn các chữ số của n. Sau đó dùng toán tử % để kiểm tra chia hết.",
   "commonMistakes": [
    "Quên không lưu lại giá trị gốc của n trước khi dùng while để tách chữ số",
    "Sử dụng range(a, b) thiếu giá trị b"
   ],
-  "solution": "def is_harshad(n):\n    if n <= 0: return False\n    temp = n\n    s = 0\n    while temp > 0:\n        s += temp % 10\n        temp //= 10\n    return n % s == 0\n\ndef get_harshads_in_range(a, b):\n    res = []\n    for i in range(a, b + 1):\n        if is_harshad(i):\n            res.append(i)\n    return res\n\n# ===== Chương trình chính =====\nmode = int(input())\nif mode == 1:\n    n = int(input())\n    print(is_harshad(n))\nelse:\n    line = input().split()\n    a, b = int(line[0]), int(line[1])\n    res = get_harshads_in_range(a, b)\n    if not res:\n        print(\"Rỗng\")\n    else:\n        print(*res)",
+  "solution": "def is_harshad(n):\n    if n <= 0: return False\n    temp = n\n    s = 0\n    while temp > 0:\n        s += temp % 10\n        temp //= 10\n    return n % s == 0\n\ndef get_harshads_in_range(a, b):\n    res = []\n    for i in range(a, b + 1):\n        if is_harshad(i):\n            res.append(i)\n    return res\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nmode = int(input())\nif mode == 1:\n    n = int(input())\n    print(is_harshad(n))\nelse:\n    line = input().split()\n    a, b = int(line[0]), int(line[1])\n    res = get_harshads_in_range(a, b)\n    if not res:\n        print(\"Rỗng\")\n    else:\n        print(*res)",
   "errorCategory": "implementation",
   "tags": [
    "digit-processing",
@@ -551,23 +536,19 @@
    "for-range"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "is_harshad",
-   "get_harshads_in_range"
-  ]
+  "reserve": false
  },
  {
   "id": "T2-C03",
   "topic": "T2",
   "difficulty": 3,
   "title": "Số Armstrong lớn nhất",
-  "statement": "Số Armstrong là số có n chữ số sao cho tổng lũy thừa bậc n của các chữ số bằng chính nó (ví dụ 153 là số có 3 chữ số và 1^3 + 5^3 + 3^3 = 153). Viết hàm find_max_armstrong(k) tìm số Armstrong lớn nhất không vượt quá k.\n\n**Chương trình chính:** \nĐọc một số nguyên `k` từ bàn phím. Gọi hàm và in kết quả tìm được ra màn hình.",
-  "ioFormat": "Input:\nMột dòng chứa số nguyên k.\nOutput:\nMột dòng chứa số Armstrong lớn nhất không vượt quá k.",
+  "statement": "Số Armstrong là số có `n` chữ số sao cho tổng lũy thừa bậc `n` của các chữ số của nó bằng chính nó. Ví dụ, 153 là số có 3 chữ số và 1^3 + 5^3 + 3^3 = 153. Hãy tìm số Armstrong lớn nhất không vượt quá một số nguyên `k` cho trước.\n\n**Input:**\nMột dòng duy nhất chứa số nguyên dương `k`.\n\n**Output:**\nMột dòng duy nhất chứa số Armstrong lớn nhất tìm được trong đoạn từ 1 đến `k`. Nếu không có số nào, in `0`.",
+  "ioFormat": "Input:\nMột dòng chứa số nguyên k.\nOutput:\nSố Armstrong lớn nhất không vượt quá k.",
   "constraints": "1 <= k <= 10000",
   "examples": "Input:\n200\nOutput:\n153",
   "mode": "stdio",
-  "starter": "def find_max_armstrong(k):\n    pass\n\n# ===== Chương trình chính =====\nk = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef find_max_armstrong(k):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nk = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -631,13 +612,13 @@
     "expected": "5"
    }
   ],
-  "hint": "Chạy ngược từ k về 1 bằng range(k, 0, -1). Với mỗi số, đếm số chữ số n trước, sau đó tính tổng lũy thừa bậc n.",
+  "hint": "Có thể viết hàm `find_max_armstrong(k)` sử dụng vòng lặp từ `k` lùi về 1 để tìm số đầu tiên thỏa mãn điều kiện Armstrong. Chạy ngược từ k về 1 bằng range(k, 0, -1). Với mỗi số, đếm số chữ số n trước, sau đó tính tổng lũy thừa bậc n.",
   "explanation": "Số 1634 có 4 chữ số. Tổng = 1^4 + 6^4 + 3^4 + 4^4 = 1 + 1296 + 81 + 256 = 1634. Tìm ngược từ k giúp lấy số lớn nhất ngay lập tức.",
   "commonMistakes": [
    "Mặc định số mũ luôn là 3 (chỉ đúng cho số có 3 chữ số)",
    "Không xử lý được các số có số chữ số khác nhau"
   ],
-  "solution": "def find_max_armstrong(k):\n    for i in range(k, 0, -1):\n        s_num = str(i)\n        n = len(s_num)\n        total = sum(int(digit)**n for digit in s_num)\n        if total == i:\n            return i\n    return 0\n\n# ===== Chương trình chính =====\nk = int(input())\nprint(find_max_armstrong(k))",
+  "solution": "def find_max_armstrong(k):\n    for i in range(k, 0, -1):\n        s_num = str(i)\n        n = len(s_num)\n        total = sum(int(digit)**n for digit in s_num)\n        if total == i:\n            return i\n    return 0\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nk = int(input())\nprint(find_max_armstrong(k))",
   "errorCategory": "logic",
   "tags": [
    "for-range",
@@ -645,22 +626,19 @@
    "digit-processing"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "find_max_armstrong"
-  ]
+  "reserve": false
  },
  {
   "id": "T2-C04",
   "topic": "T2",
   "difficulty": 2,
   "title": "Thuế thu nhập cá nhân lũy tiến",
-  "statement": "Viết hàm tinh_thue_tncn(thu_nhap) để tính thuế thu nhập cá nhân (VND) theo quy tắc sau:\n1. Giảm trừ gia cảnh mặc định cho bản thân là 11.000.000 VND. Thu nhập tính thuế = Thu nhập - 11.000.000 (nếu < 0 thì bằng 0).\n2. Biểu thuế lũy tiến trên thu nhập tính thuế:\n- Bậc 1: Đến 5 triệu VND: 5%\n- Bậc 2: Trên 5 đến 10 triệu VND: 10%\n- Bậc 3: Trên 10 đến 20 triệu VND: 15%\n- Bậc 4: Trên 20 triệu VND: 20%\nTrả về số tiền thuế là số thực (float).\n\n**Chương trình chính:** \nNhập một số nguyên là tổng thu nhập từ bàn phím. Gọi hàm và in số tiền thuế ra màn hình.",
-  "ioFormat": "Input:\nMột dòng chứa số nguyên thu_nhap.\nOutput:\nMột dòng chứa số thực là tiền thuế.",
+  "statement": "Hãy tính thuế thu nhập cá nhân (VND) dựa trên tổng thu nhập của một cá nhân theo các quy tắc sau:\n1. Giảm trừ gia cảnh mặc định cho bản thân là 11,000,000 VND. \n   - Thu nhập tính thuế = Thu nhập - 11,000,000. \n   - Nếu kết quả nhỏ hơn hoặc bằng 0, thu nhập tính thuế được tính là 0.\n2. Biểu thuế lũy tiến áp dụng trên thu nhập tính thuế:\n   - Bậc 1: Đến 5,000,000 VND: thuế suất 5%.\n   - Bậc 2: Trên 5,000,000 đến 10,000,000 VND: thuế suất 10%.\n   - Bậc 3: Trên 10,000,000 đến 20,000,000 VND: thuế suất 15%.\n   - Bậc 4: Trên 20,000,000 VND: thuế suất 20%.\n\n**Input:**\nMột dòng duy nhất chứa số nguyên dương là tổng thu nhập.\n\n**Output:**\nMột dòng duy nhất chứa số thực là số tiền thuế phải nộp, được in theo định dạng mặc định của Python (ví dụ: `650000.0`).",
+  "ioFormat": "Input:\nMột dòng chứa số nguyên thu_nhap.\nOutput:\nMột dòng chứa số thực là tiền thuế (ví dụ: 0.0).",
   "constraints": "thu_nhap >= 0",
   "examples": "Input:\n20000000\nOutput:\n650000.0",
   "mode": "stdio",
-  "starter": "def tinh_thue_tncn(thu_nhap):\n    pass\n\n# ===== Chương trình chính =====\nthu_nhap = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef tinh_thue_tncn(thu_nhap):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nthu_nhap = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -724,23 +702,20 @@
     "expected": "0.0"
    }
   ],
-  "hint": "Trừ đi 11 triệu trước. Sau đó dùng if-elif để tính thuế từng bậc cho số dư còn lại.",
+  "hint": "Có thể viết hàm `tinh_thue_tncn(thu_nhap)` để xử lý các điều kiện rẽ nhánh tính thuế theo từng bậc. Trừ đi 11 triệu trước. Sau đó dùng if-elif để tính thuế từng bậc cho số dư còn lại.",
   "explanation": "Với thu nhập 20 triệu: Tính thuế = 9 triệu. 5 triệu đầu * 5% = 250k. 4 triệu tiếp theo * 10% = 400k. Tổng 650k.",
   "commonMistakes": [
    "Quên trừ 11 triệu giảm trừ gia cảnh",
    "Tính thuế toàn bộ trên một mức phần trăm thay vì lũy tiến từng phần"
   ],
-  "solution": "def tinh_thue_tncn(thu_nhap):\n    taxable = thu_nhap - 11000000\n    if taxable <= 0:\n        return 0.0\n    \n    tax = 0.0\n    if taxable <= 5000000:\n        tax = taxable * 0.05\n    elif taxable <= 10000000:\n        tax = 5000000 * 0.05 + (taxable - 5000000) * 0.1\n    elif taxable <= 20000000:\n        tax = 5000000 * 0.05 + 5000000 * 0.1 + (taxable - 10000000) * 0.15\n    else:\n        tax = 5000000 * 0.05 + 5000000 * 0.1 + 10000000 * 0.15 + (taxable - 20000000) * 0.2\n    return float(tax)\n\n# ===== Chương trình chính =====\nthu_nhap = int(input())\nprint(tinh_thue_tncn(thu_nhap))",
+  "solution": "def tinh_thue_tncn(thu_nhap):\n    taxable = thu_nhap - 11000000\n    if taxable <= 0:\n        return 0.0\n    \n    tax = 0.0\n    if taxable <= 5000000:\n        tax = taxable * 0.05\n    elif taxable <= 10000000:\n        tax = 5000000 * 0.05 + (taxable - 5000000) * 0.1\n    elif taxable <= 20000000:\n        tax = 5000000 * 0.05 + 5000000 * 0.1 + (taxable - 10000000) * 0.15\n    else:\n        tax = 5000000 * 0.05 + 5000000 * 0.1 + 10000000 * 0.15 + (taxable - 20000000) * 0.2\n    return float(tax)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nthu_nhap = int(input())\nprint(tinh_thue_tncn(thu_nhap))",
   "errorCategory": "logic",
   "tags": [
    "if-elif",
    "tiered-pricing"
   ],
   "source": "supplement",
-  "reserve": true,
-  "requireFunction": [
-   "tinh_thue_tncn"
-  ]
+  "reserve": true
  },
  {
   "id": "T3-C01",
@@ -750,7 +725,7 @@
   "statement": "Viết chương trình nhập vào một ma trận số nguyên kích thước m x n. Hãy xác định và in ra chỉ số của các cột có tổng các phần tử là một số chẵn. Các chỉ số cột được in trên một dòng, cách nhau bởi khoảng trắng, theo thứ tự tăng dần. Nếu không có cột nào thỏa mãn, không in gì cả.",
   "ioFormat": "Dòng đầu tiên chứa hai số nguyên dương m và n (số dòng và số cột). m dòng tiếp theo, mỗi dòng chứa n số nguyên đại diện cho các phần tử của ma trận.",
   "constraints": "1 <= m, n <= 100; giá trị phần tử ma trận trong khoảng [-10^6, 10^6].",
-  "examples": "Input:\n2 3\n1 2 4\n3 4 6\nOutput:\n0 1 2\n(Giải thích: Cột 0: 1+3=4 (chẵn); Cột 1: 2+4=6 (chẵn); Cột 2: 4+6=10 (chẵn))",
+  "examples": "Input:\n2 3\n1 2 4\n3 4 6\nOutput:\n0 1 2\n\nGiải thích (không in ra): cột 0: 1+3=4, cột 1: 2+4=6, cột 2: 4+6=10 đều chẵn.",
   "mode": "stdio",
   "starter": "m, n = map(int, input().split())\nmatrix = []\n# Viết code của bạn tại đây",
   "files": {},
@@ -837,12 +812,12 @@
   "topic": "T3",
   "difficulty": 2,
   "title": "Lọc sinh viên học bổng",
-  "statement": "Trong kỳ xét học bổng, giảng viên cần lọc ra các sinh viên có điểm trung bình (GPA) từ mức quy định trở lên. Viết hàm `get_scholarship_list(students, threshold)` nhận vào danh sách các tuple `(tên, điểm_gpa)` và mức điểm sàn `threshold`. Hàm trả về danh sách tên của các sinh viên đạt điều kiện, sắp xếp theo thứ tự: điểm GPA giảm dần, nếu điểm bằng nhau thì sắp xếp theo tên (bảng chữ cái) tăng dần.\n\n**Chương trình chính:** \n- Dòng đầu nhập số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo, mỗi dòng chứa tên sinh viên (không dấu cách) và điểm GPA, cách nhau bởi dấu cách.\n- Dòng cuối nhập mức điểm sàn `threshold`.\n- In danh sách tên sinh viên nhận học bổng trên một dòng cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: n (số sinh viên).\nn dòng tiếp theo: <tên> <điểm>.\nDòng cuối: threshold.\nOutput:\nDanh sách các tên sinh viên cách nhau bởi dấu cách, hoặc 'Rỗng'.",
+  "statement": "Trong kỳ xét học bổng, cần lọc ra các sinh viên có điểm trung bình (GPA) từ một mức điểm sàn (threshold) trở lên. Danh sách sinh viên đạt yêu cầu cần được sắp xếp theo tiêu chí: điểm GPA giảm dần, nếu điểm GPA bằng nhau thì sắp xếp theo tên sinh viên tăng dần (theo thứ tự bảng chữ cái).\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo, mỗi dòng chứa tên sinh viên (chuỗi không chứa khoảng trắng) và điểm GPA (số thực), cách nhau bởi dấu cách.\n- Dòng cuối cùng chứa mức điểm sàn `threshold` (số thực).\n\n**Output:**\n- Một dòng duy nhất chứa tên các sinh viên nhận học bổng theo đúng thứ tự sắp xếp, cách nhau bởi một dấu cách.\n- Nếu không có sinh viên nào thỏa mãn, in `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: <tên> <điểm>.\nDòng cuối: threshold.\nOutput:\nDanh sách các tên cách nhau bởi dấu cách, hoặc 'Rỗng'.",
   "constraints": "Danh sách sinh viên có từ 0 đến 1000 phần tử. Điểm GPA là số thực [0.0, 4.0].",
   "examples": "Input:\n3\nAn 3.5\nBinh 3.9\nCuong 3.5\n3.5\nOutput:\nBinh An Cuong",
   "mode": "stdio",
-  "starter": "def get_scholarship_list(students, threshold):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nstudents = []\nfor _ in range(n):\n    line = input().split()\n    students.append((line[0], float(line[1])))\nthreshold = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef get_scholarship_list(students, threshold):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nstudents = []\nfor _ in range(n):\n    line = input().split()\n    students.append((line[0], float(line[1])))\nthreshold = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -906,14 +881,14 @@
     "expected": "O P Q R"
    }
   ],
-  "hint": "Sử dụng hàm sorted() hoặc phương thức sort() với tham số 'key'. Để sắp xếp GPA giảm dần và tên tăng dần, key có thể là lambda x: (-x[1], x[0]).",
+  "hint": "Có thể sử dụng hàm `sorted()` với tham số `key=lambda x: (-x[1], x[0])` để thực hiện sắp xếp đa tiêu chí. Sử dụng hàm sorted() hoặc phương thức sort() với tham số 'key'. Để sắp xếp GPA giảm dần và tên tăng dần, key có thể là lambda x: (-x[1], x[0]).",
   "explanation": "Đầu tiên dùng list comprehension lọc ra các tuple thỏa mãn điều kiện x[1] >= threshold. Sau đó, thực hiện sắp xếp danh sách đã lọc. Python hỗ trợ sắp xếp đa tiêu chí bằng cách trả về một tuple trong key của hàm sort. Cuối cùng dùng list comprehension để trích xuất chỉ phần tên.",
   "commonMistakes": [
    "Quên không xử lý sắp xếp tên tăng dần khi GPA bằng nhau.",
    "Sử dụng sort() và quên rằng nó trả về None thay vì danh sách mới.",
    "Nhầm lẫn thứ tự các phần tử trong tuple (0 là tên, 1 là điểm)."
   ],
-  "solution": "def get_scholarship_list(students, threshold):\n    # Lọc sinh viên\n    filtered = [s for s in students if s[1] >= threshold]\n    # Sắp xếp: GPA giảm dần (-x[1]), Tên tăng dần (x[0])\n    filtered.sort(key=lambda x: (-x[1], x[0]))\n    # Trả về danh sách tên\n    return [s[0] for s in filtered]\n\n# ===== Chương trình chính =====\nn_str = input().strip()\nn = int(n_str) if n_str else 0\nstudents = []\nfor _ in range(n):\n    line = input().split()\n    if line:\n        students.append((line[0], float(line[1])))\nthreshold = float(input())\nres = get_scholarship_list(students, threshold)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
+  "solution": "def get_scholarship_list(students, threshold):\n    # Lọc sinh viên\n    filtered = [s for s in students if s[1] >= threshold]\n    # Sắp xếp: GPA giảm dần (-x[1]), Tên tăng dần (x[0])\n    filtered.sort(key=lambda x: (-x[1], x[0]))\n    # Trả về danh sách tên\n    return [s[0] for s in filtered]\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn_str = input().strip()\nn = int(n_str) if n_str else 0\nstudents = []\nfor _ in range(n):\n    line = input().split()\n    if line:\n        students.append((line[0], float(line[1])))\nthreshold = float(input())\nres = get_scholarship_list(students, threshold)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
   "errorCategory": "logic",
   "tags": [
    "list-methods",
@@ -921,22 +896,19 @@
    "tuple"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "get_scholarship_list"
-  ]
+  "reserve": false
  },
  {
   "id": "T3-C03",
   "topic": "T3",
   "difficulty": 3,
   "title": "Phân tích ma trận vuông",
-  "statement": "Viết hàm `matrix_analysis(matrix)` nhận vào một ma trận vuông (danh sách các danh sách). Hàm trả về một dictionary chứa 3 thông tin: tổng các phần tử trên đường chéo chính (key: 'main'), tổng các phần tử trên đường chéo phụ (key: 'anti'), và ma trận chuyển vị của nó (key: 'transpose').\n\n**Chương trình chính:** \n- Dòng đầu nhập số nguyên `n` là kích thước ma trận vuông (`n x n`).\n- `n` dòng tiếp theo, mỗi dòng chứa `n` số (nguyên hoặc thực) cách nhau bởi dấu cách.\n- In kết quả là nội dung dictionary theo quy tắc: mỗi cặp khóa-giá trị trên một dòng dạng `khóa: giá_trị`, sắp xếp theo thứ tự bảng chữ cái của khóa.\nGiữ nguyên kiểu số như input (số không có dấu `.` là `int`). In `transpose` bằng `print` một list Python, ví dụ `transpose: [[1, 3], [2, 4]]`.",
-  "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: n số của mỗi hàng.\nOutput:\nanti: <giá trị>\nmain: <giá trị>\ntranspose: <danh sách các hàng>",
+  "statement": "Cho một ma trận vuông cấp `n x n`. Hãy tính tổng các phần tử trên đường chéo chính, tổng các phần tử trên đường chéo phụ và tìm ma trận chuyển vị của ma trận đó.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên dương `n` là kích thước ma trận.\n- `n` dòng tiếp theo, mỗi dòng chứa `n` số (nguyên hoặc thực) cách nhau bởi dấu cách đại diện cho một hàng của ma trận.\n\n**Output:**\nIn ra 3 dòng tương ứng với 3 kết quả, định dạng theo kiểu `khóa: giá_trị` và được sắp xếp theo thứ tự bảng chữ cái của khóa:\n- `anti: <giá_trị>` (Tổng các phần tử trên đường chéo phụ)\n- `main: <giá_trị>` (Tổng các phần tử trên đường chéo chính)\n- `transpose: <giá_trị>` (Ma trận chuyển vị dưới dạng list các list của Python)\n\n*Lưu ý:* Giá trị số cần giữ nguyên kiểu dữ liệu (nguyên hoặc thực) như đầu vào. Ma trận chuyển vị in trực tiếp bằng hàm `print()` lên list kết quả.",
+  "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: các phần tử của ma trận.\nOutput:\nanti: <giá trị>\nmain: <giá trị>\ntranspose: <danh sách hàng của ma trận chuyển vị>",
   "constraints": "Ma trận kích thước n x n, 1 <= n <= 50.",
   "examples": "Input:\n2\n1 2\n3 4\nOutput:\nanti: 5\nmain: 5\ntranspose: [[1, 3], [2, 4]]",
   "mode": "stdio",
-  "starter": "def matrix_analysis(matrix):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nmatrix = []\nfor _ in range(n):\n    row = [float(x) if '.' in x else int(x) for x in input().split()]\n    matrix.append(row)\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef matrix_analysis(matrix):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nmatrix = []\nfor _ in range(n):\n    row = [float(x) if '.' in x else int(x) for x in input().split()]\n    matrix.append(row)\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -1000,14 +972,14 @@
     "expected": "anti: 6\nmain: 2\ntranspose: [[1, 0, 3], [2, 0, 2], [3, 0, 1]]"
    }
   ],
-  "hint": "Đường chéo chính là các phần tử matrix[i][i]. Đường chéo phụ là các phần tử matrix[i][n-1-i]. Ma trận chuyển vị có transpose[i][j] = matrix[j][i].",
+  "hint": "Có thể viết hàm `matrix_analysis(matrix)` để tính toán đồng thời các giá trị và trả về một dictionary chứa kết quả. Đường chéo chính là các phần tử matrix[i][i]. Đường chéo phụ là các phần tử matrix[i][n-1-i]. Ma trận chuyển vị có transpose[i][j] = matrix[j][i].",
   "explanation": "Sử dụng n = len(matrix) để xác định kích thước. Tính tổng đường chéo chính bằng cách lặp i từ 0 đến n-1. Tương tự cho đường chéo phụ. Ma trận chuyển vị có thể được tạo bằng list comprehension lồng nhau.",
   "commonMistakes": [
    "Tính sai chỉ số đường chéo phụ (thường quên -1 trong n-1-i).",
    "Tạo ma trận chuyển vị bằng cách dùng `[[0]*n]*n` dẫn đến lỗi tham chiếu (sửa một dòng đổi cả ma trận).",
    "Nhầm lẫn giữa hàng và cột khi thực hiện chuyển vị."
   ],
-  "solution": "def matrix_analysis(matrix):\n    n = len(matrix)\n    main_sum = sum(matrix[i][i] for i in range(n))\n    anti_sum = sum(matrix[i][n-1-i] for i in range(n))\n    transpose = [[matrix[j][i] for j in range(n)] for i in range(n)]\n    return {\n        'main': main_sum,\n        'anti': anti_sum,\n        'transpose': transpose\n    }\n\n# ===== Chương trình chính =====\nn = int(input())\nmatrix = []\nfor _ in range(n):\n    row = [float(x) if '.' in x else int(x) for x in input().split()]\n    matrix.append(row)\nres = matrix_analysis(matrix)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "def matrix_analysis(matrix):\n    n = len(matrix)\n    main_sum = sum(matrix[i][i] for i in range(n))\n    anti_sum = sum(matrix[i][n-1-i] for i in range(n))\n    transpose = [[matrix[j][i] for j in range(n)] for i in range(n)]\n    return {\n        'main': main_sum,\n        'anti': anti_sum,\n        'transpose': transpose\n    }\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nmatrix = []\nfor _ in range(n):\n    row = [float(x) if '.' in x else int(x) for x in input().split()]\n    matrix.append(row)\nres = matrix_analysis(matrix)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "concept",
   "tags": [
    "matrix-2d",
@@ -1015,22 +987,19 @@
    "tuple"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "matrix_analysis"
-  ]
+  "reserve": false
  },
  {
   "id": "T3-C04",
   "topic": "T3",
   "difficulty": 2,
   "title": "Lọc sinh viên theo lớp",
-  "statement": "Viết hàm `filter_by_class(students, class_code, min_gpa)` nhận vào danh sách các tuple `(tên, gpa, mã_lớp)` và các tiêu chí lọc. Hàm trả về danh sách tên sinh viên thuộc lớp `class_code` và có điểm `gpa >= min_gpa`, sắp xếp theo tên tăng dần.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng chứa tên (không khoảng trắng), điểm GPA (số thực) và mã lớp (chuỗi), cách nhau bởi dấu cách.\n- Dòng kế tiếp: Chuỗi `class_code` cần lọc.\n- Dòng cuối: Số thực `min_gpa` cần lọc.\n- In kết quả: Các tên sinh viên tìm được trên một dòng, cách nhau bởi dấu cách. Nếu không có sinh viên nào thỏa mãn, in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: n\nn dòng: name gpa class_code\nDòng n+2: class_code_target\nDòng n+3: min_gpa_target\nOutput:\nDanh sách tên cách nhau bởi dấu cách hoặc 'Rỗng'",
+  "statement": "Cho danh sách sinh viên gồm tên, điểm GPA và mã lớp. Nhiệm vụ của bạn là lọc ra danh sách tên các sinh viên thuộc một lớp cụ thể và có điểm GPA lớn hơn hoặc bằng một ngưỡng cho trước, sau đó sắp xếp danh sách tên này theo thứ tự bảng chữ cái tăng dần.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng chứa tên sinh viên (chuỗi không chứa khoảng trắng), điểm GPA (số thực) và mã lớp (chuỗi), cách nhau bởi dấu cách.\n- Dòng kế tiếp: Chuỗi `class_code` là mã lớp cần lọc.\n- Dòng cuối: Số thực `min_gpa` là ngưỡng điểm GPA tối thiểu.\n\n**Output:**\n- Danh sách tên sinh viên thỏa mãn điều kiện trên một dòng, cách nhau bởi một dấu cách. \n- Nếu không có sinh viên nào thỏa mãn, in `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: n\nn dòng: name gpa class_code\nDòng n+2: class_code_target\nDòng n+3: min_gpa_target\nOutput:\nCác tên thỏa mãn cách nhau bởi dấu cách hoặc 'Rỗng'",
   "constraints": "Tên và mã lớp là chuỗi không trống; gpa là số thực.",
   "examples": "Input:\n3\nAn 3.5 D21\nBinh 3.2 D21\nChien 3.8 D22\nD21\n3.0\nOutput:\nAn Binh",
   "mode": "stdio",
-  "starter": "def filter_by_class(students, class_code, min_gpa):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nstudents_input = []\nfor _ in range(n):\n    parts = input().split()\n    students_input.append((parts[0], float(parts[1]), parts[2]))\ntarget_class = input()\ntarget_gpa = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef filter_by_class(students, class_code, min_gpa):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nstudents_input = []\nfor _ in range(n):\n    parts = input().split()\n    students_input.append((parts[0], float(parts[1]), parts[2]))\ntarget_class = input()\ntarget_gpa = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -1094,13 +1063,13 @@
     "expected": "B D"
    }
   ],
-  "hint": "Sử dụng list comprehension với điều kiện `if` để lọc lớp và điểm, sau đó dùng hàm `sorted()` để sắp xếp kết quả.",
+  "hint": "Có thể viết hàm `filter_by_class(students, class_code, min_gpa)` nhận vào list các tuple để lọc và trả về list tên đã sắp xếp. Sử dụng list comprehension với điều kiện `if` để lọc lớp và điểm, sau đó dùng hàm `sorted()` để sắp xếp kết quả.",
   "explanation": "Đây là biến thể của bài toán lọc danh sách. Duyệt qua từng tuple trong students, kiểm tra điều kiện s[2] == class_code và s[1] >= min_gpa. Lưu tên s[0] vào list mới rồi sắp xếp list đó theo bảng chữ cái.",
   "commonMistakes": [
    "Sử dụng toán tử 'in' cho mã lớp thay vì so sánh bằng '==' (có thể gây sai nếu mã lớp này là con của mã lớp kia).",
    "Quên sắp xếp tên tăng dần trước khi trả về."
   ],
-  "solution": "def filter_by_class(students, class_code, min_gpa):\n    res = [s[0] for s in students if s[2] == class_code and s[1] >= min_gpa]\n    return sorted(res)\n\n# ===== Chương trình chính =====\nn = int(input())\nstudents_input = []\nfor _ in range(n):\n    parts = input().split()\n    students_input.append((parts[0], float(parts[1]), parts[2]))\ntarget_class = input()\ntarget_gpa = float(input())\n\nresult = filter_by_class(students_input, target_class, target_gpa)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
+  "solution": "def filter_by_class(students, class_code, min_gpa):\n    res = [s[0] for s in students if s[2] == class_code and s[1] >= min_gpa]\n    return sorted(res)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nstudents_input = []\nfor _ in range(n):\n    parts = input().split()\n    students_input.append((parts[0], float(parts[1]), parts[2]))\ntarget_class = input()\ntarget_gpa = float(input())\n\nresult = filter_by_class(students_input, target_class, target_gpa)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
   "errorCategory": "implementation",
   "tags": [
    "list-methods",
@@ -1108,10 +1077,7 @@
    "tuple"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "filter_by_class"
-  ]
+  "reserve": true
  },
  {
   "id": "T3-C05",
@@ -1209,12 +1175,12 @@
   "topic": "T3",
   "difficulty": 1,
   "title": "Lọc số chẵn",
-  "statement": "Viết hàm filter_even(numbers) nhận vào một list các số nguyên và trả về một list mới chỉ chứa các số chẵn, giữ nguyên thứ tự xuất hiện.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số lượng phần tử của danh sách.\n- Dòng 2: `n` số nguyên cách nhau bởi dấu cách.\n- In kết quả: Các số chẵn tìm được trên một dòng, cách nhau bởi dấu cách. Nếu không có số chẵn nào, in `Rỗng`.\n(Nếu `n = 0` thì dòng 2 để trống.)",
+  "statement": "Cho một danh sách các số nguyên. Hãy lọc và in ra các số chẵn có trong danh sách đó theo đúng thứ tự xuất hiện ban đầu.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng phần tử của danh sách.\n- Dòng 2: `n` số nguyên cách nhau bởi dấu cách. Nếu `n = 0`, dòng này để trống.\n\n**Output:**\n- Các số chẵn tìm được trên một dòng, cách nhau bởi một dấu cách.\n- Nếu không có số chẵn nào trong danh sách (hoặc danh sách rỗng), in `Rỗng`.",
   "ioFormat": "Input:\nDòng 1: n\nDòng 2: n số nguyên\nOutput:\nCác số chẵn trên một dòng hoặc 'Rỗng'",
   "constraints": "List đầu vào có từ 0 đến 1000 phần tử.",
   "examples": "Input:\n6\n1 2 3 4 5 6\nOutput:\n2 4 6",
   "mode": "stdio",
-  "starter": "def filter_even(numbers):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nnums = list(map(int, input().split())) if n > 0 else []\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef filter_even(numbers):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nnums = list(map(int, input().split())) if n > 0 else []\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "6\n1 2 3 4 5 6",
@@ -1277,13 +1243,13 @@
     "expected": "Rỗng"
    }
   ],
-  "hint": "Sử dụng list comprehension hoặc vòng lặp for kết hợp với toán tử chia lấy dư % 2.",
+  "hint": "Có thể viết hàm `filter_even(numbers)` nhận vào list số nguyên và trả về một list mới chỉ chứa các số chẵn. Sử dụng list comprehension hoặc vòng lặp for kết hợp với toán tử chia lấy dư % 2.",
   "explanation": "Duyệt qua từng phần tử trong list, nếu phần tử đó chia hết cho 2 thì thêm vào list kết quả.",
   "commonMistakes": [
    "Sử dụng numbers.remove() trực tiếp khi đang duyệt vòng lặp làm bỏ sót phần tử.",
    "Quên trường hợp số 0 là số chẵn."
   ],
-  "solution": "def filter_even(numbers):\n    return [n for n in numbers if n % 2 == 0]\n\n# ===== Chương trình chính =====\nn = int(input())\nif n > 0:\n    nums = list(map(int, input().split()))\nelse:\n    input()\n    nums = []\n\nresult = filter_even(nums)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
+  "solution": "def filter_even(numbers):\n    return [n for n in numbers if n % 2 == 0]\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nif n > 0:\n    nums = list(map(int, input().split()))\nelse:\n    input()\n    nums = []\n\nresult = filter_even(nums)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
   "errorCategory": "implementation",
   "tags": [
    "list-comprehension"
@@ -1291,10 +1257,7 @@
   "source": "textbook",
   "reserve": false,
   "id": "T3-C06",
-  "files": {},
-  "requireFunction": [
-   "filter_even"
-  ]
+  "files": {}
  },
  {
   "topic": "T3",
@@ -1303,7 +1266,7 @@
   "statement": "Viết chương trình nhập vào một dãy các số nguyên trên một dòng (cách nhau bởi dấu cách). In ra số lớn thứ hai trong dãy đó (giá trị khác với số lớn nhất). Nếu không có số lớn thứ hai (ví dụ dãy chỉ có 1 loại giá trị hoặc rỗng), in 'None'.",
   "ioFormat": "Input: Một dòng chứa các số nguyên. Output: Một giá trị duy nhất hoặc 'None'.",
   "constraints": "Số lượng phần tử n < 10^5.",
-  "examples": "Input: 10 5 10 8\nOutput: 8",
+  "examples": "Input:\n10 5 10 8\nOutput:\n8",
   "mode": "stdio",
   "starter": "s = input()\n# Viết tiếp code tại đây",
   "tests": [
@@ -1388,12 +1351,12 @@
   "topic": "T3",
   "difficulty": 1,
   "title": "Duy nhất bảo toàn thứ tự",
-  "statement": "Viết hàm unique_stable(lst) nhận vào một list và trả về list mới chứa các phần tử duy nhất của lst, nhưng phải giữ nguyên thứ tự xuất hiện đầu tiên của chúng.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số phần tử.\n- Dòng 2: `n` phần tử (chuỗi hoặc số) cách nhau bởi dấu cách.\n- In kết quả: Các phần tử duy nhất trên một dòng, cách nhau bởi dấu cách. Nếu rỗng in `Rỗng`.\n(Nếu `n = 0` thì dòng 2 để trống.)\nĐọc các phần tử dưới dạng chuỗi (không ép kiểu) và so sánh theo chuỗi.",
+  "statement": "Cho một danh sách gồm `n` phần tử. Hãy loại bỏ các phần tử trùng lặp và chỉ giữ lại các phần tử duy nhất theo đúng thứ tự xuất hiện đầu tiên của chúng. Lưu ý: Các phần tử được đọc và so sánh dưới dạng chuỗi.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng phần tử.\n- Dòng 2: `n` phần tử (có thể là số hoặc chuỗi) cách nhau bởi dấu cách. Nếu `n = 0`, dòng này để trống.\n\n**Output:**\n- Các phần tử duy nhất sau khi đã lọc, cách nhau bởi một dấu cách trên một dòng.\n- Nếu danh sách rỗng, in `Rỗng`.",
   "ioFormat": "Input:\nDòng 1: n\nDòng 2: n phần tử cách nhau bởi dấu cách\nOutput:\nCác phần tử duy nhất hoặc 'Rỗng'",
   "constraints": "List có thể chứa số hoặc chuỗi.",
   "examples": "Input:\n5\n1 2 1 3 2\nOutput:\n1 2 3",
   "mode": "stdio",
-  "starter": "def unique_stable(lst):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nitems = input().split() if n > 0 else []\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef unique_stable(lst):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nitems = input().split() if n > 0 else []\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "5\n1 2 1 3 2",
@@ -1456,13 +1419,13 @@
     "expected": "10 20 30 40"
    }
   ],
-  "hint": "Sử dụng một list phụ hoặc một set để đánh dấu các phần tử đã xuất hiện trong khi duyệt.",
+  "hint": "Có thể viết hàm `unique_stable(lst)` sử dụng một `set` để đánh dấu các phần tử đã gặp nhằm giữ lại thứ tự xuất hiện đầu tiên. Sử dụng một list phụ hoặc một set để đánh dấu các phần tử đã xuất hiện trong khi duyệt.",
   "explanation": "Duyệt từng phần tử, nếu chưa thấy nó trong danh sách 'đã gặp' thì thêm vào kết quả.",
   "commonMistakes": [
    "Dùng set(lst) sẽ làm mất thứ tự các phần tử.",
    "Dùng list.count() trong vòng lặp làm tăng độ phức tạp thuật toán (O(n^2))."
   ],
-  "solution": "def unique_stable(lst):\n    res = []\n    seen = set()\n    for x in lst:\n        if x not in seen:\n            res.append(x)\n            seen.add(x)\n    return res\n\n# ===== Chương trình chính =====\nn = int(input())\nif n > 0:\n    items = input().split()\nelse:\n    input()\n    items = []\n\nresult = unique_stable(items)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
+  "solution": "def unique_stable(lst):\n    res = []\n    seen = set()\n    for x in lst:\n        if x not in seen:\n            res.append(x)\n            seen.add(x)\n    return res\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nif n > 0:\n    items = input().split()\nelse:\n    input()\n    items = []\n\nresult = unique_stable(items)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
   "errorCategory": "method",
   "tags": [
    "list-mutation-in-loop"
@@ -1470,10 +1433,7 @@
   "source": "exam",
   "reserve": false,
   "id": "T3-C08",
-  "files": {},
-  "requireFunction": [
-   "unique_stable"
-  ]
+  "files": {}
  },
  {
   "topic": "T3",
@@ -1482,7 +1442,7 @@
   "statement": "Nhập một dãy số nguyên cách nhau bởi dấu cách. Một phần tử được gọi là 'cực đại địa phương' nếu nó lớn hơn hẳn các phần tử kề cạnh nó. Đếm và in ra số lượng các phần tử như vậy. Lưu ý: Phần tử đầu chỉ cần so với phần tử thứ hai, phần tử cuối chỉ cần so với phần tử kế cuối.",
   "ioFormat": "Input: Dòng chứa các số nguyên. Output: Một số nguyên duy nhất.",
   "constraints": "Dãy có ít nhất 1 phần tử. Các số nguyên thuộc kiểu int.",
-  "examples": "Input: 1 5 2 8 3\nOutput: 2 (là số 5 và 8)",
+  "examples": "Input:\n1 5 2 8 3\nOutput:\n2\n\nGiải thích (không in ra): hai cực đại địa phương là 5 và 8.",
   "mode": "stdio",
   "starter": "s = input().split()\n# Viết tiếp code tại đây",
   "tests": [
@@ -1567,12 +1527,12 @@
   "topic": "T3",
   "difficulty": 2,
   "title": "Dịch trái k bước",
-  "statement": "Viết hàm rotate_left(lst, k) thực hiện dịch vòng các phần tử của list sang trái k bước. Nếu k lớn hơn độ dài list, hãy dùng k chia lấy dư cho độ dài list.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số phần tử.\n- Dòng 2: `n` phần tử cách nhau bởi dấu cách.\n- Dòng 3: Số nguyên `k`.\n- In kết quả: Danh sách sau khi dịch trên một dòng, cách nhau bởi dấu cách. Nếu rỗng in `Rỗng`.\n(Nếu `n = 0` thì dòng 2 để trống.)",
+  "statement": "Cho một danh sách gồm `n` phần tử và một số nguyên `k`. Hãy thực hiện dịch vòng các phần tử của danh sách sang trái `k` bước. Nếu `k` lớn hơn hoặc bằng độ dài danh sách `n`, số bước dịch thực tế sẽ là `k % n`.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng phần tử.\n- Dòng 2: `n` phần tử cách nhau bởi dấu cách. Nếu `n = 0`, dòng này để trống.\n- Dòng 3: Số nguyên `k` (k >= 0) là số bước dịch trái.\n\n**Output:**\n- Danh sách sau khi dịch vòng trên một dòng, các phần tử cách nhau bởi một dấu cách.\n- Nếu danh sách ban đầu rỗng, in `Rỗng`.",
   "ioFormat": "Input:\nDòng 1: n\nDòng 2: n phần tử\nDòng 3: k\nOutput:\nDanh sách kết quả hoặc 'Rỗng'",
   "constraints": "k >= 0. lst có thể rỗng.",
   "examples": "Input:\n5\n1 2 3 4 5\n2\nOutput:\n3 4 5 1 2",
   "mode": "stdio",
-  "starter": "def rotate_left(lst, k):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nitems = input().split() if n > 0 else []\nk_val = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef rotate_left(lst, k):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nitems = input().split() if n > 0 else []\nk_val = int(input())\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "5\n1 2 3 4 5\n2",
@@ -1635,13 +1595,13 @@
     "expected": "Rỗng"
    }
   ],
-  "hint": "Sử dụng slicing: phần tử từ index k đến hết cộng với phần tử từ đầu đến index k.",
+  "hint": "Có thể viết hàm `rotate_left(lst, k)` sử dụng kỹ thuật slicing `lst[k:] + lst[:k]` để dịch chuyển danh sách. Sử dụng slicing: phần tử từ index k đến hết cộng với phần tử từ đầu đến index k.",
   "explanation": "Tính k = k % len(lst). Kết quả là lst[k:] + lst[:k].",
   "commonMistakes": [
    "Lỗi chia cho 0 khi list rỗng.",
    "Dịch nhầm sang phải thay vì sang trái."
   ],
-  "solution": "def rotate_left(lst, k):\n    if not lst: return []\n    n = len(lst)\n    k %= n\n    return lst[k:] + lst[:k]\n\n# ===== Chương trình chính =====\nn = int(input())\nif n > 0:\n    items = input().split()\nelse:\n    input()\n    items = []\nk_val = int(input())\n\nresult = rotate_left(items, k_val)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
+  "solution": "def rotate_left(lst, k):\n    if not lst: return []\n    n = len(lst)\n    k %= n\n    return lst[k:] + lst[:k]\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nif n > 0:\n    items = input().split()\nelse:\n    input()\n    items = []\nk_val = int(input())\n\nresult = rotate_left(items, k_val)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*result)",
   "errorCategory": "implementation",
   "tags": [
    "list-index-slice"
@@ -1649,10 +1609,7 @@
   "source": "textbook",
   "reserve": false,
   "id": "T3-C10",
-  "files": {},
-  "requireFunction": [
-   "rotate_left"
-  ]
+  "files": {}
  },
  {
   "topic": "T3",
@@ -1746,12 +1703,12 @@
   "topic": "T3",
   "difficulty": 2,
   "title": "Sắp xếp sinh viên",
-  "statement": "Viết hàm sort_students(students) nhận vào một list các tuple, mỗi tuple gồm (tên, điểm_gpa). Trả về list đã sắp xếp theo điểm_gpa giảm dần; nếu điểm bằng nhau thì sắp xếp theo tên tăng dần (alphabet).\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng gồm tên (chuỗi không khoảng trắng) và điểm GPA (số thực), cách nhau bởi dấu cách.\n- In kết quả: Mỗi sinh viên trên một dòng, tên và điểm cách nhau bởi dấu cách. Nếu rỗng in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: n\nn dòng: name gpa\nOutput:\nDanh sách sinh viên đã sắp xếp (mỗi người một dòng: name gpa) hoặc 'Rỗng'",
+  "statement": "Cho danh sách sinh viên gồm tên và điểm GPA. Hãy sắp xếp danh sách sinh viên theo các tiêu chí sau: ưu tiên điểm GPA giảm dần; nếu có nhiều sinh viên cùng điểm GPA thì sắp xếp theo tên tăng dần theo thứ tự bảng chữ cái.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng gồm tên (chuỗi không khoảng trắng) và điểm GPA (số thực), cách nhau bởi dấu cách.\n\n**Output:**\n- Danh sách sinh viên sau khi sắp xếp, mỗi sinh viên in trên một dòng gồm: tên và điểm GPA (cách nhau bởi một dấu cách). Điểm GPA in theo định dạng số thực của Python (ví dụ: `3.8`, `4.0`).\n- Nếu danh sách rỗng, in `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: n\nn dòng: name gpa\nOutput:\nDanh sách sinh viên (name gpa) mỗi người một dòng hoặc 'Rỗng'",
   "constraints": "Tên không trống, gpa từ 0.0 đến 4.0.",
   "examples": "Input:\n3\nAn 3.5\nBinh 3.8\nChi 3.5\nOutput:\nBinh 3.8\nAn 3.5\nChi 3.5",
   "mode": "stdio",
-  "starter": "def sort_students(students):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nst_list = []\nfor _ in range(n):\n    line = input().split()\n    st_list.append((line[0], float(line[1])))\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef sort_students(students):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nst_list = []\nfor _ in range(n):\n    line = input().split()\n    st_list.append((line[0], float(line[1])))\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "3\nAn 3.5\nBinh 3.8\nChi 3.5",
@@ -1814,13 +1771,13 @@
     "expected": "Z 3.99\nY 3.98\nX 3.97"
    }
   ],
-  "hint": "Sử dụng hàm sorted() với tham số key là một lambda trả về tuple: (-điểm, tên).",
+  "hint": "Có thể viết hàm `sort_students(students)` và sử dụng hàm `sorted()` với `key=lambda x: (-x[1], x[0])` để sắp xếp theo hai tiêu chí. Sử dụng hàm sorted() với tham số key là một lambda trả về tuple: (-điểm, tên).",
   "explanation": "Khi sắp xếp tuple trong Python, phần tử đầu tiên được ưu tiên. Dùng dấu trừ trước điểm để đảo ngược thứ tự sắp xếp số.",
   "commonMistakes": [
    "Sắp xếp tên giảm dần thay vì tăng dần.",
    "Quên xử lý trường hợp điểm bằng nhau."
   ],
-  "solution": "def sort_students(students):\n    return sorted(students, key=lambda x: (-x[1], x[0]))\n\n# ===== Chương trình chính =====\nn = int(input())\nst_list = []\nfor _ in range(n):\n    line = input().split()\n    st_list.append((line[0], float(line[1])))\n\nresult = sort_students(st_list)\nif not result:\n    print(\"Rỗng\")\nelse:\n    for name, gpa in result:\n        print(name, gpa)",
+  "solution": "def sort_students(students):\n    return sorted(students, key=lambda x: (-x[1], x[0]))\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nst_list = []\nfor _ in range(n):\n    line = input().split()\n    st_list.append((line[0], float(line[1])))\n\nresult = sort_students(st_list)\nif not result:\n    print(\"Rỗng\")\nelse:\n    for name, gpa in result:\n        print(name, gpa)",
   "errorCategory": "concept",
   "tags": [
    "sort-sorted",
@@ -1829,10 +1786,7 @@
   "source": "exam",
   "reserve": true,
   "id": "T3-C12",
-  "files": {},
-  "requireFunction": [
-   "sort_students"
-  ]
+  "files": {}
  },
  {
   "topic": "T3",
@@ -1929,12 +1883,12 @@
   "topic": "T4",
   "difficulty": 1,
   "title": "Bán ngoại tệ cho ngân hàng",
-  "statement": "Cho một từ điển `rates` chứa tỷ giá ngoại tệ của một ngân hàng với cấu trúc: `{mã_ngoại_tệ: {'mua_vao': giá, 'ban_ra': giá}}`. \nViết hàm `sell_fc(fc, amount)` thực hiện việc tính số tiền VND khách hàng nhận được khi bán một lượng ngoại tệ `amount` cho ngân hàng. \nNgân hàng sẽ mua vào ngoại tệ của khách hàng với giá `mua_vao`. Nếu mã ngoại tệ `fc` không tồn tại trong từ điển, hàm trả về `None`. Kết quả số tiền trả về dạng số thực (float).\n\n**Chương trình chính:** \n- Dòng 1: Nhập mã ngoại tệ (chuỗi).\n- Dòng 2: Nhập số lượng ngoại tệ (số thực).\n- Gọi hàm `sell_fc` và in kết quả ra màn hình.\nBảng tỷ giá dùng trong bài (đã khai báo sẵn trong hàm): `rates = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110}, \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200}, \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}}`. Nếu hàm trả về `None` thì in `None`.",
-  "ioFormat": "Input:\nDòng 1: Mã ngoại tệ (str)\nDòng 2: Số lượng ngoại tệ (float)\nOutput:\nKết quả trả về từ hàm (số thực hoặc None).",
+  "statement": "Cho một bảng tỷ giá ngoại tệ cố định của một ngân hàng như sau:\n- `USD`: mua vào `25720`, bán ra `26110`\n- `EUR`: mua vào `27500`, bán ra `28200`\n- `JPY`: mua vào `162`, bán ra `168` \n\nNhiệm vụ của bạn là tính số tiền VND mà khách hàng nhận được khi bán một lượng ngoại tệ `amount` cho ngân hàng. Ngân hàng sẽ mua vào ngoại tệ của khách hàng với giá `mua_vao`. Nếu mã ngoại tệ không tồn tại trong bảng tỷ giá, kết quả là `None`.\n\n**Input:**\n- Dòng 1: Một chuỗi là mã ngoại tệ.\n- Dòng 2: Một số thực là số lượng ngoại tệ khách hàng bán.\n\n**Output:**\n- In ra một số thực là số tiền VND nhận được. Nếu mã ngoại tệ không hợp lệ, in ra `None`.",
+  "ioFormat": "Input:\nDòng 1: Mã ngoại tệ (str)\nDòng 2: Số lượng ngoại tệ (float)\nOutput:\nSố tiền nhận được (float) hoặc None.",
   "constraints": "amount > 0; rates cố định theo đề bài.",
   "examples": "Input:\nUSD\n100\nOutput:\n2572000.0",
   "mode": "stdio",
-  "starter": "def sell_fc(fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    pass\n\n# ===== Chương trình chính =====\nfc_input = input()\namount_input = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef sell_fc(fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nfc_input = input()\namount_input = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -1998,35 +1952,32 @@
     "expected": "64300.0"
    }
   ],
-  "hint": "Sử dụng phương thức get() hoặc toán tử in để kiểm tra sự tồn tại của khóa trước khi truy cập lồng nhau.",
+  "hint": "Có thể viết hàm `sell_fc(fc, amount)` trả về kết quả tính toán hoặc `None` để xử lý logic. Sử dụng phương thức get() hoặc toán tử in để kiểm tra sự tồn tại của khóa trước khi truy cập lồng nhau.",
   "explanation": "Kiểm tra xem mã ngoại tệ 'fc' có nằm trong keys của 'rates' không. Nếu có, truy cập vào khóa 'mua_vao' của ngoại tệ đó và nhân với 'amount'.",
   "commonMistakes": [
    "Sử dụng giá 'ban_ra' thay vì 'mua_vao' (ngân hàng mua vào từ khách hàng).",
    "Gây lỗi KeyError khi mã ngoại tệ không có trong từ điển thay vì trả về None."
   ],
-  "solution": "def sell_fc(fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    if fc not in rates:\n        return None\n    return float(rates[fc]['mua_vao'] * amount)\n\n# ===== Chương trình chính =====\nfc_input = input()\namount_input = float(input())\nresult = sell_fc(fc_input, amount_input)\nprint(result)",
+  "solution": "def sell_fc(fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    if fc not in rates:\n        return None\n    return float(rates[fc]['mua_vao'] * amount)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nfc_input = input()\namount_input = float(input())\nresult = sell_fc(fc_input, amount_input)\nprint(result)",
   "errorCategory": "logic",
   "tags": [
    "dict-access-get",
    "nested-dict"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "sell_fc"
-  ]
+  "reserve": false
  },
  {
   "id": "T4-C02",
   "topic": "T4",
   "difficulty": 2,
   "title": "Thống kê từ xuất hiện nhiều",
-  "statement": "Viết hàm `get_high_freq_words(text, k)` nhận vào một chuỗi văn bản `text` và một số nguyên `k`. \nHàm thực hiện:\n1. Tách chuỗi thành các từ (phân cách bằng khoảng trắng), chuyển tất cả về chữ thường.\n2. Đếm số lần xuất hiện của mỗi từ.\n3. Trả về một từ điển chứa các từ có số lần xuất hiện lớn hơn hoặc bằng `k`. Khóa là từ, giá trị là số lần đếm được.\n\n**Chương trình chính:** \n- Dòng 1: Nhập chuỗi văn bản `text`.\n- Dòng 2: Nhập số nguyên `k`.\n- Gọi hàm `get_high_freq_words` và in kết quả theo quy tắc: mỗi cặp khóa-giá trị in trên một dòng dạng `khóa: giá_trị`, sắp xếp theo thứ tự bảng chữ cái của khóa. Nếu từ điển rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: Chuỗi văn bản\nDòng 2: Số nguyên k\nOutput:\nCác cặp từ và tần suất (khóa: giá_trị) hoặc Rỗng.",
+  "statement": "Cho một chuỗi văn bản và một số nguyên `k`. Hãy tìm tất cả các từ xuất hiện trong văn bản với tần suất lớn hơn hoặc bằng `k`. Các từ khi đếm không phân biệt chữ hoa và chữ thường (tất cả quy về chữ thường) và được phân cách nhau bởi khoảng trắng.\n\n**Input:**\n- Dòng 1: Chuỗi văn bản `text`.\n- Dòng 2: Số nguyên `k`.\n\n**Output:**\n- In ra các cặp từ và số lần xuất hiện theo định dạng `từ: tần_suất`, mỗi cặp trên một dòng.\n- Danh sách kết quả phải được sắp xếp theo thứ tự bảng chữ cái của từ.\n- Nếu không có từ nào thỏa mãn điều kiện, in ra `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: Chuỗi văn bản\nDòng 2: Số nguyên k\nOutput:\nCác cặp từ: tần_suất (sắp xếp abc) hoặc Rỗng.",
   "constraints": "Chuỗi không chứa ký tự đặc biệt, chỉ có chữ cái và khoảng trắng.",
   "examples": "Input:\nPython is fun and Python is easy\n2\nOutput:\nis: 2\npython: 2",
   "mode": "stdio",
-  "starter": "def get_high_freq_words(text, k):\n    pass\n\n# ===== Chương trình chính =====\ntext_input = input()\nk_input = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef get_high_freq_words(text, k):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntext_input = input()\nk_input = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -2090,13 +2041,13 @@
     "expected": "Rỗng"
    }
   ],
-  "hint": "Sử dụng .split() để tách từ, .lower() để chuyển chữ thường và dict.get(word, 0) + 1 để tăng biến đếm.",
+  "hint": "Có thể viết hàm `get_high_freq_words(text, k)` trả về một dictionary chứa các từ thỏa mãn điều kiện. Sử dụng .split() để tách từ, .lower() để chuyển chữ thường và dict.get(word, 0) + 1 để tăng biến đếm.",
   "explanation": "Đầu tiên tách chuỗi thành danh sách các từ, sau đó dùng vòng lặp duyệt danh sách để cập nhật tần suất vào một dictionary. Cuối cùng dùng dict comprehension hoặc vòng lặp để lọc ra các từ có value >= k.",
   "commonMistakes": [
    "Quên chuyển về chữ thường dẫn đến 'Apple' và 'apple' được đếm riêng.",
    "Xử lý chuỗi rỗng không đúng cách."
   ],
-  "solution": "def get_high_freq_words(text, k):\n    if not text.strip():\n        return {}\n    words = text.lower().split()\n    counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return {w: c for w, c in counts.items() if c >= k}\n\n# ===== Chương trình chính =====\ntext_input = input()\nk_input = int(input())\nres = get_high_freq_words(text_input, k_input)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "def get_high_freq_words(text, k):\n    if not text.strip():\n        return {}\n    words = text.lower().split()\n    counts = {}\n    for w in words:\n        counts[w] = counts.get(w, 0) + 1\n    return {w: c for w, c in counts.items() if c >= k}\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntext_input = input()\nk_input = int(input())\nres = get_high_freq_words(text_input, k_input)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "frequency-count",
@@ -2104,22 +2055,19 @@
    "dict-comprehension"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "get_high_freq_words"
-  ]
+  "reserve": false
  },
  {
   "id": "T4-C03",
   "topic": "T4",
   "difficulty": 3,
   "title": "Đổi chéo ngoại tệ",
-  "statement": "Sử dụng bảng tỷ giá `rates` bên dưới, viết hàm `cross_convert(from_fc, to_fc, amount)` tính số lượng ngoại tệ `to_fc` nhận được khi đổi từ `amount` đơn vị ngoại tệ `from_fc`. \nQuy trình đổi chéo: \n1. Khách hàng bán `from_fc` cho ngân hàng để lấy VND (dùng giá `mua_vao`).\n2. Khách hàng dùng số VND đó để mua `to_fc` từ ngân hàng (dùng giá `ban_ra`).\nKết quả làm tròn đến 2 chữ số thập phân. Nếu một trong hai mã ngoại tệ không tồn tại, trả về `None`.\n\n**Chương trình chính:** \n- Dòng 1: Mã ngoại tệ nguồn `from_fc`.\n- Dòng 2: Mã ngoại tệ đích `to_fc`.\n- Dòng 3: Số lượng `amount` (số thực).\n- Gọi hàm `cross_convert` và in kết quả.\nBảng tỷ giá dùng trong bài (đã khai báo sẵn trong hàm): `rates = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110}, \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200}, \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}}`. Nếu hàm trả về `None` thì in `None`.",
-  "ioFormat": "Input:\nDòng 1: from_fc (str)\nDòng 2: to_fc (str)\nDòng 3: amount (float)\nOutput:\nSố lượng ngoại tệ nhận được (float) hoặc None.",
+  "statement": "Sử dụng bảng tỷ giá ngoại tệ cố định:\n- `USD`: mua vào `25720`, bán ra `26110`\n- `EUR`: mua vào `27500`, bán ra `28200`\n- `JPY`: mua vào `162`, bán ra `168` \n\nHãy thực hiện tính toán đổi chéo ngoại tệ theo quy trình: \n1. Khách hàng bán `amount` đơn vị ngoại tệ nguồn (`from_fc`) cho ngân hàng để lấy VND theo giá `mua_vao`.\n2. Sau đó, dùng toàn bộ số VND thu được để mua lại ngoại tệ đích (`to_fc`) từ ngân hàng theo giá `ban_ra`.\n\nKết quả cuối cùng phải được làm tròn đến 2 chữ số thập phân. Nếu một trong hai mã ngoại tệ không tồn tại trong hệ thống, kết quả là `None`.\n\n**Input:**\n- Dòng 1: Mã ngoại tệ nguồn `from_fc`.\n- Dòng 2: Mã ngoại tệ đích `to_fc`.\n- Dòng 3: Số lượng ngoại tệ nguồn `amount` (số thực).\n\n**Output:**\n- In ra số lượng ngoại tệ đích nhận được (làm tròn 2 chữ số thập phân) hoặc in ra `None` nếu mã ngoại tệ không hợp lệ.",
+  "ioFormat": "Input:\nDòng 1: Mã nguồn (str)\nDòng 2: Mã đích (str)\nDòng 3: Số lượng (float)\nOutput:\nKết quả đổi chéo (float, làm tròn 2 chữ số) hoặc None.",
   "constraints": "amount > 0; tỷ giá cố định như đề cũ.",
   "examples": "Input:\nUSD\nEUR\n1000\nOutput:\n912.06",
   "mode": "stdio",
-  "starter": "def cross_convert(from_fc, to_fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    pass\n\n# ===== Chương trình chính =====\nffc = input()\ntfc = input()\namt = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef cross_convert(from_fc, to_fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nffc = input()\ntfc = input()\namt = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -2183,36 +2131,33 @@
     "expected": "0.01"
    }
   ],
-  "hint": "Chia bài toán làm 2 bước: Bước 1 tính VND = amount * rates[from_fc]['mua_vao']. Bước 2 tính Result = VND / rates[to_fc]['ban_ra']. Sử dụng round(val, 2).",
+  "hint": "Có thể viết hàm `cross_convert(from_fc, to_fc, amount)` để thực hiện tính toán qua trung gian VND. Chia bài toán làm 2 bước: Bước 1 tính VND = amount * rates[from_fc]['mua_vao']. Bước 2 tính Result = VND / rates[to_fc]['ban_ra']. Sử dụng round(val, 2).",
   "explanation": "Dùng tính chất lồng nhau của dictionary để lấy giá trị. Cần kiểm tra cả hai khóa from_fc và to_fc. Lưu ý bước 2 dùng giá 'ban_ra' vì lúc này ngân hàng đang bán ngoại tệ cho khách.",
   "commonMistakes": [
    "Nhầm lẫn giữa giá mua_vao và ban_ra.",
    "Quên làm tròn kết quả đến 2 chữ số thập phân.",
    "Không kiểm tra sự tồn tại của cả hai loại tiền tệ."
   ],
-  "solution": "def cross_convert(from_fc, to_fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    if from_fc not in rates or to_fc not in rates:\n        return None\n    vnd = amount * rates[from_fc]['mua_vao']\n    result = vnd / rates[to_fc]['ban_ra']\n    return round(result, 2)\n\n# ===== Chương trình chính =====\nffc = input()\ntfc = input()\namt = float(input())\nprint(cross_convert(ffc, tfc, amt))",
+  "solution": "def cross_convert(from_fc, to_fc, amount):\n    rates = {\n        \"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n        \"EUR\": {\"mua_vao\": 27500, \"ban_ra\": 28200},\n        \"JPY\": {\"mua_vao\": 162, \"ban_ra\": 168}\n    }\n    if from_fc not in rates or to_fc not in rates:\n        return None\n    vnd = amount * rates[from_fc]['mua_vao']\n    result = vnd / rates[to_fc]['ban_ra']\n    return round(result, 2)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nffc = input()\ntfc = input()\namt = float(input())\nprint(cross_convert(ffc, tfc, amt))",
   "errorCategory": "concept",
   "tags": [
    "nested-dict",
    "dict-access-get"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "cross_convert"
-  ]
+  "reserve": false
  },
  {
   "id": "T4-C04",
   "topic": "T4",
   "difficulty": 2,
   "title": "Phân tích tập hợp ký tự",
-  "statement": "Viết hàm `char_analyzer(str1, str2)` thực hiện các yêu cầu sau bằng cách sử dụng `set`:\n1. Tìm tập hợp các ký tự xuất hiện ở cả hai chuỗi (giao).\n2. Tìm tập hợp các ký tự chỉ xuất hiện ở chuỗi thứ nhất mà không xuất hiện ở chuỗi thứ hai (hiệu).\nTrả về một dictionary có dạng: `{'common': list_sorted_giao, 'only_str1': list_sorted_hieu}`. Các danh sách ký tự phải được sắp xếp theo thứ tự bảng chữ cái.\n\n**Chương trình chính:** \n- Dòng 1: Nhập chuỗi thứ nhất `str1`.\n- Dòng 2: Nhập chuỗi thứ hai `str2`.\n- Gọi hàm `char_analyzer` và in kết quả. Với mỗi khóa trong từ điển (theo thứ tự abc), in khóa kèm dấu hai chấm, sau đó là các phần tử trong danh sách cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng` sau dấu hai chấm.\nDấu cách cũng được coi là một ký tự; `Rỗng` chỉ in khi tập kết quả không có phần tử nào.",
-  "ioFormat": "Input:\nDòng 1: Chuỗi ký tự thứ nhất\nDòng 2: Chuỗi ký tự thứ hai\nOutput:\ncommon: các_ký_tự (hoặc Rỗng)\nonly_str1: các_ký_tự (hoặc Rỗng)",
+  "statement": "Cho hai chuỗi ký tự `str1` và `str2`. Hãy thực hiện phân tích các ký tự xuất hiện trong hai chuỗi theo hai yêu cầu:\n1. Tìm các ký tự xuất hiện ở cả hai chuỗi (phần giao).\n2. Tìm các ký tự chỉ xuất hiện ở chuỗi `str1` mà không xuất hiện ở chuỗi `str2` (phần hiệu).\n\nLưu ý: Dấu cách cũng được tính là một ký tự.\n\n**Input:**\n- Dòng 1: Chuỗi ký tự thứ nhất `str1`.\n- Dòng 2: Chuỗi ký tự thứ hai `str2`.\n\n**Output:**\n- Dòng 1 in kết quả phần giao theo định dạng: `common: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `common: Rỗng`.\n- Dòng 2 in kết quả phần hiệu theo định dạng: `only_str1: ` kèm các ký tự cách nhau bởi dấu cách, sắp xếp theo thứ tự bảng chữ cái. Nếu không có ký tự nào, in `only_str1: Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: Chuỗi 1\nDòng 2: Chuỗi 2\nOutput:\ncommon: các_ký_tự (hoặc Rỗng)\nonly_str1: các_ký_tự (hoặc Rỗng)",
   "constraints": "Chuỗi có thể chứa khoảng trắng và ký tự số.",
   "examples": "Input:\nabc\nbcd\nOutput:\ncommon: b c\nonly_str1: a",
   "mode": "stdio",
-  "starter": "def char_analyzer(str1, str2):\n    pass\n\n# ===== Chương trình chính =====\ns1 = input()\ns2 = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef char_analyzer(str1, str2):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns1 = input()\ns2 = input()\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -2276,35 +2221,32 @@
     "expected": "common: a\nonly_str1: Rỗng"
    }
   ],
-  "hint": "Chuyển chuỗi sang set bằng set(string). Sử dụng toán tử & cho phép giao và - cho phép hiệu. Sử dụng sorted() để chuyển tập hợp thành danh sách đã sắp xếp.",
+  "hint": "Sử dụng kiểu dữ liệu `set` trong Python với các toán tử `&` và `-` để tìm phần giao và phần hiệu nhanh chóng. Chuyển chuỗi sang set bằng set(string). Sử dụng toán tử & cho phép giao và - cho phép hiệu. Sử dụng sorted() để chuyển tập hợp thành danh sách đã sắp xếp.",
   "explanation": "Biến đổi hai chuỗi nhập vào thành hai tập hợp (set). Dùng toán tử & để tìm phần chung và toán tử - để tìm phần riêng của tập thứ nhất. Kết quả sau đó được sắp xếp và đóng gói vào dictionary.",
   "commonMistakes": [
    "Quên sắp xếp danh sách kết quả.",
    "Dùng nhầm toán tử tập hợp (ví dụ dùng ^ cho hiệu)."
   ],
-  "solution": "def char_analyzer(str1, str2):\n    s1 = set(str1)\n    s2 = set(str2)\n    common = sorted(list(s1 & s2))\n    only_str1 = sorted(list(s1 - s2))\n    return {'common': common, 'only_str1': only_str1}\n\n# ===== Chương trình chính =====\ns1 = input()\ns2 = input()\nres = char_analyzer(s1, s2)\nfor k in sorted(res):\n    val = res[k]\n    if not val:\n        print(f\"{k}: Rỗng\")\n    else:\n        print(f\"{k}:\", *val)",
+  "solution": "def char_analyzer(str1, str2):\n    s1 = set(str1)\n    s2 = set(str2)\n    common = sorted(list(s1 & s2))\n    only_str1 = sorted(list(s1 - s2))\n    return {'common': common, 'only_str1': only_str1}\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns1 = input()\ns2 = input()\nres = char_analyzer(s1, s2)\nfor k in sorted(res):\n    val = res[k]\n    if not val:\n        print(f\"{k}: Rỗng\")\n    else:\n        print(f\"{k}:\", *val)",
   "errorCategory": "method",
   "tags": [
    "set-ops",
    "sort-dict"
   ],
   "source": "supplement",
-  "reserve": true,
-  "requireFunction": [
-   "char_analyzer"
-  ]
+  "reserve": true
  },
  {
   "id": "T4-C05",
   "topic": "T4",
   "difficulty": 1,
   "title": "Mua ngoại tệ (Đề 02, Câu 3)",
-  "statement": "Cho từ điển tỷ giá của ngân hàng:\n```python\nforeign_currency = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n                    \"EUR\": {\"mua_vao\": 28298.07, \"ban_ra\": 29848.73},\n                    \"JPY\": {\"mua_vao\": 172.35, \"ban_ra\": 183.30}}\n```\nViết hàm `buy_fc(fc=\"USD\", amount=1)` tính số tiền VND người dùng cần bỏ ra để mua `amount` đơn vị ngoại tệ `fc`. Kết quả trả về là số thực (float). Nếu `fc` không có trong từ điển, trả về `None`.\n\n**Chương trình chính:** \n- Dòng 1: Nhập mã ngoại tệ `fc`.\n- Dòng 2: Nhập số lượng `amount` (số thực).\n- Gọi hàm `buy_fc` và in kết quả.",
-  "ioFormat": "Input:\nDòng 1: mã ngoại tệ (str)\nDòng 2: số lượng (float)\nOutput:\nSố tiền VND (float) hoặc None.",
+  "statement": "Cho bảng tỷ giá ngoại tệ cố định của ngân hàng:\n- `USD`: mua vào `25720`, bán ra `26110`\n- `EUR`: mua vào `28298.07`, bán ra `29848.73`\n- `JPY`: mua vào `172.35`, bán ra `183.30` \n\nHãy tính số tiền VND mà một khách hàng cần bỏ ra để mua một lượng ngoại tệ `amount` từ ngân hàng. Khi khách hàng mua, ngân hàng sẽ tính theo giá `ban_ra`. Nếu mã ngoại tệ không tồn tại trong bảng tỷ giá, kết quả là `None`.\n\n**Input:**\n- Dòng 1: Một chuỗi là mã ngoại tệ `fc`.\n- Dòng 2: Một số thực là số lượng ngoại tệ cần mua `amount`.\n\n**Output:**\n- In ra một số thực là tổng số tiền VND cần trả. Nếu mã ngoại tệ không tồn tại, in ra `None`.",
+  "ioFormat": "Input:\nDòng 1: Mã ngoại tệ (str)\nDòng 2: Số lượng (float)\nOutput:\nSố tiền VND (float) hoặc None.",
   "constraints": "amount >= 0.",
   "examples": "Input:\nUSD\n100\nOutput:\n2611000.0",
   "mode": "stdio",
-  "starter": "foreign_currency = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n                    \"EUR\": {\"mua_vao\": 28298.07, \"ban_ra\": 29848.73},\n                    \"JPY\": {\"mua_vao\": 172.35, \"ban_ra\": 183.30}}\n\ndef buy_fc(fc=\"USD\", amount=1):\n    pass\n\n# ===== Chương trình chính =====\nfc_input = input()\namt_input = float(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nforeign_currency = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n                    \"EUR\": {\"mua_vao\": 28298.07, \"ban_ra\": 29848.73},\n                    \"JPY\": {\"mua_vao\": 172.35, \"ban_ra\": 183.30}}\n\ndef buy_fc(fc=\"USD\", amount=1):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nfc_input = input()\namt_input = float(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -2368,7 +2310,7 @@
     "expected": "None"
    }
   ],
-  "hint": "Khi NGƯỜI DÙNG mua, ngân hàng BÁN ra, nên dùng giá nào? Truy cập dict lồng nhau bằng hai lần ngoặc vuông. Kiểm tra mã có tồn tại bằng toán tử in.",
+  "hint": "Có thể viết hàm `buy_fc(fc, amount)` truy cập vào dictionary lồng nhau để lấy giá `ban_ra` tương ứng. Khi NGƯỜI DÙNG mua, ngân hàng BÁN ra, nên dùng giá nào? Truy cập dict lồng nhau bằng hai lần ngoặc vuông. Kiểm tra mã có tồn tại bằng toán tử in.",
   "explanation": "Kiểm tra fc in foreign_currency, nếu không thì return None. Ngược lại lấy foreign_currency[fc]['ban_ra'] nhân với amount và ép sang float để kết quả luôn là số thực (26110 * 100 là int).",
   "commonMistakes": [
    "Dùng giá mua_vao thay vì ban_ra",
@@ -2376,28 +2318,25 @@
    "Đặt tham số mặc định sai thứ tự (amount không có mặc định đứng sau fc có mặc định gây SyntaxError)",
    "Không xử lý mã ngoại tệ không tồn tại (KeyError)"
   ],
-  "solution": "foreign_currency = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n                    \"EUR\": {\"mua_vao\": 28298.07, \"ban_ra\": 29848.73},\n                    \"JPY\": {\"mua_vao\": 172.35, \"ban_ra\": 183.30}}\n\ndef buy_fc(fc=\"USD\", amount=1):\n    if fc not in foreign_currency:\n        return None\n    return float(foreign_currency[fc][\"ban_ra\"] * amount)\n\n# ===== Chương trình chính =====\nfc_input = input()\namt_input = float(input())\nprint(buy_fc(fc_input, amt_input))",
+  "solution": "foreign_currency = {\"USD\": {\"mua_vao\": 25720, \"ban_ra\": 26110},\n                    \"EUR\": {\"mua_vao\": 28298.07, \"ban_ra\": 29848.73},\n                    \"JPY\": {\"mua_vao\": 172.35, \"ban_ra\": 183.30}}\n\ndef buy_fc(fc=\"USD\", amount=1):\n    if fc not in foreign_currency:\n        return None\n    return float(foreign_currency[fc][\"ban_ra\"] * amount)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nfc_input = input()\namt_input = float(input())\nprint(buy_fc(fc_input, amt_input))",
   "errorCategory": "concept",
   "tags": [
    "nested-dict",
    "dict-access-get"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "buy_fc"
-  ]
+  "reserve": false
  },
  {
   "topic": "T4",
   "difficulty": 1,
   "title": "Đếm tần suất ký tự",
-  "statement": "Viết hàm `count_char_freq(s)` nhận vào một chuỗi `s`. Hàm trả về một dictionary chứa các ký tự xuất hiện trong chuỗi (phân biệt hoa thường, không bỏ dấu cách) làm khóa và số lần xuất hiện của chúng làm giá trị.\n\n**Chương trình chính:** \nĐọc một dòng duy nhất từ bàn phím là chuỗi `s`. Gọi hàm và in kết quả ra màn hình. Nếu kết quả là dictionary rỗng, in `Rỗng`. Ngược lại, in mỗi cặp khóa-giá trị trên một dòng theo định dạng `khóa: giá_tri`, sắp xếp theo thứ tự khóa tăng dần.\n(Sắp xếp theo thứ tự mặc định của `sorted()`: theo mã ký tự, nên chữ hoa đứng trước chữ thường và dấu cách đứng đầu.)",
-  "ioFormat": "Input:\n- Dòng 1: Chuỗi s.\nOutput:\n- Từng dòng `kí_tự: số_lần` theo thứ tự alphabet của kí tự. Nếu rỗng in `Rỗng`.",
+  "statement": "Cho một chuỗi ký tự `s`. Hãy đếm số lần xuất hiện của từng ký tự trong chuỗi (phân biệt chữ hoa, chữ thường và bao gồm cả dấu cách). Kết quả được in ra theo thứ tự tăng dần của ký tự dựa trên mã ASCII.\n\n**Input:**\n- Một dòng duy nhất chứa chuỗi ký tự `s` (có độ dài từ 0 đến 1000).\n\n**Output:**\n- Nếu chuỗi rỗng, in ra `Rỗng`.\n- Ngược lại, in mỗi ký tự và số lần xuất hiện của nó trên một dòng theo định dạng `ký_tự: số_lần`. Danh sách được sắp xếp theo thứ tự tăng dần của ký tự.",
+  "ioFormat": "Input:\n- Một dòng chứa chuỗi s.\nOutput:\n- Từng dòng định dạng `kí_tự: số_lần` theo thứ tự alphabet, hoặc `Rỗng`.",
   "constraints": "Chuỗi s có độ dài từ 0 đến 1000 ký tự.",
   "examples": "Input:\napple\nOutput:\na: 1\ne: 1\nl: 1\np: 2",
   "mode": "stdio",
-  "starter": "def count_char_freq(s):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\ns = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef count_char_freq(s):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns = input()\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "apple",
@@ -2460,13 +2399,13 @@
     "expected": " : 1\n!: 1\n,: 1\nH: 1\nW: 1\nd: 1\ne: 1\nl: 3\no: 2\nr: 1"
    }
   ],
-  "hint": "Sử dụng vòng lặp duyệt qua từng ký tự, kiểm tra ký tự đã có trong dict chưa bằng toán tử 'in' hoặc phương thức .get().",
+  "hint": "Có thể viết hàm `count_char_freq(s)` trả về một dictionary chứa các ký tự làm khóa và số lần xuất hiện làm giá trị. Sử dụng vòng lặp duyệt qua từng ký tự, kiểm tra ký tự đã có trong dict chưa bằng toán tử 'in' hoặc phương thức .get().",
   "explanation": "Thuật toán đếm tần suất cơ bản: khởi tạo dict rỗng, duyệt chuỗi, nếu ký tự chưa có thì gán giá trị 1, nếu có rồi thì tăng thêm 1.",
   "commonMistakes": [
    "Quên phân biệt chữ hoa chữ thường nếu đề không yêu cầu loại bỏ",
    "Lỗi KeyError khi truy cập khóa chưa tồn tại"
   ],
-  "solution": "def count_char_freq(s):\n    freq = {}\n    for char in s:\n        freq[char] = freq.get(char, 0) + 1\n    return freq\n\n# ===== Chương trình chính =====\ns = input()\nres = count_char_freq(s)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "def count_char_freq(s):\n    freq = {}\n    for char in s:\n        freq[char] = freq.get(char, 0) + 1\n    return freq\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ns = input()\nres = count_char_freq(s)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "frequency-count",
@@ -2475,10 +2414,7 @@
   "source": "textbook",
   "reserve": false,
   "id": "T4-C06",
-  "files": {},
-  "requireFunction": [
-   "count_char_freq"
-  ]
+  "files": {}
  },
  {
   "topic": "T4",
@@ -2573,12 +2509,12 @@
   "topic": "T4",
   "difficulty": 1,
   "title": "Tính tổng tiền thanh toán",
-  "statement": "Viết hàm `calculate_total(prices, order)` trong đó `prices` là dict chứa {tên_món: đơn_giá} và `order` là dict chứa {tên_món: số_lượng}. Tính tổng số tiền phải trả. Nếu món hàng trong `order` không tồn tại trong `prices`, bỏ qua món đó.\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số nguyên `n` là số lượng mặt hàng trong danh mục giá (`prices`).\n- `n` dòng tiếp theo, mỗi dòng chứa `tên_món` và `đơn_giá` cách nhau bởi dấu cách.\n- Dòng tiếp theo nhập số nguyên `m` là số lượng mặt hàng trong đơn hàng (`order`).\n- `m` dòng tiếp theo, mỗi dòng chứa `tên_món` và `số_lượng` cách nhau bởi dấu cách.\nGọi hàm và in ra tổng số tiền.",
-  "ioFormat": "Input:\n- Dòng 1: n (số mặt hàng có giá).\n- n dòng: tên_món đơn_giá.\n- Dòng n+2: m (số món đặt mua).\n- m dòng: tên_món số_lượng.\nOutput:\n- Một số duy nhất là tổng tiền.",
+  "statement": "Cho một danh mục giá của các mặt hàng và một đơn đặt hàng. Hãy tính tổng số tiền phải trả cho đơn hàng đó. Nếu một mặt hàng trong đơn hàng không tồn tại trong danh mục giá, hãy bỏ qua mặt hàng đó.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng mặt hàng trong danh mục giá).\n- `n` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `đơn_giá` (số thực) cách nhau một khoảng trắng.\n- Dòng tiếp theo là số nguyên `m` (số lượng mặt hàng trong đơn hàng).\n- `m` dòng tiếp theo, mỗi dòng chứa `tên_món` (chuỗi không khoảng trắng) và `số_lượng` (số nguyên) cách nhau một khoảng trắng.\n\n**Output:**\n- Một số duy nhất là tổng số tiền. Kết quả được in ra theo định dạng của hàm `print()` trong Python (ví dụ: in `40.0` nếu kết quả là số thực có phần thập phân bằng 0, hoặc in `0` nếu không có mặt hàng nào được tính).",
+  "ioFormat": "Input:\n- Dòng 1: n\n- n dòng: tên_món đơn_giá\n- Dòng n+2: m\n- m dòng: tên_món số_lượng\nOutput:\n- Tổng số tiền.",
   "constraints": "Đơn giá và số lượng luôn >= 0.",
   "examples": "Input:\n2\nbread 10\nmilk 20\n2\nbread 2\nmilk 1\nOutput:\n40.0",
   "mode": "stdio",
-  "starter": "def calculate_total(prices, order):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\nm = int(input())\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef calculate_total(prices, order):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\nm = int(input())\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "2\nbread 10\nmilk 20\n2\nbread 2\nmilk 1",
@@ -2641,12 +2577,12 @@
     "expected": "0.30000000000000004"
    }
   ],
-  "hint": "Duyệt qua các khóa trong dict `order`, kiểm tra xem khóa đó có trong `prices` không bằng toán tử `in`.",
+  "hint": "Có thể viết hàm `calculate_total(prices, order)` nhận vào hai dictionary để tính tổng tiền dựa trên các mặt hàng có trong danh mục. Duyệt qua các khóa trong dict `order`, kiểm tra xem khóa đó có trong `prices` không bằng toán tử `in`.",
   "explanation": "Duyệt qua danh sách các món khách đặt (order), nếu món đó có giá trong hệ thống (prices), cộng (giá * số lượng) vào tổng.",
   "commonMistakes": [
    "Truy cập trực tiếp prices[item] mà không kiểm tra sự tồn tại gây lỗi KeyError"
   ],
-  "solution": "def calculate_total(prices, order):\n    total = 0\n    for item, qty in order.items():\n        if item in prices:\n            total += prices[item] * qty\n    return total\n\n# ===== Chương trình chính =====\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\ntry:\n    line_m = input().strip()\n    m = int(line_m) if line_m else 0\nexcept EOFError:\n    m = 0\n\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\nprint(calculate_total(prices, order))",
+  "solution": "def calculate_total(prices, order):\n    total = 0\n    for item, qty in order.items():\n        if item in prices:\n            total += prices[item] * qty\n    return total\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nprices = {}\nfor _ in range(n):\n    line = input().split()\n    prices[line[0]] = float(line[1])\n\ntry:\n    line_m = input().strip()\n    m = int(line_m) if line_m else 0\nexcept EOFError:\n    m = 0\n\norder = {}\nfor _ in range(m):\n    line = input().split()\n    order[line[0]] = int(line[1])\n\nprint(calculate_total(prices, order))",
   "errorCategory": "implementation",
   "tags": [
    "dict-access-get",
@@ -2655,10 +2591,7 @@
   "source": "exam",
   "reserve": false,
   "id": "T4-C08",
-  "files": {},
-  "requireFunction": [
-   "calculate_total"
-  ]
+  "files": {}
  },
  {
   "topic": "T4",
@@ -2753,12 +2686,12 @@
   "topic": "T4",
   "difficulty": 2,
   "title": "Đảo ngược Dictionary",
-  "statement": "Viết hàm `invert_dict(d)` nhận vào một dictionary có các giá trị (values) có thể trùng nhau. Hàm trả về một dictionary mới trong đó các giá trị cũ trở thành khóa (keys), và các khóa cũ trở thành một danh sách (list) các giá trị tương ứng với khóa mới đó. Danh sách các giá trị cũ phải được sắp xếp tăng dần.\n\n**Chương trình chính:**\n- Dòng đầu: số nguyên `n` là số cặp khóa-giá trị.\n- `n` dòng tiếp theo: mỗi dòng gồm `khóa giá_trị` cách nhau bởi dấu cách; cả khóa và giá trị đều giữ dạng chuỗi (không ép kiểu).\n- Gọi `invert_dict` rồi in: nếu kết quả rỗng in `Rỗng`; ngược lại in mỗi khóa mới trên một dòng theo dạng `khóa_mới: k1 k2 ...` (các khóa cũ cách nhau bởi dấu cách), các khóa mới theo thứ tự `sorted()` (so sánh chuỗi).",
-  "ioFormat": "Input:\nDòng 1: n\nn dòng: khóa giá_trị (chuỗi, cách nhau bởi dấu cách)\nOutput:\nMỗi dòng `khóa_mới: k1 k2 ...` theo thứ tự sorted() của khóa mới, hoặc `Rỗng`",
+  "statement": "Cho một dictionary chứa các cặp khóa và giá trị đều là chuỗi ký tự. Hãy đảo ngược dictionary này sao cho các giá trị cũ trở thành khóa mới, và các khóa cũ tương ứng trở thành một danh sách các giá trị của khóa mới đó. Danh sách các khóa cũ này phải được sắp xếp theo thứ tự tăng dần.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng cặp khóa-giá trị).\n- `n` dòng tiếp theo, mỗi dòng gồm `khóa` và `giá_trị` (chuỗi không chứa khoảng trắng) cách nhau một khoảng trắng.\n\n**Output:**\n- Nếu `n = 0`, in ra `Rỗng`.\n- Ngược lại, in mỗi cặp khóa mới và danh sách các giá trị tương ứng trên một dòng theo định dạng `khóa_mới: v1 v2 ...` (với `v1, v2...` là các khóa cũ đã được sắp xếp tăng dần và cách nhau bởi một dấu cách). Các dòng được in theo thứ tự tăng dần của `khóa_mới`.",
+  "ioFormat": "Input:\n- Dòng 1: n\n- n dòng: khóa giá_trị\nOutput:\n- Mỗi dòng `khóa_mới: v1 v2 ...` theo thứ tự sorted() của khóa mới, hoặc `Rỗng`.",
   "constraints": "Khóa và giá trị là chuỗi không chứa khoảng trắng; các khóa khác nhau.",
   "examples": "Input:\n3\na 1\nb 2\nc 1\nOutput:\n1: a c\n2: b",
   "mode": "stdio",
-  "starter": "def invert_dict(d):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nd = {}\nfor _ in range(n):\n    k, v = input().split()\n    d[k] = v\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef invert_dict(d):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nd = {}\nfor _ in range(n):\n    k, v = input().split()\n    d[k] = v\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "3\na 1\nb 2\nc 1",
@@ -2821,13 +2754,13 @@
     "expected": "5: x y"
    }
   ],
-  "hint": "Duyệt qua d.items(), lấy key và value cũ. Gán value cũ làm key mới cho dict kết quả, và append key cũ vào list tương ứng.",
+  "hint": "Có thể viết hàm `invert_dict(d)` để duyệt qua dictionary cũ và nhóm các khóa có cùng giá trị vào một list trong dictionary mới. Duyệt qua d.items(), lấy key và value cũ. Gán value cũ làm key mới cho dict kết quả, và append key cũ vào list tương ứng.",
   "explanation": "Tạo dict rỗng `res`. Với mỗi cặp `(k, v)` trong `d`, nếu `v` chưa có trong `res`, gán `res[v] = [k]`. Nếu có rồi, `res[v].append(k)`. Cuối cùng duyệt qua `res` để sort các list.",
   "commonMistakes": [
    "Không sắp xếp danh sách kết quả dẫn đến sai lệch output",
    "Lỗi ghi đè giá trị thay vì thêm vào list"
   ],
-  "solution": "def invert_dict(d):\n    res = {}\n    for k, v in d.items():\n        if v not in res:\n            res[v] = []\n        res[v].append(k)\n    for v in res:\n        res[v].sort()\n    return res\n\n# ===== Chương trình chính =====\nn = int(input())\nd = {}\nfor _ in range(n):\n    k, v = input().split()\n    d[k] = v\nres = invert_dict(d)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for v in sorted(res):\n        print(f\"{v}:\", *res[v])",
+  "solution": "def invert_dict(d):\n    res = {}\n    for k, v in d.items():\n        if v not in res:\n            res[v] = []\n        res[v].append(k)\n    for v in res:\n        res[v].sort()\n    return res\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nd = {}\nfor _ in range(n):\n    k, v = input().split()\n    d[k] = v\nres = invert_dict(d)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for v in sorted(res):\n        print(f\"{v}:\", *res[v])",
   "errorCategory": "logic",
   "tags": [
    "dict-iteration",
@@ -2836,10 +2769,7 @@
   "source": "exam",
   "reserve": false,
   "id": "T4-C10",
-  "files": {},
-  "requireFunction": [
-   "invert_dict"
-  ]
+  "files": {}
  },
  {
   "topic": "T4",
@@ -2934,12 +2864,12 @@
   "topic": "T4",
   "difficulty": 2,
   "title": "Lọc sinh viên theo điểm GPA",
-  "statement": "Viết hàm `filter_students(students, threshold)` nhận vào một dict `students` có dạng `{MSV: GPA}` và một số thực `threshold`. Hàm trả về một danh sách các MSV có điểm GPA lớn hơn hoặc bằng `threshold`, danh sách trả về được sắp xếp theo MSV tăng dần (alphabet).\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số nguyên `n` là số sinh viên.\n- `n` dòng tiếp theo, mỗi dòng gồm `MSV GPA` (MSV không chứa khoảng trắng, GPA là số thực) cách nhau bởi dấu cách.\n- Dòng cuối cùng nhập số thực `threshold`.\nGọi hàm và in kết quả trên một dòng, các MSV cách nhau bởi dấu cách. Nếu không có sinh viên nào, in `Rỗng`.",
-  "ioFormat": "Input:\n- Dòng 1: n.\n- n dòng: MSV GPA.\n- Dòng n+2: threshold.\nOutput:\n- Một dòng duy nhất chứa danh sách MSV cách nhau bởi dấu cách, hoặc `Rỗng`.",
+  "statement": "Cho danh sách sinh viên gồm mã sinh viên (MSV) và điểm GPA tương ứng. Hãy tìm và in ra danh sách các MSV có điểm GPA lớn hơn hoặc bằng một ngưỡng `threshold` cho trước. Danh sách kết quả cần được sắp xếp theo thứ tự MSV tăng dần.\n\n**Input:**\n- Dòng đầu tiên là số nguyên `n` (số lượng sinh viên).\n- `n` dòng tiếp theo, mỗi dòng gồm `MSV` (chuỗi không khoảng trắng) và `GPA` (số thực) cách nhau một khoảng trắng.\n- Dòng cuối cùng là một số thực `threshold`.\n\n**Output:**\n- In trên một dòng duy nhất các MSV thỏa mãn điều kiện, cách nhau bởi một dấu cách, theo thứ tự từ điển tăng dần.\n- Nếu không có sinh viên nào thỏa mãn, in ra `Rỗng`.",
+  "ioFormat": "Input:\n- Dòng 1: n\n- n dòng: MSV GPA\n- Dòng cuối: threshold\nOutput:\n- Các MSV cách nhau bởi dấu cách, hoặc `Rỗng`.",
   "constraints": "GPA nằm trong đoạn [0, 4.0].",
   "examples": "Input:\n3\nB21 3.5\nB22 2.0\nB23 3.8\n3.0\nOutput:\nB21 B23",
   "mode": "stdio",
-  "starter": "def filter_students(students, threshold):\n    # Sinh viên viết code tại đây\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nstudents = {}\nfor _ in range(n):\n    msv, gpa = input().split()\n    students[msv] = float(gpa)\nthreshold = float(input())\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef filter_students(students, threshold):\n    # Sinh viên viết code tại đây\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nstudents = {}\nfor _ in range(n):\n    msv, gpa = input().split()\n    students[msv] = float(gpa)\nthreshold = float(input())\n\n# Gọi hàm và in kết quả",
   "tests": [
    {
     "input": "3\nB21 3.5\nB22 2.0\nB23 3.8\n3.0",
@@ -3002,13 +2932,13 @@
     "expected": "Rỗng"
    }
   ],
-  "hint": "Sử dụng dict comprehension hoặc vòng lặp for kết hợp điều kiện if, sau đó dùng hàm sorted() cho kết quả.",
+  "hint": "Có thể viết hàm `filter_students(students, threshold)` trả về list các MSV thỏa mãn điều kiện sau khi đã sắp xếp. Sử dụng dict comprehension hoặc vòng lặp for kết hợp điều kiện if, sau đó dùng hàm sorted() cho kết quả.",
   "explanation": "Duyệt qua dictionary `students`. Nếu giá trị (GPA) thỏa mãn điều kiện >= threshold, thêm khóa (MSV) vào một danh sách. Cuối cùng sắp xếp danh sách đó.",
   "commonMistakes": [
    "Quên sắp xếp danh sách kết quả",
    "Sử dụng nhầm điều kiện > thay vì >="
   ],
-  "solution": "def filter_students(students, threshold):\n    result = [msv for msv, gpa in students.items() if gpa >= threshold]\n    return sorted(result)\n\n# ===== Chương trình chính =====\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nstudents = {}\nfor _ in range(n):\n    line = input().split()\n    if line:\n        students[line[0]] = float(line[1])\n\ntry:\n    threshold = float(input())\nexcept EOFError:\n    threshold = 0.0\n\nres = filter_students(students, threshold)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
+  "solution": "def filter_students(students, threshold):\n    result = [msv for msv, gpa in students.items() if gpa >= threshold]\n    return sorted(result)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntry:\n    line_n = input().strip()\n    n = int(line_n) if line_n else 0\nexcept EOFError:\n    n = 0\n\nstudents = {}\nfor _ in range(n):\n    line = input().split()\n    if line:\n        students[line[0]] = float(line[1])\n\ntry:\n    threshold = float(input())\nexcept EOFError:\n    threshold = 0.0\n\nres = filter_students(students, threshold)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
   "errorCategory": "logic",
   "tags": [
    "dict-comprehension",
@@ -3017,10 +2947,7 @@
   "source": "exam",
   "reserve": true,
   "id": "T4-C12",
-  "files": {},
-  "requireFunction": [
-   "filter_students"
-  ]
+  "files": {}
  },
  {
   "topic": "T4",
@@ -3116,12 +3043,12 @@
   "topic": "T5",
   "difficulty": 1,
   "title": "Tính tiền nước sinh hoạt",
-  "statement": "Viết hàm `tinh_tien_nuoc(m3, so_nguoi=1)` để tính hóa đơn tiền nước của một hộ gia đình theo phương pháp lũy kế. Định mức cho mỗi người là:\n- Bậc 1: Đến 4m3 đầu tiên: 9206đ/m3\n- Bậc 2: Từ trên 4m3 đến 6m3: 17725đ/m3\n- Bậc 3: Trên 6m3: 19786đ/m3\nLưu ý: Định mức được nhân với số người trong hộ. Ví dụ: Nếu hộ có 2 người, định mức bậc 1 là 8m3 đầu tiên. Tiền nước được làm tròn thành số nguyên.\n\n**Chương trình chính:** \n- Dòng 1: Nhập số m3 nước tiêu thụ (số thực).\n- Dòng 2: Nhập số người trong hộ (số nguyên).\nIn ra tổng số tiền nước sau khi làm tròn.\nTiền nước được làm tròn bằng hàm `round()` của Python.",
-  "ioFormat": "Input:\n- Dòng 1: m3 (float).\n- Dòng 2: so_nguoi (int).\nOutput:\n- Một số nguyên duy nhất.",
+  "statement": "Tính hóa đơn tiền nước tiêu thụ của một hộ gia đình theo phương pháp lũy kế. Định mức cho mỗi người trong hộ được quy định như sau:\n- Bậc 1: Đến 4m3 đầu tiên: 9206 đ/m3.\n- Bậc 2: Từ trên 4m3 đến 6m3: 17725 đ/m3.\n- Bậc 3: Trên 6m3: 19786 đ/m3.\nLưu ý: Các mốc định mức nước được tính bằng cách nhân định mức của một người với số người trong hộ (ví dụ: hộ có 2 người thì định mức Bậc 1 là 8m3 đầu tiên). Kết quả cuối cùng được làm tròn về số nguyên bằng hàm `round()` của Python.\n\n**Input:**\n- Dòng 1: Số thực `m3` là lượng nước tiêu thụ.\n- Dòng 2: Số nguyên `so_nguoi` là số người trong hộ gia đình.\n\n**Output:**\n- Một số nguyên duy nhất là tổng số tiền nước sau khi làm tròn.",
+  "ioFormat": "Input:\n- Dòng 1: m3 (float)\n- Dòng 2: so_nguoi (int)\nOutput:\n- Một số nguyên duy nhất.",
   "constraints": "m3 >= 0; so_nguoi >= 1",
   "examples": "Input:\n10\n2\nOutput:\n109098",
   "mode": "stdio",
-  "starter": "def tinh_tien_nuoc(m3, so_nguoi=1):\n    pass\n\n# ===== Chương trình chính =====\nm3 = float(input())\nso_nguoi = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef tinh_tien_nuoc(m3, so_nguoi=1):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nm3 = float(input())\nso_nguoi = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -3185,36 +3112,33 @@
     "expected": "361370"
    }
   ],
-  "hint": "Tính các mốc định mức dựa trên số người: limit1 = 4 * so_nguoi, limit2 = 6 * so_nguoi. Sau đó dùng cấu trúc if-elif để tách các phần khối lượng nước vào từng bậc.",
+  "hint": "Có thể viết hàm `tinh_tien_nuoc(m3, so_nguoi)` để tính toán tiền nước lũy tiến dựa trên các mốc định mức đã nhân với số người. Tính các mốc định mức dựa trên số người: limit1 = 4 * so_nguoi, limit2 = 6 * so_nguoi. Sau đó dùng cấu trúc if-elif để tách các phần khối lượng nước vào từng bậc.",
   "explanation": "Thuật toán tính lũy kế: Phần nước thuộc [0, limit1] nhân giá bậc 1. Phần nước thuộc (limit1, limit2] nhân giá bậc 2. Phần vượt quá limit2 nhân giá bậc 3.",
   "commonMistakes": [
    "Quên nhân định mức với số người",
    "Tính sai phần nước ở bậc trung gian (ví dụ: lấy toàn bộ m3 nhân với giá ở bậc cao nhất)",
    "Dùng hàm print() thay vì return"
   ],
-  "solution": "def tinh_tien_nuoc(m3, so_nguoi=1):\n    limit1 = 4 * so_nguoi\n    limit2 = 6 * so_nguoi\n    total = 0\n    if m3 <= limit1:\n        total = m3 * 9206\n    elif m3 <= limit2:\n        total = limit1 * 9206 + (m3 - limit1) * 17725\n    else:\n        total = limit1 * 9206 + (limit2 - limit1) * 17725 + (m3 - limit2) * 19786\n    return round(total)\n\n# ===== Chương trình chính =====\ntry:\n    m3 = float(input())\n    line2 = input().strip()\n    so_nguoi = int(line2) if line2 else 1\n    print(tinh_tien_nuoc(m3, so_nguoi))\nexcept EOFError:\n    pass",
+  "solution": "def tinh_tien_nuoc(m3, so_nguoi=1):\n    limit1 = 4 * so_nguoi\n    limit2 = 6 * so_nguoi\n    total = 0\n    if m3 <= limit1:\n        total = m3 * 9206\n    elif m3 <= limit2:\n        total = limit1 * 9206 + (m3 - limit1) * 17725\n    else:\n        total = limit1 * 9206 + (limit2 - limit1) * 17725 + (m3 - limit2) * 19786\n    return round(total)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\ntry:\n    m3 = float(input())\n    line2 = input().strip()\n    so_nguoi = int(line2) if line2 else 1\n    print(tinh_tien_nuoc(m3, so_nguoi))\nexcept EOFError:\n    pass",
   "errorCategory": "logic",
   "tags": [
    "def-return",
    "default-args"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "tinh_tien_nuoc"
-  ]
+  "reserve": false
  },
  {
   "id": "T5-C02",
   "topic": "T5",
   "difficulty": 2,
   "title": "Lọc và sắp xếp sinh viên",
-  "statement": "Viết hàm `loc_sinh_vien(ds_sinh_vien, gpa_nguong)` nhận vào một list các dictionary (mỗi dict có khóa 'ten' và 'gpa') và một số thực `gpa_nguong`. Hàm trả về danh sách tên các sinh viên có GPA >= `gpa_nguong`, sắp xếp theo GPA giảm dần; nếu GPA bằng nhau thì sắp xếp theo tên tăng dần (alphabet).\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số nguyên n là số lượng sinh viên.\n- n dòng tiếp theo, mỗi dòng chứa tên (không khoảng trắng) và GPA cách nhau bởi dấu cách.\n- Dòng cuối cùng nhập số thực gpa_nguong.\n- Gọi hàm và in danh sách tên kết quả trên một dòng, các tên cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\nDòng 1: Số nguyên n.\nn dòng tiếp theo: Mỗi dòng gồm <tên> <GPA>.\nDòng cuối: Số thực gpa_nguong.\nOutput:\nMột dòng duy nhất chứa danh sách tên sinh viên hoặc chuỗi 'Rỗng'.",
+  "statement": "Cho danh sách gồm `n` sinh viên, mỗi sinh viên có thông tin gồm tên và điểm trung bình (GPA). Nhiệm vụ của bạn là lọc ra các sinh viên có GPA lớn hơn hoặc bằng một ngưỡng `gpa_nguong` cho trước, sau đó sắp xếp danh sách theo các tiêu chí:\n1. Điểm GPA giảm dần.\n2. Nếu GPA bằng nhau, sắp xếp theo tên tăng dần theo thứ tự từ điển (alphabet).\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo, mỗi dòng chứa một chuỗi không có khoảng trắng là tên sinh viên và một số thực là GPA, cách nhau bởi một khoảng trắng.\n- Dòng cuối cùng chứa số thực `gpa_nguong`.\n\n**Output:**\n- In ra tên các sinh viên thỏa mãn trên một dòng duy nhất, các tên cách nhau bởi một dấu cách.\n- Nếu không có sinh viên nào thỏa mãn, in ra `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: Số nguyên n.\nn dòng tiếp theo: <tên> <GPA>.\nDòng cuối: Số thực gpa_nguong.\nOutput:\nMột dòng chứa tên các sinh viên hoặc 'Rỗng'.",
   "constraints": "ds_sinh_vien không rỗng, gpa_nguong thuộc [0.0, 4.0] hoặc [0.0, 10.0]",
   "examples": "Input:\n3\nAn 8.5\nBinh 9.0\nCuong 8.5\n8.0\nOutput:\nBinh An Cuong",
   "mode": "stdio",
-  "starter": "def loc_sinh_vien(ds_sinh_vien, gpa_nguong):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gpa': float(line[1])})\ngpa_nguong = float(input())\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef loc_sinh_vien(ds_sinh_vien, gpa_nguong):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gpa': float(line[1])})\ngpa_nguong = float(input())\n\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -3278,14 +3202,14 @@
     "expected": "W X"
    }
   ],
-  "hint": "Sử dụng hàm filter() để lọc, sau đó dùng sorted() với tham số key là một lambda function trả về tuple: (-x['gpa'], x['ten']).",
+  "hint": "Có thể viết hàm `loc_sinh_vien(ds_sinh_vien, gpa_nguong)` sử dụng `filter()` và `sorted()` với `key` là một `lambda` trả về tuple `(-gpa, ten)`. Sử dụng hàm filter() để lọc, sau đó dùng sorted() với tham số key là một lambda function trả về tuple: (-x['gpa'], x['ten']).",
   "explanation": "Sử dụng filter() kết hợp lambda để lấy các sinh viên đạt ngưỡng. Sau đó, sorted() với key là tuple cho phép sắp xếp đa tiêu chí: phần tử đầu của tuple (-GPA) để giảm dần, phần tử thứ hai (Tên) để tăng dần.",
   "commonMistakes": [
    "Quên chuyển kết quả filter sang list",
    "Sắp xếp sai thứ tự ưu tiên hoặc sai hướng (tăng/giảm)",
    "Không xử lý được trường hợp GPA bằng nhau"
   ],
-  "solution": "def loc_sinh_vien(ds_sinh_vien, gpa_nguong):\n    filtered = filter(lambda x: x['gpa'] >= gpa_nguong, ds_sinh_vien)\n    sorted_list = sorted(filtered, key=lambda x: (-x['gpa'], x['ten']))\n    return [sv['ten'] for sv in sorted_list]\n\n# ===== Chương trình chính =====\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gpa': float(line[1])})\ngpa_nguong = float(input())\n\nket_qua = loc_sinh_vien(ds, gpa_nguong)\nif not ket_qua:\n    print(\"Rỗng\")\nelse:\n    print(*ket_qua)",
+  "solution": "def loc_sinh_vien(ds_sinh_vien, gpa_nguong):\n    filtered = filter(lambda x: x['gpa'] >= gpa_nguong, ds_sinh_vien)\n    sorted_list = sorted(filtered, key=lambda x: (-x['gpa'], x['ten']))\n    return [sv['ten'] for sv in sorted_list]\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gpa': float(line[1])})\ngpa_nguong = float(input())\n\nket_qua = loc_sinh_vien(ds, gpa_nguong)\nif not ket_qua:\n    print(\"Rỗng\")\nelse:\n    print(*ket_qua)",
   "errorCategory": "method",
   "tags": [
    "lambda",
@@ -3293,22 +3217,19 @@
    "sorted-key"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "loc_sinh_vien"
-  ]
+  "reserve": false
  },
  {
   "id": "T5-C03",
   "topic": "T5",
   "difficulty": 2,
   "title": "Thêm phần tử an toàn với tham số mặc định",
-  "statement": "Viết hàm `them_vao(x, ds=None)`:\n- Nếu không truyền `ds`, hàm tạo một list MỚI rỗng.\n- Thêm `x` vào cuối `ds` rồi trả về `ds`.\n\nYêu cầu: gọi hàm nhiều lần liên tiếp mà không truyền `ds` thì mỗi lần phải nhận được một list mới, không bị dính phần tử của lần gọi trước. Không được viết `ds=[]` làm giá trị mặc định.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `k` là số lượng lời gọi hàm.\n- `k` dòng tiếp theo, mỗi dòng chứa giá trị `x` và thông tin `ds` cách nhau bởi dấu phẩy. Nếu `ds` là `None`, nhập chuỗi `None`. Sử dụng `eval()` để đọc đúng kiểu dữ liệu.\n- Với mỗi lời gọi, in kết quả trả về trên một dòng. Nếu kết quả rỗng, in `Rỗng`.\nIn kết quả bằng `print(list)`, ví dụ `[1]`.",
-  "ioFormat": "Input:\nDòng 1: Số nguyên k.\nk dòng tiếp theo: x, ds (ds có thể là None hoặc một list).\nOutput:\nk dòng, mỗi dòng là một list kết quả.",
+  "statement": "Mô phỏng thao tác thêm một phần tử `x` vào một danh sách `ds`. Quy tắc xử lý như sau: Nếu `ds` không được cung cấp (giá trị `None`), một danh sách mới rỗng sẽ được tạo ra trước khi thêm `x`. Nếu `ds` đã tồn tại, thêm `x` vào cuối danh sách đó. Lưu ý: các lời gọi không được cung cấp danh sách phải độc lập với nhau (không dùng chung một danh sách mặc định).\n\n**Input:**\n- Dòng 1: Số nguyên `k` là số lượng yêu cầu.\n- `k` dòng tiếp theo: Mỗi dòng chứa giá trị `x` và giá trị `ds`, cách nhau bởi dấu phẩy (`,`). Dữ liệu được nhập dưới dạng chuỗi có thể dùng `eval()` để chuyển đổi về kiểu dữ liệu tương ứng (ví dụ: `1, None` hoặc `3, [1, 2]`).\n\n**Output:**\n- Với mỗi yêu cầu, in ra danh sách sau khi thêm phần tử theo định dạng `print()` của Python (ví dụ: `[1]`).\n- Nếu kết quả là danh sách rỗng, in `Rỗng`.",
+  "ioFormat": "Input:\nDòng 1: Số nguyên k.\nk dòng tiếp theo: x, ds (ds có thể là None hoặc một list).\nOutput:\nk dòng, mỗi dòng là một danh sách kết quả.",
   "constraints": "Không dùng biến toàn cục.",
   "examples": "Input:\n2\n1, None\n2, None\nOutput:\n[1]\n[2]",
   "mode": "stdio",
-  "starter": "def them_vao(x, ds=None):\n    pass\n\n# ===== Chương trình chính =====\nk = int(input())\nfor _ in range(k):\n    line = input().split(',', 1)\n    x = eval(line[0].strip())\n    ds_val = eval(line[1].strip())\n    # Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef them_vao(x, ds=None):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nk = int(input())\nfor _ in range(k):\n    line = input().split(',', 1)\n    x = eval(line[0].strip())\n    ds_val = eval(line[1].strip())\n    # Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -3364,14 +3285,14 @@
     "expected": "[2, [1]]"
    }
   ],
-  "hint": "Giá trị mặc định chỉ được tạo một lần khi định nghĩa hàm. Dùng None làm giá trị mặc định rồi kiểm tra bên trong hàm.",
+  "hint": "Có thể viết hàm `them_vao(x, ds=None)` và kiểm tra `if ds is None: ds = []` bên trong hàm để tránh lỗi dùng chung đối tượng mặc định. Giá trị mặc định chỉ được tạo một lần khi định nghĩa hàm. Dùng None làm giá trị mặc định rồi kiểm tra bên trong hàm.",
   "explanation": "Đặt ds=None. Trong thân hàm: nếu ds is None thì gán ds = [] (tạo list mới ở mỗi lần gọi). Sau đó ds.append(x) và return ds. Khi người gọi truyền list của họ, hàm sửa trực tiếp list đó (list là mutable, truyền theo tham chiếu đối tượng).",
   "commonMistakes": [
    "Viết ds=[] làm giá trị mặc định: các lần gọi dùng chung một list",
    "Dùng `if not ds:` thay cho `if ds is None:` làm list rỗng do người gọi truyền vào bị thay bằng list mới",
    "Quên return ds"
   ],
-  "solution": "def them_vao(x, ds=None):\n    if ds is None:\n        ds = []\n    ds.append(x)\n    return ds\n\n# ===== Chương trình chính =====\nk = int(input())\nfor _ in range(k):\n    line = input().split(',', 1)\n    x = eval(line[0].strip())\n    ds_val = eval(line[1].strip())\n    \n    ket_qua = them_vao(x, ds_val)\n    if not ket_qua:\n        print(\"Rỗng\")\n    else:\n        print(ket_qua)",
+  "solution": "def them_vao(x, ds=None):\n    if ds is None:\n        ds = []\n    ds.append(x)\n    return ds\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nk = int(input())\nfor _ in range(k):\n    line = input().split(',', 1)\n    x = eval(line[0].strip())\n    ds_val = eval(line[1].strip())\n    \n    ket_qua = them_vao(x, ds_val)\n    if not ket_qua:\n        print(\"Rỗng\")\n    else:\n        print(ket_qua)",
   "errorCategory": "execution",
   "tags": [
    "mutable-default",
@@ -3379,22 +3300,19 @@
    "pass-by-object"
   ],
   "source": "supplement",
-  "reserve": false,
-  "requireFunction": [
-   "them_vao"
-  ]
+  "reserve": false
  },
  {
   "id": "T5-C04",
   "topic": "T5",
   "difficulty": 2,
   "title": "Quản lý kho hàng",
-  "statement": "Viết hàm `sap_xep_kho(ds_hang, sap_xep_nguoc=False)` nhận vào một list các dictionary (mỗi dict gồm 'ten', 'gia', 'sl'). \n- Nếu `sap_xep_nguoc` là False (mặc định), sắp xếp theo 'gia' tăng dần.\n- Nếu `sap_xep_nguoc` là True, sắp xếp theo 'gia' giảm dần.\n- Nếu 'gia' bằng nhau, luôn sắp xếp theo 'sl' (số lượng) giảm dần. Trả về danh sách các dictionary đã sắp xếp.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên n.\n- n dòng tiếp theo, mỗi dòng gồm `ten gia sl` cách nhau bởi dấu cách.\n- Dòng cuối: 0 (False) hoặc 1 (True) cho tham số `sap_xep_nguoc`.\n- In mỗi dictionary trong danh sách kết quả trên một dòng.\nIn mỗi dictionary trong danh sách kết quả bằng `print(item)` trên một dòng; các khóa theo đúng thứ tự `'ten'`, `'gia'`, `'sl'` (như được tạo khi đọc input), `gia` là số thực. Ví dụ: `{'ten': 'B', 'gia': 10.0, 'sl': 10}`.",
-  "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: ten gia sl.\nDòng cuối: 0 hoặc 1.\nOutput:\nn dòng, mỗi dòng là một dictionary.",
+  "statement": "Quản lý danh sách hàng hóa trong kho. Mỗi mặt hàng gồm có tên, giá và số lượng (sl). Bạn cần sắp xếp danh sách hàng hóa theo yêu cầu:\n- Nếu tham số `sap_xep_nguoc` là `0` (False): Sắp xếp theo `gia` tăng dần.\n- Nếu tham số `sap_xep_nguoc` là `1` (True): Sắp xếp theo `gia` giảm dần.\n- Trong cả hai trường hợp, nếu `gia` bằng nhau, luôn sắp xếp theo số lượng (`sl`) giảm dần.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng hàng hóa.\n- `n` dòng tiếp theo: Mỗi dòng gồm tên hàng (chuỗi), giá (số thực) và số lượng (số nguyên), cách nhau bởi dấu cách.\n- Dòng cuối: Số `0` hoặc `1` tương ứng với giá trị của `sap_xep_nguoc`.\n\n**Output:**\n- In ra `n` dòng, mỗi dòng là một dictionary chứa thông tin hàng hóa theo định dạng `print()` của Python. Thứ tự các khóa trong dictionary phải là `'ten'`, `'gia'`, `'sl'`. Giá trị `gia` in ở dạng số thực (ví dụ: `10.0`).",
+  "ioFormat": "Input:\nDòng 1: n.\nn dòng tiếp theo: <tên> <giá> <số lượng>.\nDòng cuối: 0 hoặc 1.\nOutput:\nn dòng, mỗi dòng là một dictionary.",
   "constraints": "ds_hang không rỗng; gia > 0; sl >= 0",
   "examples": "Input:\n2\nA 10 5\nB 10 10\n0\nOutput:\n{'ten': 'B', 'gia': 10.0, 'sl': 10}\n{'ten': 'A', 'gia': 10.0, 'sl': 5}",
   "mode": "stdio",
-  "starter": "def sap_xep_kho(ds_hang, sap_xep_nguoc=False):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gia': float(line[1]), 'sl': int(line[2])})\nrev = bool(int(input()))\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef sap_xep_kho(ds_hang, sap_xep_nguoc=False):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gia': float(line[1]), 'sl': int(line[2])})\nrev = bool(int(input()))\n\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -3458,13 +3376,13 @@
     "expected": "{'ten': 'Q', 'gia': 100.0, 'sl': 0}"
    }
   ],
-  "hint": "Sử dụng sorted() với key là lambda trả về một tuple. Nếu cần đảo ngược một tiêu chí trong khi tiêu chí kia giữ nguyên, hãy dùng dấu trừ (-) cho số.",
+  "hint": "Có thể viết hàm `sap_xep_kho(ds_hang, sap_xep_nguoc)` và sử dụng `sorted()` với `key` là `lambda` trả về tuple chứa các tiêu chí cần sắp xếp. Sử dụng sorted() với key là lambda trả về một tuple. Nếu cần đảo ngược một tiêu chí trong khi tiêu chí kia giữ nguyên, hãy dùng dấu trừ (-) cho số.",
   "explanation": "Khi sap_xep_nguoc=False, key là (x['gia'], -x['sl']). Khi sap_xep_nguoc=True, key là (-x['gia'], -x['sl']). Dấu trừ giúp đảo ngược thứ tự sắp xếp của trường kiểu số mà không cần dùng tham số reverse của sorted().",
   "commonMistakes": [
    "Sử dụng tham số reverse=True trong sorted() làm đảo ngược cả trường 'sl' vốn yêu cầu luôn giảm dần",
    "Không hiểu cách dùng tuple trong key của lambda"
   ],
-  "solution": "def sap_xep_kho(ds_hang, sap_xep_nguoc=False):\n    if not sap_xep_nguoc:\n        return sorted(ds_hang, key=lambda x: (x['gia'], -x['sl']))\n    else:\n        return sorted(ds_hang, key=lambda x: (-x['gia'], -x['sl']))\n\n# ===== Chương trình chính =====\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gia': float(line[1]), 'sl': int(line[2])})\nrev = bool(int(input()))\n\nket_qua = sap_xep_kho(ds, rev)\nfor item in ket_qua:\n    print(item)",
+  "solution": "def sap_xep_kho(ds_hang, sap_xep_nguoc=False):\n    if not sap_xep_nguoc:\n        return sorted(ds_hang, key=lambda x: (x['gia'], -x['sl']))\n    else:\n        return sorted(ds_hang, key=lambda x: (-x['gia'], -x['sl']))\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nds = []\nfor _ in range(n):\n    line = input().split()\n    ds.append({'ten': line[0], 'gia': float(line[1]), 'sl': int(line[2])})\nrev = bool(int(input()))\n\nket_qua = sap_xep_kho(ds, rev)\nfor item in ket_qua:\n    print(item)",
   "errorCategory": "implementation",
   "tags": [
    "lambda",
@@ -3472,22 +3390,19 @@
    "default-args"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "sap_xep_kho"
-  ]
+  "reserve": true
  },
  {
   "id": "T6-C01",
   "topic": "T6",
   "difficulty": 1,
   "title": "Phép chia an toàn với Exception",
-  "statement": "Viết hàm `safe_divide(a, b)` thực hiện phép chia `a / b` và xử lý ngoại lệ:\n1. Nếu `b` bằng 0: trả về \"Error: Division by zero\".\n2. Nếu `a` hoặc `b` không phải số: trả về \"Error: Invalid type\".\n3. Lỗi khác: trả về \"Error: Unknown\".\n\n**Chương trình chính:** \n- Dòng 1: Nhập giá trị `a`.\n- Dòng 2: Nhập giá trị `b`.\n- Lưu ý: Sử dụng `eval(input())` để nhận diện đúng kiểu dữ liệu (số, chuỗi, list, None...).\n- In kết quả của hàm.\nHãy dùng try/except để Python tự phát sinh ngoại lệ; ví dụ `a` là chuỗi và `b = 0` vẫn in `Error: Invalid type`.",
-  "ioFormat": "Input:\nDòng 1: Giá trị a.\nDòng 2: Giá trị b.\nOutput:\nKết quả phép chia (float) hoặc chuỗi thông báo lỗi.",
+  "statement": "Thực hiện phép chia số `a` cho số `b` và xử lý các tình huống ngoại lệ có thể xảy ra:\n1. Nếu phép chia thực hiện thành công: Trả về kết quả (số thực).\n2. Nếu `b` bằng `0`: Trả về chuỗi `Error: Division by zero`.\n3. Nếu `a` hoặc `b` có kiểu dữ liệu không thể thực hiện phép chia (ví dụ chuỗi, danh sách...): Trả về chuỗi `Error: Invalid type`.\n4. Với các lỗi khác phát sinh: Trả về chuỗi `Error: Unknown`.\n\n**Input:**\n- Dòng 1: Giá trị `a` (sử dụng `eval(input())` để nhận diện đúng kiểu dữ liệu).\n- Dòng 2: Giá trị `b` (sử dụng `eval(input())` để nhận diện đúng kiểu dữ liệu).\n\n**Output:**\n- Kết quả của phép chia (ở dạng số thực) hoặc nội dung thông báo lỗi tương ứng.",
+  "ioFormat": "Input:\nDòng 1: Giá trị a.\nDòng 2: Giá trị b.\nOutput:\nMột số thực hoặc chuỗi thông báo lỗi.",
   "constraints": "a, b có thể là bất kỳ kiểu dữ liệu nào.",
   "examples": "Input:\n10\n2\nOutput:\n5.0",
   "mode": "stdio",
-  "starter": "def safe_divide(a, b):\n    pass\n\n# ===== Chương trình chính =====\na = eval(input())\nb = eval(input())\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef safe_divide(a, b):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\na = eval(input())\nb = eval(input())\n\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -3551,36 +3466,33 @@
     "expected": "-2.5"
    }
   ],
-  "hint": "Sử dụng cấu trúc try...except với các khối ngoại lệ cụ thể (ZeroDivisionError, TypeError).",
+  "hint": "Có thể viết hàm `safe_divide(a, b)` sử dụng cấu trúc `try...except` với các ngoại lệ `ZeroDivisionError` và `TypeError`. Sử dụng cấu trúc try...except với các khối ngoại lệ cụ thể (ZeroDivisionError, TypeError).",
   "explanation": "Hàm sử dụng khối try để thực hiện phép toán. Nếu Python ném ra ZeroDivisionError, khối except tương ứng sẽ bắt và trả về thông báo. Tương tự cho TypeError khi thực hiện toán tử / trên kiểu dữ liệu không hợp lệ.",
   "commonMistakes": [
    "Sử dụng if b == 0 thay vì dùng try...except",
    "Không bắt lỗi TypeError khi tham số truyền vào là string hoặc list",
    "Thứ tự except không hợp lệ (để Exception chung lên đầu)"
   ],
-  "solution": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return \"Error: Division by zero\"\n    except TypeError:\n        return \"Error: Invalid type\"\n    except Exception:\n        return \"Error: Unknown\"\n\n# ===== Chương trình chính =====\na = eval(input())\nb = eval(input())\n\nprint(safe_divide(a, b))",
+  "solution": "def safe_divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return \"Error: Division by zero\"\n    except TypeError:\n        return \"Error: Invalid type\"\n    except Exception:\n        return \"Error: Unknown\"\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\na = eval(input())\nb = eval(input())\n\nprint(safe_divide(a, b))",
   "errorCategory": "logic",
   "tags": [
    "try-except",
    "exception-types"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "safe_divide"
-  ]
+  "reserve": false
  },
  {
   "id": "T6-C02",
   "topic": "T6",
   "difficulty": 2,
   "title": "Tần suất số nguyên tố trong file văn bản",
-  "statement": "Viết hàm `get_prime_frequency(path)` đọc file văn bản, lọc các số nguyên dương là số nguyên tố và đếm tần suất xuất hiện.\n\n**Chương trình chính:** \n- Nhập đường dẫn file từ bàn phím.\n- Gọi hàm `get_prime_frequency`.\n- In kết quả: mỗi cặp `số: tần_suất` trên một dòng, sắp xếp theo số tăng dần. Nếu dictionary rỗng, in `Rỗng`.\nTách nội dung file theo khoảng trắng; chỉ xét các token gồm toàn chữ số (`str.isdigit()`), token khác bỏ qua. Nếu file không tồn tại hoặc không có số nguyên tố nào thì hàm trả về `{}` và chương trình chính in `Rỗng`. Nội dung file của từng test xem trong mục \"Bộ test\".",
-  "ioFormat": "Input:\nĐường dẫn file (string).\nOutput:\nCác dòng dạng <số>: <tần suất> hoặc 'Rỗng'.",
+  "statement": "Đọc nội dung từ một file văn bản, tìm tất cả các số nguyên dương là số nguyên tố và đếm tần suất xuất hiện của chúng.\n- Một token trong file được coi là số nguyên dương nếu nó chỉ chứa các ký tự số (`str.isdigit()`).\n- Các token không phải số nguyên dương sẽ bị bỏ qua.\n\n**Input:**\n- Một dòng duy nhất chứa đường dẫn (path) đến file văn bản.\n\n**Output:**\n- In ra các cặp `số: tần_suất`, mỗi cặp trên một dòng, sắp xếp theo thứ tự số tăng dần.\n- Nếu file không tồn tại, file rỗng hoặc không tìm thấy số nguyên tố nào, in ra `Rỗng`.",
+  "ioFormat": "Input:\nMột chuỗi là đường dẫn file.\nOutput:\nCác dòng định dạng <số>: <tần suất> sắp xếp tăng dần hoặc 'Rỗng'.",
   "constraints": "File có thể trống. Nội dung file có thể có nhiều dòng.",
   "examples": "Input:\ndata1.txt\nOutput:\n2: 1\n5: 1\n7: 2\n11: 2\n13: 3",
   "mode": "stdio",
-  "starter": "def get_prime_frequency(path):\n    pass\n\n# ===== Chương trình chính =====\npath = input()\n\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef get_prime_frequency(path):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\n\n# Gọi hàm và in kết quả",
   "files": {
    "data1.txt": "13 7 abc 13 4 5 ! 7\n11 13 2 4 6 11",
    "empty.txt": "",
@@ -3675,14 +3587,14 @@
     "expected": "13: 5"
    }
   ],
-  "hint": "Dùng `with open(path, 'r', encoding='utf-8')` để mở file. Đọc toàn bộ nội dung bằng `read()` hoặc duyệt từng dòng, sau đó dùng `split()` để lấy danh sách các token. Kiểm tra từng token bằng `isdigit()` trước khi kiểm tra tính nguyên tố.",
+  "hint": "Nên viết hàm `is_prime(n)` để kiểm tra số nguyên tố và hàm `get_prime_frequency(path)` để xử lý file và đếm tần suất bằng dictionary. Dùng `with open(path, 'r', encoding='utf-8')` để mở file. Đọc toàn bộ nội dung bằng `read()` hoặc duyệt từng dòng, sau đó dùng `split()` để lấy danh sách các token. Kiểm tra từng token bằng `isdigit()` trước khi kiểm tra tính nguyên tố.",
   "explanation": "1. Mở file an toàn với `with`. 2. Đọc và tách các chuỗi bằng `split()`. 3. Với mỗi chuỗi, dùng `isdigit()` để chắc chắn là số. 4. Viết hàm bổ trợ kiểm tra số nguyên tố. 5. Lưu kết quả vào dictionary.",
   "commonMistakes": [
    "Quên không ép kiểu token sang int trước khi kiểm tra nguyên tố",
    "Coi số 1 là số nguyên tố",
    "Không xử lý file có nhiều dòng hoặc khoảng trắng dư thừa"
   ],
-  "solution": "def is_prime(n):\n    if n < 2: return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0: return False\n    return True\n\ndef get_prime_frequency(path):\n    freq = {}\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            content = f.read()\n            tokens = content.split()\n            for t in tokens:\n                if t.isdigit():\n                    num = int(t)\n                    if is_prime(num):\n                        freq[num] = freq.get(num, 0) + 1\n    except FileNotFoundError:\n        return {}\n    return freq\n\n# ===== Chương trình chính =====\npath = input()\nres = get_prime_frequency(path)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "def is_prime(n):\n    if n < 2: return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0: return False\n    return True\n\ndef get_prime_frequency(path):\n    freq = {}\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            content = f.read()\n            tokens = content.split()\n            for t in tokens:\n                if t.isdigit():\n                    num = int(t)\n                    if is_prime(num):\n                        freq[num] = freq.get(num, 0) + 1\n    except FileNotFoundError:\n        return {}\n    return freq\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\nres = get_prime_frequency(path)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "file-read-methods",
@@ -3691,22 +3603,19 @@
    "with-statement"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "get_prime_frequency"
-  ]
+  "reserve": false
  },
  {
   "id": "T6-C03",
   "topic": "T6",
   "difficulty": 3,
   "title": "Tính điểm trung bình từ file dữ liệu lỗi",
-  "statement": "Viết hàm `process_scores(path)` để xử lý file bảng điểm. Mỗi dòng trong file có định dạng: `Tên_Sinh_Viên Điểm` (cách nhau bởi khoảng trắng). \nYêu cầu:\n1. Đọc từng dòng, tách tên và điểm. Nếu dòng bị thiếu thông tin (không có điểm), hãy bỏ qua dòng đó (bắt `IndexError`).\n2. Nếu phần điểm không phải là số thực hợp lệ, bỏ qua dòng đó (bắt `ValueError`).\n3. Tính trung bình cộng điểm của tất cả các sinh viên hợp lệ. Trả về kết quả làm tròn 2 chữ số thập phân.\n4. Nếu file không tồn tại, bắt lỗi `FileNotFoundError` và trả về -1.\n5. Nếu file tồn tại nhưng không có dữ liệu hợp lệ nào, trả về 0.0.\n\n**Chương trình chính:** Đọc một dòng duy nhất là đường dẫn (tên) file `path`. Gọi hàm `process_scores` và in kết quả ra màn hình.",
-  "ioFormat": "Input:\n- Dòng 1: Chuỗi ký tự là tên file.\nOutput:\n- Một số thực (điểm trung bình) làm tròn 2 chữ số hoặc số -1.",
+  "statement": "Cho một file văn bản chứa bảng điểm, mỗi dòng có định dạng: `Tên_Sinh_Viên Điểm` (tên và điểm cách nhau bởi một khoảng trắng).\n\nNhiệm vụ của bạn là đọc file và thực hiện các yêu cầu sau:\n1. Với mỗi dòng, hãy tách tên và điểm. Nếu dòng bị thiếu thông tin hoặc phần điểm không phải là một số thực hợp lệ, hãy bỏ qua dòng đó.\n2. Tính trung bình cộng điểm của tất cả các dòng hợp lệ. Kết quả được làm tròn đến 2 chữ số thập phân.\n3. Nếu file không tồn tại, in ra `-1`.\n4. Nếu file tồn tại nhưng không chứa dữ liệu nào hợp lệ, in ra `0.0`.\n\n**Input:**\n- Một dòng duy nhất chứa chuỗi ký tự là tên file (đường dẫn file).\n\n**Output:**\n- Một số duy nhất là điểm trung bình cộng (làm tròn 2 chữ số thập phân), hoặc số `-1` nếu không tìm thấy file, hoặc `0.0` nếu không có dữ liệu hợp lệ.",
+  "ioFormat": "Input:\n- Một dòng duy nhất chứa tên file.\nOutput:\n- Một số thực (làm tròn 2 chữ số) hoặc số -1.",
   "constraints": "Điểm có thể là số nguyên hoặc số thực.",
   "examples": "Input:\nscores1.txt\nOutput:\n8.67",
   "mode": "stdio",
-  "starter": "def process_scores(path):\n    pass\n\n# ===== Chương trình chính =====\npath = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef process_scores(path):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\n# Gọi hàm và in kết quả",
   "files": {
    "scores1.txt": "An 8.5\nBinh\nCuong 7.5\nDung abc\nHoa 10",
    "no_file.txt": "Dummy",
@@ -3805,14 +3714,14 @@
     "expected": "9.0"
    }
   ],
-  "hint": "Sử dụng cấu trúc lồng nhau: Một khối try-except bao quanh việc mở file (FileNotFoundError), và một khối try-except bên trong vòng lặp duyệt từng dòng (IndexError, ValueError).",
+  "hint": "Có thể viết hàm `process_scores(path)` sử dụng khối `try...except FileNotFoundError` bên ngoài và một khối `try...except` khác bên trong vòng lặp đọc file để xử lý `IndexError` và `ValueError`. Sử dụng cấu trúc lồng nhau: Một khối try-except bao quanh việc mở file (FileNotFoundError), và một khối try-except bên trong vòng lặp duyệt từng dòng (IndexError, ValueError).",
   "explanation": "Hàm mở file và duyệt từng dòng bằng vòng lặp. Với mỗi dòng, split() ra list. Truy cập chỉ số 1 để lấy điểm (có thể gây IndexError nếu dòng chỉ có 1 từ). Chuyển điểm sang float (có thể gây ValueError). Nếu lỗi, dùng continue để bỏ qua. Cuối cùng tính trung bình.",
   "commonMistakes": [
    "Không làm tròn kết quả đến 2 chữ số",
    "Quên xử lý trường hợp chia cho 0 khi không có dòng hợp lệ",
    "Không bắt đúng FileNotFoundError ở ngoài cùng"
   ],
-  "solution": "def process_scores(path):\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            total_score = 0\n            count = 0\n            for line in f:\n                parts = line.split()\n                try:\n                    score = float(parts[1])\n                    total_score += score\n                    count += 1\n                except (IndexError, ValueError):\n                    continue\n            if count == 0:\n                return 0.0\n            return round(total_score / count, 2)\n    except FileNotFoundError:\n        return -1\n\n# ===== Chương trình chính =====\npath = input()\nprint(process_scores(path))",
+  "solution": "def process_scores(path):\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            total_score = 0\n            count = 0\n            for line in f:\n                parts = line.split()\n                try:\n                    score = float(parts[1])\n                    total_score += score\n                    count += 1\n                except (IndexError, ValueError):\n                    continue\n            if count == 0:\n                return 0.0\n            return round(total_score / count, 2)\n    except FileNotFoundError:\n        return -1\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\nprint(process_scores(path))",
   "errorCategory": "implementation",
   "tags": [
    "file-read-methods",
@@ -3821,22 +3730,19 @@
    "with-statement"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "process_scores"
-  ]
+  "reserve": false
  },
  {
   "id": "T6-C04",
   "topic": "T6",
   "difficulty": 2,
   "title": "Tần suất số Harshad trong file",
-  "statement": "Viết hàm `get_harshad_frequency(path)` đọc một file văn bản. Tìm các số nguyên dương trong file là số Harshad và đếm tần suất xuất hiện của chúng. \nMột số nguyên dương được gọi là số Harshad nếu nó chia hết cho tổng các chữ số của chính nó. \nVí dụ: 18 là số Harshad vì 1+8=9 và 18 chia hết cho 9. 13 không phải vì 1+3=4 và 13 không chia hết cho 4.\nTrả về dictionary {số_harshad: số_lần_xuất hiện}.\n\n**Chương trình chính:** Đọc một dòng là tên file `path`. Gọi hàm và in từng cặp `khóa: giá_trị` trong dictionary kết quả trên mỗi dòng, sắp xếp theo khóa tăng dần. Nếu dictionary rỗng, in `Rỗng`.\nTách nội dung file theo khoảng trắng; chỉ xét các token gồm toàn chữ số (`str.isdigit()`), token khác bỏ qua; `0` không phải số nguyên dương nên bị bỏ qua. Nếu file không tồn tại hoặc không có số Harshad nào thì hàm trả về `{}` và chương trình chính in `Rỗng`. Nội dung file của từng test xem trong mục \"Bộ test\".",
-  "ioFormat": "Input:\n- Dòng 1: Tên file.\nOutput:\n- Các dòng dạng `khóa: giá_trị` được sắp xếp theo khóa tăng dần, hoặc chữ `Rỗng`.",
+  "statement": "Một số nguyên dương được gọi là số Harshad nếu nó chia hết cho tổng các chữ số của chính nó. Ví dụ: `18` là số Harshad vì `1+8=9` và `18` chia hết cho `9`.\n\nCho một file văn bản chứa các chuỗi ký tự cách nhau bởi khoảng trắng. Hãy tìm tất cả các số nguyên dương trong file là số Harshad và đếm tần suất xuất hiện của chúng. Lưu ý:\n- Chỉ xét các token chỉ gồm các chữ số (`isdigit()`).\n- Số `0` không được tính là số nguyên dương.\n- Nếu file không tồn tại hoặc không tìm thấy số Harshad nào, kết quả được coi là rỗng.\n\n**Input:**\n- Một dòng duy nhất chứa chuỗi ký tự là tên file.\n\n**Output:**\n- In các cặp `số_Harshad: số_lần_xuất_hiện` trên từng dòng, sắp xếp theo thứ tự số Harshad tăng dần.\n- Nếu không có kết quả, in ra chuỗi `Rỗng`.",
+  "ioFormat": "Input:\n- Dòng 1: Tên file.\nOutput:\n- Các dòng dạng `key: value` sắp xếp theo key tăng dần, hoặc chữ `Rỗng`.",
   "constraints": "Số nguyên dương. Bỏ qua các chuỗi không phải số.",
   "examples": "Input:\nharshad.txt\nOutput:\n10: 1\n12: 1\n18: 2\n21: 1",
   "mode": "stdio",
-  "starter": "def get_harshad_frequency(path):\n    pass\n\n# ===== Chương trình chính =====\npath = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\ndef get_harshad_frequency(path):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\n# Gọi hàm và in kết quả",
   "files": {
    "harshad.txt": "18 21 abc 13 18 10 ! 12",
    "mixed.txt": "1 2 3 4 5 6 7 8 9 10 11 12"
@@ -3921,14 +3827,14 @@
     "expected": "7: 4\n8: 1"
    }
   ],
-  "hint": "Để tính tổng các chữ số của n, có thể chuyển n thành string và duyệt từng ký tự `sum(int(digit) for digit in str(n))`. Sau đó kiểm tra `n % tong == 0`.",
+  "hint": "Có thể viết hàm `is_harshad(n)` để kiểm tra một số và hàm `get_harshad_frequency(path)` để duyệt file và trả về dictionary tần suất. Để tính tổng các chữ số của n, có thể chuyển n thành string và duyệt từng ký tự `sum(int(digit) for digit in str(n))`. Sau đó kiểm tra `n % tong == 0`.",
   "explanation": "Duyệt qua các token trong file, dùng isdigit() để lọc số. Với mỗi số n, tính tổng chữ số. Nếu n chia hết cho tổng đó, thêm vào dictionary kết quả hoặc tăng biến đếm.",
   "commonMistakes": [
    "Chia cho 0 (mặc dù isdigit số dương thì tổng chữ số luôn >= 1)",
    "Tính sai tổng các chữ số",
    "Không ép kiểu về int trước khi thực hiện phép chia lấy dư"
   ],
-  "solution": "def is_harshad(n):\n    if n <= 0: return False\n    s_n = str(n)\n    total_digits = sum(int(d) for d in s_n)\n    return n % total_digits == 0\n\ndef get_harshad_frequency(path):\n    freq = {}\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            tokens = f.read().split()\n            for t in tokens:\n                if t.isdigit():\n                    num = int(t)\n                    if is_harshad(num):\n                        freq[num] = freq.get(num, 0) + 1\n    except FileNotFoundError:\n        return {}\n    return freq\n\n# ===== Chương trình chính =====\npath = input()\nres = get_harshad_frequency(path)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "def is_harshad(n):\n    if n <= 0: return False\n    s_n = str(n)\n    total_digits = sum(int(d) for d in s_n)\n    return n % total_digits == 0\n\ndef get_harshad_frequency(path):\n    freq = {}\n    try:\n        with open(path, 'r', encoding='utf-8') as f:\n            tokens = f.read().split()\n            for t in tokens:\n                if t.isdigit():\n                    num = int(t)\n                    if is_harshad(num):\n                        freq[num] = freq.get(num, 0) + 1\n    except FileNotFoundError:\n        return {}\n    return freq\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\npath = input()\nres = get_harshad_frequency(path)\nif not res:\n    print(\"Rỗng\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "file-read-methods",
@@ -3937,22 +3843,19 @@
    "with-statement"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "get_harshad_frequency"
-  ]
+  "reserve": true
  },
  {
   "id": "T7-C01",
   "topic": "T7",
   "difficulty": 1,
   "title": "Quản lý sản phẩm cơ bản",
-  "statement": "Xây dựng lớp Product gồm các thuộc tính: name (tên), price (giá đơn vị), và quantity (số lượng). \n1. Viết hàm khởi tạo __init__ gán giá trị cho 3 thuộc tính trên.\n2. Viết phương thức get_total_value() trả về tổng giá trị hàng hóa (price * quantity).\n3. Viết phương thức __str__ trả về chuỗi định dạng: \"Product(tên, tổng giá trị)\".\n\n**Chương trình chính:** Đọc một dòng duy nhất chứa 3 thông tin: `name` (chuỗi không khoảng trắng), `price` (số), và `quantity` (số), cách nhau bởi dấu cách. Tạo đối tượng `Product`, in ra tổng giá trị ở dòng 1 và chuỗi đại diện đối tượng ở dòng 2.\nChuyển `price` và `quantity` thành `int` nếu chuỗi không có dấu `.`, ngược lại thành `float`, rồi in nguyên kết quả của `get_total_value()` và của `print(p)`.",
-  "ioFormat": "Input:\n- Một dòng chứa: name price quantity.\nOutput:\n- Dòng 1: Kết quả hàm get_total_value().\n- Dòng 2: Kết quả hàm __str__().",
+  "statement": "Xây dựng chương trình quản lý sản phẩm với các thuộc tính: tên (`name`), giá đơn vị (`price`) và số lượng (`quantity`).\n\nQuy tắc xử lý dữ liệu:\n- Nếu chuỗi nhập vào cho `price` hoặc `quantity` không chứa dấu chấm `.`, hãy chuyển chúng thành kiểu số nguyên (`int`).\n- Nếu có dấu chấm `.`, hãy chuyển thành kiểu số thực (`float`).\n- Tổng giá trị hàng hóa được tính bằng: `price * quantity`.\n\n**Input:**\n- Một dòng duy nhất chứa 3 thông tin: `name` (chuỗi không khoảng trắng), `price` và `quantity`, cách nhau bởi dấu cách.\n\n**Output:**\n- Dòng 1: In ra tổng giá trị hàng hóa (giữ nguyên kiểu dữ liệu kết quả của phép nhân).\n- Dòng 2: In ra chuỗi định dạng: `Product(tên, tổng_giá_trị)`.\n\nLưu ý: Kết quả in ra phải tuân thủ cách hàm `print()` của Python hiển thị số thực (ví dụ `155.0`) và số nguyên (ví dụ `50`).",
+  "ioFormat": "Input:\n- Một dòng chứa: name price quantity.\nOutput:\n- Dòng 1: Tổng giá trị.\n- Dòng 2: Product(name, tổng_giá_trị).",
   "constraints": "price >= 0; quantity >= 0.",
   "examples": "Input:\nLaptop 1500 2\nOutput:\n3000\nProduct(Laptop, 3000)",
   "mode": "stdio",
-  "starter": "class Product:\n    def __init__(self, name, price, quantity):\n        pass\n\n    def get_total_value(self):\n        pass\n\n    def __str__(self):\n        pass\n\n# ===== Chương trình chính =====\n# Đọc name, price, quantity từ một dòng\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nclass Product:\n    def __init__(self, name, price, quantity):\n        pass\n\n    def get_total_value(self):\n        pass\n\n    def __str__(self):\n        pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\n# Đọc name, price, quantity từ một dòng\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4012,14 +3915,14 @@
     "expected": "34.0\nProduct(Salt, 34.0)"
    }
   ],
-  "hint": "Sử dụng self để truy cập các thuộc tính trong phương thức. Phương thức __str__ phải trả về một string (dùng f-string hoặc format).",
+  "hint": "Có thể xây dựng lớp `Product` với phương thức `get_total_value()` và phương thức `__str__` để trả về chuỗi theo định dạng yêu cầu. Sử dụng self để truy cập các thuộc tính trong phương thức. Phương thức __str__ phải trả về một string (dùng f-string hoặc format).",
   "explanation": "Hàm __init__ khởi tạo trạng thái cho đối tượng. get_total_value nhân giá và lượng. __str__ ghi đè cách đối tượng hiển thị khi in.",
   "commonMistakes": [
    "Quên tham số self trong định nghĩa phương thức",
    "Trong __str__ không dùng return mà dùng print",
    "Viết sai tên phương thức __init__ (thiếu gạch dưới)"
   ],
-  "solution": "class Product:\n    def __init__(self, name, price, quantity):\n        self.name = name\n        self.price = price\n        self.quantity = quantity\n\n    def get_total_value(self):\n        return self.price * self.quantity\n\n    def __str__(self):\n        return f\"Product({self.name}, {self.get_total_value()})\"\n\n# ===== Chương trình chính =====\nline = input().split()\nname = line[0]\nprice = float(line[1]) if '.' in line[1] else int(line[1])\nquantity = float(line[2]) if '.' in line[2] else int(line[2])\np = Product(name, price, quantity)\nprint(p.get_total_value())\nprint(p)",
+  "solution": "class Product:\n    def __init__(self, name, price, quantity):\n        self.name = name\n        self.price = price\n        self.quantity = quantity\n\n    def get_total_value(self):\n        return self.price * self.quantity\n\n    def __str__(self):\n        return f\"Product({self.name}, {self.get_total_value()})\"\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nline = input().split()\nname = line[0]\nprice = float(line[1]) if '.' in line[1] else int(line[1])\nquantity = float(line[2]) if '.' in line[2] else int(line[2])\np = Product(name, price, quantity)\nprint(p.get_total_value())\nprint(p)",
   "errorCategory": "implementation",
   "tags": [
    "class-init",
@@ -4028,22 +3931,19 @@
    "str-method"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "get_total_value"
-  ]
+  "reserve": false
  },
  {
   "id": "T7-C02",
   "topic": "T7",
   "difficulty": 2,
   "title": "Lọc và sắp xếp danh sách Sinh viên",
-  "statement": "Cho lớp Student có các thuộc tính: first_name, last_name, và gpa. Viết hàm filter_students(students, min_gpa) nhận vào một danh sách các đối tượng Student và một ngưỡng điểm min_gpa. \nHàm trả về một danh sách các đối tượng Student có gpa >= min_gpa, danh sách này phải được sắp xếp tăng dần theo first_name (tên).\n\n**Chương trình chính:** \n- Dòng 1: Số thực `min_gpa`.\n- Dòng 2: Số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng chứa `first_name`, `last_name`, `gpa` cách nhau bởi dấu cách.\nIn ra danh sách `first_name` của các sinh viên sau khi lọc trên một dòng, cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\n- Dòng 1: Số thực min_gpa.\n- Dòng 2: Số nguyên n.\n- n dòng: first_name last_name gpa.\nOutput:\n- Một dòng chứa các first_name cách nhau bởi dấu cách hoặc chữ `Rỗng`.",
+  "statement": "Cho danh sách sinh viên gồm các thông tin: `first_name` (tên), `last_name` (họ) và `gpa` (điểm trung bình). Hãy lọc ra những sinh viên có điểm `gpa` lớn hơn hoặc bằng một ngưỡng `min_gpa` cho trước.\n\nDanh sách kết quả phải được sắp xếp tăng dần theo `first_name` (thứ tự từ điển).\n\n**Input:**\n- Dòng 1: Một số thực `min_gpa`.\n- Dòng 2: Một số nguyên `n` là số lượng sinh viên.\n- `n` dòng tiếp theo: Mỗi dòng chứa `first_name`, `last_name` và `gpa` cách nhau bởi dấu cách.\n\n**Output:**\n- In trên một dòng duy nhất các `first_name` của các sinh viên thỏa mãn điều kiện, cách nhau bởi một khoảng trắng.\n- Nếu không có sinh viên nào thỏa mãn, in ra `Rỗng`.",
+  "ioFormat": "Input:\n- Dòng 1: Số thực min_gpa.\n- Dòng 2: Số nguyên n.\n- n dòng tiếp theo: first_name last_name gpa.\nOutput:\n- Một dòng chứa các tên cách nhau bởi dấu cách hoặc chữ `Rỗng`.",
   "constraints": "0.0 <= gpa <= 10.0. Danh sách đầu vào không rỗng.",
   "examples": "Input:\n8.0\n2\nBinh Le 7.5\nAn Nguyen 8.2\nOutput:\nAn",
   "mode": "stdio",
-  "starter": "class Student:\n    def __init__(self, first_name, last_name, gpa):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.gpa = gpa\n\ndef filter_students(students, min_gpa):\n    pass\n\n# ===== Chương trình chính =====\n# Đọc min_gpa, n, và n dòng sinh viên\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nclass Student:\n    def __init__(self, first_name, last_name, gpa):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.gpa = gpa\n\ndef filter_students(students, min_gpa):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\n# Đọc min_gpa, n, và n dòng sinh viên\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4103,14 +4003,14 @@
     "expected": "Q"
    }
   ],
-  "hint": "Sử dụng List Comprehension để lọc. Sau đó dùng phương thức sort() hoặc hàm sorted() với tham số key=lambda x: x.first_name.",
+  "hint": "Có thể viết hàm `filter_students(students, min_gpa)` nhận vào danh sách đối tượng sinh viên, sử dụng list comprehension để lọc và hàm `sorted()` với `key=lambda x: x.first_name` để sắp xếp. Sử dụng List Comprehension để lọc. Sau đó dùng phương thức sort() hoặc hàm sorted() với tham số key=lambda x: x.first_name.",
   "explanation": "Duyệt qua danh sách sinh viên, kiểm tra điều kiện gpa. Lưu các đối tượng thỏa mãn vào danh sách mới. Cuối cùng sắp xếp danh sách đó dựa trên thuộc tính first_name của đối tượng.",
   "commonMistakes": [
    "Sắp xếp theo cả họ và tên khi đề chỉ yêu cầu first_name",
    "Hàm lọc trả về danh sách tên (string) thay vì danh sách đối tượng (object)",
    "Dùng nhầm dấu > thay vì >= cho ngưỡng điểm"
   ],
-  "solution": "class Student:\n    def __init__(self, first_name, last_name, gpa):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.gpa = gpa\n\ndef filter_students(students, min_gpa):\n    filtered = [s for s in students if s.gpa >= min_gpa]\n    return sorted(filtered, key=lambda s: s.first_name)\n\n# ===== Chương trình chính =====\nmin_val = float(input())\nn = int(input())\nstudents = []\nfor _ in range(n):\n    data = input().split()\n    students.append(Student(data[0], data[1], float(data[2])))\n\nresult = filter_students(students, min_val)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*(s.first_name for s in result))",
+  "solution": "class Student:\n    def __init__(self, first_name, last_name, gpa):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.gpa = gpa\n\ndef filter_students(students, min_gpa):\n    filtered = [s for s in students if s.gpa >= min_gpa]\n    return sorted(filtered, key=lambda s: s.first_name)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nmin_val = float(input())\nn = int(input())\nstudents = []\nfor _ in range(n):\n    data = input().split()\n    students.append(Student(data[0], data[1], float(data[2])))\n\nresult = filter_students(students, min_val)\nif not result:\n    print(\"Rỗng\")\nelse:\n    print(*(s.first_name for s in result))",
   "errorCategory": "implementation",
   "tags": [
    "class-init",
@@ -4118,22 +4018,19 @@
    "sort-filter-objects"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "filter_students"
-  ]
+  "reserve": false
  },
  {
   "id": "T7-C03",
   "topic": "T7",
   "difficulty": 3,
   "title": "Kế thừa và Ghi đè phương thức Lương",
-  "statement": "Xây dựng hệ thống tính lương:\n1. Lớp Employee: thuộc tính name, base_salary. Phương thức get_salary() trả về base_salary.\n2. Lớp Manager kế thừa Employee: có thêm thuộc tính bonus. Ghi đè phương thức get_salary() trả về base_salary + bonus.\n3. Viết hàm get_total_payroll(staff_list) nhận vào danh sách chứa cả Employee và Manager, trả về tổng số tiền lương phải trả cho cả danh sách.\n\n**Chương trình chính:** \n- Dòng 1: Số nguyên `n` là số lượng nhân viên.\n- `n` dòng tiếp theo: Mỗi dòng bắt đầu bằng ký tự 'E' (Employee) hoặc 'M' (Manager), theo sau là `name` và `base_salary`. Nếu là 'M', có thêm `bonus` ở cuối. Các giá trị cách nhau bởi dấu cách.\nIn ra tổng số tiền lương của tất cả mọi người.",
-  "ioFormat": "Input:\n- Dòng 1: Số nguyên n.\n- n dòng: <E/M> name base_salary [bonus].\nOutput:\n- Một số duy nhất là tổng lương.",
+  "statement": "Hệ thống tính lương gồm hai loại nhân viên:\n1. Nhân viên thông thường (`Employee`): Lương = Lương cơ bản (`base_salary`).\n2. Quản lý (`Manager`): Kế thừa từ nhân viên, có thêm phụ cấp (`bonus`). Lương = Lương cơ bản + Phụ cấp.\n\nNhiệm vụ của bạn là tính tổng số tiền lương phải trả cho toàn bộ danh sách nhân viên.\n\n**Input:**\n- Dòng 1: Số nguyên `n` là số lượng nhân viên.\n- `n` dòng tiếp theo: Mỗi dòng bắt đầu bằng một ký tự đại diện loại nhân viên: \n  + Nếu là `E`: Theo sau là `name` và `base_salary` (kiểu số thực).\n  + Nếu là `M`: Theo sau là `name`, `base_salary` và `bonus` (đều là kiểu số thực).\n  Các giá trị cách nhau bởi dấu cách.\n\n**Output:**\n- Một số thực duy nhất là tổng tiền lương của tất cả nhân viên (in theo định dạng mặc định của Python, ví dụ `2500.0`).",
+  "ioFormat": "Input:\n- Dòng 1: Số nguyên n.\n- n dòng: <E/M> name base_salary [bonus].\nOutput:\n- Một số thực là tổng lương.",
   "constraints": "staff_list chứa ít nhất 1 đối tượng. Lương và thưởng là số không âm.",
   "examples": "Input:\n2\nE Staff 1000\nM Boss 1000 500\nOutput:\n2500.0",
   "mode": "stdio",
-  "starter": "class Employee:\n    def __init__(self, name, base_salary):\n        self.name = name\n        self.base_salary = base_salary\n    \n    def get_salary(self):\n        pass\n\nclass Manager(Employee):\n    def __init__(self, name, base_salary, bonus):\n        pass\n\n    def get_salary(self):\n        pass\n\ndef get_total_payroll(staff_list):\n    pass\n\n# ===== Chương trình chính =====\n# Đọc n và n dòng thông tin nhân viên\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nclass Employee:\n    def __init__(self, name, base_salary):\n        self.name = name\n        self.base_salary = base_salary\n    \n    def get_salary(self):\n        pass\n\nclass Manager(Employee):\n    def __init__(self, name, base_salary, bonus):\n        pass\n\n    def get_salary(self):\n        pass\n\ndef get_total_payroll(staff_list):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\n# Đọc n và n dòng thông tin nhân viên\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4193,14 +4090,14 @@
     "expected": "120.0"
    }
   ],
-  "hint": "Trong Manager.__init__, hãy gọi super().__init__(name, base_salary). Tính đa hình (polymorphism) cho phép gọi obj.get_salary() mà không cần kiểm tra kiểu dữ liệu.",
+  "hint": "Sử dụng tính đa hình bằng cách định nghĩa phương thức `get_salary()` ở cả hai lớp và gọi nó khi duyệt qua danh sách nhân viên. Trong Manager.__init__, hãy gọi super().__init__(name, base_salary). Tính đa hình (polymorphism) cho phép gọi obj.get_salary() mà không cần kiểm tra kiểu dữ liệu.",
   "explanation": "Kế thừa cho phép Manager dùng lại code của Employee. Ghi đè (override) phương thức get_salary giúp Manager tính toán theo công thức riêng. Hàm tổng chỉ cần gọi phương thức chung cho mọi đối tượng trong danh sách.",
   "commonMistakes": [
    "Quên gọi super().__init__ dẫn đến thiếu thuộc tính base_salary ở Manager",
    "Sử dụng isinstance để phân loại thay vì tận dụng tính đa hình",
    "Manager.get_salary chỉ trả về bonus mà quên cộng base_salary"
   ],
-  "solution": "class Employee:\n    def __init__(self, name, base_salary):\n        self.name = name\n        self.base_salary = base_salary\n    \n    def get_salary(self):\n        return self.base_salary\n\nclass Manager(Employee):\n    def __init__(self, name, base_salary, bonus):\n        super().__init__(name, base_salary)\n        self.bonus = bonus\n\n    def get_salary(self):\n        return self.base_salary + self.bonus\n\ndef get_total_payroll(staff_list):\n    return sum(person.get_salary() for person in staff_list)\n\n# ===== Chương trình chính =====\nn = int(input())\nstaff = []\nfor _ in range(n):\n    data = input().split()\n    if data[0] == 'E':\n        staff.append(Employee(data[1], float(data[2])))\n    else:\n        staff.append(Manager(data[1], float(data[2]), float(data[3])))\nprint(get_total_payroll(staff))",
+  "solution": "class Employee:\n    def __init__(self, name, base_salary):\n        self.name = name\n        self.base_salary = base_salary\n    \n    def get_salary(self):\n        return self.base_salary\n\nclass Manager(Employee):\n    def __init__(self, name, base_salary, bonus):\n        super().__init__(name, base_salary)\n        self.bonus = bonus\n\n    def get_salary(self):\n        return self.base_salary + self.bonus\n\ndef get_total_payroll(staff_list):\n    return sum(person.get_salary() for person in staff_list)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nstaff = []\nfor _ in range(n):\n    data = input().split()\n    if data[0] == 'E':\n        staff.append(Employee(data[1], float(data[2])))\n    else:\n        staff.append(Manager(data[1], float(data[2]), float(data[3])))\nprint(get_total_payroll(staff))",
   "errorCategory": "logic",
   "tags": [
    "inheritance-super",
@@ -4208,22 +4105,19 @@
    "methods"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "get_total_payroll"
-  ]
+  "reserve": false
  },
  {
   "id": "T7-C04",
   "topic": "T7",
   "difficulty": 2,
   "title": "Tìm kiếm sách cũ",
-  "statement": "Xây dựng lớp Book gồm các thuộc tính: title (tiêu đề), author (tác giả), và year (năm xuất bản). \nViết hàm find_old_books(books, target_year) nhận vào danh sách các đối tượng Book và một mốc năm target_year. \nHàm trả về danh sách các tiêu đề (title) của những cuốn sách xuất bản TRƯỚC target_year (không bao gồm target_year), danh sách kết quả được sắp xếp theo thứ tự bảng chữ cái của tiêu đề.\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số lượng sách `n`.\n- `n` dòng tiếp theo, mỗi dòng chứa thông tin một cuốn sách: `tiêu_đề tác_giả năm_xuất_bản` (các trường cách nhau bởi dấu cách, tiêu đề và tác giả không chứa khoảng trắng).\n- Dòng cuối cùng nhập số nguyên `target_year`.\n- Gọi hàm `find_old_books` và in danh sách tiêu đề kết quả trên một dòng, cách nhau bởi dấu cách. Nếu danh sách rỗng, in `Rỗng`.",
-  "ioFormat": "Input:\n- Dòng 1: n (số lượng sách).\n- n dòng tiếp theo: title author year.\n- Dòng cuối: target_year.\nOutput:\n- Một dòng duy nhất chứa các tiêu đề cách nhau bởi dấu cách, hoặc 'Rỗng'.",
+  "statement": "Cho danh sách gồm `n` cuốn sách, mỗi cuốn sách có các thông tin: tiêu đề, tác giả và năm xuất bản. Hãy tìm và liệt kê tiêu đề của những cuốn sách được xuất bản trước một mốc năm cho trước.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên dương `n` là số lượng sách.\n- `n` dòng tiếp theo, mỗi dòng chứa thông tin một cuốn sách theo định dạng: `tiêu_đề tác_giả năm_xuất_bản`. Các trường cách nhau bởi một dấu cách, tiêu đề và tác giả là các chuỗi không chứa khoảng trắng.\n- Dòng cuối cùng chứa một số nguyên `target_year` là mốc năm so sánh.\n\n**Output:**\n- In trên một dòng duy nhất các tiêu đề của những cuốn sách có năm xuất bản nhỏ hơn `target_year`, các tiêu đề cách nhau bởi một dấu cách và được sắp xếp theo thứ tự bảng chữ cái (A-Z).\n- Nếu không có cuốn sách nào thỏa mãn điều kiện, in `Rỗng`.",
+  "ioFormat": "Input:\n- Dòng 1: n\n- n dòng tiếp theo: title author year\n- Dòng cuối: target_year\nOutput:\n- Các tiêu đề cách nhau bởi dấu cách (sắp xếp A-Z) hoặc 'Rỗng'.",
   "constraints": "year là số nguyên dương.",
   "examples": "Input:\n2\nPython Guido 1991\nC++ Bjarne 1985\n1990\nOutput:\nC++",
   "mode": "stdio",
-  "starter": "class Book:\n    def __init__(self, title, author, year):\n        self.title = title\n        self.author = author\n        self.year = year\n\ndef find_old_books(books, target_year):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nbooks = []\nfor _ in range(n):\n    data = input().split()\n    books.append(Book(data[0], data[1], int(data[2])))\ntarget_year = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nclass Book:\n    def __init__(self, title, author, year):\n        self.title = title\n        self.author = author\n        self.year = year\n\ndef find_old_books(books, target_year):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nbooks = []\nfor _ in range(n):\n    data = input().split()\n    books.append(Book(data[0], data[1], int(data[2])))\ntarget_year = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4287,14 +4181,14 @@
     "expected": "Alpha Mid Zeta"
    }
   ],
-  "hint": "Lọc các đối tượng thỏa mãn điều kiện year < target_year, sau đó trích xuất thuộc tính title và thực hiện sắp xếp danh sách các chuỗi đó.",
+  "hint": "Có thể viết hàm `find_old_books(books, target_year)` để lọc các đối tượng sách có năm nhỏ hơn mốc yêu cầu và trả về danh sách tiêu đề đã sắp xếp. Lọc các đối tượng thỏa mãn điều kiện year < target_year, sau đó trích xuất thuộc tính title và thực hiện sắp xếp danh sách các chuỗi đó.",
   "explanation": "Đây là biến thể của bài lọc sinh viên. Điểm khác biệt là giá trị trả về là danh sách chuỗi (tiêu đề) thay vì danh sách đối tượng, và điều kiện so sánh là nhỏ hơn (<).",
   "commonMistakes": [
    "Sử dụng toán tử <= thay vì <",
    "Trả về danh sách đối tượng thay vì danh sách chuỗi tiêu đề",
    "Quên sắp xếp danh sách kết quả"
   ],
-  "solution": "class Book:\n    def __init__(self, title, author, year):\n        self.title = title\n        self.author = author\n        self.year = year\n\ndef find_old_books(books, target_year):\n    titles = [b.title for b in books if b.year < target_year]\n    return sorted(titles)\n\n# ===== Chương trình chính =====\nn = int(input())\nbooks = []\nfor _ in range(n):\n    data = input().split()\n    books.append(Book(data[0], data[1], int(data[2])))\ntarget_year = int(input())\nres = find_old_books(books, target_year)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
+  "solution": "class Book:\n    def __init__(self, title, author, year):\n        self.title = title\n        self.author = author\n        self.year = year\n\ndef find_old_books(books, target_year):\n    titles = [b.title for b in books if b.year < target_year]\n    return sorted(titles)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nbooks = []\nfor _ in range(n):\n    data = input().split()\n    books.append(Book(data[0], data[1], int(data[2])))\ntarget_year = int(input())\nres = find_old_books(books, target_year)\nif not res:\n    print(\"Rỗng\")\nelse:\n    print(*res)",
   "errorCategory": "implementation",
   "tags": [
    "class-init",
@@ -4302,22 +4196,19 @@
    "sort-filter-objects"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "find_old_books"
-  ]
+  "reserve": true
  },
  {
   "id": "T8-C01",
   "topic": "T8",
   "difficulty": 1,
   "title": "Ước chung và làm tròn lên",
-  "statement": "Sử dụng module `math` với bí danh (alias) là `m`, viết hàm `calculate_math(a, b)` nhận vào hai số nguyên dương. Hàm trả về một `tuple` gồm hai giá trị:\n1. Ước chung lớn nhất (Greatest Common Divisor) của `a` và `b`.\n2. Giá trị của phép chia `a/b` được làm tròn lên (ceiling) thành số nguyên.\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số nguyên dương `a`.\n- Dòng thứ hai nhập số nguyên dương `b`.\n- Gọi hàm `calculate_math` và in hai giá trị trong tuple kết quả trên một dòng, cách nhau bởi dấu cách.",
-  "ioFormat": "Input:\n- Dòng 1: a\n- Dòng 2: b\nOutput:\n- Một dòng chứa GCD và giá trị ceil(a/b) cách nhau bởi dấu cách.",
+  "statement": "Cho hai số nguyên dương `a` và `b`. Hãy tính toán và in ra hai giá trị sau:\n1. Ước chung lớn nhất (GCD) của `a` và `b`.\n2. Kết quả của phép chia `a/b` được làm tròn lên (ceiling) thành số nguyên.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên dương `a`.\n- Dòng thứ hai chứa số nguyên dương `b`.\n\n**Output:**\n- Một dòng duy nhất chứa hai số nguyên là ước chung lớn nhất và kết quả phép chia làm tròn lên, cách nhau bởi một dấu cách.",
+  "ioFormat": "Input:\n- Dòng 1: a\n- Dòng 2: b\nOutput:\n- Một dòng chứa GCD và ceil(a/b) cách nhau bởi dấu cách.",
   "constraints": "a, b > 0",
   "examples": "Input:\n12\n8\nOutput:\n4 2",
   "mode": "stdio",
-  "starter": "import math as m\n\ndef calculate_math(a, b):\n    # Sinh viên sử dụng m.gcd và m.ceil\n    pass\n\n# ===== Chương trình chính =====\na = int(input())\nb = int(input())\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nimport math as m\n\ndef calculate_math(a, b):\n    # Sinh viên sử dụng m.gcd và m.ceil\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\na = int(input())\nb = int(input())\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4381,13 +4272,13 @@
     "expected": "2 1"
    }
   ],
-  "hint": "Sử dụng 'import math as m' để gọi các hàm m.gcd() và m.ceil().",
+  "hint": "Có thể viết hàm `calculate_math(a, b)` sử dụng `math.gcd()` và `math.ceil()` để tính toán các giá trị theo yêu cầu. Sử dụng 'import math as m' để gọi các hàm m.gcd() và m.ceil().",
   "explanation": "Hàm sử dụng m.gcd(a, b) để tìm ước chung lớn nhất và m.ceil(a/b) để thực hiện phép chia rồi làm tròn lên số nguyên gần nhất.",
   "commonMistakes": [
    "Sử dụng m.floor() thay vì m.ceil()",
    "Không đặt bí danh math as m dẫn đến lỗi NameError"
   ],
-  "solution": "import math as m\n\ndef calculate_math(a, b):\n    gcd_val = m.gcd(a, b)\n    ceil_val = m.ceil(a / b)\n    return (gcd_val, ceil_val)\n\n# ===== Chương trình chính =====\na = int(input())\nb = int(input())\nres = calculate_math(a, b)\nprint(*res)",
+  "solution": "import math as m\n\ndef calculate_math(a, b):\n    gcd_val = m.gcd(a, b)\n    ceil_val = m.ceil(a / b)\n    return (gcd_val, ceil_val)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\na = int(input())\nb = int(input())\nres = calculate_math(a, b)\nprint(*res)",
   "errorCategory": "implementation",
   "tags": [
    "import-styles",
@@ -4395,22 +4286,19 @@
    "math-module"
   ],
   "source": "textbook",
-  "reserve": false,
-  "requireFunction": [
-   "calculate_math"
-  ]
+  "reserve": false
  },
  {
   "id": "T8-C02",
   "topic": "T8",
   "difficulty": 2,
   "title": "Thống kê điểm thi",
-  "statement": "Viết hàm `thong_ke_diem(ds_diem)` nhận list điểm (số thực) và trả về dictionary gồm:\n- `'tb'`: điểm trung bình, làm tròn 2 chữ số thập phân (dùng `statistics.mean`)\n- `'trung_vi'`: trung vị (dùng `statistics.median`)\n- `'cao_nhat'`: điểm cao nhất\n- `'so_dat'`: số bài có điểm >= 5\n\nNếu list rỗng, trả về `None`.\n\n**Chương trình chính:** \n- Dòng đầu tiên nhập số lượng điểm `n`.\n- Dòng thứ hai nhập `n` số thực cách nhau bởi dấu cách. Nếu `n=0`, dòng này để trống.\n- Gọi hàm `thong_ke_diem`.\n- Nếu kết quả là `None`, in `None`.\n- Nếu là dictionary, in các cặp khóa: giá trị theo thứ tự bảng chữ cái của khóa, mỗi cặp trên một dòng theo định dạng `khóa: giá_trị`.",
-  "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực cách nhau bởi dấu cách.\nOutput:\n- None hoặc 4 dòng ứng với 4 chỉ số thống kê.",
+  "statement": "Cho một danh sách điểm số của sinh viên dưới dạng các số thực. Hãy thực hiện thống kê các thông số sau:\n- `cao_nhat`: Điểm số cao nhất trong danh sách.\n- `so_dat`: Số lượng bài có điểm từ `5.0` trở lên.\n- `tb`: Điểm trung bình của danh sách, làm tròn đến 2 chữ số thập phân.\n- `trung_vi`: Điểm trung vị của danh sách.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm (`0 <= n <= 1000`).\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách. Nếu `n=0`, dòng này sẽ để trống.\n\n**Output:**\n- Nếu danh sách rỗng (`n=0`), in ra `None`.\n- Nếu danh sách không rỗng, in ra 4 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`cao_nhat`, `so_dat`, `tb`, `trung_vi`). Các giá trị số thực in theo định dạng mặc định của hàm `print()` trong Python.",
+  "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực cách nhau bởi dấu cách.\nOutput:\n- 'None' hoặc 4 dòng thông tin thống kê theo thứ tự bảng chữ cái của tên khóa.",
   "constraints": "0 <= len(ds_diem) <= 1000; 0 <= điểm <= 10.",
   "examples": "Input:\n4\n7 8 4 9\nOutput:\ncao_nhat: 9.0\nso_dat: 3\ntb: 7.0\ntrung_vi: 7.5",
   "mode": "stdio",
-  "starter": "import statistics\n\ndef thong_ke_diem(ds_diem):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nds_diem = list(map(float, input().split())) if n > 0 else []\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nimport statistics\n\ndef thong_ke_diem(ds_diem):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nds_diem = list(map(float, input().split())) if n > 0 else []\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4474,36 +4362,33 @@
     "expected": "cao_nhat: 5.0\nso_dat: 1\ntb: 1.25\ntrung_vi: 0.0"
    }
   ],
-  "hint": "Kiểm tra list rỗng trước tiên vì statistics.mean([]) gây lỗi StatisticsError. Đếm số bài đạt bằng vòng lặp hoặc sum với điều kiện.",
+  "hint": "Có thể viết hàm `thong_ke_diem(ds_diem)` sử dụng các hàm từ module `statistics` và trả về một dictionary chứa các kết quả thống kê. Kiểm tra list rỗng trước tiên vì statistics.mean([]) gây lỗi StatisticsError. Đếm số bài đạt bằng vòng lặp hoặc sum với điều kiện.",
   "explanation": "Nếu list rỗng thì return None. Ngược lại tính statistics.mean rồi round(..., 2), statistics.median, max(ds_diem), và đếm phần tử >= 5. Ghép vào dict và trả về.",
   "commonMistakes": [
    "Không xử lý list rỗng nên bị StatisticsError",
    "Dùng > 5 thay vì >= 5",
    "Quên import statistics hoặc gọi mean() khi chỉ viết `import statistics`"
   ],
-  "solution": "import statistics\n\ndef thong_ke_diem(ds_diem):\n    if not ds_diem:\n        return None\n    return {\n        'tb': round(statistics.mean(ds_diem), 2),\n        'trung_vi': statistics.median(ds_diem),\n        'cao_nhat': max(ds_diem),\n        'so_dat': sum(1 for d in ds_diem if d >= 5),\n    }\n\n# ===== Chương trình chính =====\nn_str = input().strip()\nn = int(n_str) if n_str else 0\nds_diem = list(map(float, input().split())) if n > 0 else []\nres = thong_ke_diem(ds_diem)\nif res is None:\n    print(\"None\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
+  "solution": "import statistics\n\ndef thong_ke_diem(ds_diem):\n    if not ds_diem:\n        return None\n    return {\n        'tb': round(statistics.mean(ds_diem), 2),\n        'trung_vi': statistics.median(ds_diem),\n        'cao_nhat': max(ds_diem),\n        'so_dat': sum(1 for d in ds_diem if d >= 5),\n    }\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn_str = input().strip()\nn = int(n_str) if n_str else 0\nds_diem = list(map(float, input().split())) if n > 0 else []\nres = thong_ke_diem(ds_diem)\nif res is None:\n    print(\"None\")\nelse:\n    for k in sorted(res):\n        print(f\"{k}: {res[k]}\")",
   "errorCategory": "logic",
   "tags": [
    "statistics-module",
    "import-styles"
   ],
   "source": "supplement",
-  "reserve": false,
-  "requireFunction": [
-   "thong_ke_diem"
-  ]
+  "reserve": false
  },
  {
   "id": "T8-C03",
   "topic": "T8",
   "difficulty": 3,
   "title": "Xác minh tuổi và số chính phương",
-  "statement": "Viết hàm `verify_age_property(birth_str, ref_str)` nhận vào hai chuỗi ngày tháng định dạng 'YYYY-MM-DD'.\n1. Tính tuổi của người đó tại thời điểm `ref_str`. Tuổi được tính chính xác theo ngày tháng (ví dụ: sinh ngày 2000-05-21, đến ngày 2024-05-20 thì vẫn tính là 23 tuổi).\n2. Kiểm tra xem số tuổi đó có phải là một số chính phương hay không (sử dụng `math.isqrt`).\nTrả về một `tuple` gồm: (tuổi, True/False).\n\n**Chương trình chính:** \n- Dòng 1: Nhập chuỗi ngày sinh `birth_str`.\n- Dòng 2: Nhập chuỗi mốc thời gian `ref_str`.\n- Gọi hàm `verify_age_property` và in hai giá trị của tuple kết quả trên một dòng, cách nhau bởi dấu cách.",
-  "ioFormat": "Input:\n- Dòng 1: birth_str\n- Dòng 2: ref_str\nOutput:\n- Một dòng: tuổi và kết quả kiểm tra (True/False).",
+  "statement": "Cho ngày sinh và một mốc thời gian cụ thể theo định dạng `YYYY-MM-DD`. Hãy tính tuổi của người đó tại mốc thời gian này và kiểm tra xem số tuổi đó có phải là một số chính phương hay không.\n\nQuy tắc tính tuổi: Tuổi được tính dựa trên ngày và tháng chính xác. Ví dụ, nếu sinh ngày `2000-05-21`, thì đến ngày `2024-05-20` vẫn tính là `23` tuổi, phải đến ngày `2024-05-21` mới tròn `24` tuổi.\n\n**Input:**\n- Dòng đầu tiên chứa chuỗi ngày sinh `birth_str`.\n- Dòng thứ hai chứa chuỗi mốc thời gian `ref_str`.\n\n**Output:**\n- Một dòng duy nhất gồm hai giá trị: số tuổi (số nguyên) và kết quả kiểm tra số chính phương (`True` hoặc `False`), cách nhau bởi một dấu cách.",
+  "ioFormat": "Input:\n- Dòng 1: birth_str (YYYY-MM-DD)\n- Dòng 2: ref_str (YYYY-MM-DD)\nOutput:\n- Một dòng: tuổi và True/False.",
   "constraints": "ref_str >= birth_str",
   "examples": "Input:\n2000-01-01\n2025-01-01\nOutput:\n25 True",
   "mode": "stdio",
-  "starter": "from datetime import date\nimport math\n\ndef verify_age_property(birth_str, ref_str):\n    pass\n\n# ===== Chương trình chính =====\nb_str = input()\nr_str = input()\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nfrom datetime import date\nimport math\n\ndef verify_age_property(birth_str, ref_str):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nb_str = input()\nr_str = input()\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4563,35 +4448,32 @@
     "expected": "100 True"
    }
   ],
-  "hint": "Dùng date.fromisoformat để chuyển chuỗi thành đối tượng date. Tính tuổi bằng cách so sánh (tháng, ngày). Một số n là số chính phương nếu math.isqrt(n)**2 == n.",
+  "hint": "Có thể viết hàm `verify_age_property(birth_str, ref_str)` sử dụng `datetime.date.fromisoformat` để xử lý ngày tháng và so sánh tuple `(tháng, ngày)` để tính tuổi chính xác. Dùng date.fromisoformat để chuyển chuỗi thành đối tượng date. Tính tuổi bằng cách so sánh (tháng, ngày). Một số n là số chính phương nếu math.isqrt(n)**2 == n.",
   "explanation": "Chuyển input sang date object. Tính hiệu năm, sau đó trừ đi 1 nếu ngày/tháng hiện tại chưa tới ngày/tháng sinh. Dùng math.isqrt để lấy căn bậc hai nguyên và kiểm tra tính chính phương.",
   "commonMistakes": [
    "Chỉ lấy năm trừ năm dẫn đến tính sai tuổi nếu chưa qua sinh nhật",
    "Sử dụng math.sqrt và so sánh float không chính xác bằng math.isqrt"
   ],
-  "solution": "from datetime import date\nimport math\n\ndef verify_age_property(birth_str, ref_str):\n    d1 = date.fromisoformat(birth_str)\n    d2 = date.fromisoformat(ref_str)\n    age = d2.year - d1.year - ((d2.month, d2.day) < (d1.month, d1.day))\n    is_square = math.isqrt(age)**2 == age if age >= 0 else False\n    return (age, is_square)\n\n# ===== Chương trình chính =====\nb_str = input()\nr_str = input()\nres = verify_age_property(b_str, r_str)\nprint(*res)",
+  "solution": "from datetime import date\nimport math\n\ndef verify_age_property(birth_str, ref_str):\n    d1 = date.fromisoformat(birth_str)\n    d2 = date.fromisoformat(ref_str)\n    age = d2.year - d1.year - ((d2.month, d2.day) < (d1.month, d1.day))\n    is_square = math.isqrt(age)**2 == age if age >= 0 else False\n    return (age, is_square)\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nb_str = input()\nr_str = input()\nres = verify_age_property(b_str, r_str)\nprint(*res)",
   "errorCategory": "edge",
   "tags": [
    "datetime",
    "math-module"
   ],
   "source": "exam",
-  "reserve": false,
-  "requireFunction": [
-   "verify_age_property"
-  ]
+  "reserve": false
  },
  {
   "id": "T8-C04",
   "topic": "T8",
   "difficulty": 2,
   "title": "Phân tích điểm số sinh viên",
-  "statement": "Viết hàm `score_analysis(scores)` nhận vào danh sách các điểm số (float). Hàm trả về một `dictionary` gồm:\n1. \"mean_floor\": Giá trị trung bình của danh sách, sau đó làm tròn xuống (floor) thành số nguyên bằng module `math`.\n2. \"mode\": Giá trị xuất hiện nhiều nhất trong danh sách bằng module `statistics`. Nếu có nhiều giá trị có cùng tần suất xuất hiện cao nhất, hàm `statistics.mode` sẽ trả về giá trị đầu tiên được tìm thấy.\n\n**Chương trình chính:** \n- Dòng 1: Số lượng điểm `n`.\n- Dòng 2: `n` điểm số thực cách nhau bởi dấu cách.\n- Gọi hàm `score_analysis` và in các cặp khóa: giá trị trong dictionary kết quả theo thứ tự bảng chữ cái của khóa, mỗi cặp trên một dòng theo định dạng `khóa: giá_trị`.",
-  "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực.\nOutput:\n- 2 dòng: mean_floor và mode.",
+  "statement": "Cho một danh sách các điểm số (số thực). Hãy tính toán hai giá trị sau:\n1. `mean_floor`: Giá trị trung bình của danh sách điểm, sau đó làm tròn xuống (floor) để lấy phần nguyên.\n2. `mode`: Giá trị xuất hiện nhiều nhất trong danh sách. Nếu có nhiều giá trị cùng có tần suất xuất hiện cao nhất, lấy giá trị đầu tiên được tìm thấy.\n\n**Input:**\n- Dòng đầu tiên chứa số nguyên `n` là số lượng điểm số.\n- Dòng thứ hai chứa `n` số thực cách nhau bởi dấu cách.\n\n**Output:**\n- In ra 2 dòng, mỗi dòng chứa một cặp thông tin theo định dạng `khóa: giá_trị`. Các dòng được sắp xếp theo thứ tự bảng chữ cái của tên khóa (`mean_floor`, `mode`). Các giá trị số thực in theo định dạng mặc định của Python.",
+  "ioFormat": "Input:\n- Dòng 1: n\n- Dòng 2: n số thực.\nOutput:\n- 2 dòng: mean_floor và mode theo thứ tự bảng chữ cái của khóa.",
   "constraints": "scores không rỗng",
   "examples": "Input:\n5\n8.5 9.0 7.0 8.5 10.0\nOutput:\nmean_floor: 8\nmode: 8.5",
   "mode": "stdio",
-  "starter": "import math\nimport statistics\n\ndef score_analysis(scores):\n    pass\n\n# ===== Chương trình chính =====\nn = int(input())\nscores = list(map(float, input().split()))\n# Gọi hàm và in kết quả",
+  "starter": "# Viết hàm là không bắt buộc: chỉ cần chương trình đọc input và in đúng output.\nimport math\nimport statistics\n\ndef score_analysis(scores):\n    pass\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nscores = list(map(float, input().split()))\n# Gọi hàm và in kết quả",
   "files": {},
   "tests": [
    {
@@ -4655,22 +4537,19 @@
     "expected": "mean_floor: 7\nmode: 7.0"
    }
   ],
-  "hint": "Sử dụng statistics.mean() để tính trung bình, math.floor() để làm tròn xuống, và statistics.mode() để tìm giá trị phổ biến nhất.",
+  "hint": "Có thể viết hàm `score_analysis(scores)` sử dụng `statistics.mean()` và `statistics.mode()` để tính toán các giá trị thống kê cần thiết. Sử dụng statistics.mean() để tính trung bình, math.floor() để làm tròn xuống, và statistics.mode() để tìm giá trị phổ biến nhất.",
   "explanation": "Hàm sử dụng statistics.mean để tính trung bình cộng, sau đó bao ngoài bằng math.floor để lấy phần nguyên dưới. statistics.mode tự động xử lý việc tìm giá trị xuất hiện nhiều nhất.",
   "commonMistakes": [
    "Dùng int() thay vì math.floor() (mặc dù với số dương kết quả giống nhau nhưng bản chất khác nhau với số âm)",
    "Quên import module"
   ],
-  "solution": "import math\nimport statistics\n\ndef score_analysis(scores):\n    avg = statistics.mean(scores)\n    mode_val = statistics.mode(scores)\n    return {\n        \"mean_floor\": math.floor(avg),\n        \"mode\": mode_val\n    }\n\n# ===== Chương trình chính =====\nn = int(input())\nscores = list(map(float, input().split()))\nres = score_analysis(scores)\nfor k in sorted(res):\n    print(f\"{k}: {res[k]}\")",
+  "solution": "import math\nimport statistics\n\ndef score_analysis(scores):\n    avg = statistics.mean(scores)\n    mode_val = statistics.mode(scores)\n    return {\n        \"mean_floor\": math.floor(avg),\n        \"mode\": mode_val\n    }\n\n# ----- Đọc dữ liệu, tính toán và in kết quả -----\nn = int(input())\nscores = list(map(float, input().split()))\nres = score_analysis(scores)\nfor k in sorted(res):\n    print(f\"{k}: {res[k]}\")",
   "errorCategory": "implementation",
   "tags": [
    "statistics-module",
    "math-module"
   ],
   "source": "exam",
-  "reserve": true,
-  "requireFunction": [
-   "score_analysis"
-  ]
+  "reserve": true
  }
 ]

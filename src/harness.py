@@ -58,34 +58,25 @@ def _toks_eq(xs, ys):
     return len(xs) == len(ys) and all(_tok_eq(x, y) for x, y in zip(xs, ys))
 
 
-def _match_stdout(got, expected, stdin=''):
-    if _norm(got) == _norm(expected):
+_DEC_RE = re.compile(r'-?\d+\.\d+\Z')
+
+
+def _float_close(a, b):
+    """Hai số thực (cùng có dấu chấm) lệch nhau không quá 1e-6, như checker số thực của online judge."""
+    return bool(_DEC_RE.match(a) and _DEC_RE.match(b)) and \
+        math.isclose(float(a), float(b), rel_tol=1e-9, abs_tol=1e-6)
+
+
+def _match_stdout(got, expected):
+    """So output theo chuẩn thi đấu: tách theo khoảng trắng, từng token phải giống hệt
+    (khoảng trắng thừa và dòng trống cuối không tính). Ngoại lệ duy nhất: hai số thực
+    có dấu chấm lệch nhau tối đa 1e-6 vẫn được chấp nhận."""
+    g, e = got.split(), expected.split()
+    if g == e:
         return True, None
-    gt, et = _tokens(got), _tokens(expected)
-    if et and _toks_eq(gt, et):
-        return True, 'Đúng giá trị; khác cách trình bày (khoảng trắng/dấu câu).'
-    g_lines = [l for l in _norm(got).split(chr(10)) if l.strip()]
-    e_lines = [l for l in _norm(expected).split(chr(10)) if l.strip()]
-    if not e_lines or len(g_lines) != len(e_lines):
-        return False, None
-    e_all = {w.lower() for w in et}
-    in_all = {w.lower() for w in _tokens(stdin or '')}
-    for gl, el in zip(g_lines, e_lines):
-        g, e = _tokens(gl), _tokens(el)
-        if not e:
-            if gl.rstrip() != el.rstrip():
-                return False, None
-            continue
-        if _toks_eq(g, e):
-            continue
-        k = len(g) - len(e)
-        if k <= 0 or not _toks_eq(g[k:], e):
-            return False, None
-        prefix = g[:k]
-        if any(_NUM_RE.match(w) or w.lower() in VALUE_WORDS or w.lower() in e_all or w.lower() in in_all
-               for w in prefix):
-            return False, None
-    return True, 'Đúng giá trị; có thêm chữ mô tả trước kết quả.'
+    if len(g) == len(e) and all(x == y or _float_close(x, y) for x, y in zip(g, e)):
+        return True, 'Số thực lệch nhỏ (≤ 1e-6) so với đáp án; được chấp nhận.'
+    return False, None
 
 
 def _norm(s):
@@ -115,9 +106,7 @@ def _prep_files(files):
             f.write(content)
 
 
-def _exec(src, filename, ns, stdin=None, calls=None):
-    """Chạy src. Nếu `calls` là một set thì ghi lại (tên, qualname) của mọi hàm người dùng
-    tự định nghĩa đã được gọi (bỏ <module>, <lambda>, <genexpr>, ...)."""
+def _exec(src, filename, ns, stdin=None):
     out = io.StringIO()
     inp = io.StringIO(stdin or '')
     # Mỗi dòng của dữ liệu nhập là một lần input(), kể cả dòng trống:
@@ -132,52 +121,19 @@ def _exec(src, filename, ns, stdin=None, calls=None):
         pos[0] += 1
         return lines[pos[0] - 1]
 
-    def prof(frame, event, arg):
-        if event == 'call':
-            co = frame.f_code
-            if co.co_filename == USER_FILE and not co.co_name.startswith('<'):
-                calls.add((co.co_name, getattr(co, 'co_qualname', co.co_name)))
-
     old = sys.stdout, sys.stdin, builtins.input
     sys.stdout, sys.stdin, builtins.input = out, inp, fake_input
     err = None
     try:
         _register(filename, src)
-        code = compile(src, filename, 'exec')
-        if calls is not None:
-            sys.setprofile(prof)
-        exec(code, ns)
+        exec(compile(src, filename, 'exec'), ns)
     except SystemExit:
         pass
     except BaseException as e:
         err = _fmt_exc(e)
     finally:
-        if calls is not None:
-            sys.setprofile(None)
         sys.stdout, sys.stdin, builtins.input = old
     return out.getvalue()[:MAX_OUT], err
-
-
-def _check_required_call(required, calls, ns):
-    """Đề yêu cầu viết hàm (tên trong `required`) và chương trình phải GỌI nó.
-    Trả (ok, note, error_message)."""
-    if not required:
-        return True, None, None
-    names = [required] if isinstance(required, str) else list(required)
-    if any(n in names for n, _ in calls):
-        return True, None, None
-    defined = [n for n in names if isinstance(ns.get(n), type(_check_required_call))
-               and ns[n].__code__.co_filename == USER_FILE]
-    top_called = sorted({n for n, q in calls if '.' not in q})
-    if not defined and top_called:
-        return True, (f'Tên hàm khác đề (đề yêu cầu `{names[0]}`), đã chấp nhận hàm `{top_called[0]}` '
-                      'vì chương trình có viết và gọi hàm.'), None
-    want = ', '.join(f'`{n}`' for n in names)
-    if defined:
-        return False, None, (f'Chương trình có định nghĩa hàm {want} nhưng không gọi nó. '
-                             'Đề yêu cầu viết hàm rồi gọi hàm để tính và in kết quả.')
-    return False, None, (f'Đề yêu cầu viết hàm {want} và gọi hàm đó trong chương trình, '
-                         'nhưng chương trình không gọi hàm nào do bạn tự viết.')
 
 
 def run_program(src, stdin='', files=None):
@@ -192,19 +148,10 @@ def run_tests(src, ex):
         _prep_files(ex.get('files'))
         _prep_files(t.get('files'))
         if ex['mode'] == 'stdio':
-            required = ex.get('requireFunction')
-            calls = set() if required else None
-            ns = {'__name__': '__main__'}
-            out, err = _exec(src, USER_FILE, ns, t.get('input', ''), calls)
-            match_ok, note = _match_stdout(out, t['expected'], t.get('input', ''))
+            out, err = _exec(src, USER_FILE, {'__name__': '__main__'}, t.get('input', ''))
+            match_ok, note = _match_stdout(out, t['expected'])
             ok = err is None and match_ok
             error, err_type = (err[1], err[0]) if err else (None, None)
-            if err is None:
-                call_ok, call_note, call_err = _check_required_call(required, calls or set(), ns)
-                if not call_ok:
-                    ok, error, err_type = False, call_err, 'ChuaGoiHam'
-                elif call_note:
-                    note = ' '.join(x for x in (note, call_note) if x)
             results.append({'ok': ok, 'got': out, 'error': error, 'errType': err_type,
                             'note': note if ok else None})
             continue
