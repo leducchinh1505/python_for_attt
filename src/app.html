@@ -104,17 +104,22 @@ th{font-weight:500;color:var(--muted);font-size:13px}
 .navgrid button{min-width:42px;padding:5px 8px;font-size:13px}
 .navgrid button.done{background:var(--accent-bg);border-color:var(--accent)}
 .navgrid button.cur{outline:2px solid var(--accent)}
+.code.expect{border-left:3px solid var(--accent)}
 .timer{font-variant-numeric:tabular-nums;font-weight:600;font-size:18px}
 .empty{color:var(--muted);text-align:center;padding:30px}
 .kbd{font-size:12px;color:var(--faint)}
 @media (max-width:1180px){.lab{grid-template-columns:1fr}}
 @media (max-width:860px){
-  .app{grid-template-columns:1fr}
+  .app{grid-template-columns:minmax(0,1fr)}
   .side{position:static;height:auto;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;padding:8px;border-right:0;border-bottom:1px solid var(--line)}
   .brand,.nav .sep,.side .py{display:none}
   .nav{display:flex;gap:2px}.nav a{white-space:nowrap}
   .main{padding:18px 16px 50px}
   .lab{grid-template-columns:1fr}
+  .list-item{flex-wrap:wrap}
+  .card{padding:14px 14px}
+  td,th{overflow-wrap:anywhere}
+  details .card,details pre.code{max-width:100%}
 }
 </style>
 </head>
@@ -141,19 +146,29 @@ const Q_BY_ID = Object.fromEntries(MCQ.map(q => [q.id, q]));
 const C_BY_ID = Object.fromEntries(CODING.map(c => [c.id, c]));
 const CAT = {theory:'Thiếu kiến thức lý thuyết',concept:'Hiểu sai bản chất',syntax:'Nhầm lẫn cú pháp',execution:'Không hiểu cách Python thực thi',logic:'Sai tư duy logic',edge:'Bỏ sót trường hợp biên',method:'Chọn sai phương pháp',implementation:'Code sai khi triển khai'};
 const SRC = {textbook:'Giáo trình',exam:'Dạng đề cũ',supplement:'Bổ sung'};
-const TYPE = {output:'Đọc code',theory:'Lý thuyết',error:'Tìm lỗi',compare:'So sánh'};
+const TYPE = {output:'Đọc code',replace:'Thay thế code',error:'Tìm lỗi',compare:'So sánh',theory:'Lý thuyết'};
+const EXAM_TYPES = ['output','replace','error']; // dạng câu có trong đề thi thật (đọc code / thay thế code)
+const SPEED_SEC = 24; // 50 câu trong 20 phút
 const DIFF = {1:'Dễ',2:'Trung bình',3:'Khó'};
 const STATUS = ['Not Started','Learning','Practicing','Weak','Reviewing','Mastered'];
 const RULE = {mcqMin:15, window:10, acc:0.9, codeMin:3};
 const ruleFor = t => TOPIC[t].priority === 1 ? RULE : {mcqMin:10, window:10, acc:0.9, codeMin:2};
 
 /* ---------------- storage ---------------- */
-function defaults(){return {version:1,created:Date.now(),counter:0,q:{},c:{},errors:[],mocks:[],read:{},remedy:null,activeMock:null,
-  settings:{theme:'auto',timeoutSec:8,mockMcq:20,mockCode:3,mockMinutes:90,mcqWeight:40}}}
+const MOCK_DEFAULTS={mockMcq:50,mockMcqMin:20,mockCode:2,mockCodeMin:15,mcqWeight:50};
+function defaults(){return {version:1,created:Date.now(),counter:0,q:{},c:{},errors:[],mocks:[],read:{},remedy:null,activeMock:null,speed:[],
+  settings:Object.assign({theme:'auto',timeoutSec:8,settingsVer:2},MOCK_DEFAULTS)}}
+/* Bản cũ (settingsVer 1) dùng cấu trúc đề tự suy ra: chuyển sang format thầy công bố. */
+function migrate(){
+  const st=S.settings;
+  if(!st.settingsVer||st.settingsVer<2){Object.assign(st,MOCK_DEFAULTS);delete st.mockMinutes;st.settingsVer=2}
+  if(S.activeMock&&!S.activeMock.phase)S.activeMock=null;
+  if(!Array.isArray(S.speed))S.speed=[];
+}
 let S;
 function load(){
   try{const raw=localStorage.getItem(STORE_KEY); S=raw?Object.assign(defaults(),JSON.parse(raw)):defaults();
-    S.settings=Object.assign(defaults().settings,S.settings||{});}
+    S.settings=Object.assign({},defaults().settings,{settingsVer:1},S.settings||{});migrate();}
   catch(e){S=defaults();}
 }
 let storageOk=true;
@@ -184,6 +199,8 @@ function md(src){
   fp();fl();return out.join('');
 }
 const srcBadge = s => `<span class="badge src-${esc(s)}">${esc(SRC[s]||s)}</span>`;
+function qBody(q,size=16,noQ=false){
+  return `${noQ?'':`<div style="font-size:${size}px;margin:6px 0 4px">${inline(q.question)}</div>`}${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}${q.type==='replace'?`<div class="small muted" style="margin:-4px 0 2px">Kết quả mong muốn:</div><pre class="code expect">${q.expect?esc(q.expect):'(không in gì, chương trình chạy không lỗi)'}</pre>`:''}`}
 const isPlain = q => q.type==='theory' || q.options.some(o=>o.length>60 && /\s[a-zà-ỹ]+\s/i.test(o) && !/[()\[\]=]/.test(o));
 
 /* ---------------- stats & mastery ---------------- */
@@ -259,11 +276,11 @@ const errStatus = e => e.status==='resolved'?'Đã khắc phục':e.status==='re
 function targetDiff(t){const s=topicStats(t);if(s.n<3)return 1;const a=s.winAcc;return a<0.6?1:a<0.85?2:3}
 function pickQuestion(cfg){
   const ex=cfg.exclude||new Set();
-  let pool=MCQ.filter(q=>(!cfg.topic||q.topic===cfg.topic)&&!ex.has(q.id));
+  let pool=MCQ.filter(q=>(!cfg.topic||q.topic===cfg.topic)&&!ex.has(q.id)&&(!cfg.types||cfg.types.includes(q.type)));
   if(cfg.tags)pool=pool.filter(q=>q.tags.some(t=>cfg.tags.includes(t)));
   if(!pool.length)return null;
   const rem=S.remedy;
-  if(rem&&cfg.mode!=='review'){
+  if(rem&&cfg.mode!=='review'&&!cfg.noRemedy){
     const cand=pool.filter(q=>!isSeen(q)&&q.tags.some(t=>rem.tags.includes(t)));
     if(cand.length){
       const best=cand.map(q=>({item:q,w:(q.topic===rem.topic?3:1)*(q.reserve?2:1)}));
@@ -374,7 +391,7 @@ function bindEditor(id,onChange,onRun){
 }
 
 /* ---------------- router ---------------- */
-const NAV=[['sep','Tổng quan'],['dashboard','Dashboard'],['progress','Tiến độ'],['sep','Học'],['learn','Tài liệu học'],['bank','Ngân hàng câu hỏi'],['sep','Luyện tập'],['quiz','Trắc nghiệm'],['code','Coding Lab'],['review','Ôn tập'],['errors','Error Log'],['mock','Thi thử'],['sep','Hệ thống'],['settings','Cài đặt và sao lưu']];
+const NAV=[['sep','Tổng quan'],['dashboard','Dashboard'],['progress','Tiến độ'],['sep','Học'],['learn','Tài liệu học'],['bank','Ngân hàng câu hỏi'],['sep','Luyện tập'],['quiz','Trắc nghiệm'],['speed','Luyện tốc độ'],['code','Coding Lab'],['review','Ôn tập'],['errors','Error Log'],['mock','Thi thử'],['sep','Hệ thống'],['settings','Cài đặt và sao lưu']];
 function renderNav(cur){
   const open=S.errors.filter(e=>e.status!=='resolved').length;
   $('#nav').innerHTML=NAV.map(([k,l])=>k==='sep'?`<div class="sep">${l}</div>`:`<a href="#/${k}" class="${cur===k?'on':''}">${l}${k==='errors'&&open?`<span class="pill bad">${open}</span>`:''}${k==='mock'&&S.activeMock?'<span class="pill bad">đang thi</span>':''}</a>`).join('');
@@ -386,7 +403,7 @@ function route(){
   const [path,query]=h.split('?');const parts=path.split('/');const params=new URLSearchParams(query||'');
   const page=parts[0];renderNav(page);
   const v=$('#view');v.innerHTML='';window.scrollTo(0,0);
-  const fn={dashboard:viewDashboard,progress:viewProgress,learn:viewLearn,bank:viewBank,quiz:viewQuiz,code:viewCode,review:viewReview,errors:viewErrors,mock:viewMock,settings:viewSettings}[page]||viewDashboard;
+  const fn={dashboard:viewDashboard,progress:viewProgress,learn:viewLearn,bank:viewBank,quiz:viewQuiz,speed:viewSpeed,code:viewCode,review:viewReview,errors:viewErrors,mock:viewMock,settings:viewSettings}[page]||viewDashboard;
   fn(v,parts.slice(1),params);
   if(!storageOk)v.insertAdjacentHTML('afterbegin','<div class="fb bad">Trình duyệt không cho lưu tiến độ (localStorage bị chặn). Hãy xuất file sao lưu thường xuyên.</div>');
 }
@@ -409,6 +426,7 @@ function viewDashboard(v){
     <div class="metric"><div class="l">Lỗi chưa khắc phục</div><div class="v" style="color:${g.open?'var(--bad)':'inherit'}">${g.open}</div><div class="d">${g.mastered}/${TOPICS.length} chủ đề thành thạo</div></div>
   </div>
   <div class="card" style="margin-top:14px"><div class="row"><div><div class="small muted">Việc nên làm tiếp</div><div style="font-weight:500">${esc(ns.text)}</div></div><span class="spacer"></span><a href="${ns.href}"><button class="primary">Bắt đầu</button></a></div></div>
+  <div class="card"><div class="row"><div><div class="small muted">Format đề cuối kỳ (theo thầy)</div><div style="font-weight:500">Trắc nghiệm ${S.settings.mockMcq} câu / ${S.settings.mockMcqMin} phút (đọc code, thay thế code) + ${S.settings.mockCode} bài code / ${S.settings.mockCodeMin} phút (list, dict)</div><div class="small muted">Có thể thêm phần khác, nên vẫn ôn đủ 8 chủ đề.</div></div><span class="spacer"></span><a href="#/speed"><button>Luyện tốc độ</button></a><a href="#/mock"><button>Thi thử</button></a></div></div>
   ${S.activeMock?`<div class="fb warn">Bạn đang có một đề thi thử chưa nộp. <a href="#/mock">Quay lại bài thi</a></div>`:''}
   <h2>Tiến độ theo chủ đề</h2>
   <div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Chủ đề</th><th>Trắc nghiệm</th><th>Coding</th><th>Lỗi</th><th>Trạng thái</th></tr></thead><tbody>${TOPICS.map(topicRow).join('')}</tbody></table></div>
@@ -482,7 +500,7 @@ function viewBank(v,_,params){
     list.innerHTML=`<div class="small muted" style="margin:6px 0">${items.length} câu</div>`+items.map(q=>{const s=peekQ(q.id);
       const stat=isSeen(q)?(s.first?'<span class="st st-5">Đúng lần đầu</span>':'<span class="st st-3">Sai lần đầu</span>'):s.spoiled?'<span class="st st-4">Đã xem đáp án</span>':'<span class="st st-0">Chưa làm</span>';
       return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer;list-style:none"><div class="row"><code>${q.id}</code><span style="flex:1">${esc(q.question)}</span>${q.reserve?'<span class="badge">dự phòng</span>':''}<span class="badge">${TYPE[q.type]}</span><span class="badge">${DIFF[q.difficulty]}</span>${stat}</div></summary>
-      ${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}<ol type="A" style="margin:6px 0 10px">${q.options.map(o=>`<li><code style="white-space:pre-wrap">${esc(o)}</code></li>`).join('')}</ol>
+      ${qBody(q,14,true)}<ol type="A" style="margin:6px 0 10px">${q.options.map(o=>`<li><code style="white-space:pre-wrap">${esc(o)}</code></li>`).join('')}</ol>
       <div class="small muted">Tags: ${q.tags.map(esc).join(', ')} · ${srcBadge(q.source)}</div>
       <div class="ans" data-id="${q.id}">${isSeen(q)||s.spoiled?answerBlock(q):`<button class="reveal" data-id="${q.id}" style="margin-top:8px">Hiện đáp án</button>`}</div></details>`}).join('');
     $$('.reveal',list).forEach(b=>b.onclick=()=>{const q=Q_BY_ID[b.dataset.id];
@@ -508,7 +526,7 @@ function viewQuiz(v,[tid],params){
   <div class="row small muted" style="margin-bottom:8px"><span id="sess"></span><span class="spacer"></span><span class="kbd">Phím 1–4 hoặc A–D để chọn, Enter để nộp / sang câu</span></div>
   <div class="card" id="qcard"></div>`;
   nextQuestion();
-  const onKey=e=>{if(e.target.matches('input,textarea,select'))return;const k=e.key.toLowerCase();
+  const onKey=e=>{if((e.target.matches&&e.target.matches('input,textarea,select')))return;const k=e.key.toLowerCase();
     const idx='1234'.indexOf(k)>=0?'1234'.indexOf(k):'abcd'.indexOf(k);
     if(idx>=0&&k.length===1){const b=$$('.opt')[idx];b&&b.click()}
     else if(e.key==='Enter'){const nb=$('#next');if(nb&&nb.offsetParent){nb.click()}else{const sb=$('#submit');sb&&sb.offsetParent&&sb.click()}}};
@@ -528,7 +546,7 @@ function renderQuestion(){
   const cur=session.cur,q=cur.q;updSess();
   const plain=isPlain(q);
   $('#qcard').innerHTML=`<div class="row" style="margin-bottom:8px"><span class="badge">${q.topic} · ${esc(TOPIC[q.topic].name)}</span><span class="badge">${TYPE[q.type]}</span><span class="badge">${DIFF[q.difficulty]}</span>${srcBadge(q.source)}<span class="spacer"></span><span class="small muted">${esc(cur.why)}${cur.isFirst?'':' · đã từng làm, không tính thành thạo'}</span></div>
-  <div style="font-size:16px;margin:6px 0 4px">${inline(q.question)}</div>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+  ${qBody(q)}
   <div id="opts">${q.options.map((o,i)=>`<button class="opt" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="t ${plain?'plain':''}">${esc(o)}</span></button>`).join('')}</div>
   <div id="qerr" class="small" style="color:var(--bad);min-height:18px"></div><div id="qfb"></div>
   <div class="row"><button class="primary" id="submit">Nộp đáp án</button><button id="next" style="display:none">Câu tiếp theo</button><span class="spacer"></span><code class="small muted">${q.id}</code></div>`;
@@ -566,6 +584,97 @@ function submitAnswer(){
   cur.done=true;cur.result='wrong';st.attempts++;st.due=S.counter+4;S.counter++;session.count++;
   const e=S.errors.find(x=>x.itemId===q.id&&x.status!=='resolved');if(e)e.mistake+=` → lần 2 chọn ${'ABCD'[cur.sel]}: ${q.options[cur.sel]}`;
   save();finishView();
+}
+
+/* ---------------- Speed drill ----------------
+   Luyện nhịp đề thật: mỗi câu có đồng hồ riêng (mặc định 24 giây = 20 phút / 50 câu).
+   Chọn là chốt luôn (không có lượt 2), hết giờ tính là bỏ trống. Kết quả lần đầu vẫn tính vào thống kê thành thạo. */
+let speed=null,speedTimer=null;
+function viewSpeed(v,[tid]){
+  clearInterval(speedTimer);
+  const onKey=e=>{if(!speed||!speed.active||!speed.cur||speed.cur.done||(e.target.matches&&e.target.matches('input,textarea,select')))return;const k=e.key.toLowerCase();
+    const idx='1234'.indexOf(k)>=0?'1234'.indexOf(k):'abcd'.indexOf(k);if(idx>=0&&k.length===1)speedAnswer(idx)};
+  document.addEventListener('keydown',onKey);cleanup=()=>{clearInterval(speedTimer);document.removeEventListener('keydown',onKey)};
+  if(speed&&speed.active)return drawSpeed(v);
+  const hist=(S.speed||[]).slice(-5).reverse();
+  const topic=tid&&TOPIC[tid]?tid:'';
+  v.innerHTML=`<h1>Luyện tốc độ</h1><p class="sub">Đề thật: 50 câu trong 20 phút, tức khoảng ${SPEED_SEC} giây một câu. Mỗi câu có đồng hồ riêng; chọn là chốt, hết giờ tính là bỏ trống. Chỉ dùng câu dạng đọc code, thay thế code và tìm lỗi.</p>
+  <div class="card">
+    <div class="row" style="margin-bottom:10px"><span class="small muted" style="min-width:90px">Chủ đề</span><a href="#/speed"><button class="${!topic?'primary':''}">Trộn</button></a>${TOPICS.map(t=>`<a href="#/speed/${t.id}"><button class="${t.id===topic?'primary':''}" title="${esc(t.name)}">${t.id}</button></a>`).join('')}</div>
+    <div class="row" style="margin-bottom:10px"><span class="small muted" style="min-width:90px">Số câu</span>${[10,20,50].map(n=>`<label class="row" style="gap:4px"><input type="radio" name="sp-n" value="${n}" ${n===10?'checked':''}>${n}</label>`).join('')}</div>
+    <div class="row" style="margin-bottom:12px"><span class="small muted" style="min-width:90px">Giây / câu</span>${[35,24,18].map(s=>`<label class="row" style="gap:4px"><input type="radio" name="sp-s" value="${s}" ${s===SPEED_SEC?'checked':''}>${s}${s===SPEED_SEC?' (nhịp đề)':s>SPEED_SEC?' (khởi động)':' (dư giờ soát lại)'}</label>`).join('')}</div>
+    <button class="primary" id="sp-start">Bắt đầu</button></div>
+  ${hist.length?`<h2>Các lượt gần đây</h2><div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Lúc</th><th>Chủ đề</th><th>Đúng</th><th>TB giây/câu</th><th>Hết giờ</th></tr></thead><tbody>${hist.map(h=>`<tr><td>${fmtDate(h.ts)}</td><td>${h.topic||'Trộn'}</td><td>${h.ok}/${h.n}</td><td>${h.avg.toFixed(1)} / ${h.sec}</td><td>${h.timeouts}</td></tr>`).join('')}</tbody></table></div>`:''}`;
+  $('#sp-start').onclick=()=>{
+    const n=+$('input[name=sp-n]:checked').value,sec=+$('input[name=sp-s]:checked').value;
+    speed={active:true,topic,n,sec,asked:new Set(),items:[],cur:null};speedNext();drawSpeed(v)};
+}
+function speedNext(){
+  const p=pickQuestion({topic:speed.topic,types:EXAM_TYPES,exclude:speed.asked,noRemedy:true});
+  if(!p||speed.items.length>=speed.n){speed.cur=null;return}
+  speed.asked.add(p.q.id);
+  speed.cur={q:p.q,start:Date.now(),sel:null,done:false,isFirst:!isSeen(p.q)};
+}
+function speedAnswer(sel){
+  const cur=speed.cur;if(!cur||cur.done)return;
+  clearInterval(speedTimer);
+  cur.done=true;cur.sel=sel;cur.sec=Math.min(speed.sec,(Date.now()-cur.start)/1000);
+  const q=cur.q,ok=sel===q.answer,st=qs(q.id);
+  if(cur.isFirst){st.first=ok;st.firstTs=Date.now();if(ok)cur.credited=creditTags(q.topic,q.tags,q.id)}
+  st.attempts++;st.lastOk=ok;S.counter++;
+  if(ok)st.due=null;
+  else{st.due=S.counter+4;logError({topic:q.topic,itemId:q.id,kind:'mcq',question:q.question+(q.code?'\n'+q.code:''),
+    mistake:sel===null?`Hết ${speed.sec} giây chưa chọn (luyện tốc độ)`:`Chọn ${'ABCD'[sel]}: ${q.options[sel]} (luyện tốc độ)`,category:q.errorCategory,tags:q.tags,rootCause:`${CAT[q.errorCategory]||''}. ${q.hint}`,correct:q.explanation})}
+  speed.items.push({id:q.id,ok,sel,sec:cur.sec});save();drawSpeed($('#view'));
+}
+function drawSpeed(v){
+  clearInterval(speedTimer);
+  const cur=speed.cur;
+  if(!cur){return speedSummary(v)}
+  const q=cur.q,plain=isPlain(q),i=speed.items.length+(cur.done?0:1);
+  v.innerHTML=`<div class="row" style="margin-bottom:8px"><h1 style="margin:0">Luyện tốc độ</h1><span class="spacer"></span><span class="small muted">Câu ${Math.min(i,speed.n)}/${speed.n} · đúng ${speed.items.filter(x=>x.ok).length}</span><span class="timer" id="sp-t"></span><button id="sp-stop">Dừng</button></div>
+  <div class="bar" style="height:6px;margin-bottom:10px"><i id="sp-bar" style="width:100%;transition:width 1s linear"></i></div>
+  <div class="card"><div class="row" style="margin-bottom:6px"><span class="badge">${q.topic}</span><span class="badge">${TYPE[q.type]}</span><span class="badge">${DIFF[q.difficulty]}</span></div>${qBody(q)}
+  ${q.options.map((o,k)=>`<button class="opt ${cur.done&&k===q.answer?'right':''} ${cur.done&&k===cur.sel&&k!==q.answer?'wrong':''}" data-i="${k}"><span class="k">${'ABCD'[k]}</span><span class="t ${plain?'plain':''}">${esc(o)}</span></button>`).join('')}
+  <div id="sp-fb"></div></div>`;
+  $('#sp-stop').onclick=()=>{clearInterval(speedTimer);speed.cur=null;speedSummary(v)};
+  if(!cur.done){
+    $$('.opt',v).forEach(b=>b.onclick=()=>speedAnswer(+b.dataset.i));
+    const t=()=>{const left=speed.sec*1000-(Date.now()-cur.start);
+      if(left<=0){speedAnswer(null);return}
+      const el=$('#sp-t');if(el){el.textContent=Math.ceil(left/1000)+'s';el.style.color=left<6000?'var(--bad)':''}
+      const b=$('#sp-bar');if(b)b.style.width=Math.max(0,left/(speed.sec*10))+'%'};
+    t();speedTimer=setInterval(t,250);
+  }else{
+    const ok=cur.sel===q.answer;
+    $('#sp-t').textContent=cur.sec.toFixed(1)+'s';$('#sp-bar').style.width='0%';
+    $('#sp-fb').innerHTML=`<div class="fb ${ok?'ok':'bad'}"><strong>${ok?'Đúng':cur.sel===null?'Hết giờ. Đáp án: '+'ABCD'[q.answer]:'Sai. Đáp án: '+'ABCD'[q.answer]}</strong> <span class="small muted">· ${cur.sec.toFixed(1)} giây${cur.isFirst?'':' · đã từng làm, không tính thành thạo'}</span><div class="body">${inline(q.explanation)}</div></div>
+      <div class="row"><button class="primary" id="sp-next">${speed.items.length>=speed.n?'Xem kết quả':'Câu tiếp (Enter)'}</button></div>`;
+    $('#sp-next').onclick=()=>{speedNext();drawSpeed(v)};$('#sp-next').focus();
+  }
+}
+function speedSummary(v){
+  clearInterval(speedTimer);
+  const it=speed.items;
+  if(speed.active&&it.length){
+    const rec={ts:Date.now(),topic:speed.topic,n:it.length,ok:it.filter(x=>x.ok).length,avg:it.reduce((s,x)=>s+x.sec,0)/it.length,timeouts:it.filter(x=>x.sel===null).length,sec:speed.sec};
+    S.speed=(S.speed||[]).concat(rec).slice(-30);save();
+  }
+  speed.active=false;
+  if(!it.length){speed=null;location.hash='#/speed';route();return}
+  const ok=it.filter(x=>x.ok).length,avg=it.reduce((s,x)=>s+x.sec,0)/it.length,slow=it.filter(x=>x.sec>=speed.sec*0.8);
+  const proj=Math.round(50*avg);
+  v.innerHTML=`<h1>Kết quả luyện tốc độ</h1><p class="sub">${it.length} câu · ${speed.sec} giây/câu${speed.topic?' · '+speed.topic:''}</p>
+  <div class="grid"><div class="metric"><div class="l">Đúng</div><div class="v">${ok}/${it.length}</div><div class="d">${pct(ok,it.length)}%</div></div>
+  <div class="metric"><div class="l">Trung bình mỗi câu</div><div class="v">${avg.toFixed(1)}s</div><div class="d">50 câu sẽ mất khoảng ${Math.floor(proj/60)} phút ${proj%60} giây (giới hạn 20 phút)</div></div>
+  <div class="metric"><div class="l">Hết giờ</div><div class="v">${it.filter(x=>x.sel===null).length}</div><div class="d">${slow.length} câu dùng trên 80% thời gian</div></div></div>
+  <div class="card"><strong>Nhận xét</strong><div class="md">${md([
+    avg>SPEED_SEC?`- Bạn đang chậm hơn nhịp đề (${avg.toFixed(1)}s > ${SPEED_SEC}s). Câu nào đọc 15 giây chưa ra thì chọn tạm, đánh dấu, quay lại sau.`:`- Tốc độ đạt nhịp đề (${avg.toFixed(1)}s ≤ ${SPEED_SEC}s).`,
+    pct(ok,it.length)<80?'- Độ chính xác dưới 80%: xem lại các câu sai trong Error Log trước khi tăng tốc.':'- Độ chính xác tốt. Thử giảm xuống 18 giây/câu để có thời gian soát lại khi thi thật.'].join('\n'))}</div>
+  <div class="row"><button class="primary" id="sp-again">Luyện lượt mới</button><a href="#/review"><button>Ôn lỗi</button></a></div></div>
+  <h2>Chi tiết</h2>${it.map((x,k)=>{const q=Q_BY_ID[x.id];return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer"><span class="st ${x.ok?'st-5':'st-3'}">${x.ok?'Đúng':x.sel===null?'Hết giờ':'Sai'}</span> Câu ${k+1} · ${x.sec.toFixed(1)}s · ${esc(q.question)} <code class="small">${q.id}</code></summary>${qBody(q,14,true)}
+    <div class="small">Bạn chọn: ${x.sel===null?'không chọn':'ABCD'[x.sel]+'. '+esc(q.options[x.sel])}<br>Đáp án: ${'ABCD'[q.answer]}. ${esc(q.options[q.answer])}</div><div class="fb ${x.ok?'ok':'bad'}"><div class="body">${inline(q.explanation)}</div></div></details>`}).join('')}`;
+  $('#sp-again').onclick=()=>{const t=speed.topic;speed=null;location.hash=t?'#/speed/'+t:'#/speed';route()};
 }
 
 /* ---------------- Coding lab ---------------- */
@@ -690,64 +799,97 @@ function viewReview(v){
   <h2>Bẫy cần nhớ</h2>${TOPICS.map(t=>{const sec=(BANK.materials[t.id]||{sections:[]}).sections.find(s=>/bẫy/i.test(s.title));return sec?`<details class="card"><summary style="cursor:pointer"><strong>${t.id}</strong> ${esc(sec.title)}</summary><div class="md">${md(sec.body)}</div></details>`:''}).join('')}`;
 }
 
-/* ---------------- Mock exam ---------------- */
+/* ---------------- Mock exam ----------------
+   Format theo thầy công bố: phần 1 trắc nghiệm (50 câu / 20 phút, đọc code hoặc thay thế code),
+   phần 2 lập trình (2 bài / 15 phút, thao tác trên list và dict). Hai phần tính giờ riêng. */
+const MOCK_MIX={T1:7,T2:7,T3:8,T4:8,T5:6,T6:5,T7:5,T8:4};
 function buildMock(){
-  const nM=S.settings.mockMcq,nC=S.settings.mockCode;
-  const p1=TOPICS.filter(t=>t.priority===1).map(t=>t.id);
-  const pick=[];const used=new Set();
-  const per=Math.floor(nM/p1.length);
-  const take=(ids,n)=>{const c=shuffle(MCQ.filter(q=>ids.includes(q.topic)&&!used.has(q.id))).sort((a,b)=>(isSeen(a)-isSeen(b))||(a.reserve-b.reserve));for(const q of c.slice(0,n)){pick.push(q.id);used.add(q.id)}};
-  for(const t of p1)take([t],per);
+  const st=S.settings,nM=st.mockMcq,nC=st.mockCode;
+  const pool=MCQ.filter(q=>EXAM_TYPES.includes(q.type));
+  const pick=[],used=new Set();
+  const take=(ids,n)=>{const c=shuffle(pool.filter(q=>ids.includes(q.topic)&&!used.has(q.id))).sort((a,b)=>(isSeen(a)-isSeen(b))||(a.reserve-b.reserve));for(const q of c.slice(0,n)){pick.push(q.id);used.add(q.id)}};
+  const tot=Object.values(MOCK_MIX).reduce((a,b)=>a+b,0);
+  for(const [t,k] of Object.entries(MOCK_MIX))take([t],Math.floor(k*nM/tot));
   take(TOPICS.map(t=>t.id),nM-pick.length);
-  const examTopics=['T2','T3','T4','T6','T7'];
-  const pool=shuffle(CODING.filter(c=>!c.reserve)).sort((a,b)=>((peekC(a.id).passed?1:0)-(peekC(b.id).passed?1:0))||((b.source==='exam')-(a.source==='exam')));
-  const codes=[];const tused=new Set();
-  for(const c of pool){if(codes.length>=nC)break;if(examTopics.includes(c.topic)&&!tused.has(c.topic)&&c.difficulty>=2){codes.push(c.id);tused.add(c.topic)}}
-  for(const c of pool){if(codes.length>=nC)break;if(!codes.includes(c.id)&&!tused.has(c.topic)){codes.push(c.id);tused.add(c.topic)}}
-  return {start:Date.now(),minutes:S.settings.mockMinutes,mcq:shuffle(pick),code:codes,ans:{},codeSrc:Object.fromEntries(codes.map(id=>[id,C_BY_ID[id].starter||''])),cur:0};
+  const cpool=shuffle(CODING.filter(c=>c.difficulty<=2)).sort((a,b)=>((peekC(a.id).passed?1:0)-(peekC(b.id).passed?1:0))||(a.reserve-b.reserve));
+  const codes=[];
+  for(const t of ['T3','T4']){if(codes.length>=nC)break;const c=cpool.find(c=>c.topic===t&&!codes.includes(c.id));if(c)codes.push(c.id)}
+  for(const c of cpool){if(codes.length>=nC)break;if(!codes.includes(c.id))codes.push(c.id)}
+  const now=Date.now();
+  return {v:2,phase:pick.length?'mcq':'code',start:now,phaseStart:now,mcqMin:st.mockMcqMin,codeMin:st.mockCodeMin,mcqSec:0,
+    mcq:shuffle(pick),code:codes,ans:{},codeSrc:Object.fromEntries(codes.map(id=>[id,C_BY_ID[id].starter||''])),cur:0,curCode:0};
+}
+function mockNextPhase(){
+  const M=S.activeMock;if(!M)return;
+  if(M.phase==='mcq'&&M.code.length){M.mcqSec=Math.round((Date.now()-M.phaseStart)/1000);M.phase='code';M.phaseStart=Date.now();M.curCode=0;save();route()}
+  else{if(M.phase==='mcq')M.mcqSec=Math.round((Date.now()-M.phaseStart)/1000);gradeMock()}
 }
 let mockTimer=null;
+const mmss=ms=>{ms=Math.max(0,ms);return `${String(Math.floor(ms/60000)).padStart(2,'0')}:${String(Math.floor(ms%60000/1000)).padStart(2,'0')}`};
 function viewMock(v,[sub]){
   if(sub==='result')return viewMockResult(v);
-  const M=S.activeMock;
+  const M=S.activeMock;const st=S.settings;
   if(!M){
     const last=S.mocks[S.mocks.length-1];
-    v.innerHTML=`<h1>Thi thử</h1><p class="sub">Mô phỏng một buổi thi: không có gợi ý và không chấm cho tới khi nộp bài.</p>
-    <div class="fb warn"><strong>Lưu ý:</strong><div class="body">Cấu trúc đề thi chính thức chưa được công bố. Đề thi thử này dùng cấu trúc tự suy ra: ${S.settings.mockMcq} câu trắc nghiệm + ${S.settings.mockCode} bài code trong ${S.settings.mockMinutes} phút, điểm = ${S.settings.mcqWeight}% trắc nghiệm + ${100-S.settings.mcqWeight}% code. Phần code dựa theo đề 2025 (5 câu thực hành). Bạn có thể đổi các thông số này trong Cài đặt.</div></div>
-    <div class="card"><div class="row"><div><strong>Đề mới</strong><div class="small muted">Ưu tiên câu chưa làm, chia đều các chủ đề ưu tiên cao; bài code lấy từ các dạng đề cũ ở nhiều chủ đề khác nhau.</div></div><span class="spacer"></span><button class="primary" id="start">Bắt đầu thi</button></div></div>
+    const nPool=MCQ.filter(q=>EXAM_TYPES.includes(q.type)).length,nNew=MCQ.filter(q=>EXAM_TYPES.includes(q.type)&&!isSeen(q)).length;
+    v.innerHTML=`<h1>Thi thử</h1><p class="sub">Mô phỏng buổi thi: không gợi ý, không chấm cho tới khi nộp bài. Hai phần tính giờ riêng như đề thật.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+      <div class="metric"><div class="l">Phần 1 · Trắc nghiệm</div><div class="v">${st.mockMcq} câu / ${st.mockMcqMin} phút</div><div class="d">Đọc code đoán kết quả, chọn code thay thế${st.mockMcq?` · nhịp ${Math.round(st.mockMcqMin*60/st.mockMcq)} giây/câu`:''}</div></div>
+      <div class="metric"><div class="l">Phần 2 · Lập trình</div><div class="v">${st.mockCode} bài / ${st.mockCodeMin} phút</div><div class="d">Thao tác trên list và dict, chấm bằng bộ test</div></div></div>
+    <div class="fb warn"><strong>Nguồn cấu trúc đề:</strong><div class="body">Số câu, thời gian và dạng bài lấy theo thông báo của thầy. Thầy chưa nói tỷ trọng điểm, nên điểm ở đây tạm tính ${st.mcqWeight}% trắc nghiệm + ${100-st.mcqWeight}% code. Thầy có nói "có thể thêm phần khác", nên vẫn nên ôn đủ 8 chủ đề. Đổi các thông số trong Cài đặt.</div></div>
+    <div class="card"><div class="row"><div><strong>Đề mới</strong><div class="small muted">Chỉ lấy câu dạng đọc code / thay thế code / tìm lỗi (${nPool} câu, bạn chưa làm ${nNew} câu), chia theo chủ đề, ưu tiên câu chưa làm. Bài code: một bài list, một bài dict, ưu tiên bài chưa đạt.</div></div><span class="spacer"></span><button class="primary" id="start">Bắt đầu thi</button></div></div>
     ${last?`<div class="card small">Lần gần nhất (${fmtDate(last.ts)}): <strong>${last.score.toFixed(1)}/10</strong> · trắc nghiệm ${last.mcqOk}/${last.mcqTotal} · code ${Math.round(last.codeRatio*100)}%. <a href="#/mock/result">Xem lại</a></div>`:''}`;
     $('#start').onclick=()=>{S.activeMock=buildMock();save();route()};return}
-  const total=M.mcq.length+M.code.length;
-  const endAt=M.start+M.minutes*60000;
-  v.innerHTML=`<div class="row" style="margin-bottom:10px"><h1 style="margin:0">Đang thi thử</h1><span class="spacer"></span><span class="timer" id="timer"></span><button class="primary" id="finish">Nộp bài</button></div>
+  const isM=M.phase==='mcq';
+  const endAt=M.phaseStart+(isM?M.mcqMin:M.codeMin)*60000;
+  const per=M.mcqMin*60000/Math.max(1,M.mcq.length);
+  v.innerHTML=`<div class="row" style="margin-bottom:10px"><h1 style="margin:0">${isM?`Phần 1 · Trắc nghiệm (${M.mcq.length} câu)`:`Phần 2 · Lập trình (${M.code.length} bài)`}</h1><span class="spacer"></span>
+    <span class="small muted" id="pace"></span><span class="timer" id="timer"></span><button class="primary" id="finish">${isM&&M.code.length?'Nộp phần 1, sang phần code':'Nộp bài'}</button></div>
   <div class="card"><div class="navgrid" id="navg"></div></div><div id="mbody"></div>`;
-  const tick=()=>{const left=endAt-Date.now();if(left<=0){clearInterval(mockTimer);gradeMock();return}
-    const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);const el=$('#timer');if(el){el.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;el.style.color=left<300000?'var(--bad)':''}};
+  const tick=()=>{const now=Date.now(),left=endAt-now;
+    if(left<=0){clearInterval(mockTimer);mockNextPhase();return}
+    const el=$('#timer');if(el){el.textContent=mmss(left);el.style.color=left<(isM?120000:180000)?'var(--bad)':''}
+    if(isM){const done=M.mcq.filter(id=>M.ans[id]!==undefined).length,should=Math.min(M.mcq.length,Math.floor((now-M.phaseStart)/per)+1);
+      const pe=$('#pace');if(pe){pe.textContent=`Đã chọn ${done}/${M.mcq.length} · theo nhịp nên ở câu ${should}`;pe.style.color=done<should-3?'var(--bad)':''}}};
   clearInterval(mockTimer);mockTimer=setInterval(tick,1000);tick();cleanup=()=>clearInterval(mockTimer);
-  const drawNav=()=>{$('#navg').innerHTML=[...M.mcq.map((id,i)=>`<button data-i="${i}" class="${M.ans[id]!==undefined?'done':''} ${M.cur===i?'cur':''}">${i+1}</button>`),...M.code.map((id,j)=>`<button data-i="${M.mcq.length+j}" class="${(M.codeSrc[id]||'')!==(C_BY_ID[id].starter||'')?'done':''} ${M.cur===M.mcq.length+j?'cur':''}">Code ${j+1}</button>`)].join('');
-    $$('#navg button').forEach(b=>b.onclick=()=>{M.cur=+b.dataset.i;save();drawNav();drawBody()})};
+  const go=i=>{if(isM)M.cur=i;else M.curCode=i;save();drawNav();drawBody();tick()};
+  const drawNav=()=>{$('#navg').innerHTML=isM?M.mcq.map((id,i)=>`<button data-i="${i}" class="${M.ans[id]!==undefined?'done':''} ${M.cur===i?'cur':''}">${i+1}</button>`).join('')
+      :M.code.map((id,j)=>`<button data-i="${j}" class="${(M.codeSrc[id]||'')!==(C_BY_ID[id].starter||'')?'done':''} ${M.curCode===j?'cur':''}">Bài ${j+1}</button>`).join('');
+    $$('#navg button').forEach(b=>b.onclick=()=>go(+b.dataset.i))};
   const drawBody=()=>{const b=$('#mbody');
-    if(M.cur<M.mcq.length){const q=Q_BY_ID[M.mcq[M.cur]];const plain=isPlain(q);
-      b.innerHTML=`<div class="card"><div class="small muted">Câu ${M.cur+1}/${M.mcq.length} · ${q.topic}</div><div style="font-size:16px;margin:6px 0">${inline(q.question)}</div>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+    if(isM){const q=Q_BY_ID[M.mcq[M.cur]];const plain=isPlain(q);
+      b.innerHTML=`<div class="card"><div class="small muted">Câu ${M.cur+1}/${M.mcq.length}</div>${qBody(q)}
       ${q.options.map((o,i)=>`<button class="opt ${M.ans[q.id]===i?'sel':''}" data-i="${i}"><span class="k">${'ABCD'[i]}</span><span class="t ${plain?'plain':''}">${esc(o)}</span></button>`).join('')}
-      <div class="row"><button id="prev" ${M.cur===0?'disabled':''}>Câu trước</button><button id="nxt">Câu sau</button></div></div>`;
-      $$('.opt',b).forEach(o=>o.onclick=()=>{M.ans[q.id]=+o.dataset.i;save();drawNav();drawBody()});
-    }else{const id=M.code[M.cur-M.mcq.length];const c=C_BY_ID[id];
+      <div class="row"><button id="prev" ${M.cur===0?'disabled':''}>Câu trước</button><button id="nxt" ${M.cur===M.mcq.length-1?'disabled':''}>Câu sau</button><span class="spacer"></span><span class="kbd small muted">Phím 1–4 / A–D chọn, ← → chuyển câu</span></div></div>`;
+      $$('.opt',b).forEach(o=>o.onclick=()=>{M.ans[q.id]=+o.dataset.i;save();drawNav();drawBody();tick()});
+      $('#prev').onclick=()=>go(Math.max(0,M.cur-1));$('#nxt').onclick=()=>go(Math.min(M.mcq.length-1,M.cur+1));
+    }else{const id=M.code[M.curCode];const c=C_BY_ID[id];
       b.innerHTML=`<div class="lab"><div class="card">${exerciseInfo(c,false)}<div class="small muted">Bộ test sẽ được chạy khi nộp bài.</div></div><div><div class="card" style="padding:14px">${editorHTML('med',M.codeSrc[id])}
       <div class="row" style="margin-top:10px"><button id="mrun">Chạy thử</button><span class="small muted" id="mrs"></span></div>
       ${c.mode==='stdio'?`<textarea id="mstdin" class="code" style="width:100%;min-height:60px" placeholder="Dữ liệu nhập cho chạy thử"></textarea>`:''}<div class="out" id="mout" style="margin-top:8px"></div></div>
-      <div class="row"><button id="prev">Câu trước</button><button id="nxt" ${M.cur===total-1?'disabled':''}>Câu sau</button></div></div></div>`;
+      <div class="row"><button id="prev" ${M.curCode===0?'disabled':''}>Bài trước</button><button id="nxt" ${M.curCode===M.code.length-1?'disabled':''}>Bài sau</button></div></div></div>`;
       const runIt=async()=>{$('#mrs').textContent='Đang chạy…';const r=await Py.exec('run',{src:$('#med').value,stdin:$('#mstdin')?$('#mstdin').value:'',files:c.files||{}});$('#mrs').textContent='';
         $('#mout').innerHTML=r.ok?esc(r.result.stdout)+(r.result.error?`\n<span class="err">${esc(r.result.error)}</span>`:''):`<span class="err">${esc(r.error)}</span>`};
       bindEditor('med',val=>{M.codeSrc[id]=val;save()},runIt);$('#mrun').onclick=runIt;
+      $('#prev').onclick=()=>go(Math.max(0,M.curCode-1));$('#nxt').onclick=()=>go(Math.min(M.code.length-1,M.curCode+1));
     }
-    const pv=$('#prev'),nx=$('#nxt');if(pv)pv.onclick=()=>{M.cur=Math.max(0,M.cur-1);save();drawNav();drawBody()};if(nx)nx.onclick=()=>{M.cur=Math.min(total-1,M.cur+1);save();drawNav();drawBody()};
   };
   drawNav();drawBody();
-  $('#finish').onclick=()=>{const un=M.mcq.filter(id=>M.ans[id]===undefined).length;if(!confirm(`Nộp bài?${un?` Còn ${un} câu trắc nghiệm chưa chọn.`:''}`))return;gradeMock()};
+  if(!isM)Py.start().catch(()=>{});
+  if(isM){const onKey=e=>{if((e.target.matches&&e.target.matches('input,textarea,select')))return;const k=e.key.toLowerCase();
+      const idx='1234'.indexOf(k)>=0?'1234'.indexOf(k):'abcd'.indexOf(k);
+      if(idx>=0&&k.length===1){const o=$$('#mbody .opt')[idx];o&&o.click()}
+      else if(e.key==='ArrowRight')go(Math.min(M.mcq.length-1,M.cur+1));else if(e.key==='ArrowLeft')go(Math.max(0,M.cur-1))};
+    document.addEventListener('keydown',onKey);cleanup=()=>{clearInterval(mockTimer);document.removeEventListener('keydown',onKey)}}
+  $('#finish').onclick=()=>{
+    if(isM){const un=M.mcq.filter(id=>M.ans[id]===undefined).length;
+      if(!confirm(`${M.code.length?'Nộp phần trắc nghiệm và sang phần code? Sau khi chuyển sẽ không sửa được đáp án trắc nghiệm.':'Nộp bài?'}${un?` Còn ${un} câu chưa chọn.`:''}`))return}
+    else if(!confirm('Nộp bài?'))return;
+    mockNextPhase()};
 }
 async function gradeMock(){
   const M=S.activeMock;if(!M||M.grading)return;M.grading=true;clearInterval(mockTimer);
+  const codeSec=M.phase==='code'?Math.round((Date.now()-M.phaseStart)/1000):0;
   $('#view').innerHTML='<h1>Đang chấm bài…</h1><p class="sub" id="gp">Chạy bộ test cho các bài code.</p>';
   const byTopic={};const add=(t,ok,tot)=>{byTopic[t]=byTopic[t]||{ok:0,tot:0};byTopic[t].ok+=ok;byTopic[t].tot+=tot};
   const mcqRes=M.mcq.map(id=>{const q=Q_BY_ID[id];const a=M.ans[id];const ok=a===q.answer;add(q.topic,ok?1:0,1);
@@ -758,27 +900,29 @@ async function gradeMock(){
   for(const id of M.code){const c=C_BY_ID[id];const el=$('#gp');if(el)el.textContent=`Chấm ${c.id}…`;
     const r=await Py.exec('test',{src:M.codeSrc[id],ex:c},Math.max(15,S.settings.timeoutSec*2)*1000);
     let pass=0,list=[],err=null;if(r.ok){list=r.result;pass=list.filter(x=>x.ok).length}else err=r.error;
+    const untouched=(M.codeSrc[id]||'').trim()===(c.starter||'').trim();
+    if(untouched){pass=0;err='Chưa làm bài (code giữ nguyên như ban đầu), tính 0 điểm.'}
     const st=S.c[id]||(S.c[id]={subs:0,passed:false,indep:false,hint:false,solution:false,code:c.starter||'',history:[]});
-    if(r.ok||r.timeout)recordSubmission(c,st,list,r.timeout?'timeout':undefined);
+    if(!untouched&&(r.ok||r.timeout))recordSubmission(c,st,list,r.timeout?'timeout':undefined);
     add(c.topic,pass/c.tests.length,1);codeRes.push({id,pass,total:c.tests.length,err,results:list})}
   const mcqOk=mcqRes.filter(x=>x.ok).length;
   const codeRatio=codeRes.length?codeRes.reduce((s,x)=>s+x.pass/x.total,0)/codeRes.length:0;
   const w=S.settings.mcqWeight/100;
   const score=10*((mcqRes.length?mcqOk/mcqRes.length:0)*(codeRes.length?w:1)+codeRatio*(mcqRes.length?1-w:1));
-  S.mocks.push({ts:Date.now(),score,mcqOk,mcqTotal:mcqRes.length,codeRatio,byTopic,minutesUsed:Math.round((Date.now()-M.start)/60000),detail:{mcq:mcqRes,code:codeRes.map(x=>({id:x.id,pass:x.pass,total:x.total,err:x.err}))},codeSrc:M.codeSrc});
+  S.mocks.push({ts:Date.now(),score,mcqOk,mcqTotal:mcqRes.length,codeRatio,byTopic,minutesUsed:Math.round((Date.now()-M.start)/60000),mcqSec:M.mcqSec,codeSec,w:S.settings.mcqWeight,detail:{mcq:mcqRes,code:codeRes.map(x=>({id:x.id,pass:x.pass,total:x.total,err:x.err}))},codeSrc:M.codeSrc});
   S.activeMock=null;save();location.hash='#/mock/result';route();
 }
 function viewMockResult(v){
   const m=S.mocks[S.mocks.length-1];if(!m){location.hash='#/mock';return}
   const prev=S.mocks[S.mocks.length-2];
   const weak=Object.entries(m.byTopic).filter(([,x])=>x.ok/x.tot<0.7).map(([t])=>t);
-  v.innerHTML=`<h1>Kết quả thi thử</h1><p class="sub">${fmtDate(m.ts)} · làm trong ${m.minutesUsed} phút · thang điểm suy luận (${S.settings.mcqWeight}% trắc nghiệm, ${100-S.settings.mcqWeight}% code)</p>
+  v.innerHTML=`<h1>Kết quả thi thử</h1><p class="sub">${fmtDate(m.ts)} · ${m.mcqSec!==undefined?`trắc nghiệm ${mmss(m.mcqSec*1000)}${m.mcqTotal?` (${Math.round(m.mcqSec/m.mcqTotal)} giây/câu)`:''} · code ${mmss((m.codeSec||0)*1000)}`:`làm trong ${m.minutesUsed} phút`} · điểm tạm tính ${m.w??S.settings.mcqWeight}% trắc nghiệm + ${100-(m.w??S.settings.mcqWeight)}% code (thầy chưa công bố tỷ trọng)</p>
   <div class="grid"><div class="metric"><div class="l">Điểm</div><div class="v">${m.score.toFixed(1)}/10</div><div class="d">${prev?(m.score>=prev.score?'+':'')+(m.score-prev.score).toFixed(1)+' so với lần trước':'Lần thi đầu tiên'}</div></div>
   <div class="metric"><div class="l">Trắc nghiệm</div><div class="v">${m.mcqOk}/${m.mcqTotal}</div></div>
   <div class="metric"><div class="l">Code (tỷ lệ test đạt)</div><div class="v">${Math.round(m.codeRatio*100)}%</div></div></div>
   <h2>Theo chủ đề</h2><div class="card tblwrap" style="padding:6px 8px"><table><thead><tr><th>Chủ đề</th><th>Đạt</th><th></th></tr></thead><tbody>${Object.entries(m.byTopic).sort().map(([t,x])=>`<tr><td>${t} ${esc(TOPIC[t].name)}</td><td>${Math.round(x.ok*10)/10}/${x.tot}</td><td style="width:40%"><div class="bar ${x.ok/x.tot>=0.7?'ok':''}"><i style="width:${pct(x.ok,x.tot)}%"></i></div></td></tr>`).join('')}</tbody></table></div>
   <div class="card"><strong>Kế hoạch cải thiện</strong><div class="md">${weak.length?md(weak.map(t=>`- ${t} ${TOPIC[t].name}: đọc lại mục "Bẫy" trong tài liệu, làm phiên ôn theo lỗi, rồi luyện thêm câu mới.`).join('\n')):'<p>Không có chủ đề dưới 70%. Hãy thi thêm một đề để xác nhận.</p>'}</div><div class="row"><a href="#/review"><button class="primary">Ôn lỗi vừa mắc</button></a><a href="#/mock"><button>Thi đề mới</button></a></div></div>
-  <h2>Chi tiết trắc nghiệm</h2>${m.detail.mcq.map((x,i)=>{const q=Q_BY_ID[x.id];if(!q)return '';return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer"><span class="st ${x.ok?'st-5':'st-3'}">${x.ok?'Đúng':'Sai'}</span> Câu ${i+1}: ${esc(q.question)} <code class="small">${q.id}</code></summary>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}
+  <h2>Chi tiết trắc nghiệm</h2>${m.detail.mcq.map((x,i)=>{const q=Q_BY_ID[x.id];if(!q)return '';return `<details class="card" style="padding:12px 16px"><summary style="cursor:pointer"><span class="st ${x.ok?'st-5':'st-3'}">${x.ok?'Đúng':'Sai'}</span> Câu ${i+1}: ${esc(q.question)} <code class="small">${q.id}</code></summary>${qBody(q,14,true)}
     <div class="small">Bạn chọn: ${x.a===undefined?'bỏ trống':'ABCD'[x.a]+'. '+esc(q.options[x.a])}<br>Đáp án: ${'ABCD'[q.answer]}. ${esc(q.options[q.answer])}</div><div class="fb ${x.ok?'ok':'bad'}"><div class="body">${inline(q.explanation)}</div></div></details>`}).join('')}
   <h2>Chi tiết code</h2>${m.detail.code.map(x=>{const c=C_BY_ID[x.id];return c?`<div class="card"><div class="row"><strong>${esc(c.title)}</strong><code>${c.id}</code><span class="spacer"></span><span class="st ${x.pass===x.total?'st-5':'st-3'}">${x.pass}/${x.total} test</span></div>${x.err?`<div class="out"><span class="err">${esc(x.err)}</span></div>`:''}<pre class="code">${esc((m.codeSrc||{})[x.id]||'')}</pre><a href="#/code/${c.id}"><button>Mở trong Coding Lab</button></a></div>`:''}).join('')}`;
 }
@@ -791,12 +935,13 @@ function viewSettings(v){
     <div class="row" style="margin:8px 0"><label style="min-width:220px">Giao diện</label><select id="s-theme"><option value="auto">Theo hệ thống</option><option value="light">Sáng</option><option value="dark">Tối</option></select></div>
     <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian chạy tối đa (giây)</label><input type="number" id="s-timeout" min="2" max="60" value="${st.timeoutSec}"></div>
     <div class="row" style="margin:8px 0"><label style="min-width:220px">Python (Pyodide 0.26.4)</label><span class="small muted" id="pyst"></span><button id="s-load">Tải trước</button></div></div>
-  <div class="card"><h3 style="margin-top:0">Thi thử (cấu trúc tự suy ra)</h3>
-    <div class="row" style="margin:8px 0"><label style="min-width:220px">Số câu trắc nghiệm</label><input type="number" id="s-mcq" min="5" max="60" value="${st.mockMcq}"></div>
+  <div class="card"><h3 style="margin-top:0">Thi thử</h3><div class="small muted">Mặc định theo thông báo của thầy: 50 câu / 20 phút, 2 bài code / 15 phút. Tỷ trọng điểm là giả định.</div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Số câu trắc nghiệm</label><input type="number" id="s-mcq" min="0" max="80" value="${st.mockMcq}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian trắc nghiệm (phút)</label><input type="number" id="s-mmin" min="1" max="120" value="${st.mockMcqMin}"></div>
     <div class="row" style="margin:8px 0"><label style="min-width:220px">Số bài code</label><input type="number" id="s-code" min="0" max="5" value="${st.mockCode}"></div>
-    <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian (phút)</label><input type="number" id="s-min" min="10" max="240" value="${st.mockMinutes}"></div>
+    <div class="row" style="margin:8px 0"><label style="min-width:220px">Thời gian code (phút)</label><input type="number" id="s-cmin" min="1" max="180" value="${st.mockCodeMin}"></div>
     <div class="row" style="margin:8px 0"><label style="min-width:220px">Tỷ trọng trắc nghiệm (%)</label><input type="number" id="s-w" min="0" max="100" value="${st.mcqWeight}"></div>
-    <div id="s-err" class="small" style="color:var(--bad)"></div><button class="primary" id="s-save">Lưu cài đặt</button></div>
+    <div id="s-err" class="small" style="color:var(--bad)"></div><div class="row"><button class="primary" id="s-save">Lưu cài đặt</button><button id="s-def">Về mặc định theo đề</button></div></div>
   <div class="card"><h3 style="margin-top:0">Sao lưu dữ liệu</h3>
     <div class="row"><button id="exp">Xuất file JSON</button><label><button id="impbtn">Nhập từ file JSON</button><input type="file" id="imp" accept="application/json,.json" hidden></label><span class="spacer"></span><button class="danger" id="reset">Xóa toàn bộ tiến độ</button></div>
     <div class="small muted" id="imsg" style="margin-top:8px"></div></div>
@@ -808,10 +953,12 @@ function viewSettings(v){
   $('#s-theme').onchange=e=>{st.theme=e.target.value;save();applyTheme()};
   $('#s-save').onclick=()=>{
     const n=(id,a,b)=>{const x=Number($(id).value);return Number.isInteger(x)&&x>=a&&x<=b?x:null};
-    const vals={timeoutSec:n('#s-timeout',2,60),mockMcq:n('#s-mcq',5,60),mockCode:n('#s-code',0,5),mockMinutes:n('#s-min',10,240),mcqWeight:n('#s-w',0,100)};
+    const vals={timeoutSec:n('#s-timeout',2,60),mockMcq:n('#s-mcq',0,80),mockMcqMin:n('#s-mmin',1,120),mockCode:n('#s-code',0,5),mockCodeMin:n('#s-cmin',1,180),mcqWeight:n('#s-w',0,100)};
     const bad=Object.entries(vals).filter(([,x])=>x===null);
     if(bad.length){$('#s-err').textContent='Có giá trị không hợp lệ. Kiểm tra lại các ô (số nguyên trong khoảng cho phép).';return}
+    if(vals.mockMcq===0&&vals.mockCode===0){$('#s-err').textContent='Đề phải có ít nhất một câu trắc nghiệm hoặc một bài code.';return}
     Object.assign(st,vals);save();$('#s-err').textContent='';$('#s-save').textContent='Đã lưu';setTimeout(()=>{const b=$('#s-save');if(b)b.textContent='Lưu cài đặt'},1500)};
+  $('#s-def').onclick=()=>{Object.assign(st,MOCK_DEFAULTS);save();route()};
   $('#exp').onclick=()=>{const blob=new Blob([JSON.stringify({app:'pyExamTrainer',exported:new Date().toISOString(),data:S},null,1)],{type:'application/json'});
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`python-exam-progress-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
   $('#impbtn').onclick=()=>$('#imp').click();
@@ -819,7 +966,7 @@ function viewSettings(v){
     try{const j=JSON.parse(await f.text());const d=j.data||j;
       if(!d||typeof d!=='object'||d.version!==1||typeof d.q!=='object'||!Array.isArray(d.errors))throw new Error('File không đúng định dạng sao lưu của ứng dụng.');
       if(!confirm('Nhập file này sẽ thay thế toàn bộ tiến độ hiện tại. Tiếp tục?'))return;
-      S=Object.assign(defaults(),d);S.settings=Object.assign(defaults().settings,d.settings||{});save();applyTheme();$('#imsg').textContent='Đã nhập dữ liệu.';session=null;renderNav('settings')}
+      S=Object.assign(defaults(),d);S.settings=Object.assign({},defaults().settings,{settingsVer:1},d.settings||{});migrate();save();applyTheme();$('#imsg').textContent='Đã nhập dữ liệu.';session=null;renderNav('settings')}
     catch(err){$('#imsg').textContent='Không nhập được: '+err.message}finally{e.target.value=''}};
   $('#reset').onclick=()=>{if(!confirm('Xóa toàn bộ tiến độ, Error Log và lịch sử thi thử?'))return;if(!confirm('Thao tác này không hoàn tác được. Bạn đã xuất file sao lưu chưa? Bấm OK để xóa.'))return;
     S=defaults();save();session=null;route()};

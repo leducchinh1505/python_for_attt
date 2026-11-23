@@ -712,6 +712,413 @@
   "reserve": false
  },
  {
+  "topic": "T3",
+  "difficulty": 1,
+  "title": "Lọc số chẵn",
+  "statement": "Viết hàm filter_even(numbers) nhận vào một list các số nguyên và trả về một list mới chỉ chứa các số chẵn, giữ nguyên thứ tự xuất hiện.",
+  "ioFormat": "Tham số: list các số nguyên. Trả về: list các số chẵn.",
+  "constraints": "List đầu vào có từ 0 đến 1000 phần tử.",
+  "examples": "filter_even([1, 2, 3, 4, 5, 6]) -> [2, 4, 6]",
+  "mode": "function",
+  "starter": "def filter_even(numbers):\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "filter_even([1, 2, 3, 4, 5, 6])",
+    "expected": "[2, 4, 6]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([1, 3, 5])",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([10, 22, 44])",
+    "expected": "[10, 22, 44]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([])",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([0, -2, -3])",
+    "expected": "[0, -2]"
+   }
+  ],
+  "hint": "Sử dụng list comprehension hoặc vòng lặp for kết hợp với toán tử chia lấy dư % 2.",
+  "explanation": "Duyệt qua từng phần tử trong list, nếu phần tử đó chia hết cho 2 thì thêm vào list kết quả.",
+  "commonMistakes": [
+   "Sử dụng numbers.remove() trực tiếp khi đang duyệt vòng lặp làm bỏ sót phần tử.",
+   "Quên trường hợp số 0 là số chẵn."
+  ],
+  "solution": "def filter_even(numbers):\n    return [n for n in numbers if n % 2 == 0]",
+  "errorCategory": "implementation",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "id": "T3-C06",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 1,
+  "title": "Số lớn thứ hai",
+  "statement": "Viết chương trình nhập vào một dãy các số nguyên trên một dòng (cách nhau bởi dấu cách). In ra số lớn thứ hai trong dãy đó (giá trị khác với số lớn nhất). Nếu không có số lớn thứ hai (ví dụ dãy chỉ có 1 loại giá trị hoặc rỗng), in 'None'.",
+  "ioFormat": "Input: Một dòng chứa các số nguyên. Output: Một giá trị duy nhất hoặc 'None'.",
+  "constraints": "Số lượng phần tử n < 10^5.",
+  "examples": "Input: 10 5 10 8\nOutput: 8",
+  "mode": "stdio",
+  "starter": "s = input()\n# Viết tiếp code tại đây",
+  "tests": [
+   {
+    "input": "10 5 10 8",
+    "expected": "8"
+   },
+   {
+    "input": "5 5 5",
+    "expected": "None"
+   },
+   {
+    "input": "1 2 3 4 5",
+    "expected": "4"
+   },
+   {
+    "input": "-10 -5 -20",
+    "expected": "-10"
+   },
+   {
+    "input": "100",
+    "expected": "None"
+   }
+  ],
+  "hint": "Chuyển chuỗi nhập vào thành set để loại bỏ các giá trị trùng nhau, sau đó sắp xếp và tìm phần tử kế cuối.",
+  "explanation": "Loại bỏ trùng lặp bằng set(), chuyển về list rồi sort(). Nếu độ dài list >= 2, số lớn thứ hai nằm ở index -2.",
+  "commonMistakes": [
+   "Không loại bỏ các số trùng với số lớn nhất.",
+   "Không xử lý được trường hợp dãy có ít hơn 2 giá trị khác nhau."
+  ],
+  "solution": "s = input().split()\nnums = list(set([int(x) for x in s]))\nnums.sort()\nif len(nums) < 2:\n    print(\"None\")\nelse:\n    print(nums[-2])",
+  "errorCategory": "logic",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T3-C07",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 1,
+  "title": "Duy nhất bảo toàn thứ tự",
+  "statement": "Viết hàm unique_stable(lst) nhận vào một list và trả về list mới chứa các phần tử duy nhất của lst, nhưng phải giữ nguyên thứ tự xuất hiện đầu tiên của chúng.",
+  "ioFormat": "Tham số: list. Trả về: list các phần tử không trùng lặp.",
+  "constraints": "List có thể chứa số hoặc chuỗi.",
+  "examples": "unique_stable([1, 2, 1, 3, 2]) -> [1, 2, 3]",
+  "mode": "function",
+  "starter": "def unique_stable(lst):\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "unique_stable([1, 2, 1, 3, 2])",
+    "expected": "[1, 2, 3]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable(['a', 'b', 'a', 'c'])",
+    "expected": "['a', 'b', 'c']"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([1, 1, 1])",
+    "expected": "[1]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([])",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([5, 4, 3, 2, 1])",
+    "expected": "[5, 4, 3, 2, 1]"
+   }
+  ],
+  "hint": "Sử dụng một list phụ hoặc một set để đánh dấu các phần tử đã xuất hiện trong khi duyệt.",
+  "explanation": "Duyệt từng phần tử, nếu chưa thấy nó trong danh sách 'đã gặp' thì thêm vào kết quả.",
+  "commonMistakes": [
+   "Dùng set(lst) sẽ làm mất thứ tự các phần tử.",
+   "Dùng list.count() trong vòng lặp làm tăng độ phức tạp thuật toán (O(n^2))."
+  ],
+  "solution": "def unique_stable(lst):\n    res = []\n    seen = set()\n    for x in lst:\n        if x not in seen:\n            res.append(x)\n            seen.add(x)\n    return res",
+  "errorCategory": "method",
+  "tags": [
+   "list-mutation-in-loop"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T3-C08",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 2,
+  "title": "Đếm cực đại địa phương",
+  "statement": "Nhập một dãy số nguyên cách nhau bởi dấu cách. Một phần tử được gọi là 'cực đại địa phương' nếu nó lớn hơn hẳn các phần tử kề cạnh nó. Đếm và in ra số lượng các phần tử như vậy. Lưu ý: Phần tử đầu chỉ cần so với phần tử thứ hai, phần tử cuối chỉ cần so với phần tử kế cuối.",
+  "ioFormat": "Input: Dòng chứa các số nguyên. Output: Một số nguyên duy nhất.",
+  "constraints": "Dãy có ít nhất 1 phần tử. Các số nguyên thuộc kiểu int.",
+  "examples": "Input: 1 5 2 8 3\nOutput: 2 (là số 5 và 8)",
+  "mode": "stdio",
+  "starter": "s = input().split()\n# Viết tiếp code tại đây",
+  "tests": [
+   {
+    "input": "1 5 2 8 3",
+    "expected": "2"
+   },
+   {
+    "input": "10 5 10",
+    "expected": "2"
+   },
+   {
+    "input": "1 2 3 4 5",
+    "expected": "1"
+   },
+   {
+    "input": "5 5 5",
+    "expected": "0"
+   },
+   {
+    "input": "10",
+    "expected": "1"
+   }
+  ],
+  "hint": "Xử lý riêng trường hợp danh sách có 1 phần tử, đầu danh sách, cuối danh sách và các phần tử ở giữa.",
+  "explanation": "Sử dụng index để so sánh a[i] với a[i-1] và a[i+1]. Chú ý điều kiện biên tại i=0 và i=len-1.",
+  "commonMistakes": [
+   "Index out of range khi kiểm tra phần tử đầu/cuối.",
+   "Sử dụng >= thay vì > (đề yêu cầu lớn hơn hẳn)."
+  ],
+  "solution": "a = [int(x) for x in input().split()]\nn = len(a)\nif n == 1:\n    print(1)\nelse:\n    count = 0\n    for i in range(n):\n        if i == 0:\n            if a[i] > a[i+1]: count += 1\n        elif i == n - 1:\n            if a[i] > a[i-1]: count += 1\n        else:\n            if a[i] > a[i-1] and a[i] > a[i+1]: count += 1\n    print(count)",
+  "errorCategory": "edge",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T3-C09",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 2,
+  "title": "Dịch trái k bước",
+  "statement": "Viết hàm rotate_left(lst, k) thực hiện dịch vòng các phần tử của list sang trái k bước. Nếu k lớn hơn độ dài list, hãy dùng k chia lấy dư cho độ dài list.",
+  "ioFormat": "Tham số: list lst, số nguyên k. Trả về: list mới sau khi dịch.",
+  "constraints": "k >= 0. lst có thể rỗng.",
+  "examples": "rotate_left([1, 2, 3, 4, 5], 2) -> [3, 4, 5, 1, 2]",
+  "mode": "function",
+  "starter": "def rotate_left(lst, k):\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3, 4, 5], 2)",
+    "expected": "[3, 4, 5, 1, 2]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3], 0)",
+    "expected": "[1, 2, 3]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3], 4)",
+    "expected": "[2, 3, 1]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([], 5)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([10, 20], 1)",
+    "expected": "[20, 10]"
+   }
+  ],
+  "hint": "Sử dụng slicing: phần tử từ index k đến hết cộng với phần tử từ đầu đến index k.",
+  "explanation": "Tính k = k % len(lst). Kết quả là lst[k:] + lst[:k].",
+  "commonMistakes": [
+   "Lỗi chia cho 0 khi list rỗng.",
+   "Dịch nhầm sang phải thay vì sang trái."
+  ],
+  "solution": "def rotate_left(lst, k):\n    if not lst: return []\n    n = len(lst)\n    k %= n\n    return lst[k:] + lst[:k]",
+  "errorCategory": "implementation",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "id": "T3-C10",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 2,
+  "title": "Tổng hàng ma trận",
+  "statement": "Nhập vào hai số nguyên M, N là số hàng và số cột của ma trận. M dòng tiếp theo, mỗi dòng chứa N số nguyên. Hãy in ra tổng của từng hàng, mỗi tổng trên một dòng.",
+  "ioFormat": "Dòng 1: M N. M dòng sau: các phần tử của hàng. Output: M dòng, mỗi dòng là một số nguyên.",
+  "constraints": "M, N > 0. Các phần tử là số nguyên.",
+  "examples": "Input:\n2 3\n1 2 3\n4 5 6\nOutput:\n6\n15",
+  "mode": "stdio",
+  "starter": "m, n = map(int, input().split())\n# Viết tiếp code tại đây",
+  "tests": [
+   {
+    "input": "2 3\n1 2 3\n4 5 6",
+    "expected": "6\n15"
+   },
+   {
+    "input": "3 1\n10\n20\n30",
+    "expected": "10\n20\n30"
+   },
+   {
+    "input": "1 4\n1 1 1 1",
+    "expected": "4"
+   },
+   {
+    "input": "2 2\n0 0\n-1 -5",
+    "expected": "0\n-6"
+   },
+   {
+    "input": "2 3\n5 5 5\n10 10 10",
+    "expected": "15\n30"
+   }
+  ],
+  "hint": "Dùng vòng lặp chạy M lần, mỗi lần đọc một dòng, chuyển thành list số nguyên rồi dùng hàm sum().",
+  "explanation": "Ma trận thực chất là list các list. Với mỗi hàng, tính tổng các phần tử bên trong.",
+  "commonMistakes": [
+   "Nhầm lẫn giữa M và N khi lặp.",
+   "Quên chuyển kiểu dữ liệu từ string sang int trước khi tính tổng."
+  ],
+  "solution": "m, n = map(int, input().split())\nfor _ in range(m):\n    row = list(map(int, input().split()))\n    print(sum(row))",
+  "errorCategory": "implementation",
+  "tags": [
+   "matrix-2d"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T3-C11",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 2,
+  "title": "Sắp xếp sinh viên",
+  "statement": "Viết hàm sort_students(students) nhận vào một list các tuple, mỗi tuple gồm (tên, điểm_gpa). Trả về list đã sắp xếp theo điểm_gpa giảm dần; nếu điểm bằng nhau thì sắp xếp theo tên tăng dần (alphabet).",
+  "ioFormat": "Tham số: list các tuple (str, float). Trả về: list các tuple đã sắp xếp.",
+  "constraints": "Tên không trống, gpa từ 0.0 đến 4.0.",
+  "examples": "sort_students([('An', 3.5), ('Binh', 3.8), ('Chi', 3.5)]) -> [('Binh', 3.8), ('An', 3.5), ('Chi', 3.5)]",
+  "mode": "function",
+  "starter": "def sort_students(students):\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "sort_students([('An', 3.5), ('Binh', 3.8), ('Chi', 3.5)])",
+    "expected": "[('Binh', 3.8), ('An', 3.5), ('Chi', 3.5)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('A', 4.0), ('B', 4.0)])",
+    "expected": "[('A', 4.0), ('B', 4.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Z', 2.0), ('A', 3.0)])",
+    "expected": "[('A', 3.0), ('Z', 2.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([])",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Dung', 3.2), ('Dung', 3.1)])",
+    "expected": "[('Dung', 3.2), ('Dung', 3.1)]"
+   }
+  ],
+  "hint": "Sử dụng hàm sorted() với tham số key là một lambda trả về tuple: (-điểm, tên).",
+  "explanation": "Khi sắp xếp tuple trong Python, phần tử đầu tiên được ưu tiên. Dùng dấu trừ trước điểm để đảo ngược thứ tự sắp xếp số.",
+  "commonMistakes": [
+   "Sắp xếp tên giảm dần thay vì tăng dần.",
+   "Quên xử lý trường hợp điểm bằng nhau."
+  ],
+  "solution": "def sort_students(students):\n    return sorted(students, key=lambda x: (-x[1], x[0]))",
+  "errorCategory": "concept",
+  "tags": [
+   "sort-sorted",
+   "tuple"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "id": "T3-C12",
+  "files": {}
+ },
+ {
+  "topic": "T3",
+  "difficulty": 2,
+  "title": "Tìm cặp tổng bằng X",
+  "statement": "Nhập số nguyên X ở dòng đầu tiên. Dòng thứ hai là một dãy các số nguyên phân biệt cách nhau bởi dấu cách. Hãy tìm tất cả các cặp số (a, b) trong dãy sao cho a + b = X và a < b. In mỗi cặp trên một dòng theo định dạng (a, b), các cặp in theo thứ tự tăng dần của a.",
+  "ioFormat": "Dòng 1: X. Dòng 2: Dãy số. Output: Các cặp (a, b).",
+  "constraints": "Dãy số có tối đa 1000 phần tử.",
+  "examples": "Input:\n10\n1 9 2 8 3 7\nOutput:\n(1, 9)\n(2, 8)\n(3, 7)",
+  "mode": "stdio",
+  "starter": "x = int(input())\na = list(map(int, input().split()))\n# Viết tiếp code tại đây",
+  "tests": [
+   {
+    "input": "10\n1 9 2 8 3 7",
+    "expected": "(1, 9)\n(2, 8)\n(3, 7)"
+   },
+   {
+    "input": "5\n1 2 3 4",
+    "expected": "(1, 4)\n(2, 3)"
+   },
+   {
+    "input": "10\n1 2 3",
+    "expected": ""
+   },
+   {
+    "input": "0\n-2 -1 1 2",
+    "expected": "(-2, 2)\n(-1, 1)"
+   },
+   {
+    "input": "6\n3 1 5",
+    "expected": "(1, 5)"
+   }
+  ],
+  "hint": "Sắp xếp dãy số trước, sau đó dùng hai vòng lặp lồng nhau hoặc dùng tập hợp để kiểm tra sự tồn tại của (X - a).",
+  "explanation": "Sắp xếp list tăng dần, duyệt qua i, tìm j sao cho a[i] + a[j] == X. Vì a < b nên chỉ cần duyệt i từ đầu và j từ i+1.",
+  "commonMistakes": [
+   "In ngược cặp (b, a).",
+   "In lặp lại cặp (a, b) và (b, a).",
+   "Không sắp xếp kết quả theo a tăng dần."
+  ],
+  "solution": "x = int(input())\na = sorted(list(map(int, input().split())))\nfor i in range(len(a)):\n    for j in range(i + 1, len(a)):\n        if a[i] + a[j] == x:\n            print(f\"({a[i]}, {a[j]})\")",
+  "errorCategory": "logic",
+  "tags": [
+   "enumerate-zip",
+   "list-index-slice"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "id": "T3-C13",
+  "files": {}
+ },
+ {
   "id": "T4-C01",
   "topic": "T4",
   "difficulty": 1,
@@ -989,6 +1396,417 @@
   ],
   "source": "exam",
   "reserve": false
+ },
+ {
+  "topic": "T4",
+  "difficulty": 1,
+  "title": "Đếm tần suất ký tự",
+  "statement": "Viết hàm `count_char_freq(s)` nhận vào một chuỗi `s`. Hàm trả về một dictionary chứa các ký tự xuất hiện trong chuỗi (phân biệt hoa thường, không bỏ dấu cách) làm khóa và số lần xuất hiện của chúng làm giá trị.",
+  "ioFormat": "Tham số: chuỗi s. Trả về: dict {kí tự: số lần}.",
+  "constraints": "Chuỗi s có độ dài từ 0 đến 1000 ký tự.",
+  "examples": "count_char_freq(\"apple\") -> {'a': 1, 'p': 2, 'l': 1, 'e': 1}",
+  "mode": "function",
+  "starter": "def count_char_freq(s):\n    # Sinh viên viết code tại đây\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "count_char_freq(\"apple\")",
+    "expected": "{'a': 1, 'p': 2, 'l': 1, 'e': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq(\"Hello World\")",
+    "expected": "{'H': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'W': 1, 'r': 1, 'd': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq(\"\")",
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq(\"aaaaa\")",
+    "expected": "{'a': 5}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq(\"Python 3.11\")",
+    "expected": "{'P': 1, 'y': 1, 't': 1, 'h': 1, 'o': 1, 'n': 1, ' ': 1, '3': 1, '.': 1, '1': 2}"
+   }
+  ],
+  "hint": "Sử dụng vòng lặp duyệt qua từng ký tự, kiểm tra ký tự đã có trong dict chưa bằng toán tử 'in' hoặc phương thức .get().",
+  "explanation": "Thuật toán đếm tần suất cơ bản: khởi tạo dict rỗng, duyệt chuỗi, nếu ký tự chưa có thì gán giá trị 1, nếu có rồi thì tăng thêm 1.",
+  "commonMistakes": [
+   "Quên phân biệt chữ hoa chữ thường nếu đề không yêu cầu loại bỏ",
+   "Lỗi KeyError khi truy cập khóa chưa tồn tại"
+  ],
+  "solution": "def count_char_freq(s):\n    freq = {}\n    for char in s:\n        freq[char] = freq.get(char, 0) + 1\n    return freq",
+  "errorCategory": "implementation",
+  "tags": [
+   "frequency-count",
+   "dict-iteration"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "id": "T4-C06",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 1,
+  "title": "Gộp hóa đơn hàng hóa",
+  "statement": "Viết chương trình nhập vào 2 dòng. Mỗi dòng chứa thông tin các mặt hàng theo định dạng 'tên_hàng:số_lượng' cách nhau bởi dấu cách. Hãy gộp hai danh sách này lại. Nếu cùng tên hàng, hãy cộng dồn số lượng. In kết quả ra màn hình theo định dạng 'tên_hàng: tổng_số_lượng', mỗi mặt hàng một dòng, sắp xếp theo tên hàng (alphabet).",
+  "ioFormat": "Dòng 1: danh sách hàng 1. Dòng 2: danh sách hàng 2. Output: Từng dòng key:value đã gộp và sắp xếp.",
+  "constraints": "Tên hàng không chứa dấu cách hoặc dấu hai chấm. Số lượng là số nguyên dương.",
+  "examples": "Input:\napple:5 orange:2\napple:3 banana:10\nOutput:\napple: 8\nbanana: 10\norange: 2",
+  "mode": "stdio",
+  "starter": "# Nhập dữ liệu và xử lý\nline1 = input().split()\nline2 = input().split()",
+  "tests": [
+   {
+    "input": "apple:5 orange:2\napple:3 banana:10",
+    "expected": "apple: 8\nbanana: 10\norange: 2"
+   },
+   {
+    "input": "pen:10 notebook:5\nruler:2 pen:5",
+    "expected": "notebook: 5\npen: 15\nruler: 2"
+   },
+   {
+    "input": "A:1 B:2\nC:3",
+    "expected": "A: 1\nB: 2\nC: 3"
+   },
+   {
+    "input": "milk:1\nmilk:2",
+    "expected": "milk: 3"
+   },
+   {
+    "input": "x:10\ny:20",
+    "expected": "x: 10\ny: 20"
+   }
+  ],
+  "hint": "Dùng .split() để tách các cặp, sau đó dùng .split(':') để lấy tên và số lượng. Chuyển số lượng sang kiểu int trước khi cộng.",
+  "explanation": "Sử dụng một dictionary để lưu trữ kết quả gộp. Duyệt qua các phần tử của cả 2 dòng, tách key/value, cập nhật vào dict. Cuối cùng lấy sorted(dict.keys()) để in theo thứ tự.",
+  "commonMistakes": [
+   "Không chuyển số lượng sang kiểu int dẫn đến lỗi nối chuỗi hoặc lỗi tính toán",
+   "Không sắp xếp khóa trước khi in"
+  ],
+  "solution": "line1 = input().split()\nline2 = input().split()\nresult = {}\nfor item in line1 + line2:\n    name, qty = item.split(':')\n    result[name] = result.get(name, 0) + int(qty)\nfor name in sorted(result.keys()):\n    print(f\"{name}: {result[name]}\")",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-update-delete",
+   "dict-access-get"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "id": "T4-C07",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 1,
+  "title": "Tính tổng tiền thanh toán",
+  "statement": "Viết hàm `calculate_total(prices, order)` trong đó `prices` là dict chứa {tên_món: đơn_giá} và `order` là dict chứa {tên_món: số_lượng}. Tính tổng số tiền phải trả. Nếu món hàng trong `order` không tồn tại trong `prices`, bỏ qua món đó.",
+  "ioFormat": "Tham số: prices (dict), order (dict). Trả về: số thực (float) hoặc số nguyên.",
+  "constraints": "Đơn giá và số lượng luôn >= 0.",
+  "examples": "calculate_total({'bread': 10, 'milk': 20}, {'bread': 2, 'milk': 1}) -> 40",
+  "mode": "function",
+  "starter": "def calculate_total(prices, order):\n    # Sinh viên viết code tại đây\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "calculate_total({'bread': 10, 'milk': 20}, {'bread': 2, 'milk': 1})",
+    "expected": "40"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'apple': 5, 'banana': 3}, {'apple': 10, 'orange': 5})",
+    "expected": "50"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({}, {'apple': 10})",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 100}, {})",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'coke': 1.5, 'pepsi': 1.5}, {'coke': 2, 'pepsi': 2})",
+    "expected": "6.0"
+   }
+  ],
+  "hint": "Duyệt qua các khóa trong dict `order`, kiểm tra xem khóa đó có trong `prices` không bằng toán tử `in`.",
+  "explanation": "Duyệt qua danh sách các món khách đặt (order), nếu món đó có giá trong hệ thống (prices), cộng (giá * số lượng) vào tổng.",
+  "commonMistakes": [
+   "Truy cập trực tiếp prices[item] mà không kiểm tra sự tồn tại gây lỗi KeyError"
+  ],
+  "solution": "def calculate_total(prices, order):\n    total = 0\n    for item, qty in order.items():\n        if item in prices:\n            total += prices[item] * qty\n    return total",
+  "errorCategory": "implementation",
+  "tags": [
+   "dict-access-get",
+   "dict-iteration"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T4-C08",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 2,
+  "title": "Gom nhóm sinh viên theo lớp",
+  "statement": "Viết chương trình nhập vào số nguyên N là số lượng sinh viên. N dòng tiếp theo, mỗi dòng chứa: Mã_SV, Tên_SV, Mã_Lớp (cách nhau bởi dấu phẩy). Hãy gom nhóm và in ra danh sách sinh viên theo từng lớp. Định dạng in: 'Mã_Lớp: [Tên_SV1, Tên_SV2, ...]' (Tên SV giữ nguyên thứ tự nhập). Các lớp in theo thứ tự xuất hiện đầu tiên trong dữ liệu nhập.",
+  "ioFormat": "Dòng 1: số N. N dòng tiếp theo: MSV, Ten, Lop. Output: Tên lớp và danh sách tên SV.",
+  "constraints": "N > 0. Các trường thông tin không chứa dấu phẩy.",
+  "examples": "Input:\n3\nB21,An,D21\nB22,Binh,D21\nB23,Chi,D22\nOutput:\nD21: ['An', 'Binh']\nD22: ['Chi']",
+  "mode": "stdio",
+  "starter": "n = int(input())\nclasses = {}\n# Viết tiếp code xử lý",
+  "tests": [
+   {
+    "input": "3\nB21,An,D21\nB22,Binh,D21\nB23,Chi,D22",
+    "expected": "D21: ['An', 'Binh']\nD22: ['Chi']"
+   },
+   {
+    "input": "2\n1,Nam,L01\n2,Hoa,L01",
+    "expected": "L01: ['Nam', 'Hoa']"
+   },
+   {
+    "input": "4\n1,A,X\n2,B,Y\n3,C,X\n4,D,Z",
+    "expected": "X: ['A', 'C']\nY: ['B']\nZ: ['D']"
+   },
+   {
+    "input": "1\n99,Solo,ClassA",
+    "expected": "ClassA: ['Solo']"
+   },
+   {
+    "input": "3\n1,A,X\n2,B,X\n3,C,X",
+    "expected": "X: ['A', 'B', 'C']"
+   }
+  ],
+  "hint": "Sử dụng một dictionary với key là mã lớp, value là một list chứa tên sinh viên. Sử dụng list.append() để thêm tên mới vào lớp.",
+  "explanation": "Mỗi khi đọc một dòng, tách ra mã lớp và tên. Nếu mã lớp chưa có trong dict, tạo một list mới chứa tên đó. Nếu đã có, append tên vào list của lớp đó.",
+  "commonMistakes": [
+   "Quên khởi tạo list cho khóa mới dẫn đến lỗi append vào đối tượng None",
+   "In sai định dạng yêu cầu (dấu cách sau dấu hai chấm)"
+  ],
+  "solution": "n = int(input())\nclasses = {}\norder_of_classes = []\nfor _ in range(n):\n    msv, name, lop = input().split(',')\n    if lop not in classes:\n        classes[lop] = []\n        order_of_classes.append(lop)\n    classes[lop].append(name)\nfor lop in order_of_classes:\n    print(f\"{lop}: {classes[lop]}\")",
+  "errorCategory": "concept",
+  "tags": [
+   "nested-dict",
+   "dict-iteration"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T4-C09",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 2,
+  "title": "Đảo ngược Dictionary",
+  "statement": "Viết hàm `invert_dict(d)` nhận vào một dictionary có các giá trị (values) có thể trùng nhau. Hàm trả về một dictionary mới trong đó các giá trị cũ trở thành khóa (keys), và các khóa cũ trở thành một danh sách (list) các giá trị tương ứng với khóa mới đó. Danh sách các giá trị cũ phải được sắp xếp tăng dần.",
+  "ioFormat": "Tham số: dict {k: v}. Trả về: dict {v: [k1, k2, ...]}",
+  "constraints": "Các khóa ban đầu là số hoặc chuỗi.",
+  "examples": "invert_dict({'a': 1, 'b': 2, 'c': 1}) -> {1: ['a', 'c'], 2: ['b']}",
+  "mode": "function",
+  "starter": "def invert_dict(d):\n    # Sinh viên viết code tại đây\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "invert_dict({'a': 1, 'b': 2, 'c': 1})",
+    "expected": "{1: ['a', 'c'], 2: ['b']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'x': 'A', 'y': 'B', 'z': 'A'})",
+    "expected": "{'A': ['x', 'z'], 'B': ['y']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({})",
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({1: 10, 2: 10, 3: 10})",
+    "expected": "{10: [1, 2, 3]}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'apple': 'fruit', 'carrot': 'veg', 'banana': 'fruit'})",
+    "expected": "{'fruit': ['apple', 'banana'], 'veg': ['carrot']}"
+   }
+  ],
+  "hint": "Duyệt qua d.items(), lấy key và value cũ. Gán value cũ làm key mới cho dict kết quả, và append key cũ vào list tương ứng.",
+  "explanation": "Tạo dict rỗng `res`. Với mỗi cặp `(k, v)` trong `d`, nếu `v` chưa có trong `res`, gán `res[v] = [k]`. Nếu có rồi, `res[v].append(k)`. Cuối cùng duyệt qua `res` để sort các list.",
+  "commonMistakes": [
+   "Không sắp xếp danh sách kết quả dẫn đến sai lệch output",
+   "Lỗi ghi đè giá trị thay vì thêm vào list"
+  ],
+  "solution": "def invert_dict(d):\n    res = {}\n    for k, v in d.items():\n        if v not in res:\n            res[v] = []\n        res[v].append(k)\n    for v in res:\n        res[v].sort()\n    return res",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-iteration",
+   "dict-update-delete"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T4-C10",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 2,
+  "title": "Tìm tỷ giá mua cao nhất",
+  "statement": "Viết chương trình nhập số N, sau đó nhập N dòng, mỗi dòng gồm: `Tên_tệ Mua_vào Bán_ra`. Lưu dữ liệu vào một dict lồng nhau dạng `rates = {'USD': {'mua': 25100, 'ban': 25450}, ...}`, rồi in ra tên loại ngoại tệ có giá 'mua' cao nhất. Nếu có nhiều loại cùng cao nhất, in loại được nhập trước.",
+  "ioFormat": "Dòng 1: N. N dòng tiếp: Tên Mua Ban. Output: Tên loại tệ.",
+  "constraints": "N > 0. Giá mua và bán là số nguyên.",
+  "examples": "Input:\n2\nUSD 25100 25450\nEUR 27200 27800\nOutput:\nEUR",
+  "mode": "stdio",
+  "starter": "n = int(input())\ndata = {}\n# Viết tiếp code",
+  "tests": [
+   {
+    "input": "2\nUSD 25100 25450\nEUR 27200 27800",
+    "expected": "EUR"
+   },
+   {
+    "input": "3\nJPY 160 165\nUSD 25000 25500\nGBP 32000 33000",
+    "expected": "GBP"
+   },
+   {
+    "input": "1\nAUD 16000 16500",
+    "expected": "AUD"
+   },
+   {
+    "input": "2\nA 100 110\nB 100 120",
+    "expected": "A"
+   },
+   {
+    "input": "3\nGOLD 7500 8000\nSILVER 500 600\nPLATINUM 7500 8500",
+    "expected": "GOLD"
+   }
+  ],
+  "hint": "Lưu dữ liệu vào dict lồng nhau hoặc dùng biến theo dõi max_mua và max_ten ngay khi đọc dữ liệu.",
+  "explanation": "Khi đọc từng dòng dữ liệu, so sánh giá mua hiện tại với giá mua lớn nhất đã biết. Nếu lớn hơn, cập nhật giá mua lớn nhất và tên loại tệ tương ứng.",
+  "commonMistakes": [
+   "Không chuyển đổi giá mua sang kiểu int/float trước khi so sánh",
+   "In nhầm giá mua thay vì in tên loại tệ"
+  ],
+  "solution": "n = int(input())\nmax_buy = -1\nbest_currency = \"\"\nfor _ in range(n):\n    parts = input().split()\n    name = parts[0]\n    buy = int(parts[1])\n    if buy > max_buy:\n        max_buy = buy\n        best_currency = name\nprint(best_currency)",
+  "errorCategory": "implementation",
+  "tags": [
+   "nested-dict",
+   "sort-dict"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "id": "T4-C11",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 2,
+  "title": "Lọc sinh viên theo điểm GPA",
+  "statement": "Viết hàm `filter_students(students, threshold)` nhận vào một dict `students` có dạng `{MSV: GPA}` (ví dụ: `{'B1': 3.2, 'B2': 2.5}`) và một số thực `threshold`. Hàm trả về một danh sách các MSV có điểm GPA lớn hơn hoặc bằng `threshold`, danh sách trả về được sắp xếp theo MSV tăng dần (alphabet).",
+  "ioFormat": "Tham số: students (dict), threshold (float). Trả về: list các chuỗi MSV.",
+  "constraints": "GPA nằm trong đoạn [0, 4.0].",
+  "examples": "filter_students({'B21': 3.5, 'B22': 2.0, 'B23': 3.8}, 3.0) -> ['B21', 'B23']",
+  "mode": "function",
+  "starter": "def filter_students(students, threshold):\n    # Sinh viên viết code tại đây\n    pass",
+  "tests": [
+   {
+    "setup": "",
+    "call": "filter_students({'B21': 3.5, 'B22': 2.0, 'B23': 3.8}, 3.0)",
+    "expected": "['B21', 'B23']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'A1': 4.0, 'A2': 4.0}, 4.0)",
+    "expected": "['A1', 'A2']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'C1': 1.0}, 2.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({}, 3.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'Z': 0, 'A': 0.1}, 0)",
+    "expected": "['A', 'Z']"
+   }
+  ],
+  "hint": "Sử dụng dict comprehension hoặc vòng lặp for kết hợp điều kiện if, sau đó dùng hàm sorted() cho kết quả.",
+  "explanation": "Duyệt qua dictionary `students`. Nếu giá trị (GPA) thỏa mãn điều kiện >= threshold, thêm khóa (MSV) vào một danh sách. Cuối cùng sắp xếp danh sách đó.",
+  "commonMistakes": [
+   "Quên sắp xếp danh sách kết quả",
+   "Sử dụng nhầm điều kiện > thay vì >="
+  ],
+  "solution": "def filter_students(students, threshold):\n    result = [msv for msv, gpa in students.items() if gpa >= threshold]\n    return sorted(result)",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-comprehension",
+   "sort-dict"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "id": "T4-C12",
+  "files": {}
+ },
+ {
+  "topic": "T4",
+  "difficulty": 2,
+  "title": "Cập nhật kho hàng",
+  "statement": "Viết chương trình quản lý kho hàng đơn giản. Dòng đầu tiên nhập N là số lượng giao dịch. N dòng tiếp theo, mỗi dòng có định dạng 'LOAI TEN_HANG SO_LUONG', trong đó LOAI là 'NHAP' (cộng vào kho) hoặc 'XUAT' (trừ khỏi kho). Sau khi xử lý hết N dòng, hãy in ra số lượng tồn kho của từng mặt hàng theo thứ tự alphabet của tên hàng. Định dạng: 'TEN_HANG: SO_LUONG'. Không cần kiểm tra trường hợp xuất quá số lượng tồn (tồn kho có thể âm).",
+  "ioFormat": "Dòng 1: N. N dòng tiếp: LOAI TEN SL. Output: Tên và lượng tồn.",
+  "constraints": "Số lượng nhập/xuất luôn dương. Tồn kho có thể âm (bán khống).",
+  "examples": "Input:\n3\nNHAP apple 10\nXUAT apple 3\nNHAP orange 5\nOutput:\napple: 7\norange: 5",
+  "mode": "stdio",
+  "starter": "n = int(input())\nstock = {}\n# Viết code xử lý",
+  "tests": [
+   {
+    "input": "3\nNHAP apple 10\nXUAT apple 3\nNHAP orange 5",
+    "expected": "apple: 7\norange: 5"
+   },
+   {
+    "input": "2\nNHAP pen 10\nXUAT pen 10",
+    "expected": "pen: 0"
+   },
+   {
+    "input": "4\nNHAP A 10\nNHAP B 20\nXUAT A 5\nXUAT B 25",
+    "expected": "A: 5\nB: -5"
+   },
+   {
+    "input": "1\nNHAP water 100",
+    "expected": "water: 100"
+   },
+   {
+    "input": "3\nNHAP a 1\nNHAP a 2\nNHAP a 3",
+    "expected": "a: 6"
+   }
+  ],
+  "hint": "Sử dụng dict để lưu trữ số lượng hiện tại. Nếu là 'NHAP' thì cộng, 'XUAT' thì trừ. Dùng sorted() trên các key để in.",
+  "explanation": "Khởi tạo dict `stock`. Với mỗi dòng nhập, tách 3 thông tin. Chuyển SL sang int. Kiểm tra LOAI để thực hiện phép toán tương ứng trên `stock[TEN]`. Cuối cùng in kết quả theo thứ tự alphabet.",
+  "commonMistakes": [
+   "Lỗi KeyError khi XUAT một mặt hàng chưa từng được NHAP (nên dùng .get(ten, 0))",
+   "Cộng nhầm chuỗi thay vì cộng số"
+  ],
+  "solution": "n = int(input())\nstock = {}\nfor _ in range(n):\n    parts = input().split()\n    action = parts[0]\n    item = parts[1]\n    qty = int(parts[2])\n    if action == 'NHAP':\n        stock[item] = stock.get(item, 0) + qty\n    else:\n        stock[item] = stock.get(item, 0) - qty\nfor item in sorted(stock.keys()):\n    print(f\"{item}: {stock[item]}\")",
+  "errorCategory": "implementation",
+  "tags": [
+   "dict-update-delete",
+   "frequency-count"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "id": "T4-C13",
+  "files": {}
  },
  {
   "id": "T5-C01",

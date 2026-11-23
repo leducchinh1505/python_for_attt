@@ -464,6 +464,780 @@
   "reserve": true
  },
  {
+  "id": "T1-Q21",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả nào?",
+  "code": "result = -2**2 + 3**2\nprint(result)",
+  "options": [
+   "-5",
+   "25",
+   "5",
+   "13"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python, toán tử lũy thừa (**) có độ ưu tiên cao hơn toán tử dấu âm (-). Do đó, -2**2 được tính là -(2**2) = -4. Kết quả cuối là -4 + 9 = 5.",
+  "hint": "Hãy chú ý thứ tự thực hiện giữa dấu âm đứng trước một số và phép lũy thừa.",
+  "errorCategory": "execution",
+  "tags": [
+   "power-precedence"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q22",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của chương trình dưới đây là gì?",
+  "code": "a = -7 // 3\nb = -7 % 3\nprint(a, b)",
+  "options": [
+   "-2 2",
+   "-3 2",
+   "-2 -1",
+   "-3 -1"
+  ],
+  "answer": 1,
+  "explanation": "Phép chia nguyên (//) trong Python làm tròn xuống (floor) về phía vô cùng âm. -7 / 3 = -2.333... nên floor là -3. Phép dư (%) được tính theo công thức: r = a - (b * (a // b)), tức là -7 - (3 * -3) = 2.",
+  "hint": "Phép chia nguyên // trong Python thực hiện 'floor' chứ không phải 'truncate' (bỏ phần thập phân).",
+  "errorCategory": "concept",
+  "tags": [
+   "floor-div-mod"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q23",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra giá trị nào?",
+  "code": "print(round(2.5), round(3.5))",
+  "options": [
+   "3 3",
+   "2 4",
+   "2 3",
+   "3 4"
+  ],
+  "answer": 1,
+  "explanation": "Python sử dụng cơ chế 'Banker's rounding' (làm tròn đến số chẵn gần nhất) khi phần thập phân đúng bằng 0.5. Do đó 2.5 được làm tròn xuống 2, còn 3.5 được làm tròn lên 4.",
+  "hint": "Số 0.5 sẽ được làm tròn về phía số nguyên chẵn gần nó nhất.",
+  "errorCategory": "theory",
+  "tags": [
+   "round"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q24",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau sẽ in ra kết quả gì?",
+  "code": "val = \"123.45\"\ntry:\n    print(int(val))\nexcept ValueError:\n    print(\"Error\")",
+  "options": [
+   "123",
+   "124",
+   "Error",
+   "123.45"
+  ],
+  "answer": 2,
+  "explanation": "Hàm int() không thể chuyển đổi trực tiếp một chuỗi chứa ký tự dấu chấm thập phân sang số nguyên. Nó sẽ gây ra lỗi ValueError. Muốn chuyển phải qua float trước: int(float(val)).",
+  "hint": "Ép kiểu int() trực tiếp từ một string 'số thực' có hợp lệ không?",
+  "errorCategory": "execution",
+  "tags": [
+   "type-conversion"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q25",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của đoạn mã sau là gì?",
+  "code": "s = \"PTIT2024\"\nprint(s[::2], s[::-1])",
+  "options": [
+   "PI22 4202TITP",
+   "PTIT 4202TITP",
+   "PI22 PTIT2024",
+   "TI04 4202TITP"
+  ],
+  "answer": 0,
+  "explanation": "s[::2] lấy các ký tự từ đầu đến cuối với bước nhảy 2 (P, I, 2, 2). s[::-1] đảo ngược chuỗi.",
+  "hint": "Slicing [start:stop:step] với step là 2 và -1.",
+  "errorCategory": "logic",
+  "tags": [
+   "string-index-slice"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T1-Q26",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Dòng print(s) cuối cùng in ra gì?",
+  "code": "s = \"python\"\ntry:\n    s[0] = \"P\"\n    print(s)\nexcept TypeError:\n    print(\"TypeError\")",
+  "options": [
+   "Python",
+   "P",
+   "python",
+   "TypeError"
+  ],
+  "answer": 3,
+  "explanation": "Chuỗi (string) trong Python là đối tượng bất biến (immutable). Bạn không thể thay đổi giá trị của từng ký tự bằng phép gán index. Hành động này sẽ gây ra TypeError.",
+  "hint": "Có thể thay đổi nội dung bên trong một chuỗi sau khi đã tạo không?",
+  "errorCategory": "theory",
+  "tags": [
+   "string-immutable"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q27",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của chương trình này là gì?",
+  "code": "a = []\nb = 0.0\nc = \" \"\nprint(bool(a), bool(b), bool(c))",
+  "options": [
+   "False False False",
+   "False True True",
+   "True False True",
+   "False False True"
+  ],
+  "answer": 3,
+  "explanation": "Trong Python, list rỗng ([]) và số 0 (0.0) có giá trị truthiness là False. Tuy nhiên, chuỗi chỉ chứa dấu cách (\" \") không phải chuỗi rỗng nên có giá trị là True.",
+  "hint": "Chuỗi có khoảng trắng có được coi là rỗng không?",
+  "errorCategory": "concept",
+  "tags": [
+   "bool-truthiness"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q28",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "n = 159\ntotal = sum(int(d) for d in str(n))\nprint(total % 2 != 0)",
+  "options": [
+   "1",
+   "15",
+   "True",
+   "False"
+  ],
+  "answer": 2,
+  "explanation": "str(159) là '159'. Vòng lặp chuyển từng chữ số thành int và sum lại: 1+5+9 = 15. 15 % 2 là 1, khác 0 nên kết quả so sánh != 0 là True.",
+  "hint": "Tính tổng các chữ số của n và kiểm tra tính chẵn lẻ.",
+  "errorCategory": "logic",
+  "tags": [
+   "digit-sum"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q29",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra màn hình là gì?",
+  "code": "s = \"  hello world  \"\nres = s.strip().title().split()[-1]\nprint(res)",
+  "options": [
+   "Hello",
+   "world",
+   "['hello', 'world']",
+   "World"
+  ],
+  "answer": 3,
+  "explanation": "strip() loại bỏ khoảng trắng hai đầu. title() viết hoa chữ cái đầu mỗi từ -> 'Hello World'. split() tách thành ['Hello', 'World']. Index [-1] lấy phần tử cuối cùng.",
+  "hint": "Thực hiện lần lượt các phương thức chuỗi: xóa khoảng trắng, định dạng tiêu đề, rồi tách từ.",
+  "errorCategory": "execution",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q30",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau in ra kết quả nào?",
+  "code": "print(10 > 5 < 7, \"apple\" > \"Banana\")",
+  "options": [
+   "True True",
+   "Error",
+   "False True",
+   "True False"
+  ],
+  "answer": 0,
+  "explanation": "Python cho phép so sánh chuỗi (comparison chaining): 10 > 5 < 7 tương đương (10 > 5) and (5 < 7), cả hai đều đúng nên là True. So sánh chuỗi theo thứ tự từ điển, chữ cái thường 'a' có mã ASCII lớn hơn chữ cái hoa 'B' nên 'apple' > 'Banana' là True.",
+  "hint": "Chú ý cách Python gộp các phép so sánh số và cách so sánh mã ASCII của chuỗi.",
+  "errorCategory": "concept",
+  "tags": [
+   "comparison-chain"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T1-Q31",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "val = 12.3456\nprint(f\"{val:.2f}, {val:06.1f}\")",
+  "options": [
+   "12.35, 0012.3",
+   "12.34, 12.3",
+   "12.345, 0012.35",
+   "12.35, 12.3"
+  ],
+  "answer": 0,
+  "explanation": "{val:.2f} làm tròn đến 2 chữ số thập phân (12.35). {val:06.1f} yêu cầu độ dài chuỗi là 6, làm tròn đến 1 chữ số thập phân (12.3), còn lại đệm số 0 ở trước (0012.3).",
+  "hint": "f-string định dạng độ chính xác thập phân và độ rộng toàn bộ chuỗi.",
+  "errorCategory": "implementation",
+  "tags": [
+   "fstring-format"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q32",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sau in ra gì?",
+  "code": "a = 10 / 2\nb = 10 // 3\nprint(type(a) == type(b))",
+  "options": [
+   "True",
+   "int",
+   "False",
+   "float"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python 3, phép chia / luôn trả về kiểu float (10/2 = 5.0). Phép chia nguyên // trả về kiểu int (10//3 = 3). Hai kiểu dữ liệu này khác nhau.",
+  "hint": "Phép / và phép // trả về kiểu dữ liệu gì?",
+  "errorCategory": "concept",
+  "tags": [
+   "int-float"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q33",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "s = \"python is fun\"\nprint(___)",
+  "options": [
+   "s.swapcase()",
+   "s.capitalize()",
+   "s.title()",
+   "s.upper()"
+  ],
+  "answer": 1,
+  "explanation": "capitalize() chỉ viết hoa chữ cái đầu tiên của cả chuỗi. title() viết hoa chữ cái đầu của mỗi từ, upper() viết hoa toàn bộ, swapcase() đảo ngược hoa-thường.",
+  "hint": "Phương thức nào chỉ viết hoa chữ cái đầu tiên của chuỗi?",
+  "errorCategory": "method",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "Python is fun"
+ },
+ {
+  "id": "T1-Q34",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để in chuỗi đảo ngược nhưng bỏ đi ký tự cuối cùng của chuỗi gốc (tương đương ký tự đầu của chuỗi đảo).",
+  "code": "s = \"ABCDEF\"\nprint(___)",
+  "options": [
+   "s[-2::-1]",
+   "s[-1:0:-1]",
+   "s[::-1]",
+   "s[:-1:-1]"
+  ],
+  "answer": 0,
+  "explanation": "s[-2::-1] bắt đầu từ ký tự 'E' (index -2), đi lùi về hết chuỗi gốc. s[-1:0:-1] sẽ dừng trước index 0 nên mất chữ 'A'.",
+  "hint": "Cần đảo ngược chuỗi và bắt đầu từ vị trí thứ hai tính từ bên phải.",
+  "errorCategory": "logic",
+  "tags": [
+   "string-index-slice"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "EDCBA"
+ },
+ {
+  "id": "T1-Q35",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để lấy ra chữ số hàng chục của một số nguyên dương n.",
+  "code": "n = 123\nprint(___)",
+  "options": [
+   "int(str(n)[0])",
+   "(n // 10) % 10",
+   "n // 10",
+   "n % 100"
+  ],
+  "answer": 1,
+  "explanation": "n // 10 loại bỏ chữ số hàng đơn vị (123 // 10 = 12). Sau đó lấy dư cho 10 để lấy chữ số cuối của kết quả đó (12 % 10 = 2).",
+  "hint": "Hãy kết hợp phép chia nguyên và phép chia lấy dư.",
+  "errorCategory": "logic",
+  "tags": [
+   "floor-div-mod"
+  ],
+  "source": "supplement",
+  "reserve": true,
+  "expect": "2"
+ },
+ {
+  "id": "T1-Q36",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "x = \"5\"\ny = 2\nprint(___)",
+  "options": [
+   "x + y",
+   "x * y",
+   "str(int(x) * y)",
+   "int(x) * y"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, khi nhân một chuỗi (string) với một số nguyên (int), chuỗi đó sẽ được lặp lại n lần. \"5\" * 2 = \"55\".",
+  "hint": "Làm thế nào để lặp lại một chuỗi nhiều lần?",
+  "errorCategory": "concept",
+  "tags": [
+   "type-conversion"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "55"
+ },
+ {
+  "id": "T1-Q37",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để loại bỏ toàn bộ dấu gạch ngang trong chuỗi.",
+  "code": "p = \"0912-345-678\"\nprint(___)",
+  "options": [
+   "\"\".join(p.split())",
+   "p.remove(\"-\")",
+   "p.replace(\"-\", \"\")",
+   "p.strip(\"-\")"
+  ],
+  "answer": 2,
+  "explanation": "replace(\"-\", \"\") thay thế tất cả các ký tự '-' bằng chuỗi rỗng. strip(\"-\") chỉ xóa ở hai đầu chuỗi. split() mặc định tách theo khoảng trắng chứ không phải dấu gạch ngang.",
+  "hint": "Sử dụng phương thức thay thế một mẫu ký tự trong chuỗi.",
+  "errorCategory": "method",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "0912345678"
+ },
+ {
+  "id": "T1-Q38",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để in số nguyên n dưới dạng một chuỗi có ít nhất 3 chữ số, đệm số 0 nếu cần.",
+  "code": "n = 7\nprint(___)",
+  "options": [
+   "\"00\" + n",
+   "f\"{n:3}\"",
+   "f\"{n:03d}\"",
+   "str(n).zfill(2)"
+  ],
+  "answer": 2,
+  "explanation": "Trong f-string, :03d định dạng số nguyên có độ rộng 3 ký tự và điền số 0 (0) vào các vị trí trống. zfill(2) chỉ tạo ra '07'. \"00\" + n gây lỗi vì không cộng được chuỗi với số.",
+  "hint": "Sử dụng f-string với cú pháp format specifier cho độ rộng và ký tự đệm.",
+  "errorCategory": "implementation",
+  "tags": [
+   "fstring-format"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "007"
+ },
+ {
+  "id": "T1-Q39",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "result = -2**4 + 10\nprint(result)",
+  "options": [
+   "-6",
+   "-16",
+   "16",
+   "26"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, toán tử lũy thừa (**) có độ ưu tiên cao hơn toán tử trừ một ngôi (-). Do đó -2**4 tương đương với -(2**4) = -16. Kết quả là -16 + 10 = -6.",
+  "hint": "Hãy chú ý thứ tự thực hiện giữa dấu âm và phép mũ.",
+  "errorCategory": "execution",
+  "tags": [
+   "power-precedence"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q40",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = 11 // -3\nb = 11 % -3\nprint(a, b)",
+  "options": [
+   "-3 -1",
+   "-4 -1",
+   "-4 2",
+   "-3 2"
+  ],
+  "answer": 1,
+  "explanation": "Phép chia nguyên (//) trong Python làm tròn xuống (floor). 11 / -3 = -3.66... nên floor là -4. Phép dư (%) được tính theo công thức: r = a - (a // b) * b. Suy ra: 11 - (-4 * -3) = 11 - 12 = -1.",
+  "hint": "Phép // luôn làm tròn về phía số nhỏ hơn trên trục số (floor).",
+  "errorCategory": "concept",
+  "tags": [
+   "floor-div-mod"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T1-Q41",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "x = round(2.5)\ny = round(3.5)\nprint(x, y)",
+  "options": [
+   "2 3",
+   "3 4",
+   "3 3",
+   "2 4"
+  ],
+  "answer": 3,
+  "explanation": "Python sử dụng quy tắc 'Banker's rounding': khi một số nằm chính giữa hai số nguyên, nó sẽ được làm tròn về số chẵn gần nhất. 2.5 gần 2 và 4, làm tròn về 2. 3.5 gần 2 và 4, làm tròn về 4.",
+  "hint": "Số .5 sẽ được làm tròn về phía số chẵn.",
+  "errorCategory": "logic",
+  "tags": [
+   "round"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q42",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = \"Python3.11\"\nprint(s[-4:-1])",
+  "options": [
+   "3.11",
+   "11",
+   "3.1",
+   ".11"
+  ],
+  "answer": 2,
+  "explanation": "Slicing s[-4:-1] lấy từ vị trí index -4 (là ký tự '3') đến index -1 (không bao gồm index -1, tức là bỏ qua ký tự '1' cuối cùng). Kết quả là '3.1'.",
+  "hint": "Chỉ số âm bắt đầu từ -1 ở cuối chuỗi, và cận cuối của slice không được lấy.",
+  "errorCategory": "execution",
+  "tags": [
+   "string-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q43",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "val = \"10\" * 2\nresult = int(val) + 5\nprint(result)",
+  "options": [
+   "25",
+   "105",
+   "TypeError",
+   "1015"
+  ],
+  "answer": 3,
+  "explanation": "Toán tử * với string thực hiện lặp chuỗi: \"10\" * 2 = \"1010\". Sau đó int(\"1010\") chuyển thành số nguyên 1010. Cuối cùng 1010 + 5 = 1015.",
+  "hint": "Phép nhân chuỗi với số nguyên tạo ra chuỗi lặp lại.",
+  "errorCategory": "logic",
+  "tags": [
+   "type-conversion"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q44",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "txt = \"  learning python  \"\nprint(txt.strip().title().split()[0])",
+  "options": [
+   "Python",
+   "learning",
+   "Learning",
+   "L"
+  ],
+  "answer": 2,
+  "explanation": "txt.strip() loại bỏ khoảng trắng hai đầu -> \"learning python\". .title() viết hoa chữ cái đầu mỗi từ -> \"Learning Python\". .split() tách thành list [\"Learning\", \"Python\"]. Phần tử [0] là \"Learning\".",
+  "hint": "Thực hiện từng phương thức từ trái qua phải theo chuỗi.",
+  "errorCategory": "method",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q45",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = 0.1 + 0.2\nprint(a == 0.3, bool(\"\"), bool(\" \"))",
+  "options": [
+   "False True False",
+   "True False True",
+   "True True True",
+   "False False True"
+  ],
+  "answer": 3,
+  "explanation": "Do sai số dấu phẩy động, 0.1 + 0.2 không bằng chính xác 0.3. Chuỗi rỗng \"\" có giá trị Truthiness là False, trong khi chuỗi chứa khoảng trắng \" \" có Truthiness là True.",
+  "hint": "Số thực trong máy tính có sai số và chuỗi rỗng luôn được coi là False.",
+  "errorCategory": "concept",
+  "tags": [
+   "int-float",
+   "bool-truthiness"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T1-Q46",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = \"BKHN\"\ns[0] = \"P\"\nprint(s)",
+  "options": [
+   "BKHN",
+   "AttributeError",
+   "PKHN",
+   "TypeError"
+  ],
+  "answer": 3,
+  "explanation": "String trong Python là đối tượng bất biến (immutable). Ta không thể thay đổi giá trị của một ký tự thông qua phép gán chỉ số. Điều này gây ra TypeError.",
+  "hint": "Bạn có thể thay đổi một phần của chuỗi bằng cách gán trực tiếp không?",
+  "errorCategory": "syntax",
+  "tags": [
+   "string-immutable"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q47",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "price = 12.567\nprint(f\"{price:.2f} - {10 < 20 < 15}\")",
+  "options": [
+   "12.567 - False",
+   "12.57 - True",
+   "12.56 - False",
+   "12.57 - False"
+  ],
+  "answer": 3,
+  "explanation": "f-string {price:.2f} làm tròn số đến 2 chữ số thập phân (12.57). Biểu thức so sánh chuỗi 10 < 20 < 15 tương đương (10 < 20) and (20 < 15), kết quả là True and False = False.",
+  "hint": "Phép format .2f sẽ làm tròn và phép so sánh chuỗi (comparison chaining) hoạt động như toán tử and.",
+  "errorCategory": "logic",
+  "tags": [
+   "fstring-format",
+   "comparison-chain"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q48",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = \"banana\"\nprint(s.replace(\"a\", \"o\", 2))",
+  "options": [
+   "bonona",
+   "banana",
+   "bonana",
+   "bonono"
+  ],
+  "answer": 0,
+  "explanation": "Phương thức replace(old, new, count) sẽ thay thế chuỗi cũ bằng chuỗi mới với số lượng tối đa là count (tính từ trái sang). Ở đây count=2 nên 2 chữ 'a' đầu tiên bị thay bằng 'o'.",
+  "hint": "Tham số thứ 3 của replace giới hạn số lần thay thế.",
+  "errorCategory": "method",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T1-Q49",
+  "topic": "T1",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra tổng các chữ số của n.",
+  "code": "n = 1234\ntotal = ___\nprint(total)",
+  "options": [
+   "sum(int(d) for d in str(n))",
+   "sum(map(str, n))",
+   "int(sum(str(n)))",
+   "sum(n.split())"
+  ],
+  "answer": 0,
+  "explanation": "Để tính tổng chữ số, ta chuyển n thành string để lặp qua từng ký tự, chuyển ngược từng ký tự thành int và dùng hàm sum().",
+  "hint": "Cần biến số thành chuỗi để truy cập từng chữ số.",
+  "errorCategory": "implementation",
+  "tags": [
+   "digit-sum",
+   "type-conversion"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "10"
+ },
+ {
+  "id": "T1-Q50",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `s = s.replace(\"H\", \"J\")`. Đoạn nào thay thế được dòng đó mà kết quả không đổi?",
+  "code": "s = \"Hello\"\n___\nprint(s)",
+  "options": [
+   "s = s.strip(\"H\")",
+   "s = \"J\" + s[1:]",
+   "s[0] = \"J\"",
+   "s.replace(\"H\", \"J\")"
+  ],
+  "answer": 1,
+  "explanation": "Vì string bất biến, ta tạo chuỗi mới bằng cách ghép ký tự 'J' với phần còn lại của chuỗi cũ (s[1:]). s[0]='J' gây lỗi, còn s.replace() mà không gán lại thì s không đổi.",
+  "hint": "Cách thủ công để 'sửa' một ký tự trong chuỗi là cắt và ghép.",
+  "errorCategory": "method",
+  "tags": [
+   "string-immutable",
+   "string-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "Jello"
+ },
+ {
+  "id": "T1-Q52",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để kiểm tra chuỗi s có phải là chuỗi đối xứng (Palindrome) không.",
+  "code": "s = \"radar\"\nis_palin = ___\nprint(is_palin)",
+  "options": [
+   "s == reversed(s)",
+   "s == s[-1:0]",
+   "s == s.reverse()",
+   "s == s[::-1]"
+  ],
+  "answer": 3,
+  "explanation": "s[::-1] tạo ra một bản sao đảo ngược của chuỗi s. s.reverse() không tồn tại cho chuỗi (chỉ có cho list), và reversed(s) trả về một iterator chứ không phải chuỗi.",
+  "hint": "Sử dụng kỹ thuật slicing với bước nhảy âm để đảo ngược chuỗi.",
+  "errorCategory": "method",
+  "tags": [
+   "string-index-slice"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "True"
+ },
+ {
+  "id": "T1-Q53",
+  "topic": "T1",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để định dạng số tiền có dấu phẩy ngăn cách hàng nghìn.",
+  "code": "money = 1000000\nprint(___)",
+  "options": [
+   "money.format(\",\")",
+   "f\"{money:,}\"",
+   "f\"{money:.f}\"",
+   "f\"{money:format}\""
+  ],
+  "answer": 1,
+  "explanation": "Trong f-string, cú pháp {biến:,} sẽ tự động thêm dấu phẩy ngăn cách hàng nghìn cho số nguyên hoặc số thực.",
+  "hint": "Ký tự đặc biệt dùng để ngăn cách phần nghìn trong Python format là dấu phẩy.",
+  "errorCategory": "syntax",
+  "tags": [
+   "fstring-format"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "1,000,000"
+ },
+ {
+  "id": "T1-Q54",
+  "topic": "T1",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để nối các từ trong list thành một đường dẫn (path).",
+  "code": "folders = [\"home\", \"user\", \"documents\"]\npath = ___\nprint(path)",
+  "options": [
+   "\"/\".join(folders)",
+   "str(folders).replace(\", \", \"/\")",
+   "\"/\".split(folders)",
+   "folders.join(\"/\")"
+  ],
+  "answer": 0,
+  "explanation": "Phương thức join() thuộc lớp string, cú pháp là 'separator'.join(iterable). Nó nối các phần tử của list bằng separator.",
+  "hint": "Cẩn thận kẻo nhầm đối tượng gọi phương thức join.",
+  "errorCategory": "method",
+  "tags": [
+   "string-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "home/user/documents"
+ },
+ {
   "id": "T2-Q01",
   "topic": "T2",
   "difficulty": 1,
@@ -934,6 +1708,699 @@
   "reserve": true
  },
  {
+  "id": "T2-Q21",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "a = 0\nb = 5\nc = 10\nres = a or b and c\nprint(res)",
+  "options": [
+   "True",
+   "5",
+   "0",
+   "10"
+  ],
+  "answer": 3,
+  "explanation": "Trong Python, toán tử 'and' có độ ưu tiên cao hơn 'or'. Do đó biểu thức được tính là: 0 or (5 and 10). Phép toán '5 and 10' trả về giá trị cuối cùng là 10 (vì 5 là truthy). Sau đó '0 or 10' trả về 10 vì 0 là falsy.",
+  "hint": "Chú ý độ ưu tiên của toán tử and/or và giá trị thực tế mà chúng trả về thay vì chỉ True/False.",
+  "errorCategory": "concept",
+  "tags": [
+   "logical-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q22",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau mô phỏng cách tính tiền nước (đơn vị: đồng). Kết quả in ra là bao nhiêu?",
+  "code": "usage = 10\nlimit = 4 * 2\nprice1, price2 = 9206, 17725\nif usage <= limit:\n    bill = usage * price1\nelse:\n    bill = limit * price1 + (usage - limit) * price2\nprint(int(bill))",
+  "options": [
+   "109098",
+   "127174",
+   "92060",
+   "177250"
+  ],
+  "answer": 0,
+  "explanation": "Với usage=10 và limit=8, điều kiện usage <= limit sai. Chương trình chạy vào else: bill = 8 * 9206 + (10 - 8) * 17725 = 73648 + 35450 = 109098.",
+  "hint": "Xác định phần sản lượng nằm trong định mức và phần vượt định mức.",
+  "errorCategory": "logic",
+  "tags": [
+   "tiered-pricing",
+   "if-elif"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q23",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "res = \"\"\nfor i in range(5, 1, -2):\n    res += str(i)\nprint(res)",
+  "options": [
+   "5",
+   "53",
+   "531",
+   "5432"
+  ],
+  "answer": 1,
+  "explanation": "Hàm range(start, stop, step) với step âm sẽ chạy từ start xuống đến (nhưng không bao gồm) stop. Ở đây là 5, 3. Giá trị 1 không được bao gồm.",
+  "hint": "Cận cuối (stop) của hàm range không bao giờ được lấy.",
+  "errorCategory": "execution",
+  "tags": [
+   "for-range"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q24",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "x = 15\nif x > 5:\n    print(\"A\", end=\"\")\nelif x > 10:\n    print(\"B\", end=\"\")\nelse:\n    print(\"C\", end=\"\")",
+  "options": [
+   "ABC",
+   "B",
+   "A",
+   "AB"
+  ],
+  "answer": 2,
+  "explanation": "Trong cấu trúc if-elif-else, Python chỉ thực thi khối lệnh đầu tiên có điều kiện thỏa mãn và bỏ qua các khối còn lại. Vì x=15 thỏa mãn x > 5 nên in 'A' và kết thúc.",
+  "hint": "Thứ tự kiểm tra trong cấu trúc rẽ nhánh rất quan trọng.",
+  "errorCategory": "theory",
+  "tags": [
+   "if-elif"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q26",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình kiểm tra số Harshad (số chia hết cho tổng các chữ số của nó). Kết quả in ra là gì?",
+  "code": "n = 18\ns = 0\ntemp = n\nwhile temp > 0:\n    s += temp % 10\n    temp //= 10\nprint(n % s == 0)",
+  "options": [
+   "0",
+   "1",
+   "True",
+   "False"
+  ],
+  "answer": 2,
+  "explanation": "n = 18. Tổng chữ số s = 1 + 8 = 9. 18 chia hết cho 9 nên 18 % 9 == 0 là True.",
+  "hint": "Cách tách chữ số dùng % 10 và // 10 là kỹ thuật cơ bản.",
+  "errorCategory": "logic",
+  "tags": [
+   "digit-processing",
+   "number-property"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q27",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của đoạn code sau là gì?",
+  "code": "for i in range(2):\n    if i > 5:\n        break\nelse:\n    print(\"Done\", end=\"\")",
+  "options": [
+   "Done",
+   "DoneDone",
+   "SyntaxError",
+   "Không in gì"
+  ],
+  "answer": 0,
+  "explanation": "Khối 'else' sau vòng lặp 'for' sẽ thực thi nếu vòng lặp kết thúc bình thường (không bị ngắt bởi 'break'). Vì i chỉ chạy 0, 1 nên không bao giờ gặp break.",
+  "hint": "Vòng lặp for...else hoạt động như thế nào khi không gặp break?",
+  "errorCategory": "concept",
+  "tags": [
+   "loop-else"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q28",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Giá trị của x sau khi chạy code là bao nhiêu?",
+  "code": "data = []\nx = 10 if data else 20\nprint(x)",
+  "options": [
+   "None",
+   "20",
+   "10",
+   "IndexError"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, một danh sách rỗng '[]' được coi là False (falsy). Do đó biểu thức 'if data' nhận giá trị False, x nhận giá trị sau 'else'.",
+  "hint": "Các đối tượng rỗng (list, string, dict) trong Python được đánh giá là True hay False?",
+  "errorCategory": "execution",
+  "tags": [
+   "logical-ops",
+   "if-elif"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q29",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "n = 10\nwhile n > 0:\n    n -= 3\n    if n % 2 == 0:\n        continue\n    n -= 1\nprint(n)",
+  "options": [
+   "-2",
+   "-3",
+   "0",
+   "-1"
+  ],
+  "answer": 0,
+  "explanation": "Lần 1: n=10, n=7, 7 lẻ -> n=6. Lần 2: n=6, n=3, 3 lẻ -> n=2. Lần 3: n=2, n=-1, -1 lẻ -> n=-2. Lúc này n > 0 sai, dừng vòng lặp.",
+  "hint": "Theo dõi sát sự thay đổi của n trong mỗi bước lặp, chú ý cả hai lệnh trừ n.",
+  "errorCategory": "logic",
+  "tags": [
+   "while",
+   "accumulator"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q30",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code kiểm tra tính chất số Armstrong (tổng lập phương các chữ số). Kết quả in ra là gì?",
+  "code": "n = 153\nres = sum(int(d)**3 for d in str(n))\nprint(res == n)",
+  "options": [
+   "True",
+   "153",
+   "None",
+   "False"
+  ],
+  "answer": 0,
+  "explanation": "1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153. Vì res = 153 và n = 153 nên res == n là True.",
+  "hint": "Tính tổng lập phương của 1, 5, và 3.",
+  "errorCategory": "logic",
+  "tags": [
+   "digit-processing",
+   "number-property"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T2-Q32",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "x = 5\ny = 10\nif x > 0:\n    if y < 10:\n        print(\"A\", end=\"\")\n    elif y == 10:\n        print(\"B\", end=\"\")\nelse:\n    print(\"C\", end=\"\")",
+  "options": [
+   "B",
+   "AB",
+   "C",
+   "BC"
+  ],
+  "answer": 0,
+  "explanation": "x=5 > 0 đúng, vào khối lệnh trong. y=10, điều kiện y < 10 sai, điều kiện y == 10 đúng, in 'B'. Khối else bên ngoài không được xét đến.",
+  "hint": "Xác định khối code nào thuộc về if nào dựa vào thụt lề (indentation).",
+  "errorCategory": "logic",
+  "tags": [
+   "if-elif"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q33",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để tính số tiền nước trong định mức (mức 1) một cách ngắn gọn nhất.",
+  "code": "usage = 10\nlimit = 8\nprice1 = 9206\nbill_step1 = ___\nprint(bill_step1)",
+  "options": [
+   "usage * price1 if usage > limit else limit * price1",
+   "min(usage, limit) * price1",
+   "max(usage, limit) * price1",
+   "limit * price1 if usage < limit else usage * price1"
+  ],
+  "answer": 1,
+  "explanation": "Định mức 1 chỉ tính tối đa đến limit. Nếu dùng 10m3 (vượt 8) thì chỉ tính 8. Nếu dùng 5m3 (dưới 8) thì tính 5. Phép toán min(usage, limit) lấy đúng giá trị cần tính.",
+  "hint": "Bạn cần lấy giá trị nhỏ hơn giữa lượng dùng thực tế và ngưỡng định mức.",
+  "errorCategory": "method",
+  "tags": [
+   "tiered-pricing"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "73648"
+ },
+ {
+  "id": "T2-Q35",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `total = total + i`. Đoạn code nào sau đây thay thế được dòng đó mà kết quả không đổi?",
+  "code": "total = 0\nfor i in range(1, 6):\n    ___\nprint(total)",
+  "options": [
+   "total == i",
+   "total += i",
+   "i += total",
+   "total =+ i"
+  ],
+  "answer": 1,
+  "explanation": "Toán tử gán kết hợp 'total += i' tương đương hoàn toàn với 'total = total + i'. 'total =+ i' thực chất là gán total bằng giá trị dương của i.",
+  "hint": "Cú pháp viết tắt của phép cộng tích lũy trong Python.",
+  "errorCategory": "syntax",
+  "tags": [
+   "accumulator"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "15"
+ },
+ {
+  "id": "T2-Q36",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tính tổng các chữ số của n.",
+  "code": "n = 1234\ns = 0\nwhile n > 0:\n    ___\nprint(s)",
+  "options": [
+   "s += n // 10; n %= 10",
+   "n, s = n // 10, s + n // 10",
+   "s = n % 10; n //= 10",
+   "s, n = s + n % 10, n // 10"
+  ],
+  "answer": 3,
+  "explanation": "Cách dùng tuple unpacking 's, n = s + n % 10, n // 10' cho phép cập nhật s (tổng) và n (loại bỏ chữ số cuối) cùng một lúc trên một dòng.",
+  "hint": "Cần lấy phần dư để cộng vào tổng và lấy phần nguyên để tiếp tục vòng lặp.",
+  "errorCategory": "implementation",
+  "tags": [
+   "digit-processing",
+   "while"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "10"
+ },
+ {
+  "id": "T2-Q38",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tính tổng các phần tử trên đường chéo chính của ma trận vuông matrix.",
+  "code": "matrix = [[1, 2], [3, 4]]\ntotal = 0\nfor i in ___:\n    total += matrix[i][i]\nprint(total)",
+  "options": [
+   "range(len(matrix))",
+   "range(matrix)",
+   "enumerate(matrix)",
+   "matrix"
+  ],
+  "answer": 0,
+  "explanation": "Để truy cập matrix[i][i], i phải là chỉ số từ 0 đến len-1. range(len(matrix)) tạo ra dãy chỉ số này.",
+  "hint": "Cần một dãy số nguyên để làm chỉ số truy cập phần tử.",
+  "errorCategory": "method",
+  "tags": [
+   "nested-loop",
+   "for-range"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "5"
+ },
+ {
+  "id": "T2-Q39",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "res = []\nfor i in range(10, 2, -3):\n    res.append(str(i))\nprint(\"-\".join(res))",
+  "options": [
+   "10-7-4-1",
+   "10-8-6-4-2",
+   "7-4-1",
+   "10-7-4"
+  ],
+  "answer": 3,
+  "explanation": "range(start, stop, step) với step âm sẽ bắt đầu từ start và giảm dần cho đến khi i > stop. Cụ thể: 10, 10-3=7, 7-3=4. Giá trị tiếp theo là 1 (không thỏa mãn > 2).",
+  "hint": "Hãy chú ý giá trị stop trong range không bao giờ được bao gồm.",
+  "errorCategory": "execution",
+  "tags": [
+   "for-range"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q40",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của đoạn code sau là gì?",
+  "code": "a = 0\nb = 10\nx = a or b - 5\ny = b and a + 2\nprint(x, y)",
+  "options": [
+   "5 2",
+   "0 10",
+   "True True",
+   "5 0"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, 'or' trả về giá trị đầu tiên là truthy. 0 là falsy nên x nhận giá trị (10-5)=5. 'and' trả về giá trị đầu tiên nếu nó falsy, ngược lại trả về giá trị thứ hai. b=10 là truthy nên y nhận (0+2)=2.",
+  "hint": "Toán tử logic and/or trong Python trả về chính giá trị của toán hạng, không chỉ True/False.",
+  "errorCategory": "concept",
+  "tags": [
+   "logical-ops"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T2-Q41",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "n = 123\ns = 0\nwhile n > 0:\n    if n % 10 == 2:\n        n //= 10\n        continue\n    s += n % 10\n    n //= 10\nprint(s)",
+  "options": [
+   "4",
+   "6",
+   "123",
+   "3"
+  ],
+  "answer": 0,
+  "explanation": "Vòng lặp tách từng chữ số của 123. Khi gặp chữ số 2 (123 % 10 = 3, 12 % 10 = 2), lệnh continue được thực thi nên s không cộng 2. Vậy s = 3 + 1 = 4.",
+  "hint": "Lệnh continue bỏ qua phần còn lại của thân vòng lặp hiện tại.",
+  "errorCategory": "logic",
+  "tags": [
+   "digit-processing",
+   "while",
+   "break-continue"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q42",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "score = 85\nif score > 70:\n    res = \"Khá\"\nelif score > 80:\n    res = \"Giỏi\"\nelse:\n    res = \"Trung bình\"\nprint(res)",
+  "options": [
+   "SyntaxError",
+   "Khá",
+   "Khá\nGiỏi",
+   "Giỏi"
+  ],
+  "answer": 1,
+  "explanation": "Cấu trúc if-elif-else sẽ dừng lại ở nhánh đầu tiên thỏa mãn điều kiện. Vì 85 > 70 là True nên res nhận 'Khá' và bỏ qua các nhánh sau.",
+  "hint": "Thứ tự các điều kiện trong if-elif rất quan trọng.",
+  "errorCategory": "theory",
+  "tags": [
+   "if-elif"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q43",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau thực hiện kiểm tra số Harshad (số chia hết cho tổng các chữ số của nó). Kết quả in ra là gì?",
+  "code": "n = 18\ntemp = n\ns = 0\nwhile temp > 0:\n    s += temp % 10\n    temp //= 10\nif n % s == 0:\n    print(f\"{n} is H\")\nelse:\n    print(f\"{n} not H\")",
+  "options": [
+   "18 not H",
+   "18 is H",
+   "ZeroDivisionError",
+   "0 is H"
+  ],
+  "answer": 1,
+  "explanation": "Tổng các chữ số của 18 là 1 + 8 = 9. Vì 18 chia hết cho 9 (18 % 9 == 0) nên nó là số Harshad.",
+  "hint": "Tính tổng chữ số trước rồi mới thực hiện phép chia lấy dư.",
+  "errorCategory": "logic",
+  "tags": [
+   "number-property",
+   "digit-processing",
+   "while"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q44",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "count = 0\nfor i in range(2):\n    for j in range(3):\n        if i == j:\n            continue\n        count += 1\nprint(count)",
+  "options": [
+   "5",
+   "6",
+   "2",
+   "4"
+  ],
+  "answer": 3,
+  "explanation": "i chạy 0, 1. j chạy 0, 1, 2. Các cặp (i, j) là (0,0), (0,1), (0,2), (1,0), (1,1), (1,2). Khi i == j ((0,0) và (1,1)), count không tăng. Tổng cộng có 6 - 2 = 4 lần tăng.",
+  "hint": "Đếm số lần vòng lặp không bị continue bỏ qua.",
+  "errorCategory": "execution",
+  "tags": [
+   "nested-loop",
+   "break-continue"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q45",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "x = 10\nwhile x > 0:\n    x -= 3\nelse:\n    x += 1\nprint(x)",
+  "options": [
+   "0",
+   "-1",
+   "1",
+   "-2"
+  ],
+  "answer": 1,
+  "explanation": "Vòng lặp chạy: x=10->7->4->1->-2. Khi x=-2, điều kiện while x > 0 sai, khối else được thực thi: x = -2 + 1 = -1.",
+  "hint": "Khối else của while sẽ chạy khi điều kiện vòng lặp trở thành False.",
+  "errorCategory": "theory",
+  "tags": [
+   "while",
+   "loop-else"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T2-Q46",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Giá trị của total sau khi chạy đoạn code dưới đây là bao nhiêu?",
+  "code": "total = 0\nfor i in range(5):\n    if i % 2 == 0:\n        total += i\n    elif i == 3:\n        break\nprint(total)",
+  "options": [
+   "4",
+   "2",
+   "0",
+   "6"
+  ],
+  "answer": 1,
+  "explanation": "i=0: total=0. i=1: không thỏa mãn if/elif. i=2: total=0+2=2. i=3: break dừng vòng lặp ngay lập tức. Kết quả là 2.",
+  "hint": "Lệnh break sẽ kết thúc toàn bộ vòng lặp.",
+  "errorCategory": "execution",
+  "tags": [
+   "break-continue",
+   "accumulator"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q47",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Giả sử giá điện: 2 số đầu giá 10đ, các số sau giá 20đ. Đoạn code nào tính đúng tiền cho 5 số điện?",
+  "code": "sd = 5\nif sd <= 2:\n    bill = sd * 10\nelse:\n    bill = 2 * 10 + (sd - 2) * 20\nprint(bill)",
+  "options": [
+   "50",
+   "70",
+   "80",
+   "100"
+  ],
+  "answer": 2,
+  "explanation": "Với sd = 5, rơi vào else. bill = 2 * 10 (2 số đầu) + (5 - 2) * 20 (3 số sau) = 20 + 60 = 80.",
+  "hint": "Đây là bài toán tính tiền bậc thang, chú ý phần dư thừa ở bậc cao.",
+  "errorCategory": "logic",
+  "tags": [
+   "tiered-pricing"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q48",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = [1, 2]\nfor x in a:\n    a.append(x * 2)\n    if len(a) > 4: break\nprint(a)",
+  "options": [
+   "RuntimeError",
+   "[1, 2]",
+   "[1, 2, 2, 4]",
+   "[1, 2, 2, 4, 4]"
+  ],
+  "answer": 3,
+  "explanation": "Vòng lặp for duyệt list đang thay đổi. Lần 1: x=1, a=[1,2,2]. Lần 2: x=2, a=[1,2,2,4]. Lần 3: x=2, a=[1,2,2,4,4]. Lúc này len(a)=5 > 4 nên break.",
+  "hint": "Python cho phép thay đổi list khi đang duyệt, nhưng cần cẩn thận với vòng lặp vô tận.",
+  "errorCategory": "execution",
+  "tags": [
+   "while",
+   "break-continue"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T2-Q49",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tính tổng các chữ số của n.",
+  "code": "n = 567\ns = 0\nwhile n > 0:\n    ___\nprint(s)",
+  "options": [
+   "s += n // 10; n %= 10",
+   "s += n % 10; n //= 10",
+   "n //= 10; s += n % 10",
+   "s += n % 10; n /= 10"
+  ],
+  "answer": 1,
+  "explanation": "Để lấy chữ số hàng đơn vị ta dùng n % 10, sau đó loại bỏ nó bằng n //= 10.",
+  "hint": "Dùng toán tử chia lấy dư và chia nguyên.",
+  "errorCategory": "method",
+  "tags": [
+   "digit-processing",
+   "accumulator"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "18"
+ },
+ {
+  "id": "T2-Q50",
+  "topic": "T2",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để kiểm tra số đối xứng (palindrome).",
+  "code": "s = \"12321\"\nif ___:\n    print(\"YES\")\nelse:\n    print(\"NO\")",
+  "options": [
+   "s == reversed(s)",
+   "s == s.reverse()",
+   "s[:] == s[-1:0]",
+   "s == s[::-1]"
+  ],
+  "answer": 3,
+  "explanation": "Slicing s[::-1] tạo ra một chuỗi đảo ngược. s.reverse() không tồn tại cho string, reversed(s) trả về iterator.",
+  "hint": "Slicing là cách nhanh nhất để đảo ngược chuỗi trong Python.",
+  "errorCategory": "method",
+  "tags": [
+   "number-property"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "YES"
+ },
+ {
+  "id": "T2-Q51",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tìm số đầu tiên trong danh sách chia hết cho cả 3 và 5.",
+  "code": "data = [10, 12, 15, 20]\nres = None\nfor x in data:\n    if x % 3 == 0 and x % 5 == 0:\n        ___\n        break\nprint(res)",
+  "options": [
+   "res = x",
+   "res == x",
+   "x = res",
+   "return x"
+  ],
+  "answer": 0,
+  "explanation": "Ta cần gán giá trị x tìm được vào biến res. res == x là phép so sánh, return x chỉ dùng trong hàm.",
+  "hint": "Sử dụng phép gán để lưu trữ kết quả.",
+  "errorCategory": "syntax",
+  "tags": [
+   "break-continue",
+   "logical-ops"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "15"
+ },
+ {
+  "id": "T2-Q53",
+  "topic": "T2",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để in ra các số từ 1 đến 5 trừ số 3.",
+  "code": "for i in range(1, 6):\n    if i == 3:\n        ___\n    print(i, end=\" \")",
+  "options": [
+   "break",
+   "skip",
+   "pass",
+   "continue"
+  ],
+  "answer": 3,
+  "explanation": "continue bỏ qua lệnh print phía dưới và chuyển sang lần lặp tiếp theo của i.",
+  "hint": "Lệnh nào dùng để nhảy qua một lần lặp?",
+  "errorCategory": "theory",
+  "tags": [
+   "break-continue"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "1 2 4 5 "
+ },
+ {
+  "id": "T2-Q54",
+  "topic": "T2",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để kiểm tra n có phải số hoàn hảo (tổng các ước thực sự bằng chính nó).",
+  "code": "n = 6\ns = 0\nfor i in range(1, n):\n    if ___:\n        s += i\nprint(s == n)",
+  "options": [
+   "i % n == 0",
+   "n % i == 0",
+   "n // i == 0",
+   "n % i != 0"
+  ],
+  "answer": 1,
+  "explanation": "Ước số của n là số mà n chia hết cho nó, tức là n % i == 0.",
+  "hint": "Số hoàn hảo ví dụ là 6 (1+2+3=6) hoặc 28.",
+  "errorCategory": "logic",
+  "tags": [
+   "number-property"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "True"
+ },
+ {
   "id": "T3-Q01",
   "topic": "T3",
   "difficulty": 2,
@@ -1397,6 +2864,1119 @@
   "reserve": true
  },
  {
+  "id": "T3-Q21",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "a = [1, 2]\nb = a * 2\nb[0] = 5\nprint(a)",
+  "options": [
+   "[1, 2, 1, 2]",
+   "[5, 2, 1, 2]",
+   "[5, 2]",
+   "[1, 2]"
+  ],
+  "answer": 3,
+  "explanation": "Toán tử '*' tạo ra một list mới. Khi gán b = a * 2, b trỏ tới một vùng nhớ khác với a. Do đó, thay đổi phần tử của b không ảnh hưởng đến a.",
+  "hint": "Hãy chú ý xem b là một bản sao hay là một tham chiếu đến cùng đối tượng với a.",
+  "errorCategory": "concept",
+  "tags": [
+   "list-alias-copy"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q22",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của chương trình sau là gì?",
+  "code": "x = (5)\ny = (5,)\nprint(type(x) == type(y))",
+  "options": [
+   "SyntaxError",
+   "True",
+   "TypeError",
+   "False"
+  ],
+  "answer": 3,
+  "explanation": "Trong Python, (5) được hiểu là số nguyên 5 đặt trong ngoặc đơn, nên type(x) là int. Để tạo tuple một phần tử, bắt buộc phải có dấu phẩy: (5,).",
+  "hint": "Làm thế nào để Python phân biệt giữa biểu thức toán học và một tuple?",
+  "errorCategory": "concept",
+  "tags": [
+   "tuple"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q23",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra giá trị nào?",
+  "code": "lst = [10, 20, 30]\nres = lst.pop(1) + lst.index(30)\nprint(res)",
+  "options": [
+   "50",
+   "22",
+   "IndexError",
+   "21"
+  ],
+  "answer": 3,
+  "explanation": "lst.pop(1) xóa và trả về giá trị tại chỉ số 1 (là 20). Lúc này lst còn [10, 30]. Phương thức lst.index(30) trả về vị trí của số 30 trong list mới, tức là 1. Tổng là 20 + 1 = 21.",
+  "hint": "Phương thức pop() thay đổi list gốc và trả về giá trị bị xóa.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q24",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra của đoạn code sau là gì?",
+  "code": "m = [[0] * 2] * 2\nm[0][0] = 1\nprint(m)",
+  "options": [
+   "[[1, 0], [1, 0]]",
+   "[[1, 1], [0, 0]]",
+   "[[1, 0], [0, 0]]",
+   "[[1, 1], [1, 1]]"
+  ],
+  "answer": 0,
+  "explanation": "Khi dùng [[0]*2]*2, Python tạo ra một list chứa 2 tham chiếu đến CÙNG một đối tượng list con [0, 0]. Thay đổi một dòng sẽ làm tất cả các dòng thay đổi theo.",
+  "hint": "Toán tử nhân list với số nguyên tạo ra các bản sao tham chiếu nếu phần tử là một object (như list).",
+  "errorCategory": "concept",
+  "tags": [
+   "matrix-2d"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q25",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = [0, 1, 2, 3, 4, 5]\nprint(s[::-2])",
+  "options": [
+   "[4, 2, 0]",
+   "[5, 4, 3, 2, 1, 0]",
+   "[5, 3, 1]",
+   "[0, 2, 4]"
+  ],
+  "answer": 2,
+  "explanation": "Slicing [::-2] bắt đầu từ cuối list, đi ngược về đầu với bước nhảy 2. Các phần tử lấy được là index 5 (giá trị 5), index 3 (giá trị 3), index 1 (giá trị 1).",
+  "hint": "Bước nhảy âm có nghĩa là duyệt ngược danh sách.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T3-Q26",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau in ra kết quả gì?",
+  "code": "nums = [1, 2, 3, 4]\nfor x in nums:\n    if x % 2 == 0:\n        nums.remove(x)\nprint(nums)",
+  "options": [
+   "[1, 3]",
+   "[1, 3, 4]",
+   "[1, 4]",
+   "[1, 2, 3, 4]"
+  ],
+  "answer": 0,
+  "explanation": "Khi xóa 2 (index 1), các phần tử phía sau dồn lên. Số 3 nhảy vào index 1. Ở vòng lặp tiếp theo, iterator chuyển sang index 2 (lúc này là số 4). Số 3 bị bỏ qua không được kiểm tra.",
+  "hint": "Điều gì xảy ra với các chỉ số (index) khi bạn xóa một phần tử khỏi list khi đang lặp qua nó?",
+  "errorCategory": "logic",
+  "tags": [
+   "list-mutation-in-loop"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q27",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Giá trị của b là bao nhiêu?",
+  "code": "a, *b, c = [1, 2, 3, 4, 5]\nprint(b)",
+  "options": [
+   "3",
+   "[2, 3, 4, 5]",
+   "(2, 3, 4)",
+   "[2, 3, 4]"
+  ],
+  "answer": 3,
+  "explanation": "Kỹ thuật Extended Iterable Unpacking dùng '*' để gom các phần tử ở giữa vào một list. a lấy 1, c lấy 5, còn lại [2, 3, 4] thuộc về b.",
+  "hint": "Dấu * trong phép gán unpacking có tác dụng gom phần còn lại thành một list.",
+  "errorCategory": "theory",
+  "tags": [
+   "unpacking"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q28",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "m = [[1, 2], [3, 4]]\nres = sum([r[1] for r in m])\nprint(res)",
+  "options": [
+   "4",
+   "10",
+   "6",
+   "TypeError"
+  ],
+  "answer": 2,
+  "explanation": "List comprehension [r[1] for r in m] lấy phần tử tại chỉ số 1 của mỗi dòng r. Đó là [2, 4]. Hàm sum([2, 4]) trả về 6.",
+  "hint": "Lệnh này đang tính tổng của một cột trong ma trận.",
+  "errorCategory": "execution",
+  "tags": [
+   "matrix-2d",
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q29",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của chương trình sau là gì?",
+  "code": "x = [3, 1, 2]\ny = x.sort()\nprint(y)",
+  "options": [
+   "[1, 2, 3]",
+   "None",
+   "[3, 1, 2]",
+   "AttributeError"
+  ],
+  "answer": 1,
+  "explanation": "Phương thức sort() của list thực hiện sắp xếp tại chỗ (in-place) và luôn trả về giá trị None.",
+  "hint": "Phân biệt giữa phương thức sort() và hàm sorted().",
+  "errorCategory": "method",
+  "tags": [
+   "sort-sorted"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q30",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau in ra gì?",
+  "code": "a = [1, 2]\nb = a\na = a + [3]\nb.append(4)\nprint(a, b)",
+  "options": [
+   "[1, 2, 3, 4] [1, 2, 3, 4]",
+   "[1, 2, 3] [1, 2, 3, 4]",
+   "[1, 2, 3] [1, 2, 4]",
+   "[1, 2, 4] [1, 2, 4]"
+  ],
+  "answer": 2,
+  "explanation": "Phép toán a = a + [3] tạo ra một đối tượng list mới và gán cho biến a. Lúc này b vẫn đang trỏ tới list cũ [1, 2]. b.append(4) làm list cũ thành [1, 2, 4].",
+  "hint": "Toán tử '+' tạo ra list mới, trong khi append() sửa đổi list hiện tại.",
+  "errorCategory": "concept",
+  "tags": [
+   "list-alias-copy"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T3-Q31",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả in ra của đoạn code sau là gì?",
+  "code": "t = (1, [2, 3])\nt[1].append(4)\nprint(t)",
+  "options": [
+   "(1, 4)",
+   "TypeError",
+   "(1, [2, 3, 4])",
+   "(1, [2, 3], 4)"
+  ],
+  "answer": 2,
+  "explanation": "Mặc dù tuple là bất biến (immutable), nhưng phần tử bên trong nó là một list (mutable). Ta không thể thay đổi tuple để trỏ tới list khác, nhưng có thể sửa nội dung của chính list đó.",
+  "hint": "Tính bất biến của tuple chỉ áp dụng cho chính các tham chiếu mà nó chứa.",
+  "errorCategory": "concept",
+  "tags": [
+   "tuple"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q32",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = [1, 2]\nb = [3, 4]\nprint(list(zip(a, b)))",
+  "options": [
+   "([1, 3], [2, 4])",
+   "[[1, 3], [2, 4]]",
+   "[(1, 3), (2, 4)]",
+   "[(1, 2), (3, 4)]"
+  ],
+  "answer": 2,
+  "explanation": "Hàm zip kết hợp các phần tử có cùng chỉ số từ các iterable thành các tuple. list() chuyển kết quả zip thành một list các tuple.",
+  "hint": "Zip ghép đôi các phần tử tương ứng: thứ nhất với thứ nhất, thứ hai với thứ hai.",
+  "errorCategory": "execution",
+  "tags": [
+   "enumerate-zip"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q34",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là một vòng lặp for. Đoạn nào thay thế được dòng đó để kết quả không đổi?",
+  "code": "nums = [1, 2, 3, 4, 5]\n___\nprint(res)",
+  "options": [
+   "res = [x for x in nums if x % 2 == 0]",
+   "res = [x if x % 2 == 0 for x in nums]",
+   "res = list(filter(nums, lambda x: x % 2 == 0))",
+   "res = [nums[x] for x in nums if x % 2 == 0]"
+  ],
+  "answer": 0,
+  "explanation": "List comprehension có cấu trúc [expression for item in iterable if condition]. Phương án đúng lọc các số chẵn.",
+  "hint": "Cú pháp list comprehension có điều kiện lọc đặt ở cuối.",
+  "errorCategory": "syntax",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "[2, 4]"
+ },
+ {
+  "id": "T3-Q35",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để thực hiện chuyển vị ma trận m (2x2).",
+  "code": "m = [[1, 2], [3, 4]]\nres = [___ for i in range(len(m[0]))]\nprint(res)",
+  "options": [
+   "[row[i] for row in m]",
+   "m[i][j]",
+   "m[i][::-1]",
+   "[m[j][i] for j in m]"
+  ],
+  "answer": 0,
+  "explanation": "Để chuyển vị, phần tử tại cột i của tất cả các hàng 'row' trong m sẽ trở thành hàng mới của ma trận kết quả.",
+  "hint": "Bạn cần lấy tất cả các phần tử ở cột thứ i để tạo thành hàng mới.",
+  "errorCategory": "logic",
+  "tags": [
+   "matrix-2d",
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "expect": "[[1, 3], [2, 4]]"
+ },
+ {
+  "id": "T3-Q36",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn câu lệnh điền vào ___ để chương trình xóa số 2 khỏi list.",
+  "code": "a = [1, 2, 3]\n___\nprint(a)",
+  "options": [
+   "del a[2]",
+   "a.pop(2)",
+   "a.index(2)",
+   "a.remove(2)"
+  ],
+  "answer": 3,
+  "explanation": "remove(value) xóa phần tử theo giá trị. pop(index) và del a[index] xóa theo chỉ số (số 2 ở chỉ số 1).",
+  "hint": "Phân biệt xóa theo giá trị và xóa theo vị trí.",
+  "errorCategory": "method",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[1, 3]"
+ },
+ {
+  "id": "T3-Q37",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Điền vào ___ để chương trình in ra chỉ số và giá trị tương ứng.",
+  "code": "L = ['A', 'B']\nfor i, v in ___:\n    print(f\"{i}:{v}\", end=\" \")",
+  "options": [
+   "zip(L)",
+   "range(len(L))",
+   "enumerate(L)",
+   "L.items()"
+  ],
+  "answer": 2,
+  "explanation": "Hàm enumerate() trả về các cặp (chỉ số, giá trị) từ một danh sách.",
+  "hint": "Hàm nào giúp lấy cả index và value khi lặp?",
+  "errorCategory": "theory",
+  "tags": [
+   "enumerate-zip"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "0:A 1:B "
+ },
+ {
+  "id": "T3-Q38",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Điền vào ___ để làm phẳng (flatten) list m lồng nhau.",
+  "code": "m = [[1], [2, 3]]\nflat = [___]\nprint(flat)",
+  "options": [
+   "sub for x in sub for sub in m",
+   "x for sub in m for x in sub",
+   "x for x in sub for sub in m",
+   "m.extend()"
+  ],
+  "answer": 1,
+  "explanation": "Cấu trúc nested list comprehension: [item for sublist in main_list for item in sublist]. Thứ tự vòng lặp ngoài trước, vòng lặp trong sau.",
+  "hint": "Thứ tự các vòng for trong list comprehension tương đương với vòng lặp lồng nhau thông thường.",
+  "errorCategory": "syntax",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "[1, 2, 3]"
+ },
+ {
+  "id": "T3-Q39",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để sắp xếp list theo độ dài chuỗi tăng dần.",
+  "code": "words = ['apple', 'bat', 'cherry']\nwords.sort(key=___)\nprint(words[0])",
+  "options": [
+   "str.lower",
+   "len",
+   "lambda x: x[0]",
+   "reversed"
+  ],
+  "answer": 1,
+  "explanation": "Tham số key của phương thức sort() nhận một hàm để áp dụng lên từng phần tử trước khi so sánh. Dùng len sẽ sắp xếp theo độ dài.",
+  "hint": "Bạn cần một hàm trả về độ dài của chuỗi.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-sorted"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "bat"
+ },
+ {
+  "id": "T3-Q40",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Điền vào ___ để in ra phần tử cuối cùng của list.",
+  "code": "a = [10, 20, 30, 40]\nprint(___)",
+  "options": [
+   "a.pop(0)",
+   "a[-1]",
+   "a[len(a)]",
+   "a[4]"
+  ],
+  "answer": 1,
+  "explanation": "Chỉ số -1 luôn trỏ đến phần tử cuối cùng của một sequence trong Python. a[4] và a[len(a)] gây IndexError vì chỉ số chạy từ 0 đến 3.",
+  "hint": "Sử dụng chỉ số âm để truy cập từ cuối danh sách.",
+  "errorCategory": "syntax",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "40"
+ },
+ {
+  "id": "T3-Q42",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "m = [[1]] * 3\nm[0].append(2)\nprint(m)",
+  "options": [
+   "[[1, 2], [1, 2], [1, 2]]",
+   "[[1, 2, 1, 2, 1, 2]]",
+   "[[1, 2], [1], [1]]",
+   "[[1], [1], [1, 2]]"
+  ],
+  "answer": 0,
+  "explanation": "Toán tử * khi dùng với list chứa object (như list con) sẽ tạo ra các tham chiếu đến cùng một đối tượng. Thay đổi m[0] cũng là thay đổi m[1] và m[2].",
+  "hint": "Toán tử nhân list tạo ra bản sao nông (shallow copy) của các phần tử.",
+  "errorCategory": "concept",
+  "tags": [
+   "matrix-2d",
+   "list-alias-copy"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q43",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = [1, 2, 3, 2, 1]\nv = a.pop(a.index(2))\nprint(v, a)",
+  "options": [
+   "2 [1, 2, 3, 1]",
+   "1 [2, 3, 2, 1]",
+   "ValueError",
+   "2 [1, 3, 2, 1]"
+  ],
+  "answer": 3,
+  "explanation": "a.index(2) trả về chỉ số đầu tiên tìm thấy số 2 (là 1). a.pop(1) xóa phần tử tại chỉ số 1 và trả về giá trị đó (2). List còn lại là [1, 3, 2, 1].",
+  "hint": "index() tìm vị trí đầu tiên, pop() xóa theo vị trí.",
+  "errorCategory": "method",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q44",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "m = [[1, 2], [3, 4], [5, 6]]\nres = [sum(c) for c in zip(*m)]\nprint(res)",
+  "options": [
+   "[3, 7, 11]",
+   "TypeError",
+   "[9, 12]",
+   "[[1, 3, 5], [2, 4, 6]]"
+  ],
+  "answer": 2,
+  "explanation": "zip(*m) thực chất là zip([1,2], [3,4], [5,6]), tạo ra các tuple (1, 3, 5) và (2, 4, 6). List comprehension tính tổng từng tuple này.",
+  "hint": "Toán tử * giải nén list m thành các đối số riêng biệt cho hàm zip.",
+  "errorCategory": "logic",
+  "tags": [
+   "enumerate-zip",
+   "matrix-2d"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q45",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "nums = [3, 1, 4]\nres = nums.sort()\nprint(res, nums)",
+  "options": [
+   "None [1, 3, 4]",
+   "[1, 3, 4] [3, 1, 4]",
+   "[1, 3, 4] [1, 3, 4]",
+   "AttributeError"
+  ],
+  "answer": 0,
+  "explanation": "Phương thức sort() sắp xếp tại chỗ (in-place) và luôn trả về giá trị None. Biến nums bị thay đổi, nhưng res nhận giá trị None.",
+  "hint": "Phân biệt phương thức của đối tượng trả về 'None' và hàm tạo ra bản sao mới.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-sorted"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T3-Q46",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = [0, 1, 2, 3, 4, 5]\nprint(s[4:1:-2])",
+  "options": [
+   "[4, 3, 2]",
+   "[2, 4]",
+   "[4, 2]",
+   "[4, 2, 0]"
+  ],
+  "answer": 2,
+  "explanation": "Slicing [start:stop:step]. Bắt đầu từ index 4 (giá trị 4), bước nhảy -2, dừng trước index 1. Các chỉ số lấy là 4, 2. Giá trị tương ứng là [4, 2].",
+  "hint": "Bước nhảy âm đi ngược từ phải sang trái.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q47",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "vals = [i*j for i in [1, 2] for j in [3, 4]]\nprint(vals)",
+  "options": [
+   "[4, 5, 5, 6]",
+   "[[3, 4], [6, 8]]",
+   "[3, 8]",
+   "[3, 4, 6, 8]"
+  ],
+  "answer": 3,
+  "explanation": "List comprehension có vòng lặp lồng nhau: vòng i chạy trước, với mỗi i vòng j chạy hết. (1*3, 1*4, 2*3, 2*4).",
+  "hint": "Thứ tự vòng lặp trong list comprehension giống như viết lồng nhau thông thường.",
+  "errorCategory": "logic",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q48",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "items = [1, 2, 3, 4, 5]\nfor x in items:\n    if x % 2 == 0:\n        items.remove(x)\nprint(items)",
+  "options": [
+   "RuntimeError",
+   "[1, 3, 4, 5]",
+   "[1, 3, 5]",
+   "[1, 2, 3, 4, 5]"
+  ],
+  "answer": 2,
+  "explanation": "Khi xóa phần tử 2 (index 1), các phần tử sau dồn lên. Phần tử 3 giờ ở index 1. Vòng lặp chuyển sang index 2, chính là giá trị 4. Do đó 3 bị nhảy qua (vẫn giữ nguyên). Sau đó 4 bị xóa.",
+  "hint": "Sửa đổi list khi đang lặp qua nó bằng 'for' thường dẫn đến bỏ sót phần tử.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-mutation-in-loop"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q49",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "t1 = (1)\nt2 = (1,)\nprint(type(t1) == type(t2))",
+  "options": [
+   "TypeError",
+   "NameError",
+   "True",
+   "False"
+  ],
+  "answer": 3,
+  "explanation": "(1) được hiểu là số nguyên 1 nằm trong ngoặc đơn toán học. (1,) mới là một tuple chứa một phần tử.",
+  "hint": "Dấu phẩy là thứ quyết định một tuple có một phần tử, không phải dấu ngoặc.",
+  "errorCategory": "concept",
+  "tags": [
+   "tuple"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q50",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "tp = (1, [2, 3])\ntp[1].append(4)\nprint(tp)",
+  "options": [
+   "(1, [2, 3, 4])",
+   "TypeError",
+   "(1, [2, 3], 4)",
+   "(1, 2, 3, 4)"
+  ],
+  "answer": 0,
+  "explanation": "Mặc dù tuple là bất biến (immutable), nhưng nó chứa một list (mutable). Ta không thể thay đổi tuple để nó trỏ tới object khác, nhưng có thể thay đổi nội dung của object list mà nó đang chứa.",
+  "hint": "Tuple không cho phép gán lại phần tử, nhưng các phần tử mutable bên trong nó vẫn có thể thay đổi.",
+  "errorCategory": "concept",
+  "tags": [
+   "tuple",
+   "list-methods"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T3-Q51",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = [1, 2]\na.extend([3, 4])\nprint(len(a))",
+  "options": [
+   "5",
+   "2",
+   "3",
+   "4"
+  ],
+  "answer": 3,
+  "explanation": "extend() giải nén iterable và thêm từng phần tử vào cuối list. List a trở thành [1, 2, 3, 4].",
+  "hint": "Phân biệt extend (thêm các phần tử) và append (thêm cả đối tượng list).",
+  "errorCategory": "method",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q52",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "a = [1, 2]\nprint(a[2:])",
+  "options": [
+   "[]",
+   "IndexError",
+   "[2]",
+   "None"
+  ],
+  "answer": 0,
+  "explanation": "Truy cập trực tiếp chỉ số ngoài phạm vi (a[2]) gây IndexError, nhưng kỹ thuật cắt (slicing) ngoài phạm vi sẽ trả về một list rỗng thay vì báo lỗi.",
+  "hint": "Slicing rất linh hoạt với các chỉ số vượt giới hạn.",
+  "errorCategory": "edge",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q53",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "val = ___\nprint(val, type(val))",
+  "options": [
+   "(5,)",
+   "tuple(5,)",
+   "(5)",
+   "tuple(5)"
+  ],
+  "answer": 0,
+  "explanation": "Để khai báo tuple 1 phần tử, bắt buộc phải có dấu phẩy sau phần tử đó.",
+  "hint": "Ký hiệu đặc biệt cho tuple đơn tử.",
+  "errorCategory": "syntax",
+  "tags": [
+   "tuple"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "(5,) <class 'tuple'>"
+ },
+ {
+  "id": "T3-Q55",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "a = [[0]]\nb = ___\nb[0][0] = 1\nprint(a[0][0])",
+  "options": [
+   "a[:]",
+   "list(a)",
+   "a.copy()",
+   "[x[:] for x in a]"
+  ],
+  "answer": 3,
+  "explanation": "Với list lồng nhau, a[:], a.copy() hay list(a) chỉ là copy nông (shallow copy), b[0] vẫn trỏ tới cùng một list với a[0]. Cần dùng list comprehension để copy từng list con (hoặc dùng deepcopy).",
+  "hint": "Copy nông không bảo vệ được các list nằm bên trong.",
+  "errorCategory": "concept",
+  "tags": [
+   "list-alias-copy",
+   "matrix-2d"
+  ],
+  "source": "supplement",
+  "reserve": true,
+  "expect": "0"
+ },
+ {
+  "id": "T3-Q56",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "m = [[1, 2], [3, 4]]\ntr = ___\nprint(tr)",
+  "options": [
+   "list(zip(m))",
+   "[m[j][i] for i in range(2) for j in range(2)]",
+   "m.reverse()",
+   "list(zip(*m))"
+  ],
+  "answer": 3,
+  "explanation": "Kỹ thuật zip(*matrix) là cách Pythonic để chuyển vị (transpose) một ma trận.",
+  "hint": "Giải nén các hàng của ma trận vào hàm zip.",
+  "errorCategory": "method",
+  "tags": [
+   "matrix-2d",
+   "enumerate-zip"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "[(1, 3), (2, 4)]"
+ },
+ {
+  "id": "T3-Q57",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `res = list(filter(lambda x: x > 5, data))`. Đoạn nào thay thế được dòng đó mà kết quả không đổi?",
+  "code": "data = [1, 10, 5, 20]\n___\nprint(res)",
+  "options": [
+   "res = [x if x > 5 for x in data]",
+   "res = filter(x > 5, data)",
+   "res = [x for x in data if x > 5]",
+   "res = [x for x in data > 5]"
+  ],
+  "answer": 2,
+  "explanation": "List comprehension [x for x in data if condition] tương đương với việc dùng hàm filter.",
+  "hint": "Cú pháp lọc phần tử trong list comprehension.",
+  "errorCategory": "syntax",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[10, 20]"
+ },
+ {
+  "id": "T3-Q58",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "x = [10, 20, 30]\n___\nprint(x)",
+  "options": [
+   "del x[1]",
+   "x.del(1)",
+   "x.remove(1)",
+   "x.pop(20)"
+  ],
+  "answer": 0,
+  "explanation": "Lệnh del xóa phần tử tại một chỉ số cụ thể. x[1] là giá trị 20.",
+  "hint": "Xóa phần tử theo chỉ số (index) dùng từ khóa del hoặc phương thức pop.",
+  "errorCategory": "method",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[10, 30]"
+ },
+ {
+  "id": "T3-Q59",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "m = [[1, 2], [3, 4]]\ns = ___\nprint(s)",
+  "options": [
+   "sum(m[:][:])",
+   "sum(m[i][j] for i in m for j in i)",
+   "sum(m[i][i] for i in range(len(m)))",
+   "m[0][0] + m[0][1]"
+  ],
+  "answer": 2,
+  "explanation": "Đường chéo chính của ma trận vuông là các phần tử có chỉ số hàng bằng chỉ số cột (m[0][0], m[1][1],...).",
+  "hint": "Chỉ số hàng và cột giống nhau trên đường chéo chính.",
+  "errorCategory": "logic",
+  "tags": [
+   "matrix-2d",
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "5"
+ },
+ {
+  "id": "T3-Q60",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "data = [10, 20, 30, 40, 50]\nprint(data[1:-1:2])",
+  "options": [
+   "[20, 30, 40]",
+   "[20, 40]",
+   "[20, 40, 50]",
+   "[10, 30, 50]"
+  ],
+  "answer": 1,
+  "explanation": "Slicing [start:stop:step]. Ở đây start=1 (giá trị 20), stop=-1 (giá trị 50, không bao gồm), step=2. Vậy các chỉ số được lấy là 1 và 3 (20 và 40).",
+  "hint": "Lưu ý stop index trong slicing không bao gồm phần tử tại vị trí đó.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-index-slice"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T3-Q61",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của chương trình sau là gì?",
+  "code": "val = (2024)\nprint(type(val).__name__)",
+  "options": [
+   "int",
+   "str",
+   "list",
+   "tuple"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, một cặp ngoặc đơn bao quanh một giá trị duy nhất mà không có dấu phẩy sẽ được hiểu là biểu thức toán học, không phải tuple. Để tạo tuple 1 phần tử phải dùng (2024,).",
+  "hint": "Phân biệt giữa ngoặc đơn ưu tiên phép toán và ngoặc đơn khai báo tuple.",
+  "errorCategory": "concept",
+  "tags": [
+   "tuple"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q62",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau in ra màn hình nội dung gì?",
+  "code": "matrix = [[0] * 2] * 3\nmatrix[0][0] = 5\nprint(matrix[1][0])",
+  "options": [
+   "5",
+   "0",
+   "IndexError",
+   "None"
+  ],
+  "answer": 0,
+  "explanation": "Phép nhân list `[[0]*2]*3` tạo ra 3 tham chiếu đến cùng một đối tượng list con `[0, 0]`. Khi thay đổi một list con, tất cả các dòng khác đều thay đổi theo.",
+  "hint": "Đây là bẫy phổ biến về tham chiếu (reference) khi khởi tạo ma trận bằng phép nhân.",
+  "errorCategory": "logic",
+  "tags": [
+   "matrix-2d",
+   "list-alias-copy"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q63",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Giá trị của danh sách 'a' sau khi thực hiện đoạn code sau là gì?",
+  "code": "a = [1, 2, 3]\nb = a\na.append(4)\nb = b + [5]\nprint(a)",
+  "options": [
+   "[1, 2, 3]",
+   "[1, 2, 3, 4]",
+   "[1, 2, 3, 5]",
+   "[1, 2, 3, 4, 5]"
+  ],
+  "answer": 1,
+  "explanation": "Ban đầu b tham chiếu cùng đối tượng với a. a.append(4) thay đổi tại chỗ. Tuy nhiên, `b = b + [5]` tạo ra một đối tượng list mới và gán cho b, không còn liên quan đến a.",
+  "hint": "Phân biệt phép toán thay đổi tại chỗ (in-place) và phép toán tạo đối tượng mới.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-alias-copy"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q66",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Kết quả in ra của đoạn code sau là gì?",
+  "code": "matrix = [[1, 2], [3, 4]]\nres = [x for row in matrix[::-1] for x in row]\nprint(res)",
+  "options": [
+   "[4, 3, 2, 1]",
+   "[3, 4, 1, 2]",
+   "[[3, 4], [1, 2]]",
+   "[1, 2, 3, 4]"
+  ],
+  "answer": 1,
+  "explanation": "matrix[::-1] đảo ngược thứ tự các dòng thành [[3, 4], [1, 2]]. Sau đó list comprehension lồng nhau sẽ duyệt qua từng dòng và từng phần tử trong dòng đó để làm phẳng ma trận.",
+  "hint": "Duyệt qua các dòng đã đảo ngược, sau đó lấy từng phần tử từ trái sang phải.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-comprehension",
+   "matrix-2d"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q67",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau in ra gì?",
+  "code": "a, *b, c = (1, 2, 3, 4, 5)\nprint(type(b).__name__, len(b))",
+  "options": [
+   "tuple 3",
+   "tuple 1",
+   "list 5",
+   "list 3"
+  ],
+  "answer": 3,
+  "explanation": "Sử dụng asterisk (*) trong unpacking sẽ gom các phần tử còn lại vào một 'list', bất kể nguồn là tuple hay list. Ở đây b nhận [2, 3, 4].",
+  "hint": "Unpacking với dấu sao luôn trả về một danh sách (list).",
+  "errorCategory": "concept",
+  "tags": [
+   "unpacking",
+   "tuple"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T3-Q68",
+  "topic": "T3",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra độ dài của danh sách bằng 5.",
+  "code": "a = [1, 2, 3]\n___\nprint(len(a))",
+  "options": [
+   "a = a.append(4, 5)",
+   "a.insert(0, [4, 5])",
+   "a.extend([4, 5])",
+   "a.append([4, 5])"
+  ],
+  "answer": 2,
+  "explanation": "extend() giải nén các phần tử của iterable và thêm vào list. append() sẽ thêm cả list [4, 5] như một phần tử duy nhất khiến len(a) chỉ bằng 4.",
+  "hint": "Hàm nào dùng để nối các phần tử của một list khác vào list hiện tại?",
+  "errorCategory": "method",
+  "tags": [
+   "list-methods"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "5"
+ },
+ {
+  "id": "T3-Q69",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để lấy ra các số lẻ từ danh sách gốc.",
+  "code": "nums = [1, 2, 3, 4, 5, 6]\nodds = [x for x in nums if ___]\nprint(odds)",
+  "options": [
+   "nums[x] % 2 != 0",
+   "x % 2 == 0",
+   "x / 2 != 0",
+   "x % 2 != 0"
+  ],
+  "answer": 3,
+  "explanation": "Toán tử % dùng để lấy số dư. x % 2 != 0 kiểm tra số lẻ. Phương án dùng nums[x] sai vì x là giá trị phần tử, không phải chỉ số.",
+  "hint": "Số lẻ là số chia cho 2 có số dư khác 0.",
+  "errorCategory": "logic",
+  "tags": [
+   "list-comprehension"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[1, 3, 5]"
+ },
+ {
+  "id": "T3-Q70",
+  "topic": "T3",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tính tổng từng dòng của ma trận.",
+  "code": "m = [[1, 2], [3, 4], [5, 6]]\nrow_sums = [___ for row in m]\nprint(row_sums)",
+  "options": [
+   "m.count(row)",
+   "sum(row)",
+   "sum(m)",
+   "row[0] + row[1] + row[2]"
+  ],
+  "answer": 1,
+  "explanation": "Biến 'row' đại diện cho từng list con (từng dòng). sum(row) sẽ cộng các phần tử trong dòng đó.",
+  "hint": "Trong list comprehension duyệt qua ma trận, mỗi phần tử của list cha là một list con đại diện cho một dòng.",
+  "errorCategory": "method",
+  "tags": [
+   "matrix-2d",
+   "list-comprehension"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "expect": "[3, 7, 11]"
+ },
+ {
+  "id": "T3-Q71",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `res = dict(zip(k, v))`. Đoạn nào thay thế được mà kết quả không đổi?",
+  "code": "k = ['id', 'name']\nv = [1, 'An']\n___\nprint(res['id'])",
+  "options": [
+   "res = dict([k, v])",
+   "res = {k[i]: v[i] for i in range(len(k))}",
+   "res = {k: v for k, v in (k, v)}",
+   "res = {key: val for key in k for val in v}"
+  ],
+  "answer": 1,
+  "explanation": "Sử dụng dictionary comprehension kết hợp với range(len()) là cách thủ công tương đương với zip() để tạo dict từ hai danh sách.",
+  "hint": "Cần lặp qua các chỉ số của danh sách để lấy cặp key-value tương ứng.",
+  "errorCategory": "implementation",
+  "tags": [
+   "enumerate-zip",
+   "list-comprehension"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "1"
+ },
+ {
+  "id": "T3-Q72",
+  "topic": "T3",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để sắp xếp danh sách sinh viên theo điểm số (gpa) giảm dần.",
+  "code": "st = [('An', 3.5), ('Binh', 3.9), ('Chinh', 3.2)]\nst.sort(___)\nprint(st[0][0])",
+  "options": [
+   "key=lambda x: x[0], reverse=True",
+   "reverse=True",
+   "key=x[1], reverse=True",
+   "key=lambda x: x[1], reverse=True"
+  ],
+  "answer": 3,
+  "explanation": "Để sắp xếp theo phần tử thứ hai của tuple (điểm số), ta dùng tham số 'key' với một lambda function. reverse=True để sắp xếp giảm dần (điểm cao nhất lên đầu).",
+  "hint": "Tham số key nhận một hàm định nghĩa tiêu chí sắp xếp.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-sorted",
+   "tuple"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "Binh"
+ },
+ {
   "id": "T4-Q01",
   "topic": "T4",
   "difficulty": 1,
@@ -1855,6 +4435,1103 @@
   ],
   "source": "textbook",
   "reserve": true
+ },
+ {
+  "id": "T4-Q21",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {1: \"red\", 1.0: \"blue\", True: \"green\"}\nprint(d[1])",
+  "options": [
+   "1",
+   "green",
+   "red",
+   "blue"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, 1, 1.0 và True có cùng giá trị băm (hash) và được coi là bằng nhau khi làm khóa trong dictionary. Khóa sau sẽ ghi đè giá trị của khóa trước. Ở đây 'green' là giá trị cuối cùng được gán cho khóa này.",
+  "hint": "Kiểm tra xem các giá trị 1, 1.0 và True có được coi là duy nhất trong dictionary không.",
+  "errorCategory": "concept",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q22",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = {1, 2, 3, 2, 1}\nprint(len(s))",
+  "options": [
+   "5",
+   "4",
+   "2",
+   "3"
+  ],
+  "answer": 3,
+  "explanation": "Set (tập hợp) trong Python tự động loại bỏ các phần tử trùng lặp. Tập {1, 2, 3, 2, 1} thực tế chỉ chứa {1, 2, 3}.",
+  "hint": "Đặc tính quan trọng nhất của set là gì đối với các phần tử trùng nhau?",
+  "errorCategory": "theory",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q23",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"PTIT\": \"VN\"}\nprint(d[\"HUST\"])",
+  "options": [
+   "VN",
+   "KeyError",
+   "None",
+   "SyntaxError"
+  ],
+  "answer": 1,
+  "explanation": "Khi truy cập một khóa không tồn tại trong dictionary bằng cú pháp d[key], Python sẽ ném ra ngoại lệ KeyError.",
+  "hint": "Điều gì xảy ra khi bạn tìm một từ không có trong từ điển bằng dấu ngoặc vuông?",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-access-get"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q24",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"a\": 1, \"b\": 2}\nx = d.get(\"c\", 3) + d.get(\"a\", 0)\nprint(x)",
+  "options": [
+   "3",
+   "KeyError",
+   "4",
+   "1"
+  ],
+  "answer": 2,
+  "explanation": "Phương thức get(key, default) trả về giá trị của khóa nếu có, nếu không trả về giá trị mặc định. d.get(\"c\", 3) trả về 3 vì 'c' không có. d.get(\"a\", 0) trả về 1 vì 'a' có sẵn. 3 + 1 = 4.",
+  "hint": "Hàm .get() khác gì với việc dùng cặp ngoặc vuông []?",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-access-get"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q25",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "rates = {\"USD\": {\"buy\": 25, \"sell\": 26}, \"EUR\": {\"buy\": 27, \"sell\": 28}}\nprint(rates[\"USD\"][\"sell\"])",
+  "options": [
+   "26",
+   "USD",
+   "25",
+   "KeyError"
+  ],
+  "answer": 0,
+  "explanation": "Đây là dictionary lồng nhau. rates[\"USD\"] trả về dictionary {'buy': 25, 'sell': 26}, sau đó lấy tiếp khóa [\"sell\"] trả về 26.",
+  "hint": "Truy cập từng cấp một từ ngoài vào trong.",
+  "errorCategory": "execution",
+  "tags": [
+   "nested-dict"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T4-Q26",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {[1, 2]: \"numbers\"}\nprint(d)",
+  "options": [
+   "TypeError",
+   "{[1, 2]: 'numbers'}",
+   "SyntaxError",
+   "KeyError"
+  ],
+  "answer": 0,
+  "explanation": "Khóa của dictionary phải là kiểu dữ liệu hashable (không thể thay đổi như int, str, tuple). List là kiểu mutable nên không thể làm khóa, gây ra TypeError.",
+  "hint": "Mọi kiểu dữ liệu đều có thể làm khóa (key) của dictionary được không?",
+  "errorCategory": "concept",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q27",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = set()\ns.add(10)\ns.update([10, 20])\nprint(len(s))",
+  "options": [
+   "1",
+   "3",
+   "TypeError",
+   "2"
+  ],
+  "answer": 3,
+  "explanation": "s bắt đầu rỗng, add(10) thêm 10 vào. update([10, 20]) cố gắng thêm 10 và 20, nhưng 10 đã có nên chỉ thêm 20. Kết quả set có {10, 20}, độ dài là 2.",
+  "hint": "Phương thức update() nhận vào một iterable và thêm các phần tử duy nhất vào set.",
+  "errorCategory": "logic",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q28",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {i: i*2 for i in range(3)}\nprint(sum(d.values()))",
+  "options": [
+   "3",
+   "0",
+   "[0, 2, 4]",
+   "6"
+  ],
+  "answer": 3,
+  "explanation": "Dict comprehension tạo ra {0: 0, 1: 2, 2: 4}. d.values() lấy các giá trị [0, 2, 4], tổng của chúng là 6.",
+  "hint": "Tính toán các giá trị sinh ra từ range(3) theo công thức i*2.",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-comprehension"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q29",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "set_a = {1, 2, 3}\nset_b = {3, 4, 5}\nprint(set_a - set_b)",
+  "options": [
+   "{3}",
+   "{1, 2}",
+   "{1, 2, 4, 5}",
+   "{4, 5}"
+  ],
+  "answer": 1,
+  "explanation": "Phép toán hiệu (-) giữa hai set trả về các phần tử có trong set_a nhưng không có trong set_b. Số 3 có ở cả hai nên bị loại bỏ.",
+  "hint": "Đây là phép trừ tập hợp trong toán học.",
+  "errorCategory": "concept",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q30",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"apple\": 5, \"banana\": 2, \"cherry\": 8}\nres = sorted(d.items(), key=lambda x: x[1])\nprint(res[0][0])",
+  "options": [
+   "apple",
+   "banana",
+   "cherry",
+   "2"
+  ],
+  "answer": 1,
+  "explanation": "d.items() trả về các cặp tuple. sorted với key=lambda x: x[1] sẽ sắp xếp theo giá trị (số lượng). Cặp nhỏ nhất là ('banana', 2). res[0][0] lấy khóa của cặp đầu tiên sau khi sắp xếp.",
+  "hint": "Hàm sorted đang sắp xếp dictionary theo tiêu chí nào?",
+  "errorCategory": "method",
+  "tags": [
+   "sort-dict"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T4-Q31",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "info = {\"id\": \"B21\", \"gpa\": 3.5}\ninfo[\"gpa\"] = 3.8\nprint(info[\"gpa\"])",
+  "options": [
+   "None",
+   "TypeError",
+   "3.8",
+   "3.5"
+  ],
+  "answer": 2,
+  "explanation": "Dictionary là kiểu dữ liệu có thể thay đổi (mutable). Khi gán một giá trị mới cho một khóa đã tồn tại, giá trị cũ sẽ bị ghi đè.",
+  "hint": "Việc gán giá trị mới cho khóa đã có sẵn sẽ làm gì?",
+  "errorCategory": "theory",
+  "tags": [
+   "dict-update-delete"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q32",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "msg = \"hello\"\nfreq = {}\nfor c in msg:\n    freq[c] = freq.get(c, 0) + 1\nprint(freq[\"l\"])",
+  "options": [
+   "2",
+   "0",
+   "KeyError",
+   "1"
+  ],
+  "answer": 0,
+  "explanation": "Vòng lặp đếm tần suất xuất hiện của các ký tự. Chữ 'l' xuất hiện 2 lần trong 'hello'. freq.get(c, 0) giúp khởi tạo giá trị 0 nếu ký tự chưa có trong dict.",
+  "hint": "Đếm số lần xuất hiện của chữ cái 'l' trong chuỗi 'hello'.",
+  "errorCategory": "logic",
+  "tags": [
+   "frequency-count"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q33",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "d = {}\n___ \nprint(len(d))",
+  "options": [
+   "d[\"key\"] = \"value\"",
+   "d.append(\"key\")",
+   "d.add(\"key\")",
+   "d.push(\"key\")"
+  ],
+  "answer": 0,
+  "explanation": "Để thêm một cặp key-value vào dictionary, ta dùng cú pháp d[key] = value. Các phương thức add (cho set), append (cho list) không tồn tại đối với dict.",
+  "hint": "Cách cơ bản nhất để thêm phần tử vào một dictionary là gì?",
+  "errorCategory": "syntax",
+  "tags": [
+   "dict-update-delete"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "1"
+ },
+ {
+  "id": "T4-Q38",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "a = {1, 2}\nb = {2, 3}\nc = ___\nprint(sorted(list(c)))",
+  "options": [
+   "a & b",
+   "a.update(b)",
+   "a + b",
+   "a | b"
+  ],
+  "answer": 3,
+  "explanation": "Phép hợp (|) trả về tập hợp các phần tử có trong a hoặc b. Phép cộng (+) không dùng được cho set. Phép giao (&) chỉ lấy phần tử chung {2}. update() trả về None.",
+  "hint": "Tìm phép toán 'hợp' của hai tập hợp.",
+  "errorCategory": "concept",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[1, 2, 3]"
+ },
+ {
+  "id": "T4-Q39",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "d = {\"x\": 10, \"y\": 20}\nitems = ___\nprint(items[0][1])",
+  "options": [
+   "d.sort()",
+   "sorted(d.values(), reverse=True)",
+   "sorted(d.items(), key=lambda x: x[1], reverse=True)",
+   "sorted(d.items())"
+  ],
+  "answer": 2,
+  "explanation": "Cần sắp xếp giảm dần theo giá trị để giá trị lớn nhất (20) nằm ở đầu. d.items() trả về cặp, lambda x: x[1] chỉ định sắp xếp theo value, reverse=True để đảo ngược.",
+  "hint": "Để lấy được giá trị 20 ở chỉ mục [0][1], danh sách phải chứa các cặp tuple và được sắp xếp giảm dần.",
+  "errorCategory": "implementation",
+  "tags": [
+   "sort-dict"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "20"
+ },
+ {
+  "id": "T4-Q40",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "data = {\"st\": [{\"n\": \"A\", \"m\": 8}, {\"n\": \"B\", \"m\": 9}]}\navg = ___\nprint(avg)",
+  "options": [
+   "sum(s[\"m\"] for s in data[\"st\"]) / 2",
+   "(data[\"st\"][0] + data[\"st\"][1]) / 2",
+   "sum(data[\"st\"]) / 2",
+   "data[\"st\"][\"m\"].mean()"
+  ],
+  "answer": 0,
+  "explanation": "data[\"st\"] là một danh sách các dictionary. Ta dùng generator expression để lấy ra các giá trị điểm \"m\", tính tổng rồi chia cho 2.",
+  "hint": "Truy cập vào danh sách trong dictionary, sau đó lấy giá trị 'm' của từng phần tử bên trong.",
+  "errorCategory": "logic",
+  "tags": [
+   "nested-dict"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "expect": "8.5"
+ },
+ {
+  "id": "T4-Q41",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "data = {1: \"Python\", True: \"Java\", 1.0: \"C++\"}\nprint(len(data), data[1])",
+  "options": [
+   "3 Python",
+   "1 Python",
+   "3 C++",
+   "1 C++"
+  ],
+  "answer": 3,
+  "explanation": "Trong Python, các giá trị 1, True và 1.0 có cùng giá trị băm (hash) và bằng nhau (==). Do đó, chúng được coi là cùng một khóa trong dictionary. Khi khai báo đè lên nhau, giá trị sau cùng ('C++') sẽ được giữ lại và kích thước dictionary chỉ là 1.",
+  "hint": "Hãy nhớ quy tắc về các giá trị tương đương (1, True, 1.0) khi làm khóa của dictionary.",
+  "errorCategory": "concept",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q42",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "points = {\"A\": 10, \"B\": 20}\nresult = points.get(\"C\", 0) + points.get(\"A\", 0)\nprint(result)",
+  "options": [
+   "30",
+   "10",
+   "0",
+   "KeyError"
+  ],
+  "answer": 1,
+  "explanation": "Phương thức get(key, default) trả về giá trị của khóa nếu tồn tại, ngược lại trả về giá trị mặc định. points.get(\"C\", 0) trả về 0 vì \"C\" không có trong dict. points.get(\"A\", 0) trả về 10. Tổng là 10.",
+  "hint": "Hàm get() giúp tránh lỗi gì khi truy cập khóa không tồn tại?",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-access-get"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q43",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "info = {\"id\": \"S01\", [1, 2]: \"Group\"}\nprint(info[\"id\"])",
+  "options": [
+   "TypeError",
+   "SyntaxError",
+   "KeyError",
+   "S01"
+  ],
+  "answer": 0,
+  "explanation": "Khóa của dictionary phải là đối tượng có thể băm (hashable/immutable). List là đối tượng thay đổi được (mutable), nên không thể dùng làm khóa. Python sẽ ném ra ngoại lệ TypeError: unhashable type: 'list'.",
+  "hint": "Dữ liệu kiểu list có thể dùng làm khóa cho dictionary được không?",
+  "errorCategory": "theory",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q44",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "rates = {\"USD\": {\"buy\": 25}, \"EUR\": {\"buy\": 27}}\nrates[\"USD\"][\"sell\"] = 26\nprint(len(rates[\"USD\"]))",
+  "options": [
+   "1",
+   "2",
+   "KeyError",
+   "3"
+  ],
+  "answer": 1,
+  "explanation": "rates[\"USD\"] là một dictionary {'buy': 25}. Câu lệnh rates[\"USD\"][\"sell\"] = 26 thêm một cặp khóa-giá trị mới vào dictionary con này, khiến nó có 2 phần tử: 'buy' và 'sell'.",
+  "hint": "Cấu trúc lồng nhau hoạt động như việc truy cập từng tầng một.",
+  "errorCategory": "logic",
+  "tags": [
+   "nested-dict",
+   "dict-update-delete"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q45",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s = {1, 2, 2, 3, 3, 3}\nprint(len(s))",
+  "options": [
+   "6",
+   "3",
+   "TypeError",
+   "2"
+  ],
+  "answer": 1,
+  "explanation": "Set (tập hợp) chỉ lưu trữ các giá trị duy nhất. Các giá trị trùng lặp (2, 3) sẽ bị loại bỏ. Set s thực tế là {1, 2, 3}, nên độ dài là 3.",
+  "hint": "Đặc điểm quan trọng nhất của Set là gì?",
+  "errorCategory": "concept",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T4-Q46",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"a\": 1, \"b\": 2}\nval = d.pop(\"c\", 3)\nprint(val, len(d))",
+  "options": [
+   "KeyError",
+   "3 1",
+   "3 2",
+   "None 2"
+  ],
+  "answer": 2,
+  "explanation": "Phương thức pop(key, default) xóa khóa và trả về giá trị của nó. Nếu khóa không tồn tại, nó trả về giá trị mặc định được cung cấp (ở đây là 3) và không gây lỗi. Dictionary d không bị thay đổi vì khóa \"c\" không có sẵn.",
+  "hint": "Nếu không có giá trị mặc định, pop() sẽ làm gì khi thiếu khóa?",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-update-delete"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q47",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "x = {}\nprint(type(x))",
+  "options": [
+   "TypeError",
+   "<class 'set'>",
+   "<class 'dict'>",
+   "{}"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python, cặp ngoặc nhọn rỗng `{}` mặc định tạo ra một dictionary rỗng. Để tạo một set rỗng, ta phải dùng hàm dựng `set()`.",
+  "hint": "Cú pháp {} được ưu tiên cho kiểu dữ liệu nào trước?",
+  "errorCategory": "theory",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q48",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "items = [(\"a\", 1), (\"b\", 2)]\nd = {k: v*2 for k, v in items if v > 1}\nprint(d)",
+  "options": [
+   "{'b': 4}",
+   "{'b': 2}",
+   "{'a': 2, 'b': 4}",
+   "[('b', 4)]"
+  ],
+  "answer": 0,
+  "explanation": "Đây là dict comprehension. Nó duyệt qua danh sách tuples. Điều kiện `if v > 1` chỉ chọn tuple ('b', 2). Phần biểu thức `{k: v*2}` tạo khóa 'b' với giá trị 2*2=4.",
+  "hint": "Lọc điều kiện trước, sau đó mới tính toán giá trị mới.",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-comprehension"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q49",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "s1 = {1, 2, 3}\ns2 = {3, 4, 5}\nprint(s1 - s2)",
+  "options": [
+   "{3}",
+   "{1, 2}",
+   "{4, 5}",
+   "{1, 2, 4, 5}"
+  ],
+  "answer": 1,
+  "explanation": "Toán tử `-` giữa hai set là phép hiệu (difference). Nó trả về các phần tử có trong tập hợp bên trái nhưng không có trong tập hợp bên phải. 1 và 2 thuộc s1 và không thuộc s2.",
+  "hint": "Phép trừ tập hợp giữ lại cái riêng của tập bên trái.",
+  "errorCategory": "execution",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q50",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"z\": 1, \"a\": 10, \"m\": 5}\nprint(sorted(d)[0])",
+  "options": [
+   "1",
+   "10",
+   "a",
+   "z"
+  ],
+  "answer": 2,
+  "explanation": "Hàm sorted(d) mặc định sẽ lấy danh sách các khóa (keys) của dictionary và sắp xếp chúng theo thứ tự tăng dần. Danh sách khóa là ['z', 'a', 'm'], khi sắp xếp sẽ thành ['a', 'm', 'z']. Phần tử chỉ số [0] là 'a'.",
+  "hint": "Sorted khi dùng trực tiếp trên dict thì nó sắp xếp cái gì?",
+  "errorCategory": "method",
+  "tags": [
+   "sort-dict"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T4-Q51",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "counter = {}\nfor char in \"PTIT\":\n    counter[char] = counter.get(char, 0) + 1\nprint(counter[\"T\"])",
+  "options": [
+   "2",
+   "KeyError",
+   "1",
+   "0"
+  ],
+  "answer": 0,
+  "explanation": "Vòng lặp đếm số lần xuất hiện của ký tự. Với 'P', 'I' đếm là 1. Với 'T', lần đầu gặp char.get('T', 0) trả về 0+1=1. Lần thứ hai gặp 'T', char.get('T', 0) trả về 1+1=2.",
+  "hint": "Đây là kỹ thuật đếm tần suất kinh điển.",
+  "errorCategory": "logic",
+  "tags": [
+   "frequency-count"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q52",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"id\": 1}\nd[\"ID\"] = 2\nprint(len(d))",
+  "options": [
+   "2",
+   "KeyError",
+   "Error",
+   "1"
+  ],
+  "answer": 0,
+  "explanation": "Khóa trong dictionary phân biệt chữ hoa chữ thường (case-sensitive). 'id' và 'ID' là hai khóa khác nhau hoàn toàn, nên dictionary sẽ có 2 phần tử.",
+  "hint": "Khóa chuỗi có phân biệt hoa thường không?",
+  "errorCategory": "concept",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q53",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "counts = {'apple': 2}\nkey = 'banana'\n# Nếu key chưa có thì gán bằng 1\n___\nprint(counts['banana'])",
+  "options": [
+   "counts.setdefault(key, 0)",
+   "counts[key] = counts.get(key, 0) + 1",
+   "counts.update(key = 1)",
+   "counts[key] = counts[key] + 1"
+  ],
+  "answer": 1,
+  "explanation": "counts.get(key, 0) + 1 sẽ lấy 0 (mặc định) nếu 'banana' chưa có, sau đó cộng 1 và gán vào khóa 'banana'. Phương án 2 lỗi KeyError. Phương án 3 sai cú pháp. Phương án 4 chỉ trả về 0 chứ không gán lại 1.",
+  "hint": "Cần lấy giá trị cũ hoặc giá trị mặc định trước khi tăng.",
+  "errorCategory": "implementation",
+  "tags": [
+   "frequency-count"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "1"
+ },
+ {
+  "id": "T4-Q54",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để sắp xếp dictionary theo giá trị (value) tăng dần.",
+  "code": "d = {'a': 10, 'b': 2, 'c': 5}\nsorted_keys = ___\nprint(sorted_keys)",
+  "options": [
+   "sorted(d)",
+   "sorted(d, key=lambda k: d[k])",
+   "sorted(d.values())",
+   "sorted(d.items())"
+  ],
+  "answer": 1,
+  "explanation": "Để sắp xếp các khóa dựa trên giá trị của chúng, ta dùng hàm sorted() trên d (danh sách các khóa) và truyền vào tham số key là một hàm lấy giá trị tương ứng d[k].",
+  "hint": "Bạn muốn sắp xếp các 'khóa' nhưng dựa vào tiêu chí 'giá trị'.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-dict"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "['b', 'c', 'a']"
+ },
+ {
+  "id": "T4-Q55",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để in ra các khóa có giá trị lớn hơn 50.",
+  "code": "results = {'Linh': 45, 'An': 80, 'Chi': 90}\nhigh_scores = ___\nprint(sorted(high_scores))",
+  "options": [
+   "[v for v in results.values() if v > 50]",
+   "results.filter(v > 50)",
+   "[k for k, v in results.items() if v > 50]",
+   "[k for k in results if k > 50]"
+  ],
+  "answer": 2,
+  "explanation": "Dùng list comprehension duyệt qua items() để truy cập cả khóa (k) và giá trị (v), sau đó lọc v > 50 và lấy k.",
+  "hint": "Cần cả key và value để vừa lọc vừa lấy kết quả.",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-iteration"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "['An', 'Chi']"
+ },
+ {
+  "id": "T4-Q57",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để loại bỏ các phần tử trùng lặp trong list và in ra theo thứ tự tăng dần.",
+  "code": "nums = [3, 1, 2, 1, 3]\nunique_sorted = ___\nprint(unique_sorted)",
+  "options": [
+   "sorted(list(nums))",
+   "list(set(nums)).sort()",
+   "set(sorted(nums))",
+   "sorted(set(nums))"
+  ],
+  "answer": 3,
+  "explanation": "set(nums) loại bỏ các số trùng lặp {1, 2, 3}. sorted() nhận một iterable (kể cả set) và trả về một list đã sắp xếp.",
+  "hint": "Set giúp lọc trùng, sorted giúp sắp xếp và trả về list.",
+  "errorCategory": "method",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[1, 2, 3]"
+ },
+ {
+  "id": "T4-Q58",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để tìm các phần tử chỉ xuất hiện ở một trong hai tập hợp (không xuất hiện ở cả hai).",
+  "code": "a = {1, 2, 3}\nb = {3, 4, 5}\ndiff = ___\nprint(sorted(list(diff)))",
+  "options": [
+   "a & b",
+   "a ^ b",
+   "a | b",
+   "a - b"
+  ],
+  "answer": 1,
+  "explanation": "Toán tử `^` là symmetric difference (hiệu đối xứng), trả về các phần tử thuộc a hoặc b nhưng không thuộc phần giao của cả hai.",
+  "hint": "Tìm phép toán tập hợp tương đương với XOR.",
+  "errorCategory": "concept",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "[1, 2, 4, 5]"
+ },
+ {
+  "id": "T4-Q59",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để tính tổng tất cả giá trị trong dictionary.",
+  "code": "bill = {'milk': 20, 'bread': 15}\ntotal = ___\nprint(total)",
+  "options": [
+   "sum(bill.values())",
+   "sum(bill)",
+   "bill.sum()",
+   "sum(bill.items())"
+  ],
+  "answer": 0,
+  "explanation": "bill.values() trả về một view chứa các con số [20, 15]. Hàm sum() sẽ cộng chúng lại. sum(bill) sẽ cố gắng cộng các chuỗi khóa ('milk' + 'bread') dẫn đến lỗi.",
+  "hint": "Bạn cần tính tổng của 'khóa' hay 'giá trị'?",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-iteration"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "35"
+ },
+ {
+  "id": "T4-Q61",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "d = {1: \"Python\", True: \"C++\", 1.0: \"Java\"}\nprint(len(d), d[1])",
+  "options": [
+   "3 Java",
+   "1 Java",
+   "1 Python",
+   "3 Python"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, các giá trị 1, True và 1.0 có cùng giá trị băm (hash) và được coi là cùng một khóa trong dictionary. Khi gán các giá trị mới với các khóa tương đương này, giá trị cũ sẽ bị ghi đè. Do đó len(d) bằng 1 và giá trị cuối cùng được gán là 'Java'.",
+  "hint": "Kiểm tra xem 1, True và 1.0 có được coi là các thực thể khác nhau khi làm khóa không.",
+  "errorCategory": "concept",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q62",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của đoạn chương trình sau là gì?",
+  "code": "s1 = {1, 2, 3}\ns2 = {}\ntry:\n    print(s1 | s2)\nexcept Exception as e:\n    print(type(e).__name__)",
+  "options": [
+   "TypeError",
+   "set()",
+   "KeyError",
+   "{1, 2, 3}"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, s2 = {} tạo ra một dictionary rỗng, không phải một set rỗng (set rỗng phải dùng set()). Phép toán '|' (union) không được hỗ trợ giữa kiểu set và dict, dẫn đến lỗi TypeError.",
+  "hint": "Cú pháp {} tạo ra kiểu dữ liệu gì mặc định?",
+  "errorCategory": "syntax",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q63",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sau in ra kết quả nào?",
+  "code": "prices = {\"Apple\": 10, \"Orange\": 20}\nres = prices.get(\"Banana\", 0) + prices.get(\"Apple\", 5)\nprint(res)",
+  "options": [
+   "5",
+   "10",
+   "KeyError",
+   "15"
+  ],
+  "answer": 1,
+  "explanation": "Phương thức get(key, default) trả về giá trị của khóa nếu tồn tại, ngược lại trả về giá trị mặc định. prices.get(\"Banana\", 0) trả về 0 vì không có Banana. prices.get(\"Apple\", 5) trả về 10 vì Apple có sẵn. Tổng là 10.",
+  "hint": "Phương thức .get() khác gì với việc truy cập trực tiếp bằng cặp ngoặc vuông []?",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-access-get"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q64",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "d = {\"a\": 1, \"b\": 2}\nfor k in list(d.keys()):\n    if k == \"a\":\n        d[\"c\"] = 3\nprint(len(d))",
+  "options": [
+   "1",
+   "3",
+   "RuntimeError",
+   "2"
+  ],
+  "answer": 1,
+  "explanation": "Chương trình tạo một danh sách các khóa tĩnh bằng list(d.keys()) để duyệt. Việc thay đổi kích thước dictionary bên trong vòng lặp thông qua d[\"c\"] = 3 là hợp lệ vì chúng ta đang duyệt trên bản sao của các khóa. Kết quả len(d) tăng từ 2 lên 3.",
+  "hint": "Lưu ý việc sử dụng list(d.keys()) thay vì duyệt trực tiếp trên d.",
+  "errorCategory": "execution",
+  "tags": [
+   "dict-iteration"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q65",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Cho cấu trúc dữ liệu tỷ giá, kết quả in ra là gì?",
+  "code": "rates = {\"USD\": {\"buy\": 25, \"sell\": 26}, \"EUR\": {\"buy\": 27}}\nval = rates.get(\"EUR\").get(\"sell\", 30)\nval += rates.get(\"JPY\", {}).get(\"buy\", 5)\nprint(val)",
+  "options": [
+   "30",
+   "KeyError",
+   "AttributeError",
+   "35"
+  ],
+  "answer": 3,
+  "explanation": "rates.get(\"EUR\") trả về {\"buy\": 27}. Gọi tiếp .get(\"sell\", 30) trên dict này trả về 30. rates.get(\"JPY\", {}) trả về dict rỗng {}, gọi tiếp .get(\"buy\", 5) trả về 5. Tổng 30 + 5 = 35.",
+  "hint": "Phân tích từng bước truy cập vào dictionary lồng nhau.",
+  "errorCategory": "logic",
+  "tags": [
+   "nested-dict"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T4-Q66",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "d = dict.fromkeys([1, 2, 1], \"PTIT\")\nprint(len(d), d[1])",
+  "options": [
+   "3 [1, 2, 1]",
+   "2 PTIT",
+   "2 [1, 2, 1]",
+   "3 PTIT"
+  ],
+  "answer": 1,
+  "explanation": "dict.fromkeys(iterable, value) tạo dictionary với các khóa từ iterable. Do danh sách [1, 2, 1] có hai giá trị 1 trùng nhau, dictionary chỉ giữ lại các khóa duy nhất là 1 và 2. len(d) bằng 2.",
+  "hint": "Dictionary có cho phép các khóa trùng lặp không?",
+  "errorCategory": "concept",
+  "tags": [
+   "frequency-count"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q67",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sử dụng dict comprehension sau in ra gì?",
+  "code": "nums = [1, 2, 2, 3]\nd = {x: x*x for x in nums if x > 1}\nprint(sum(d.values()))",
+  "options": [
+   "9",
+   "17",
+   "13",
+   "4"
+  ],
+  "answer": 2,
+  "explanation": "Dictionary comprehension tạo d = {2: 4, 3: 9}. Lưu ý khóa 2 chỉ xuất hiện một lần duy nhất dù trong nums có hai số 2. sum(d.values()) = 4 + 9 = 13.",
+  "hint": "Chú ý tính duy nhất của khóa trong dictionary khi dùng comprehension.",
+  "errorCategory": "logic",
+  "tags": [
+   "dict-comprehension"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q68",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau phát sinh lỗi gì?",
+  "code": "data = {}\ndata[(1, 2)] = \"A\"\ndata[[3, 4]] = \"B\"\nprint(data[(1, 2)])",
+  "options": [
+   "KeyError",
+   "A",
+   "SyntaxError",
+   "TypeError"
+  ],
+  "answer": 3,
+  "explanation": "Khóa của dictionary phải là kiểu dữ liệu hashable (không thay đổi được). Tuple (1, 2) là hashable nên hợp lệ, nhưng List [3, 4] là unhashable (có thể thay đổi), do đó gây ra lỗi TypeError khi cố dùng làm khóa.",
+  "hint": "Kiểu dữ liệu nào có thể được dùng làm khóa (key) trong Python dict?",
+  "errorCategory": "theory",
+  "tags": [
+   "dict-keys-type"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T4-Q69",
+  "topic": "T4",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để hợp nhất d2 vào d1.",
+  "code": "d1 = {'a': 1}\nd2 = {'b': 2}\n___\nprint(len(d1))",
+  "options": [
+   "d1.append(d2)",
+   "d1.update(d2)",
+   "d1.extend(d2)",
+   "d1.add(d2)"
+  ],
+  "answer": 1,
+  "explanation": "Phương thức update() được dùng để cập nhật dictionary bằng cách thêm các cặp key-value từ một dictionary khác. Các phương thức append, extend là của list, add là của set.",
+  "hint": "Tìm phương thức dùng để gộp một dictionary vào dictionary hiện có.",
+  "errorCategory": "method",
+  "tags": [
+   "dict-update-delete"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "2"
+ },
+ {
+  "id": "T4-Q70",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code thay thế ___ để đếm tần suất các số trong danh sách.",
+  "code": "nums = [1, 2, 1, 3]\nfreq = {}\nfor n in nums:\n    ___\nprint(freq[1])",
+  "options": [
+   "freq[n] = freq.get(n, 0) + 1",
+   "freq[n] += 1 if n in freq.values() else 1",
+   "freq[n] = freq[n] + 1",
+   "freq.update(n = n + 1)"
+  ],
+  "answer": 0,
+  "explanation": "freq.get(n, 0) + 1 là cách an toàn để tăng giá trị đếm: nếu n chưa có trong freq, nó lấy 0 rồi +1; nếu đã có, nó lấy giá trị cũ rồi +1. freq[n] + 1 sẽ gây KeyError nếu n chưa tồn tại.",
+  "hint": "Cần xử lý trường hợp khóa chưa tồn tại trong dictionary.",
+  "errorCategory": "implementation",
+  "tags": [
+   "frequency-count"
+  ],
+  "source": "exam",
+  "reserve": true,
+  "expect": "2"
+ },
+ {
+  "id": "T4-Q71",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code để sắp xếp danh sách các tuple (khóa, giá trị) theo giá trị tăng dần.",
+  "code": "d = {'apple': 5, 'banana': 2, 'cherry': 8}\nitems = ___\nprint(items[0][0])",
+  "options": [
+   "sorted(d.items())",
+   "sorted(d.keys())",
+   "d.sort(key=lambda x: x[1])",
+   "sorted(d.items(), key=lambda x: x[1])"
+  ],
+  "answer": 3,
+  "explanation": "d.items() trả về các cặp (key, value). sorted() với key lambda x: x[1] sẽ sắp xếp dựa trên phần tử thứ hai của mỗi tuple (tức là giá trị). d.sort() không tồn tại vì dict không có phương thức sort.",
+  "hint": "Sử dụng hàm sorted và chỉ định tiêu chí sắp xếp qua tham số key.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-dict"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "banana"
+ },
+ {
+  "id": "T4-Q72",
+  "topic": "T4",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tìm các phần tử chỉ xuất hiện ở một trong hai tập hợp (không phải cả hai).",
+  "code": "s1 = {1, 2, 3}\ns2 = {3, 4, 5}\nres = ___\nprint(len(res))",
+  "options": [
+   "s1 | s2",
+   "s1 - s2",
+   "s1 & s2",
+   "s1 ^ s2"
+  ],
+  "answer": 3,
+  "explanation": "Phép toán ^ (Symmetric Difference) trả về tập hợp các phần tử thuộc s1 hoặc s2 nhưng không thuộc phần giao của cả hai. Ở đây là {1, 2, 4, 5}, có độ dài là 4.",
+  "hint": "Sử dụng phép toán tập hợp để tìm hiệu đối xứng.",
+  "errorCategory": "theory",
+  "tags": [
+   "set-ops"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "4"
+ },
+ {
+  "id": "T4-Q73",
+  "topic": "T4",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `for k in d: print(k, d[k])`. Đoạn nào thay thế được dòng đó mà kết quả không đổi?",
+  "code": "d = {\"id\": 101, \"name\": \"An\"}\n___\n",
+  "options": [
+   "for k, v in d.items(): print(k, v)",
+   "for k, v in d: print(k, v)",
+   "for k in d.keys(): print(k, d.get(v))",
+   "for v in d.values(): print(v)"
+  ],
+  "answer": 0,
+  "explanation": "d.items() trả về các cặp (key, value), cho phép unpack trực tiếp vào hai biến k, v trong vòng lặp. Các phương án khác đều sai cú pháp unpack hoặc sai logic lấy dữ liệu.",
+  "hint": "Phương thức nào trả về cả khóa và giá trị cùng lúc?",
+  "errorCategory": "method",
+  "tags": [
+   "dict-iteration"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "id 101\nname An"
  },
  {
   "id": "T5-Q01",
@@ -2320,6 +5997,639 @@
   ],
   "source": "textbook",
   "reserve": true
+ },
+ {
+  "id": "T5-Q21",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "def calculate(a, b):\n    print(a + b)\n\nresult = calculate(10, 20)\nprint(result)",
+  "options": [
+   "30\n30",
+   "30",
+   "None\n30",
+   "30\nNone"
+  ],
+  "answer": 3,
+  "explanation": "Hàm calculate thực hiện lệnh print để in tổng nhưng không có câu lệnh return. Trong Python, nếu một hàm kết thúc mà không gặp return, nó sẽ mặc định trả về giá trị None.",
+  "hint": "Hãy chú ý sự khác biệt giữa việc hiển thị giá trị ra màn hình và việc trả về giá trị cho biến.",
+  "errorCategory": "concept",
+  "tags": [
+   "def-return"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q22",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "def add_item(item, box=[]):\n    box.append(item)\n    return box\n\nprint(add_item('apple'))\nprint(add_item('banana'))",
+  "options": [
+   "['apple']\n['apple', 'banana']",
+   "['apple']\nNone",
+   "['apple']\n['banana']",
+   "['apple', 'banana']\n['apple', 'banana']"
+  ],
+  "answer": 0,
+  "explanation": "Tham số mặc định (default arguments) dạng mutable như list chỉ được khởi tạo một lần duy nhất khi hàm được định nghĩa. Các lần gọi hàm sau đó sẽ dùng chung đối tượng list này.",
+  "hint": "Giá trị mặc định của tham số được khởi tạo khi nào và có bị xóa sau mỗi lần gọi không?",
+  "errorCategory": "execution",
+  "tags": [
+   "mutable-default"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q23",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau kết thúc như thế nào?",
+  "code": "n = 5\ndef update_n():\n    n = n + 1\n    print(n)\n\nupdate_n()",
+  "options": [
+   "5",
+   "UnboundLocalError",
+   "NameError",
+   "6"
+  ],
+  "answer": 1,
+  "explanation": "Khi một biến được gán giá trị bên trong hàm (n = n + 1), Python coi đó là biến cục bộ (local). Vì n chưa được khai báo local trước đó nhưng lại được dùng ở vế phải (n+1) nên gây lỗi UnboundLocalError.",
+  "hint": "Python xác định phạm vi của biến dựa trên việc biến đó có bị gán giá trị trong hàm hay không.",
+  "errorCategory": "theory",
+  "tags": [
+   "scope-global"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q24",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của chương trình sau là gì?",
+  "code": "def show_data(*args):\n    print(type(args), args[0])\n\nshow_data(10, 20, 30)",
+  "options": [
+   "TypeError",
+   "<class 'int'> 10",
+   "<class 'tuple'> 10",
+   "<class 'list'> 10"
+  ],
+  "answer": 2,
+  "explanation": "Toán tử * gom tất cả các đối số truyền vào vị trí đó thành một tuple.",
+  "hint": "Cấu trúc dữ liệu nào được dùng để lưu trữ các tham số biến đổi *args?",
+  "errorCategory": "concept",
+  "tags": [
+   "args-kwargs"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q26",
+  "topic": "T5",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Giá trị in ra màn hình là bao nhiêu?",
+  "code": "def mystery(n):\n    if n <= 1: return 1\n    return n + mystery(n - 2)\n\nprint(mystery(4))",
+  "options": [
+   "7",
+   "6",
+   "4",
+   "5"
+  ],
+  "answer": 0,
+  "explanation": "mystery(4) = 4 + mystery(2) = 4 + (2 + mystery(0)) = 4 + 2 + 1 = 7.",
+  "hint": "Đây là hàm đệ quy, hãy viết ra từng bước gọi hàm cho đến khi gặp điều kiện dừng.",
+  "errorCategory": "logic",
+  "tags": [
+   "recursion"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q27",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình in ra gì?",
+  "code": "def greet(name, msg=\"Chào\"):\n    return f\"{msg}, {name}!\"\n\nprint(greet(msg=\"Alo\", name=\"An\"))",
+  "options": [
+   "Alo, An!",
+   "Chào, An!",
+   "An, Alo!",
+   "TypeError"
+  ],
+  "answer": 0,
+  "explanation": "Khi gọi hàm bằng đối số từ khóa (keyword arguments), thứ tự các đối số không quan trọng.",
+  "hint": "Đối số từ khóa cho phép ta chỉ định chính xác giá trị cho từng tham số theo tên.",
+  "errorCategory": "theory",
+  "tags": [
+   "keyword-args"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q28",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau in ra gì?",
+  "code": "def change(data):\n    data[0] = 99\n    data = [1, 2, 3]\n\nvals = [10, 20]\nchange(vals)\nprint(vals)",
+  "options": [
+   "[99, 20]",
+   "[10, 20]",
+   "[99, 2, 3]",
+   "[1, 2, 3]"
+  ],
+  "answer": 0,
+  "explanation": "Lệnh data[0]=99 sửa đổi trực tiếp đối tượng list mà vals đang trỏ tới. Tuy nhiên, lệnh data=[1,2,3] chỉ làm biến cục bộ data trỏ tới một list mới, không ảnh hưởng đến vals.",
+  "hint": "Sự khác biệt giữa việc thay đổi nội dung (mutation) và gán lại biến (reassignment).",
+  "errorCategory": "logic",
+  "tags": [
+   "pass-by-object"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q29",
+  "topic": "T5",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "def func(**kwargs):\n    return sum(kwargs.values())\n\nd = {'a': 1, 'b': 2}\nprint(func(x=10, **d))",
+  "options": [
+   "13",
+   "3",
+   "TypeError",
+   "10"
+  ],
+  "answer": 0,
+  "explanation": "func(x=10, **d) tương đương func(x=10, a=1, b=2). Toàn bộ được gom vào dictionary kwargs. sum(10, 1, 2) = 13.",
+  "hint": "Toán tử ** thực hiện unpacking dictionary thành các keyword arguments.",
+  "errorCategory": "execution",
+  "tags": [
+   "args-kwargs"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q30",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "data = [1, 2, 3, 4, 5]\nres = filter(lambda x: x % 2 == 0, data)\nprint(list(res))",
+  "options": [
+   "None",
+   "[True, False, True, False, True]",
+   "[1, 3, 5]",
+   "[2, 4]"
+  ],
+  "answer": 3,
+  "explanation": "Hàm filter giữ lại các phần tử mà hàm lambda trả về True. Ở đây x % 2 == 0 kiểm tra số chẵn.",
+  "hint": "Hàm lambda này đang kiểm tra điều kiện gì cho mỗi phần tử?",
+  "errorCategory": "method",
+  "tags": [
+   "map-filter",
+   "lambda"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T5-Q31",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Lỗi gì xảy ra trong đoạn code sau?",
+  "code": "def test(a=1, b):\n    return a + b\n\nprint(test(2, 3))",
+  "options": [
+   "NameError",
+   "5",
+   "TypeError",
+   "SyntaxError"
+  ],
+  "answer": 3,
+  "explanation": "Trong định nghĩa hàm, các tham số có giá trị mặc định (default arguments) phải luôn nằm sau các tham số không có giá trị mặc định.",
+  "hint": "Hãy xem lại quy tắc sắp xếp tham số khi định nghĩa hàm def.",
+  "errorCategory": "syntax",
+  "tags": [
+   "default-args"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q32",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau in ra gì?",
+  "code": "students = [('An', 20), ('Binh', 18), ('Chi', 22)]\nstudents.sort(key=lambda x: x[1])\nprint(students[0][0])",
+  "options": [
+   "Binh",
+   "An",
+   "18",
+   "Chi"
+  ],
+  "answer": 0,
+  "explanation": "Hàm sort với key=lambda x: x[1] sắp xếp danh sách theo phần tử thứ 2 của tuple (tuổi). 'Binh' có tuổi nhỏ nhất (18) nên đứng đầu.",
+  "hint": "Tham số key trong hàm sort dùng để làm gì?",
+  "errorCategory": "method",
+  "tags": [
+   "sorted-key",
+   "lambda"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q33",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra đúng kỳ vọng.",
+  "code": "a = [5, 2, 8]\nb = ___\nprint(b, a)",
+  "options": [
+   "a.sort()",
+   "sorted(a)",
+   "a.sorted()",
+   "list(a.sort())"
+  ],
+  "answer": 1,
+  "explanation": "Hàm sorted(a) trả về một danh sách mới đã sắp xếp, trong khi a.sort() sắp xếp tại chỗ (in-place) và trả về None.",
+  "hint": "Cần một hàm trả về list mới mà không làm thay đổi list ban đầu.",
+  "errorCategory": "method",
+  "tags": [
+   "sorted-key"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[2, 5, 8] [5, 2, 8]"
+ },
+ {
+  "id": "T5-Q34",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để tìm người có số tiền lớn nhất.",
+  "code": "wallets = {'An': 50, 'Binh': 120, 'Chi': 80}\nrichest = max(wallets, key=___)\nprint(richest)",
+  "options": [
+   "max(wallets.values())",
+   "wallets.values()",
+   "lambda k: wallets[k]",
+   "lambda k: k"
+  ],
+  "answer": 2,
+  "explanation": "Khi duyệt dictionary, mặc định sẽ duyệt qua các key. Ta cần dùng key của hàm max để so sánh dựa trên giá trị (wallets[k]) thay vì so sánh tên.",
+  "hint": "Hàm max sẽ truyền từng key vào hàm lambda, ta cần trả về giá trị tương ứng của key đó.",
+  "errorCategory": "logic",
+  "tags": [
+   "lambda",
+   "sorted-key"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "Binh"
+ },
+ {
+  "id": "T5-Q36",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code thay thế cho dòng ___ để có kết quả tương đương.",
+  "code": "nums = [1, 2, 3]\n# Dòng gốc: sq = list(map(lambda x: x**2, nums))\nsq = ___\nprint(sq)",
+  "options": [
+   "[x**2 for x in nums]",
+   "{x**2 for x in nums}",
+   "[lambda x: x**2 for x in nums]",
+   "map(lambda x: x**2, nums)"
+  ],
+  "answer": 0,
+  "explanation": "List comprehension [x**2 for x in nums] là cách viết Pythonic tương đương với việc map một hàm lambda lên list và chuyển về list.",
+  "hint": "Cú pháp rút gọn để tạo list mới từ một list cũ trong Python là gì?",
+  "errorCategory": "method",
+  "tags": [
+   "map-filter"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "[1, 4, 9]"
+ },
+ {
+  "id": "T5-Q37",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn cách định nghĩa hàm để lời gọi hàm `power(5)` trả về 25.",
+  "code": "___ \n    return base ** exp\n\nprint(power(5))",
+  "options": [
+   "def power(base, exp):",
+   "def power(base, exp=2):",
+   "def power(base=5, exp):",
+   "def power(exp=2, base):"
+  ],
+  "answer": 1,
+  "explanation": "Để gọi power(5) mà không bị lỗi, tham số thứ hai (exp) phải có giá trị mặc định là 2. Tham số có giá trị mặc định phải đứng sau.",
+  "hint": "Hàm cần một giá trị mặc định cho số mũ.",
+  "errorCategory": "syntax",
+  "tags": [
+   "default-args"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "25"
+ },
+ {
+  "id": "T5-Q38",
+  "topic": "T5",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để in ra tổng các số.",
+  "code": "def total(*args):\n    return sum(args)\n\ndata = [10, 20, 30]\nprint(___)",
+  "options": [
+   "total(data)",
+   "total([10, 20, 30])",
+   "total(10, 20, 30, data)",
+   "total(*data)"
+  ],
+  "answer": 3,
+  "explanation": "Hàm total nhận *args (gom các đối số rời rạc thành tuple). Khi truyền một list, ta cần dùng toán tử * để giải nén (unpack) list đó thành các đối số rời rạc.",
+  "hint": "Nếu truyền trực tiếp list, args sẽ trở thành ([10, 20, 30],) và hàm sum sẽ lỗi.",
+  "errorCategory": "execution",
+  "tags": [
+   "args-kwargs"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "60"
+ },
+ {
+  "id": "T5-Q39",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau sẽ hiển thị gì?",
+  "code": "def add_item(val, items=[]):\n    items.append(val)\n    return items\n\nprint(add_item(1))\nprint(add_item(2, [10]))\nprint(add_item(3))",
+  "options": [
+   "[1]\n[10, 2]\n[1, 2, 3]",
+   "[1]\n[10, 2]\n[1, 3]",
+   "RuntimeError",
+   "[1]\n[10, 2]\n[3]"
+  ],
+  "answer": 1,
+  "explanation": "Tham số mặc định mutable (như list) chỉ được khởi tạo một lần duy nhất khi định nghĩa hàm. Lần gọi thứ 3 không truyền đối số cho items nên nó dùng lại list cũ đã có [1] và append thêm 3 thành [1, 3]. Lần gọi thứ 2 truyền list mới [10] nên không ảnh hưởng đến list mặc định.",
+  "hint": "Tham số mặc định kiểu list có tính chất 'nhớ' trạng thái giữa các lần gọi nếu không được cung cấp giá trị mới.",
+  "errorCategory": "logic",
+  "tags": [
+   "mutable-default"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q40",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả thực thi đoạn mã sau là gì?",
+  "code": "x = 5\ndef update_x():\n    x = x + 1\n    print(x)\n\ntry:\n    update_x()\nexcept Exception as e:\n    print(type(e).__name__)",
+  "options": [
+   "6",
+   "5",
+   "NameError",
+   "UnboundLocalError"
+  ],
+  "answer": 3,
+  "explanation": "Bên trong hàm update_x, phép gán 'x =' làm cho x trở thành biến cục bộ. Tuy nhiên, vế phải 'x + 1' cố gắng truy cập x cục bộ trước khi nó được gán giá trị, dẫn đến UnboundLocalError. Muốn dùng x toàn cục phải khai báo 'global x'.",
+  "hint": "Khi bạn gán giá trị cho một biến trong hàm, Python coi đó là biến cục bộ trừ khi có chỉ thị khác.",
+  "errorCategory": "concept",
+  "tags": [
+   "scope-global"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T5-Q41",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn mã sau sử dụng lambda in ra kết quả gì?",
+  "code": "data = [1, 2, 3, 4]\nfunc = lambda x: x * 2 if x % 2 == 0 else x\nres = [func(i) for i in data]\nprint(res)",
+  "options": [
+   "[2, 2, 6, 4]",
+   "[2, 4, 6, 8]",
+   "[1, 2, 3, 4]",
+   "[1, 4, 3, 8]"
+  ],
+  "answer": 3,
+  "explanation": "Hàm lambda nhận x, nếu x chẵn thì trả về x*2, nếu lẻ giữ nguyên x. Với list [1, 2, 3, 4], các số 2 và 4 được nhân đôi thành 4 và 8, các số 1 và 3 giữ nguyên.",
+  "hint": "Kiểm tra điều kiện if-else trong lambda cho từng phần tử của list.",
+  "errorCategory": "logic",
+  "tags": [
+   "lambda"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q42",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "def my_func(a, b, *args):\n    return sum(args) + a + b\n\nprint(my_func(1, 2, 3, 4, 5))",
+  "options": [
+   "12",
+   "TypeError",
+   "3",
+   "15"
+  ],
+  "answer": 3,
+  "explanation": "a nhận 1, b nhận 2. Các đối số còn lại (3, 4, 5) được gom vào tuple 'args'. sum(args) là 12. Tổng cuối cùng là 12 + 1 + 2 = 15.",
+  "hint": "Xác định xem những giá trị nào thuộc về *args.",
+  "errorCategory": "execution",
+  "tags": [
+   "args-kwargs"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q43",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra của chương trình sau là gì?",
+  "code": "nums = [1, 5, 2, 8]\nres = map(lambda x: x + 1, filter(lambda x: x > 3, nums))\nprint(list(res))",
+  "options": [
+   "[2, 6, 3, 9]",
+   "[5, 8]",
+   "[2, 3]",
+   "[6, 9]"
+  ],
+  "answer": 3,
+  "explanation": "Hàm filter lọc ra các số > 3 là [5, 8]. Sau đó map lấy kết quả này cộng thêm 1 cho mỗi phần tử, thu được [6, 9].",
+  "hint": "Filter thực hiện trước để lọc dữ liệu, sau đó Map mới biến đổi dữ liệu đã lọc.",
+  "errorCategory": "method",
+  "tags": [
+   "map-filter"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q44",
+  "topic": "T5",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra giá trị nào?",
+  "code": "def process(lst):\n    lst.append(100)\n    lst = [1, 2, 3]\n    lst.append(200)\n\nmy_list = [0]\nprocess(my_list)\nprint(my_list)",
+  "options": [
+   "[1, 2, 3, 200]",
+   "[0]",
+   "[0, 100]",
+   "[0, 100, 200]"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python, list được truyền theo tham chiếu đối tượng. lst.append(100) thay đổi trực tiếp list gốc. Nhưng dòng 'lst = [1, 2, 3]' tạo một list mới và gán cho biến cục bộ lst, cắt đứt liên kết với list gốc. Lệnh append(200) sau đó chỉ tác động lên list cục bộ mới.",
+  "hint": "Phân biệt giữa việc thay đổi nội dung của đối tượng và việc gán biến sang một đối tượng hoàn toàn mới.",
+  "errorCategory": "concept",
+  "tags": [
+   "pass-by-object"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T5-Q45",
+  "topic": "T5",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Hàm đệ quy sau trả về kết quả gì?",
+  "code": "def mystery(n):\n    if n <= 1: return 1\n    return n * mystery(n - 2)\n\nprint(mystery(5))",
+  "options": [
+   "8",
+   "120",
+   "1",
+   "15"
+  ],
+  "answer": 3,
+  "explanation": "mystery(5) = 5 * mystery(3) = 5 * (3 * mystery(1)) = 5 * 3 * 1 = 15. Đây là tính tích các số lẻ từ n xuống 1.",
+  "hint": "Hãy viết ra từng bước gọi đệ quy cho đến khi gặp điều kiện dừng.",
+  "errorCategory": "logic",
+  "tags": [
+   "recursion"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T5-Q46",
+  "topic": "T5",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để định nghĩa hàm có tham số mặc định hợp lệ.",
+  "code": "def get_price(___):\n    return amount * price\n\nprint(get_price(10))",
+  "options": [
+   "amount=10, price",
+   "amount, price=100",
+   "price=100, amount",
+   "*args, amount=10"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, các tham số có giá trị mặc định phải luôn nằm sau các tham số không có giá trị mặc định (non-default arguments follow default arguments error).",
+  "hint": "Thứ tự tham số: Tham số thường trước, tham số có giá trị mặc định sau.",
+  "errorCategory": "syntax",
+  "tags": [
+   "default-args"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "1000"
+ },
+ {
+  "id": "T5-Q47",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để in ra tên của sinh viên có GPA cao nhất.",
+  "code": "st = [{'n': 'A', 'g': 3.2}, {'n': 'B', 'g': 3.9}, {'n': 'C', 'g': 3.5}]\nbest_st = max(___)\nprint(best_st['n'])",
+  "options": [
+   "st, key=lambda x: x['g']",
+   "sorted(st)",
+   "st, key='g'",
+   "st, x['g']"
+  ],
+  "answer": 0,
+  "explanation": "Hàm max() cần tham số 'key' là một hàm (thường dùng lambda) để xác định tiêu chí so sánh giữa các dictionary trong list. 'lambda x: x['g']' lấy giá trị gpa làm tiêu chí.",
+  "hint": "Cần một hàm bổ trợ để chỉ ra rằng chúng ta muốn so sánh dựa trên khóa 'g'.",
+  "errorCategory": "method",
+  "tags": [
+   "sorted-key"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "B"
+ },
+ {
+  "id": "T5-Q50",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để lấy các số lẻ từ danh sách và nhân chúng với 10.",
+  "code": "vals = [1, 2, 3, 4]\nres = ___\nprint(list(res))",
+  "options": [
+   "map(lambda x: x*10, filter(lambda x: x%2!=0, vals))",
+   "map(lambda x: x%2!=0, filter(lambda x: x*10, vals))",
+   "filter(lambda x: x*10, map(lambda x: x%2!=0, vals))",
+   "[x*10 if x%2!=0 for x in vals]"
+  ],
+  "answer": 0,
+  "explanation": "Cần lọc (filter) các số lẻ trước (1, 3), sau đó mới áp dụng phép nhân (map) lên các số đã lọc để có (10, 30).",
+  "hint": "Thứ tự đúng: Lọc điều kiện trước, biến đổi giá trị sau.",
+  "errorCategory": "logic",
+  "tags": [
+   "map-filter"
+  ],
+  "source": "supplement",
+  "reserve": true,
+  "expect": "[10, 30]"
+ },
+ {
+  "id": "T5-Q51",
+  "topic": "T5",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `nums.sort(key=lambda x: abs(x))`. Đoạn nào thay thế được dòng đó mà kết quả không đổi?",
+  "code": "nums = [-5, 2, -1, 4]\n___\nprint(nums)",
+  "options": [
+   "nums = sorted(abs(nums))",
+   "nums.sort(key=abs)",
+   "nums.sort(abs)",
+   "nums = nums.sort(key=abs)"
+  ],
+  "answer": 1,
+  "explanation": "Hàm abs là hàm có sẵn trả về giá trị tuyệt đối. 'key=abs' tương đương với 'key=lambda x: abs(x)'. Phương án 'nums = nums.sort()' sai vì sort() trả về None.",
+  "hint": "Có thể dùng tên hàm trực tiếp làm key nếu hàm đó nhận vào một đối số.",
+  "errorCategory": "method",
+  "tags": [
+   "sorted-key"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "[-1, 2, 4, -5]"
  },
  {
   "id": "T6-Q01",
@@ -2790,6 +7100,556 @@
   "reserve": true
  },
  {
+  "id": "T6-Q21",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau mô phỏng việc đọc file và xử lý chuỗi. Kết quả in ra là gì?",
+  "code": "content = \"Lập trình\\nPython PTIT\\n2024\"\nlines = content.splitlines()\nwords = lines[1].split()\nprint(f\"{words[0]}-{len(words)}\")",
+  "options": [
+   "Lập-1",
+   "PTIT-2",
+   "Python-3",
+   "Python-2"
+  ],
+  "answer": 3,
+  "explanation": "content.splitlines() chia chuỗi thành list các dòng: ['Lập trình', 'Python PTIT', '2024']. lines[1] là 'Python PTIT'. split() mặc định tách theo khoảng trắng tạo thành ['Python', 'PTIT']. words[0] là 'Python' và độ dài list words là 2.",
+  "hint": "Chú ý chỉ số index trong Python bắt đầu từ 0.",
+  "errorCategory": "execution",
+  "tags": [
+   "split-parse"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q22",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sau xử lý ngoại lệ khi chuyển đổi dữ liệu. Kết quả in ra là gì?",
+  "code": "data = [\"10\", \"20.5\", \"30\"]\ntotal = 0\nfor item in data:\n    try:\n        total += int(item)\n    except ValueError:\n        total += 0\nprint(total)",
+  "options": [
+   "30",
+   "60",
+   "40",
+   "ValueError"
+  ],
+  "answer": 2,
+  "explanation": "Vòng lặp duyệt qua các phần tử. int(\"10\") = 10. int(\"20.5\") gây ra ValueError vì chuỗi chứa dấu chấm (không phải số nguyên), rơi vào block except cộng thêm 0. int(\"30\") = 30. Tổng là 10 + 0 + 30 = 40.",
+  "hint": "Hàm int() chỉ chuyển đổi được các chuỗi biểu diễn số nguyên chính xác.",
+  "errorCategory": "logic",
+  "tags": [
+   "try-except",
+   "exception-types"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q23",
+  "topic": "T6",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Thứ tự thực thi của finally và return trong hàm sau như thế nào?",
+  "code": "def check_div(a, b):\n    try:\n        return a // b\n    except ZeroDivisionError:\n        return \"Inf\"\n    finally:\n        print(\"End\", end=\" \")\n\nprint(check_div(10, 2))",
+  "options": [
+   "End 5",
+   "5 End",
+   "5",
+   "End Inf"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, khối finally luôn luôn được thực thi trước khi hàm thực sự trả về kết quả từ khối try hoặc except. Do đó, 'End ' được in ra trước, sau đó giá trị 5 (kết quả của 10 // 2) mới được in bởi lệnh print bên ngoài.",
+  "hint": "Khối finally có độ ưu tiên thực thi rất đặc biệt so với return.",
+  "errorCategory": "execution",
+  "tags": [
+   "else-finally"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q24",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau sử dụng thư viện json để xử lý dữ liệu. Kết quả in ra là gì?",
+  "code": "import json\nraw = '{\"code\": \"IT1\", \"scores\": [8, 9, 7]}'\ndata = json.loads(raw)\nres = sum(data[\"scores\"]) / len(data[\"scores\"])\nprint(f\"{data['code']}:{res:.1f}\")",
+  "options": [
+   "IT1:8",
+   "KeyError",
+   "IT1:8.0",
+   "IT1:24.0"
+  ],
+  "answer": 2,
+  "explanation": "json.loads() chuyển chuỗi JSON thành dictionary. data['scores'] là list [8, 9, 7]. Tổng là 24, độ dài là 3. Trung bình là 8.0. Định dạng .1f in ra 1 chữ số thập phân.",
+  "hint": "Kiểm tra kiểu dữ liệu của data['scores'] sau khi loads.",
+  "errorCategory": "concept",
+  "tags": [
+   "json"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q25",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Trong xử lý file, bẫy nào xảy ra khi lọc dữ liệu số bằng isdigit()?",
+  "code": "line = \"100 -20 30.5 40\\n\"\ntokens = line.split()\nnums = [t for t in tokens if t.isdigit()]\nprint(\"-\".join(nums))",
+  "options": [
+   "100-40",
+   "100--20-30.5-40",
+   "100-30.5-40",
+   "100-20-40"
+  ],
+  "answer": 0,
+  "explanation": "Phương thức isdigit() chỉ trả về True nếu tất cả ký tự là chữ số. '-20' có dấu âm và '30.5' có dấu chấm nên isdigit() trả về False cho hai chuỗi này. Chỉ '100' và '40' được giữ lại.",
+  "hint": "isdigit() có nhận diện được số âm hay số thực không?",
+  "errorCategory": "concept",
+  "tags": [
+   "isdigit-filter",
+   "split-parse"
+  ],
+  "source": "exam",
+  "reserve": true
+ },
+ {
+  "id": "T6-Q26",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Lỗi nào phát sinh khi truy cập dictionary trong đoạn code sau?",
+  "code": "rates = {\"USD\": 25000, \"EUR\": 27000}\ntry:\n    curr = \"JPY\"\n    print(rates[curr])\nexcept ValueError:\n    print(\"V-Error\")\nexcept KeyError:\n    print(\"K-Error\")",
+  "options": [
+   "K-Error",
+   "None",
+   "V-Error",
+   "KeyError"
+  ],
+  "answer": 0,
+  "explanation": "Khi truy cập một key không tồn tại trong dictionary bằng cú pháp d[key], Python sẽ ném ra ngoại lệ KeyError. Vì có khối except KeyError, chương trình in ra 'K-Error'.",
+  "hint": "Sự khác biệt giữa lỗi giá trị (ValueError) và lỗi không tìm thấy khóa (KeyError).",
+  "errorCategory": "execution",
+  "tags": [
+   "exception-types",
+   "try-except"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q27",
+  "topic": "T6",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Khối else trong cấu trúc try-except sẽ thực thi khi nào?",
+  "code": "def process(n):\n    try:\n        res = 10 / n\n    except ZeroDivisionError:\n        print(\"Err\", end=\" \")\n    else:\n        print(\"Ok\", end=\" \")\n    finally:\n        print(\"Done\")\n\nprocess(2)",
+  "options": [
+   "Err Done",
+   "Ok Done",
+   "Done",
+   "Ok"
+  ],
+  "answer": 1,
+  "explanation": "Khối else thực thi nếu và chỉ nếu khối try KHÔNG phát sinh ngoại lệ. Ở đây 10/2 thành công, nên in 'Ok ', sau đó finally luôn chạy in 'Done'.",
+  "hint": "Phân biệt vai trò của else và finally.",
+  "errorCategory": "theory",
+  "tags": [
+   "else-finally",
+   "try-except"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q28",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Điều gì xảy ra khi đọc file bằng readlines() và in ra kết quả?",
+  "code": "content = \"Line1\\nLine2\\nLine3\"\n# Gia su day la noi dung file\nlines = content.splitlines(keepends=True)\nfor line in lines[:2]:\n    print(line, end=\"\")",
+  "options": [
+   "Line1\nLine2",
+   "Line1\nLine2\n",
+   "Line1Line2",
+   "Line1 Line2"
+  ],
+  "answer": 0,
+  "explanation": "readlines() giữ lại ký tự xuống dòng \\n ở cuối mỗi dòng. splitlines(keepends=True) mô phỏng điều này. Khi print(line, end=''), ký tự \\n trong line sẽ làm con trỏ xuống dòng. Kết quả là Line1 và Line2 nằm trên 2 dòng.",
+  "hint": "Lưu ý ký tự \\n ở cuối dòng khi dùng các phương thức đọc file theo dòng.",
+  "errorCategory": "execution",
+  "tags": [
+   "file-read-methods"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q29",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả của đoạn code xử lý chuỗi mô phỏng dữ liệu file này là gì?",
+  "code": "s = \"  apple   orange  banana  \"\nitems = s.strip().split()\nprint(\"*\".join(items))",
+  "options": [
+   "apple***orange**banana",
+   "apple*orange*banana",
+   "*apple*orange*banana*",
+   "apple orange banana"
+  ],
+  "answer": 1,
+  "explanation": "s.strip() loại bỏ khoảng trắng thừa ở hai đầu. split() không tham số sẽ coi mọi cụm khoảng trắng liên tiếp là một dấu phân cách duy nhất. Do đó items = ['apple', 'orange', 'banana']. join('*') nối chúng lại.",
+  "hint": "Hành vi mặc định của split() khi có nhiều khoảng trắng liên tiếp.",
+  "errorCategory": "concept",
+  "tags": [
+   "split-parse"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q30",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sẽ in ra gì khi cố tình gây lỗi TypeError?",
+  "code": "try:\n    res = \"Age: \" + 20\nexcept TypeError:\n    print(\"T-Error\")\nexcept Exception:\n    print(\"Gen-Error\")",
+  "options": [
+   "Age: 20",
+   "Gen-Error",
+   "T-Error",
+   "TypeError"
+  ],
+  "answer": 2,
+  "explanation": "Phép cộng giữa chuỗi (str) và số (int) gây ra TypeError. Vì TypeError được liệt kê trước Exception (lớp cha), nó sẽ bắt được lỗi này trước.",
+  "hint": "Thứ tự của các khối except và kiểu dữ liệu của các toán hạng.",
+  "errorCategory": "execution",
+  "tags": [
+   "exception-types",
+   "try-except"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T6-Q33",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để in dictionary dưới dạng chuỗi JSON có thụt đầu dòng 4 khoảng trắng.",
+  "code": "import json\nstudent = {\"name\": \"Nam\", \"age\": 20}\njson_str = ___\nprint(json_str)",
+  "options": [
+   "json.loads(student, indent=4)",
+   "json.dumps(student, indent=4)",
+   "str(student)",
+   "json.dump(student, indent=4)"
+  ],
+  "answer": 1,
+  "explanation": "json.dumps() (có 's') chuyển object thành chuỗi JSON. Tham số indent=4 quy định việc thụt đầu dòng để dễ đọc. json.dump() dùng để ghi thẳng vào file.",
+  "hint": "Phân biệt giữa dumps (to string) và dump (to file).",
+  "errorCategory": "method",
+  "tags": [
+   "json"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "{\n    \"name\": \"Nam\",\n    \"age\": 20\n}"
+ },
+ {
+  "id": "T6-Q34",
+  "topic": "T6",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để bắt được cả hai loại lỗi có thể xảy ra: chia cho 0 hoặc ép kiểu sai.",
+  "code": "data = [\"10\", \"0\", \"abc\"]\nfor s in data:\n    try:\n        print(100 / int(s), end=\" \")\n    except ___:\n        print(\"X\", end=\" \")",
+  "options": [
+   "ZeroDivisionError or ValueError",
+   "(ZeroDivisionError, ValueError)",
+   "ZeroDivisionError, ValueError",
+   "[ZeroDivisionError, ValueError]"
+  ],
+  "answer": 1,
+  "explanation": "Để bắt nhiều ngoại lệ trong cùng một khối except, ta phải đặt chúng trong một tuple (ngoặc đơn). Nếu không có ngoặc đơn, Python sẽ hiểu nhầm cú pháp gán alias (as).",
+  "hint": "Cú pháp bắt nhiều exception trên cùng một dòng.",
+  "errorCategory": "syntax",
+  "tags": [
+   "try-except",
+   "exception-types"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "10.0 X X "
+ },
+ {
+  "id": "T6-Q37",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "try:\n    n = int(\"24.5\")\n    print(\"A\", end=\"\")\nexcept ValueError:\n    print(\"B\", end=\"\")\nelse:\n    print(\"C\", end=\"\")\nfinally:\n    print(\"D\", end=\"\")",
+  "options": [
+   "BCD",
+   "B",
+   "BD",
+   "ABD"
+  ],
+  "answer": 2,
+  "explanation": "Hàm int() ném ra ValueError khi nhận chuỗi không phải số nguyên (\"24.5\"). Khối except ValueError được thực thi in 'B'. Khối else chỉ chạy nếu không có exception. Khối finally luôn luôn chạy, in 'D'.",
+  "hint": "Lưu ý điều kiện để khối else và finally thực thi.",
+  "errorCategory": "execution",
+  "tags": [
+   "try-except",
+   "else-finally",
+   "exception-types"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q38",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Giả sử biến `f` mô phỏng một file đang mở. Kết quả in ra là gì?",
+  "code": "f = [\"Hoc vien\\n\", \"Cong nghe\\n\", \"Buu chinh\"]\nres = []\nfor line in f:\n    res.append(line.strip().split()[-1])\nprint(\"_\".join(res))",
+  "options": [
+   "vien\\n_nghe\\n_chinh",
+   "Hoc_Cong_Buu",
+   "chinh_nghe_vien",
+   "vien_nghe_chinh"
+  ],
+  "answer": 3,
+  "explanation": "Vòng lặp duyệt qua từng dòng. line.strip() loại bỏ dấu xuống dòng. split() tách các từ. [-1] lấy từ cuối cùng của mỗi dòng. Cuối cùng nối lại bằng dấu gạch dưới.",
+  "hint": "Hàm strip() loại bỏ khoảng trắng và xuống dòng ở hai đầu, split() tách chuỗi thành danh sách.",
+  "errorCategory": "logic",
+  "tags": [
+   "split-parse",
+   "file-read-methods"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q39",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau in ra kết quả gì?",
+  "code": "import json\ns = '{\"mon\": \"Python\", \"tin_chi\": 3}'\ntry:\n    data = json.loads(s)\n    print(data[\"Tin_chi\"])\nexcept KeyError:\n    print(\"Loi Key\")\nexcept json.JSONDecodeError:\n    print(\"Loi JSON\")",
+  "options": [
+   "Loi JSON",
+   "KeyError",
+   "3",
+   "Loi Key"
+  ],
+  "answer": 3,
+  "explanation": "Hàm json.loads biến chuỗi thành dictionary. Dictionary trong Python phân biệt chữ hoa chữ thường. Truy cập 'Tin_chi' trong khi key thực tế là 'tin_chi' gây ra KeyError.",
+  "hint": "Kiểm tra sự khớp nhau giữa các phím (keys) trong dữ liệu JSON và mã nguồn.",
+  "errorCategory": "concept",
+  "tags": [
+   "json",
+   "exception-types"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q40",
+  "topic": "T6",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Chương trình sau thực hiện lọc dữ liệu từ file. Kết quả in ra là gì?",
+  "code": "data = \"20 15A 10\\n30 error 5\"\ntokens = data.split()\ns_val = 0\nfor t in tokens:\n    try:\n        if t.isdigit():\n            s_val += int(t)\n        elif len(t) > 3:\n            raise ValueError\n    except ValueError:\n        s_val += 1\nprint(s_val)",
+  "options": [
+   "70",
+   "67",
+   "65",
+   "66"
+  ],
+  "answer": 3,
+  "explanation": "Các số isdigit() gồm 20, 10, 30, 5 (tổng 65). Chuỗi '15A' có len=3 nên không thỏa isdigit cũng không thỏa len > 3. Chuỗi 'error' có len=5 > 3 nên raise ValueError, khối except thực thi cộng thêm 1 vào s_val. Tổng cuối = 65 + 1 = 66.",
+  "hint": "isdigit() chỉ trả True nếu toàn bộ là chữ số. Kiểm tra kỹ từng token.",
+  "errorCategory": "execution",
+  "tags": [
+   "isdigit-filter",
+   "try-except",
+   "split-parse"
+  ],
+  "source": "supplement",
+  "reserve": true
+ },
+ {
+  "id": "T6-Q41",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sau in ra gì khi gặp lỗi chia cho 0?",
+  "code": "def divide(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return \"Zero\"\n    finally:\n        print(\"Done\", end=\" \")\n\nprint(divide(10, 0))",
+  "options": [
+   "Done",
+   "Zero Done",
+   "Zero",
+   "Done Zero"
+  ],
+  "answer": 3,
+  "explanation": "Khi có exception, khối except chạy trả về 'Zero'. Tuy nhiên, khối finally luôn chạy trước khi giá trị được trả về thực sự từ hàm. Do đó 'Done' in ra trước, sau đó hàm mới trả về 'Zero' để lệnh print bên ngoài in ra.",
+  "hint": "Khối finally thực thi ngay cả khi hàm đã gọi lệnh return.",
+  "errorCategory": "execution",
+  "tags": [
+   "else-finally",
+   "try-except"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q42",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn mã sau xử lý chuỗi mô phỏng file. Kết quả in ra là gì?",
+  "code": "text = \"A B C\\n D E \"\nparts = text.split()\nprint(len(parts), end=\" \")\nlines = text.split(\"\\n\")\nprint(len(lines))",
+  "options": [
+   "6 2",
+   "5 3",
+   "5 2",
+   "3 2"
+  ],
+  "answer": 2,
+  "explanation": "Hàm split() không đối số sẽ tách theo mọi khoảng trắng (space, newline, tab) và gộp các khoảng trắng liên tiếp, nên 'A B C\\n D E ' có 5 phần tử. split('\\n') chỉ tách theo dấu xuống dòng, tạo ra 2 phần: 'A B C' và ' D E '.",
+  "hint": "Sự khác nhau giữa split() và split('\\n') trong việc xử lý khoảng trắng.",
+  "errorCategory": "concept",
+  "tags": [
+   "split-parse"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q43",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sẽ in ra gì?",
+  "code": "try:\n    f = open(\"non_existent_file.txt\", \"r\")\n    content = f.read()\n    f.close()\nexcept FileNotFoundError:\n    print(\"Error 1\")\nexcept Exception:\n    print(\"Error 2\")",
+  "options": [
+   "Không in gì",
+   "Error 1",
+   "Error 2",
+   "FileNotFoundError"
+  ],
+  "answer": 1,
+  "explanation": "Khi mở file không tồn tại ở chế độ 'r', Python ném ra FileNotFoundError. Do except FileNotFoundError đứng trước, nó sẽ bắt được lỗi này.",
+  "hint": "Xác định loại ngoại lệ khi thao tác với file không tồn tại.",
+  "errorCategory": "theory",
+  "tags": [
+   "file-open-modes",
+   "exception-types"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q44",
+  "topic": "T6",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "data = [1, 0, \"2\"]\nfor x in data:\n    try:\n        print(10 // int(x), end=\" \")\n    except (ValueError, ZeroDivisionError):\n        print(\"E\", end=\" \")",
+  "options": [
+   "ZeroDivisionError",
+   "10 E 5",
+   "10 0 5",
+   "10 E E"
+  ],
+  "answer": 1,
+  "explanation": "Vòng lặp 1: int(1)=1, 10//1=10. Vòng lặp 2: int(0)=0, 10//0 gây ZeroDivisionError -> in 'E'. Vòng lặp 3: int(\"2\")=2, 10//2=5. Kết quả: 10 E 5.",
+  "hint": "Xử lý nhiều loại ngoại lệ trong cùng một khối except.",
+  "errorCategory": "logic",
+  "tags": [
+   "try-except",
+   "exception-types"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T6-Q45",
+  "topic": "T6",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để đảm bảo file luôn được đóng sau khi ghi, ngay cả khi có lỗi xảy ra.",
+  "code": "data = \"Hello Python\"\n___\n    f.write(data)",
+  "options": [
+   "with open('out.txt', 'w') as f:",
+   "with f = open('out.txt', 'w'):",
+   "with open('out.txt', 'w') as f",
+   "f = open('out.txt', 'w')"
+  ],
+  "answer": 0,
+  "explanation": "Cấu trúc 'with' (context manager) tự động gọi phương thức đóng file khi kết thúc khối lệnh, kể cả khi có ngoại lệ.",
+  "hint": "Cú pháp quản lý ngữ cảnh phổ biến nhất trong Python cho file.",
+  "errorCategory": "syntax",
+  "tags": [
+   "with-statement",
+   "file-open-modes"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": ""
+ },
+ {
+  "id": "T6-Q46",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để chương trình in ra tổng số dòng của file (giả sử file có nội dung).",
+  "code": "f = [\"L1\\n\", \"L2\\n\", \"L3\\n\"]\n# f mo phong file object\ncount = ___\nprint(count)",
+  "options": [
+   "f.readlines()",
+   "f.count()",
+   "len(f)",
+   "len(f.read())"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python, một file object là một iterable chứa các dòng. len() của một list các dòng (hoặc đếm vòng lặp) sẽ cho số dòng.",
+  "hint": "Duyệt qua file object tương đương với duyệt qua danh sách các dòng.",
+  "errorCategory": "method",
+  "tags": [
+   "file-read-methods"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "3"
+ },
+ {
+  "id": "T6-Q47",
+  "topic": "T6",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `f.write(json.dumps(info))`. Cách nào sau đây thay thế dòng đó mà kết quả ghi vào file tương đương?",
+  "code": "import json\ninfo = {\"name\": \"Nam\", \"age\": 20}\nwith open(\"data.json\", \"w\") as f:\n    ___",
+  "options": [
+   "json.dumps(info, f)",
+   "json.dump(info, f)",
+   "f.write(json.load(info))",
+   "f.json(info)"
+  ],
+  "answer": 1,
+  "explanation": "json.dump(obj, fp) ghi trực tiếp đối tượng Python vào file object. json.dumps(obj) trả về chuỗi JSON.",
+  "hint": "Phân biệt giữa dump (ghi file) và dumps (trả về chuỗi).",
+  "errorCategory": "method",
+  "tags": [
+   "json"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": ""
+ },
+ {
   "id": "T7-Q01",
   "topic": "T7",
   "difficulty": 1,
@@ -3248,6 +8108,548 @@
   ],
   "source": "supplement",
   "reserve": true
+ },
+ {
+  "id": "T7-Q21",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "class Cat:\n    def __init__(s, n):\n        s.name = n\nc = Cat(\"Mimi\")\nprint(c.name)",
+  "options": [
+   "Mimi",
+   "s.name",
+   "AttributeError",
+   "TypeError"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python, tham số đầu tiên của phương thức (thường đặt là self) chỉ là một quy ước đặt tên. Bạn có thể dùng bất kỳ tên biến nào (như 's'), Python vẫn hiểu đó là tham chiếu đến đối tượng hiện tại.",
+  "hint": "Tham số đầu tiên của __init__ có bắt buộc phải tên là 'self' không?",
+  "errorCategory": "concept",
+  "tags": [
+   "class-init",
+   "self-attributes"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q22",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Giá trị in ra của chương trình là gì?",
+  "code": "class A:\n    x = 1\n    def __init__(self):\n        self.x = 2\na = A()\nprint(a.x, A.x)",
+  "options": [
+   "AttributeError",
+   "2 2",
+   "2 1",
+   "1 1"
+  ],
+  "answer": 2,
+  "explanation": "A.x là thuộc tính lớp (class attribute) có giá trị 1. a.x là thuộc tính đối tượng (instance attribute) được khởi tạo trong __init__ có giá trị 2. Hai thuộc tính này nằm ở phạm vi khác nhau.",
+  "hint": "Phân biệt biến khai báo trực tiếp trong class và biến gán với self.",
+  "errorCategory": "execution",
+  "tags": [
+   "instance-vs-class-attr"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q23",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Chương trình sau sẽ in ra gì?",
+  "code": "class Student:\n    pass\ns = Student()\ns.score = 9\nprint(s.age)",
+  "options": [
+   "0",
+   "None",
+   "TypeError",
+   "AttributeError"
+  ],
+  "answer": 3,
+  "explanation": "Đối tượng 's' đã được gán thuộc tính 'score', nhưng thuộc tính 'age' chưa bao giờ được định nghĩa hay gán giá trị, do đó Python tung ra lỗi AttributeError khi truy cập.",
+  "hint": "Điều gì xảy ra khi gọi một thuộc tính không tồn tại của đối tượng?",
+  "errorCategory": "logic",
+  "tags": [
+   "self-attributes"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q24",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả của đoạn code này là gì?",
+  "code": "class Box:\n    def __str__(self):\n        return \"Chiec hop\"\nb = Box()\nprint(b)",
+  "options": [
+   "TypeError",
+   "Box",
+   "Chiec hop",
+   "<__main__.Box object>"
+  ],
+  "answer": 2,
+  "explanation": "Phương thức __str__ được gọi tự động khi sử dụng hàm print() hoặc str() trên đối tượng để trả về chuỗi đại diện cho đối tượng đó.",
+  "hint": "Phương thức đặc biệt nào điều khiển cách đối tượng hiển thị khi in?",
+  "errorCategory": "theory",
+  "tags": [
+   "str-method"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q25",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "class P:\n    def f(self): return 10\nclass C(P):\n    def f(self): return super().f() + 5\nobj = C()\nprint(obj.f())",
+  "options": [
+   "10",
+   "RecursionError",
+   "15",
+   "5"
+  ],
+  "answer": 2,
+  "explanation": "Lớp C kế thừa P và ghi đè phương thức f. Bên trong f của C, super().f() gọi phương thức f của lớp cha (trả về 10), sau đó cộng thêm 5.",
+  "hint": "Hàm super() dùng để làm gì trong kế thừa?",
+  "errorCategory": "execution",
+  "tags": [
+   "inheritance-super",
+   "override"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T7-Q26",
+  "topic": "T7",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "class Item:\n    def __init__(self, v): self.v = v\nL = [Item(3), Item(1), Item(2)]\nL.sort(key=lambda x: x.v)\nprint(L[0].v)",
+  "options": [
+   "1",
+   "3",
+   "2",
+   "TypeError"
+  ],
+  "answer": 0,
+  "explanation": "Danh sách L chứa các đối tượng Item. Phương thức sort với key là lambda lấy thuộc tính 'v' của từng đối tượng để so sánh. Sau khi sắp xếp, Item có v=1 nằm ở đầu danh sách.",
+  "hint": "Hàm sort sắp xếp danh sách theo tiêu chí nào qua tham số key?",
+  "errorCategory": "method",
+  "tags": [
+   "list-of-objects",
+   "sort-filter-objects"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q27",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Chương trình sau phát sinh lỗi gì?",
+  "code": "class Dog:\n    def bark():\n        return \"Woof\"\nd = Dog()\nprint(d.bark())",
+  "options": [
+   "AttributeError",
+   "Woof",
+   "NameError",
+   "TypeError"
+  ],
+  "answer": 3,
+  "explanation": "Phương thức bark() được định nghĩa không có tham số self. Khi gọi d.bark(), Python tự động truyền đối tượng 'd' vào làm đối số đầu tiên, dẫn đến lỗi TypeError vì hàm không nhận đối số nào.",
+  "hint": "Một instance method thông thường cần tham số gì ở vị trí đầu tiên?",
+  "errorCategory": "syntax",
+  "tags": [
+   "methods",
+   "self-attributes"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q28",
+  "topic": "T7",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "class X:\n    v = 0\n    def up(self): self.v += 1\nx = X()\nx.up()\nX.v = 5\nprint(x.v, X.v)",
+  "options": [
+   "1 0",
+   "1 5",
+   "6 6",
+   "6 5"
+  ],
+  "answer": 1,
+  "explanation": "Khi x.up() chạy, self.v += 1 tạo ra một instance attribute 'v' cho riêng 'x' (với giá trị 0+1=1). Lệnh X.v = 5 chỉ thay đổi class attribute. x.v hiện tại là instance attribute nên không bị ảnh hưởng bởi thay đổi của class attribute.",
+  "hint": "Khi gán giá trị cho self.v, nó trở thành thuộc tính của đối tượng hay của lớp?",
+  "errorCategory": "logic",
+  "tags": [
+   "instance-vs-class-attr"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q29",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "class Sv:\n    def __init__(self, g):\n        self.g = g\nL = [Sv(3.5), Sv(2.0), Sv(3.8)]\nres = [s.g for s in L if s.g >= 3.5]\nprint(len(res))",
+  "options": [
+   "0",
+   "3",
+   "2",
+   "1"
+  ],
+  "answer": 2,
+  "explanation": "List comprehension lọc các đối tượng trong L có thuộc tính g >= 3.5. Có hai giá trị thỏa mãn là 3.5 và 3.8.",
+  "hint": "Đếm số lượng phần tử thỏa mãn điều kiện g >= 3.5.",
+  "errorCategory": "execution",
+  "tags": [
+   "list-of-objects",
+   "sort-filter-objects"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q30",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "class Store:\n    items = []\n    def add(self, x): self.items.append(x)\ns1 = Store(); s2 = Store()\ns1.add(\"Apple\")\nprint(len(s2.items))",
+  "options": [
+   "1",
+   "2",
+   "0",
+   "AttributeError"
+  ],
+  "answer": 0,
+  "explanation": "Biến 'items' được khai báo ở mức lớp (class attribute) và là một list (kiểu dữ liệu thay đổi được - mutable). Tất cả các đối tượng của Store đều dùng chung danh sách này. Khi s1 thêm phần tử, s2 cũng thấy sự thay đổi đó.",
+  "hint": "Biến items là thuộc tính lớp hay thuộc tính đối tượng?",
+  "errorCategory": "logic",
+  "tags": [
+   "instance-vs-class-attr"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T7-Q32",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `L.sort(key=lambda p: p.name)`. Đoạn nào thay thế được dòng đó mà kết quả không đổi?",
+  "code": "class Person:\n    def __init__(self, name): self.name = name\nL = [Person(\"B\"), Person(\"A\")]\n___\nprint(L[0].name)",
+  "options": [
+   "L.sort()",
+   "L = sorted(L, key=lambda x: x.name)",
+   "L.sorted(key=lambda x: x.name)",
+   "L = L.sort(key=lambda x: x.name)"
+  ],
+  "answer": 1,
+  "explanation": "sorted(L) trả về một danh sách mới đã sắp xếp, nên cần gán lại cho L. Phương thức L.sort() trả về None, nên nếu gán L = L.sort() sẽ gây lỗi ở dòng print.",
+  "hint": "Hàm nào trả về list mới, phương thức nào thay đổi list tại chỗ?",
+  "errorCategory": "method",
+  "tags": [
+   "sort-filter-objects",
+   "list-of-objects"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "A"
+ },
+ {
+  "id": "T7-Q35",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra: Yes.",
+  "code": "class Animal: pass\nclass Dog(Animal): pass\nd = Dog()\nif ___:\n    print(\"Yes\")",
+  "options": [
+   "d == Animal",
+   "isinstance(d, Animal)",
+   "isinstance(Animal, d)",
+   "type(d) == Animal"
+  ],
+  "answer": 1,
+  "explanation": "Hàm isinstance(obj, Class) kiểm tra xem một đối tượng có phải là thực thể của lớp đó hoặc lớp con của nó hay không. type(d) == Animal sẽ trả về False vì d thuộc lớp Dog.",
+  "hint": "Hàm nào kiểm tra quan hệ giữa đối tượng và lớp (bao gồm cả kế thừa)?",
+  "errorCategory": "concept",
+  "tags": [
+   "inheritance-super"
+  ],
+  "source": "supplement",
+  "reserve": true,
+  "expect": "Yes"
+ },
+ {
+  "id": "T7-Q37",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "class Bird:\n    def __init__(name):\n        self.name = name\n\nb = Bird(\"Eagle\")\nprint(b.name)",
+  "options": [
+   "AttributeError",
+   "TypeError",
+   "None",
+   "Eagle"
+  ],
+  "answer": 1,
+  "explanation": "Trong Python, phương thức __init__ (và các phương thức instance khác) bắt buộc phải có tham số đầu tiên đại diện cho thực thể (thường đặt tên là self). Khi Bird(\"Eagle\") được gọi, Python truyền 2 đối số (thực thể mới và chuỗi \"Eagle\") vào hàm chỉ nhận 1 tham số (name), gây ra lỗi TypeError.",
+  "hint": "Hãy đếm số lượng tham số mà hàm __init__ đang khai báo và số lượng đối số thực tế Python truyền vào.",
+  "errorCategory": "syntax",
+  "tags": [
+   "class-init"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q38",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "class Counter:\n    count = 0\n    def __init__(self):\n        self.count += 1\n\nc1 = Counter()\nc2 = Counter()\nprint(Counter.count, c1.count)",
+  "options": [
+   "1 1",
+   "2 2",
+   "0 1",
+   "0 0"
+  ],
+  "answer": 2,
+  "explanation": "Counter.count là thuộc tính lớp (class attribute), khởi tạo bằng 0. Khi self.count += 1 thực hiện, Python tạo ra một thuộc tính thực thể (instance attribute) cho riêng c1 dựa trên giá trị của lớp, nhưng không làm thay đổi giá trị gốc của lớp Counter.count.",
+  "hint": "Phân biệt giữa biến thuộc về lớp (class variable) và biến thuộc về đối tượng (instance variable).",
+  "errorCategory": "concept",
+  "tags": [
+   "instance-vs-class-attr"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q39",
+  "topic": "T7",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Kết quả của chương trình sau là gì?",
+  "code": "class Room:\n    items = []\n    def add(self, x): self.items.append(x)\n\nr1 = Room()\nr1.add(\"Chair\")\nr2 = Room()\nr2.add(\"Table\")\nprint(r1.items)",
+  "options": [
+   "['Chair', 'Table']",
+   "[]",
+   "['Table']",
+   "['Chair']"
+  ],
+  "answer": 0,
+  "explanation": "Vì 'items' được khai báo là một list trực tiếp trong class (không nằm trong __init__), nó trở thành một class attribute kiểu mutable. Tất cả các thực thể của Room sẽ chia sẻ chung danh sách này. Khi r2 thêm 'Table', r1 cũng thấy sự thay đổi đó.",
+  "hint": "Các kiểu dữ liệu thay đổi được (mutable) như list khi dùng làm thuộc tính lớp sẽ được dùng chung bởi mọi đối tượng.",
+  "errorCategory": "logic",
+  "tags": [
+   "instance-vs-class-attr"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q40",
+  "topic": "T7",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "class Base:\n    def __init__(self):\n        self.v = 10\nclass Sub(Base):\n    def __init__(self):\n        self.x = 20\ns = Sub()\nprint(s.v + s.x)",
+  "options": [
+   "30",
+   "TypeError",
+   "AttributeError",
+   "10"
+  ],
+  "answer": 2,
+  "explanation": "Trong Python, nếu lớp con định nghĩa phương thức __init__, nó sẽ ghi đè hoàn toàn phương thức __init__ của lớp cha. Vì Sub không gọi super().__init__(), thuộc tính 'v' không bao giờ được tạo ra cho đối tượng 's', dẫn đến lỗi AttributeError khi truy cập s.v.",
+  "hint": "Kiểm tra xem phương thức khởi tạo của lớp cha có được thực thi hay không.",
+  "errorCategory": "execution",
+  "tags": [
+   "inheritance-super"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T7-Q41",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Giá trị in ra là gì?",
+  "code": "class Parent:\n    def call(self): return \"P\"\nclass Child(Parent):\n    def call(self): return super().call() + \"C\"\n\nc = Child()\nprint(c.call())",
+  "options": [
+   "P",
+   "CP",
+   "PC",
+   "C"
+  ],
+  "answer": 2,
+  "explanation": "Phương thức call() của Child ghi đè Parent. Tuy nhiên, nó sử dụng super().call() để lấy kết quả từ lớp cha (\"P\") rồi nối thêm chuỗi \"C\". Kết quả cuối cùng là \"PC\".",
+  "hint": "Hàm super() cho phép gọi phương thức đã bị ghi đè từ lớp cha.",
+  "errorCategory": "concept",
+  "tags": [
+   "inheritance-super",
+   "override"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q42",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Kết quả in ra là gì?",
+  "code": "class A: pass\nclass B(A): pass\nclass C(B): pass\nobj = C()\nprint(isinstance(obj, A), isinstance(obj, B))",
+  "options": [
+   "False True",
+   "False False",
+   "True False",
+   "True True"
+  ],
+  "answer": 3,
+  "explanation": "isinstance() trả về True nếu đối tượng là thực thể của lớp đó hoặc của bất kỳ lớp cha nào của nó. Vì C kế thừa từ B, và B kế thừa từ A, nên một đối tượng lớp C cũng được coi là thực thể của B và A.",
+  "hint": "Tính chất đa hình và quan hệ 'is-a' trong kế thừa nhiều cấp.",
+  "errorCategory": "theory",
+  "tags": [
+   "inheritance-super"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q43",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra gì?",
+  "code": "class Point:\n    def __init__(self, x): self.x = x\npts = [Point(1), Point(2), Point(3)]\nres = [p.x for p in pts if p.x % 2 != 0]\nprint(res)",
+  "options": [
+   "AttributeError",
+   "[1, 3]",
+   "[2]",
+   "[1, 2, 3]"
+  ],
+  "answer": 1,
+  "explanation": "Đây là kỹ thuật list comprehension áp dụng lên danh sách đối tượng. Nó lọc ra các đối tượng có thuộc tính x là số lẻ và tạo ra danh sách chứa giá trị x của chúng.",
+  "hint": "Duyệt qua từng đối tượng trong danh sách và kiểm tra điều kiện của thuộc tính x.",
+  "errorCategory": "logic",
+  "tags": [
+   "list-of-objects"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T7-Q45",
+  "topic": "T7",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để chương trình khởi tạo thành công thuộc tính 'brand' cho đối tượng.",
+  "code": "class Car:\n    ___\n        self.brand = brand\n\nc = Car(\"Toyota\")\nprint(c.brand)",
+  "options": [
+   "def __init__(brand):",
+   "def create(self, brand):",
+   "def Car(self, brand):",
+   "def __init__(self, brand):"
+  ],
+  "answer": 3,
+  "explanation": "Phương thức khởi tạo trong Python phải tên là __init__ và tham số đầu tiên phải là self để gán giá trị cho thực thể hiện tại.",
+  "hint": "Tên phương thức khởi tạo chuẩn trong Python là gì?",
+  "errorCategory": "syntax",
+  "tags": [
+   "class-init"
+  ],
+  "source": "textbook",
+  "reserve": true,
+  "expect": "Toyota"
+ },
+ {
+  "id": "T7-Q46",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để danh sách sinh viên được sắp xếp giảm dần theo GPA.",
+  "code": "class Student:\n    def __init__(self, name, gpa): \n        self.name = name; self.gpa = gpa\nss = [Student(\"A\", 3.2), Student(\"B\", 3.8)]\nss.sort(key=___, reverse=True)\nprint(ss[0].name)",
+  "options": [
+   "gpa",
+   "lambda s: s[1]",
+   "lambda s: gpa",
+   "lambda s: s.gpa"
+  ],
+  "answer": 3,
+  "explanation": "Hàm sort yêu cầu một khóa (key) để so sánh. Vì ss chứa các đối tượng Student, ta dùng lambda để lấy thuộc tính gpa của từng đối tượng s.",
+  "hint": "Truy cập thuộc tính gpa của tham số s trong hàm lambda.",
+  "errorCategory": "method",
+  "tags": [
+   "sort-filter-objects"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "B"
+ },
+ {
+  "id": "T7-Q47",
+  "topic": "T7",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào ___ để in ra tổng giá trị của các món hàng có giá (price) lớn hơn 50.",
+  "code": "class Item:\n    def __init__(self, p): self.price = p\ncart = [Item(40), Item(60), Item(70)]\ntotal = ___\nprint(total)",
+  "options": [
+   "sum(cart.price if price > 50)",
+   "sum(price for price in cart if price > 50)",
+   "sum(i.price for i in cart if i.price > 50)",
+   "sum(i for i in cart if i.price > 50)"
+  ],
+  "answer": 2,
+  "explanation": "Ta cần duyệt qua từng đối tượng 'i' trong 'cart', kiểm tra 'i.price > 50', và lấy ra giá trị 'i.price' để đưa vào hàm sum.",
+  "hint": "Sử dụng generator expression để lọc và trích xuất thuộc tính giá từ các đối tượng.",
+  "errorCategory": "logic",
+  "tags": [
+   "list-of-objects"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": 130
+ },
+ {
+  "id": "T7-Q48",
+  "topic": "T7",
+  "difficulty": 2,
+  "type": "replace",
+  "question": "Dòng ___ ban đầu là `super().__init__(name)`. Đoạn nào sau đây thay thế được dòng đó mà kết quả không đổi?",
+  "code": "class Animal:\n    def __init__(self, name): self.name = name\nclass Dog(Animal):\n    def __init__(self, name, breed):\n        ___\n        self.breed = breed\nd = Dog(\"Lu\", \"Kobe\")\nprint(d.name)",
+  "options": [
+   "super(name)",
+   "Animal.__init__(self, name)",
+   "Animal(self, name)",
+   "self.name = Animal(name)"
+  ],
+  "answer": 1,
+  "explanation": "Cách gọi trực tiếp Animal.__init__(self, name) là cách viết tường minh tương đương với super().__init__(name), thường dùng khi xử lý đa kế thừa phức tạp hoặc trong các phiên bản Python cũ.",
+  "hint": "Có thể gọi trực tiếp phương thức của lớp cha thông qua tên lớp, nhưng cần truyền tham số self.",
+  "errorCategory": "method",
+  "tags": [
+   "inheritance-super"
+  ],
+  "source": "supplement",
+  "reserve": false,
+  "expect": "Lu"
  },
  {
   "id": "T8-Q01",
@@ -3711,5 +9113,286 @@
   ],
   "source": "textbook",
   "reserve": true
+ },
+ {
+  "id": "T8-Q21",
+  "topic": "T8",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import math as m\nprint(m.gcd(48, 18))",
+  "options": [
+   "12",
+   "4",
+   "6",
+   "2"
+  ],
+  "answer": 2,
+  "explanation": "Hàm math.gcd(a, b) trả về ước chung lớn nhất (Greatest Common Divisor) của a và b. Ước chung lớn nhất của 48 và 18 là 6.",
+  "hint": "Tìm số lớn nhất mà cả 48 và 18 đều chia hết.",
+  "errorCategory": "concept",
+  "tags": [
+   "math-module",
+   "alias"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q22",
+  "topic": "T8",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import math\nx = -4.7\nprint(math.ceil(x), math.floor(x))",
+  "options": [
+   "-5 -4",
+   "-4.0 -5.0",
+   "-5 -5",
+   "-4 -5"
+  ],
+  "answer": 3,
+  "explanation": "math.ceil() làm tròn lên số nguyên gần nhất (lớn hơn hoặc bằng x), với -4.7 thì số nguyên lớn hơn gần nhất là -4. math.floor() làm tròn xuống số nguyên gần nhất (nhỏ hơn hoặc bằng x), với -4.7 là -5.",
+  "hint": "Trên trục số, ceil() đi về phía bên phải, floor() đi về phía bên trái.",
+  "errorCategory": "logic",
+  "tags": [
+   "math-module"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q23",
+  "topic": "T8",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import math as m\nresult = math.sqrt(16)\nprint(result)",
+  "options": [
+   "NameError",
+   "4.0",
+   "AttributeError",
+   "4"
+  ],
+  "answer": 0,
+  "explanation": "Khi sử dụng 'import math as m', module math đã được gán định danh (alias) là 'm'. Do đó, bạn phải gọi 'm.sqrt()'. Gọi 'math.sqrt()' sẽ gây ra lỗi NameError vì tên 'math' không còn tồn tại trong phạm vi hiện tại.",
+  "hint": "Khi dùng 'as', tên cũ của module có còn truy cập được không?",
+  "errorCategory": "execution",
+  "tags": [
+   "alias",
+   "import-styles"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q24",
+  "topic": "T8",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import statistics\ndata = [1, 5, 5, 2, 100]\nprint(statistics.median(data))",
+  "options": [
+   "5.0",
+   "22.6",
+   "5",
+   "2"
+  ],
+  "answer": 2,
+  "explanation": "statistics.median() tính số trung vị. Đầu tiên dãy được sắp xếp: [1, 2, 5, 5, 100]. Vì dãy có 5 phần tử (lẻ), trung vị là phần tử ở giữa, tức là 5.",
+  "hint": "Trung vị là giá trị nằm chính giữa tập dữ liệu đã sắp xếp.",
+  "errorCategory": "theory",
+  "tags": [
+   "statistics-module"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q25",
+  "topic": "T8",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import random\nnums = [10, 20, 30]\nres = random.shuffle(nums)\nprint(res)",
+  "options": [
+   "None",
+   "[30, 20, 10]",
+   "[10, 20, 30]",
+   "Một danh sách ngẫu nhiên"
+  ],
+  "answer": 0,
+  "explanation": "Hàm random.shuffle() thực hiện xáo trộn danh sách tại chỗ (in-place) và trả về giá trị None. Đây là bẫy phổ biến khi sinh viên nghĩ nó trả về danh sách mới.",
+  "hint": "Nhiều phương thức làm thay đổi đối tượng gốc trong Python thường trả về gì?",
+  "errorCategory": "method",
+  "tags": [
+   "random-module"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T8-Q26",
+  "topic": "T8",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import statistics\ntry:\n    val = statistics.mode([1, 2, 2, 3, 3])\n    print(val)\nexcept:\n    print(\"Error\")",
+  "options": [
+   "2",
+   "1",
+   "3",
+   "Error"
+  ],
+  "answer": 0,
+  "explanation": "Trong Python 3.11, statistics.mode() trả về giá trị xuất hiện nhiều nhất đầu tiên tìm thấy nếu có nhiều giá trị cùng tần suất cao nhất. Trong list [1, 2, 2, 3, 3], cả 2 và 3 đều xuất hiện 2 lần, nhưng 2 xuất hiện trước.",
+  "hint": "Nếu có nhiều Mode, Python 3.x sẽ chọn giá trị nào xuất hiện trước trong dữ liệu?",
+  "errorCategory": "execution",
+  "tags": [
+   "statistics-module"
+  ],
+  "source": "supplement",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q27",
+  "topic": "T8",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "from datetime import date\nd1 = date(2024, 5, 20)\nd2 = date(2023, 5, 20)\ndiff = d1 - d2\nprint(diff.days)",
+  "options": [
+   "1",
+   "365",
+   "366",
+   "TypeError"
+  ],
+  "answer": 2,
+  "explanation": "Phép trừ hai đối tượng date trả về một đối tượng timedelta. Từ 20/05/2023 đến 20/05/2024 là một năm. Vì năm 2024 là năm nhuận (tháng 2 có 29 ngày), khoảng cách là 366 ngày.",
+  "hint": "Hãy chú ý xem năm 2024 có gì đặc biệt so với năm 2023.",
+  "errorCategory": "edge",
+  "tags": [
+   "datetime"
+  ],
+  "source": "exam",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q28",
+  "topic": "T8",
+  "difficulty": 2,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "from math import pi\npi = 3.14\nimport math\nprint(math.pi == pi)",
+  "options": [
+   "NameError",
+   "TypeError",
+   "False",
+   "True"
+  ],
+  "answer": 2,
+  "explanation": "math.pi là hằng số chính xác cao trong module math (3.14159...). Khi gán pi = 3.14, ta tạo một biến cục bộ. So sánh giữa 3.14159... và 3.14 sẽ trả về False.",
+  "hint": "Độ chính xác của hằng số pi trong thư viện math như thế nào?",
+  "errorCategory": "concept",
+  "tags": [
+   "math-module",
+   "import-styles"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q29",
+  "topic": "T8",
+  "difficulty": 3,
+  "type": "output",
+  "question": "Giả sử file hiện tại được chạy trực tiếp (không phải import). Kết quả in ra là gì?",
+  "code": "def check():\n    return __name__\nif __name__ == '__main__':\n    print(check() == 'main')",
+  "options": [
+   "__main__",
+   "main",
+   "False",
+   "True"
+  ],
+  "answer": 2,
+  "explanation": "Khi chạy trực tiếp, biến __name__ có giá trị là chuỗi '__main__' (có dấu gạch dưới). Câu lệnh so sánh '__main__' == 'main' là False.",
+  "hint": "Giá trị chính xác của __name__ khi chạy trực tiếp có bao nhiêu dấu gạch dưới?",
+  "errorCategory": "theory",
+  "tags": [
+   "name-main"
+  ],
+  "source": "textbook",
+  "reserve": false
+ },
+ {
+  "id": "T8-Q30",
+  "topic": "T8",
+  "difficulty": 1,
+  "type": "output",
+  "question": "Đoạn code sau in ra kết quả gì?",
+  "code": "import math\nprint(math.pow(2, 3) + math.floor(2.9))",
+  "options": [
+   "11.0",
+   "8.0",
+   "10.0",
+   "10"
+  ],
+  "answer": 2,
+  "explanation": "math.pow(2, 3) luôn trả về kiểu float (8.0). math.floor(2.9) trả về số nguyên 2. Phép cộng 8.0 + 2 = 10.0.",
+  "hint": "Lưu ý kiểu dữ liệu trả về của math.pow().",
+  "errorCategory": "execution",
+  "tags": [
+   "math-module"
+  ],
+  "source": "textbook",
+  "reserve": true
+ },
+ {
+  "id": "T8-Q31",
+  "topic": "T8",
+  "difficulty": 1,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để chương trình in ra kết quả mong muốn.",
+  "code": "import math\nprint(___(64))",
+  "options": [
+   "math.square",
+   "math.sqrt",
+   "math.pow",
+   "sqrt"
+  ],
+  "answer": 1,
+  "explanation": "Hàm tính căn bậc hai trong module math là sqrt(). math.pow cần 2 tham số. math.square không tồn tại.",
+  "hint": "Hàm nào dùng để tính Square Root?",
+  "errorCategory": "syntax",
+  "tags": [
+   "math-module"
+  ],
+  "source": "textbook",
+  "reserve": false,
+  "expect": "8.0"
+ },
+ {
+  "id": "T8-Q34",
+  "topic": "T8",
+  "difficulty": 3,
+  "type": "replace",
+  "question": "Chọn đoạn code điền vào chỗ ___ để tính tuổi dựa trên năm hiện tại.",
+  "code": "from datetime import date\nbirth_year = 2000\nage = ___ - birth_year\nprint(age > 20)",
+  "options": [
+   "date.year",
+   "date.today().year",
+   "datetime.now().year",
+   "date.today"
+  ],
+  "answer": 1,
+  "explanation": "Để lấy năm hiện tại, ta dùng date.today() để lấy đối tượng ngày hôm nay, sau đó truy cập thuộc tính .year. Lưu ý ta chỉ import 'date', không import 'datetime'.",
+  "hint": "Cần lấy đối tượng ngày hiện tại trước khi lấy thuộc tính năm.",
+  "errorCategory": "implementation",
+  "tags": [
+   "datetime"
+  ],
+  "source": "exam",
+  "reserve": false,
+  "expect": "True"
  }
 ]
