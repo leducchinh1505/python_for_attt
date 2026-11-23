@@ -80,8 +80,8 @@ def check_mcq(q):
 
 def check_code(ex):
     out = []
-    if len(ex['tests']) < 4:
-        out.append(f"chỉ có {len(ex['tests'])} test")
+    if not 10 <= len(ex['tests']) <= 15:
+        out.append(f"cần 10–15 test (đang có {len(ex['tests'])})")
     with tempfile.TemporaryDirectory() as d:
         cwd = os.getcwd()
         os.chdir(d)
@@ -93,6 +93,8 @@ def check_code(ex):
     for i, r in enumerate(res):
         if not r['ok']:
             out.append(f"test {i} sai với lời giải mẫu -> got={r['got']!r} err={r['error']!r} test={ex['tests'][i]}")
+        elif r.get('note'):
+            out.append(f"test {i}: expected không khớp chặt với lời giải mẫu (note: {r['note']})")
     if res0 and all(r['ok'] for r in res0):
         out.append('code khởi đầu đã qua hết test')
     return out

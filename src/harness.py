@@ -192,3 +192,33 @@ def run_tests(src, ex):
         note = ' '.join(notes) if ok and notes else None
         results.append({'ok': ok, 'got': repr(got), 'printed': out2, 'error': None, 'errType': None, 'note': note})
     return results
+
+
+def solution_output(src, ex, test):
+    """Chạy lời giải qua một test (chưa có expected) để lấy giá trị thật.
+    Trả (ok, expected_str, reason); ok False thì expected_str None và reason nêu lý do.
+    expected_str đã được chấm lại và phải khớp chặt (ok, không note). Chạy trong thư mục tạm."""
+    import os, tempfile
+    base = {k: v for k, v in ex.items() if k != 'tests'}
+    probe = {k: v for k, v in test.items() if k != 'expected'}
+    cwd = os.getcwd()
+    with tempfile.TemporaryDirectory() as d:
+        os.chdir(d)
+        try:
+            r = run_tests(src, {**base, 'tests': [{**probe, 'expected': 'None'}]})[0]
+            if r['error']:
+                return False, None, f"lời giải bị lỗi: {r['error']}"
+            if ex['mode'] == 'stdio':
+                expected = _norm(r['got'])
+            else:
+                if r.get('printed', '').strip():
+                    return False, None, 'lời giải có in ra màn hình'
+                expected = r['got']
+            r2 = run_tests(src, {**base, 'tests': [{**probe, 'expected': expected}]})[0]
+        finally:
+            os.chdir(cwd)
+    if not r2['ok']:
+        return False, None, f'giá trị trả về không eval lại được hoặc không bằng nhau: {expected}'
+    if r2['note']:
+        return False, None, f'expected không khớp chặt với lời giải (note: {r2["note"]})'
+    return True, expected, None
