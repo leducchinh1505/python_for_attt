@@ -41,6 +41,51 @@
     "setup": "",
     "call": "format_bill(5.5)",
     "expected": "'Bill: 6'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(0.5)",
+    "expected": "'Bill: 0'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(1.5)",
+    "expected": "'Bill: 2'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(0)",
+    "expected": "'Bill: 0'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(-0.5)",
+    "expected": "'Bill: 0'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(-1.5)",
+    "expected": "'Bill: -2'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(-2.5)",
+    "expected": "'Bill: -2'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(100.5)",
+    "expected": "'Bill: 100'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(99.99)",
+    "expected": "'Bill: 100'"
+   },
+   {
+    "setup": "",
+    "call": "format_bill(0.4)",
+    "expected": "'Bill: 0'"
    }
   ],
   "hint": "Sử dụng hàm round(amount) và f-string để định dạng chuỗi.",
@@ -95,6 +140,56 @@
     "setup": "",
     "call": "standardize_name('   ')",
     "expected": "''"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('')",
+    "expected": "''"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('a')",
+    "expected": "'A'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('LE VAN   TAM')",
+    "expected": "'Le Van Tam'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('  tran   thi   mai   huong ')",
+    "expected": "'Tran Thi Mai Huong'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('nGuYeN')",
+    "expected": "'Nguyen'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('pham van b c')",
+    "expected": "'Pham Van B C'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('\\tan  binh\\n')",
+    "expected": "'An Binh'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('ABC DEF GHI')",
+    "expected": "'Abc Def Ghi'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('đỗ  thị   hoa')",
+    "expected": "'Đỗ Thị Hoa'"
+   },
+   {
+    "setup": "",
+    "call": "standardize_name('x   y')",
+    "expected": "'X Y'"
    }
   ],
   "hint": "Sử dụng các phương thức split() để tách từ (loại bỏ khoảng trắng thừa), title() hoặc capitalize() cho từng từ, và join() để nối lại.",
@@ -149,6 +244,56 @@
     "setup": "",
     "call": "math_logic_challenge('0.0', 5)",
     "expected": "(0, 0, 0, 0)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('9.99', 4)",
+    "expected": "(2, 1, -81, 9)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('-9.99', 4)",
+    "expected": "(-3, 3, -81, 9)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('-12.5', -5)",
+    "expected": "(2, -2, -144, 3)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('5', 3)",
+    "expected": "(1, 2, -25, 5)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('123.45', 7)",
+    "expected": "(17, 4, -15129, 6)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('-0.9', 3)",
+    "expected": "(0, 0, 0, 0)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('999.9', 1)",
+    "expected": "(999, 0, -998001, 27)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('1000', -7)",
+    "expected": "(-143, -1, -1000000, 1)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('-100.5', 10)",
+    "expected": "(-10, 0, -10000, 1)"
+   },
+   {
+    "setup": "",
+    "call": "math_logic_challenge('45.0', 45)",
+    "expected": "(1, 0, -2025, 9)"
    }
   ],
   "hint": "Lưu ý: int('3.5') sẽ gây lỗi, phải dùng int(float('3.5')). Trong Python, toán tử ** có ưu tiên cao hơn toán tử dấu âm (-).",
@@ -206,6 +351,56 @@
     "setup": "",
     "call": "analyze_string_properties('')",
     "expected": "(True, 0, True)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('Was it a car or a cat I saw')",
+    "expected": "(True, 9, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('abba')",
+    "expected": "(True, 1, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('ab')",
+    "expected": "(False, 1, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('a')",
+    "expected": "(True, 1, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties(' ')",
+    "expected": "(True, 0, True)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('12321')",
+    "expected": "(True, 1, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('Hello, World!')",
+    "expected": "(False, 2, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('  Never odd or even  ')",
+    "expected": "(True, 4, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('Madam')",
+    "expected": "(True, 1, False)"
+   },
+   {
+    "setup": "",
+    "call": "analyze_string_properties('a b  c   d')",
+    "expected": "(False, 4, False)"
    }
   ],
   "hint": "Dùng s.strip().lower().replace(' ', '') để chuẩn bị chuỗi kiểm tra đối xứng. Dùng 'not s.strip()' để kiểm tra tính trống rỗng.",
@@ -261,6 +456,56 @@
     "setup": "",
     "call": "tinh_tien_dien(0)",
     "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(50)",
+    "expected": "83900"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(51)",
+    "expected": "85634"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(100)",
+    "expected": "170600"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(101)",
+    "expected": "172614"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(200)",
+    "expected": "372000"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(201)",
+    "expected": "374536"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(1)",
+    "expected": "1678"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(-5)",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(0.5)",
+    "expected": "839"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_dien(75.5)",
+    "expected": "128117"
    }
   ],
   "hint": "Sử dụng cấu trúc if-elif để tách các khoảng kwh. Tính tiền từng phần (phần trong định mức và phần vượt định mức).",
@@ -315,6 +560,56 @@
     "setup": "",
     "call": "is_harshad(1729)",
     "expected": "True"
+   },
+   {
+    "setup": "",
+    "call": "is_harshad(1)",
+    "expected": "True"
+   },
+   {
+    "setup": "",
+    "call": "get_harshads_in_range(1, 1)",
+    "expected": "[1]"
+   },
+   {
+    "setup": "",
+    "call": "is_harshad(10)",
+    "expected": "True"
+   },
+   {
+    "setup": "",
+    "call": "get_harshads_in_range(11, 11)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "is_harshad(11)",
+    "expected": "False"
+   },
+   {
+    "setup": "",
+    "call": "get_harshads_in_range(100, 120)",
+    "expected": "[100, 102, 108, 110, 111, 112, 114, 117, 120]"
+   },
+   {
+    "setup": "",
+    "call": "is_harshad(21)",
+    "expected": "True"
+   },
+   {
+    "setup": "",
+    "call": "get_harshads_in_range(1, 50)",
+    "expected": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 18, 20, 21, 24, 27, 30, 36, 40, 42, 45, 48, 50]"
+   },
+   {
+    "setup": "",
+    "call": "is_harshad(100)",
+    "expected": "True"
+   },
+   {
+    "setup": "",
+    "call": "get_harshads_in_range(990, 1000)",
+    "expected": "[990, 999, 1000]"
    }
   ],
   "hint": "Để tính tổng chữ số, sử dụng vòng lặp while với n % 10 và n // 10. Hàm liệt kê sử dụng for i in range(a, b+1).",
@@ -370,6 +665,56 @@
     "setup": "",
     "call": "find_max_armstrong(1)",
     "expected": "1"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(153)",
+    "expected": "153"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(152)",
+    "expected": "9"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(9)",
+    "expected": "9"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(100)",
+    "expected": "9"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(370)",
+    "expected": "370"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(1633)",
+    "expected": "407"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(9474)",
+    "expected": "9474"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(9473)",
+    "expected": "8208"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(10000)",
+    "expected": "9474"
+   },
+   {
+    "setup": "",
+    "call": "find_max_armstrong(5)",
+    "expected": "5"
    }
   ],
   "hint": "Chạy ngược từ k về 1 bằng range(k, 0, -1). Với mỗi số, đếm số chữ số n trước, sau đó tính tổng lũy thừa bậc n.",
@@ -425,6 +770,56 @@
     "setup": "",
     "call": "tinh_thue_tncn(50000000)",
     "expected": "6050000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(0)",
+    "expected": "0.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(11000000)",
+    "expected": "0.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(16000000)",
+    "expected": "250000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(21000000)",
+    "expected": "750000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(26000000)",
+    "expected": "1500000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(31000000)",
+    "expected": "2250000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(15000000)",
+    "expected": "200000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(11000001)",
+    "expected": "0.05"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(100000000)",
+    "expected": "16050000.0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_thue_tncn(8000000)",
+    "expected": "0.0"
    }
   ],
   "hint": "Trừ đi 11 triệu trước. Sau đó dùng if-elif để tính thuế từng bậc cho số dư còn lại.",
@@ -474,6 +869,46 @@
    {
     "input": "3 3\n10 20 30\n11 21 31\n12 22 32",
     "expected": ""
+   },
+   {
+    "input": "1 1\n4",
+    "expected": "0"
+   },
+   {
+    "input": "1 1\n3",
+    "expected": ""
+   },
+   {
+    "input": "1 3\n1 2 3",
+    "expected": "1"
+   },
+   {
+    "input": "3 1\n1\n2\n3",
+    "expected": "0"
+   },
+   {
+    "input": "2 2\n1 1\n1 1",
+    "expected": "0 1"
+   },
+   {
+    "input": "2 2\n1 2\n3 4",
+    "expected": "0 1"
+   },
+   {
+    "input": "3 3\n0 0 0\n0 0 0\n0 0 0",
+    "expected": "0 1 2"
+   },
+   {
+    "input": "2 4\n-3 5 7 -8\n3 -5 2 8",
+    "expected": "0 1 3"
+   },
+   {
+    "input": "4 2\n1000000 -1000000\n1000000 1000000\n-1 1\n1 -1",
+    "expected": "0 1"
+   },
+   {
+    "input": "3 3\n1 2 3\n4 5 6\n7 8 9",
+    "expected": "0 2"
    }
   ],
   "hint": "Sử dụng vòng lặp lồng nhau. Vòng ngoài duyệt theo cột (từ 0 đến n-1), vòng trong duyệt theo dòng để tính tổng từng cột.",
@@ -529,6 +964,56 @@
     "setup": "",
     "call": "get_scholarship_list([(\"Z\", 2.0), (\"A\", 2.0)], 2.0)",
     "expected": "['A', 'Z']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"A\", 3.0)], 3.0)",
+    "expected": "['A']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"A\", 2.99)], 3.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"B\", 3.5), (\"A\", 3.5), (\"C\", 3.7)], 0.0)",
+    "expected": "['C', 'A', 'B']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"An\", 3.2), (\"Ba\", 3.9), (\"Cu\", 3.5), (\"Du\", 2.0)], 3.2)",
+    "expected": "['Ba', 'Cu', 'An']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"x\", 0.0), (\"y\", 0.0)], 0.0)",
+    "expected": "['x', 'y']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"Mai\", 4.0)], 4.0)",
+    "expected": "['Mai']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"Mai\", 3.99), (\"Lan\", 4.0)], 3.99)",
+    "expected": "['Lan', 'Mai']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"Zed\", 3.1), (\"Zed\", 3.4)], 3.0)",
+    "expected": "['Zed', 'Zed']"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"Tu\", 1.0), (\"Uy\", 2.0), (\"Vi\", 3.0)], 4.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "get_scholarship_list([(\"Q\", 3.5), (\"P\", 3.6), (\"R\", 3.5), (\"O\", 3.6)], 3.5)",
+    "expected": "['O', 'P', 'Q', 'R']"
    }
   ],
   "hint": "Sử dụng hàm sorted() hoặc phương thức sort() với tham số 'key'. Để sắp xếp GPA giảm dần và tên tăng dần, key có thể là lambda x: (-x[1], x[0]).",
@@ -585,6 +1070,56 @@
     "setup": "",
     "call": "matrix_analysis([[1.5, 2.5], [3.5, 4.5]])",
     "expected": "{'main': 6.0, 'anti': 6.0, 'transpose': [[1.5, 3.5], [2.5, 4.5]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[0]])",
+    "expected": "{'main': 0, 'anti': 0, 'transpose': [[0]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[-1, -2], [-3, -4]])",
+    "expected": "{'main': -5, 'anti': -5, 'transpose': [[-1, -3], [-2, -4]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])",
+    "expected": "{'main': 34, 'anti': 34, 'transpose': [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[2, 0, 0], [0, 3, 0], [0, 0, 4]])",
+    "expected": "{'main': 9, 'anti': 3, 'transpose': [[2, 0, 0], [0, 3, 0], [0, 0, 4]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[1, 1], [1, 1]])",
+    "expected": "{'main': 2, 'anti': 2, 'transpose': [[1, 1], [1, 1]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[7, 8, 9], [1, 2, 3], [4, 5, 6]])",
+    "expected": "{'main': 15, 'anti': 15, 'transpose': [[7, 1, 4], [8, 2, 5], [9, 3, 6]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[0.5]])",
+    "expected": "{'main': 0.5, 'anti': 0.5, 'transpose': [[0.5]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[1, 2], [2, 1]])",
+    "expected": "{'main': 2, 'anti': 4, 'transpose': [[1, 2], [2, 1]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[10, -10, 10], [-10, 10, -10], [10, -10, 10]])",
+    "expected": "{'main': 30, 'anti': 30, 'transpose': [[10, -10, 10], [-10, 10, -10], [10, -10, 10]]}"
+   },
+   {
+    "setup": "",
+    "call": "matrix_analysis([[1, 2, 3], [0, 0, 0], [3, 2, 1]])",
+    "expected": "{'main': 2, 'anti': 6, 'transpose': [[1, 0, 3], [2, 0, 2], [3, 0, 1]]}"
    }
   ],
   "hint": "Đường chéo chính là các phần tử matrix[i][i]. Đường chéo phụ là các phần tử matrix[i][n-1-i]. Ma trận chuyển vị có transpose[i][j] = matrix[j][i].",
@@ -641,6 +1176,56 @@
     "setup": "",
     "call": "filter_by_class([], \"D21\", 3.0)",
     "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"An\", 3.0, \"D21\")], \"D21\", 3.0)",
+    "expected": "['An']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"An\", 2.9, \"D21\")], \"D21\", 3.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"An\", 3.5, \"D21\"), (\"Bo\", 3.5, \"D22\")], \"D23\", 0.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"Cu\", 3.5, \"D21\"), (\"Ba\", 3.6, \"D21\"), (\"An\", 3.7, \"D21\")], \"D21\", 3.5)",
+    "expected": "['An', 'Ba', 'Cu']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"An\", 3.5, \"d21\"), (\"Bo\", 3.5, \"D21\")], \"D21\", 3.0)",
+    "expected": "['Bo']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"Lan\", 4.0, \"A\"), (\"Lan\", 3.0, \"A\")], \"A\", 3.5)",
+    "expected": "['Lan']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"An\", 3.0, \"X\"), (\"Bo\", 2.0, \"Y\"), (\"Cu\", 3.0, \"Y\"), (\"Do\", 4.0, \"Y\")], \"Y\", 2.5)",
+    "expected": "['Cu', 'Do']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"P\", 0.0, \"Z\")], \"Z\", 0.0)",
+    "expected": "['P']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"Hoa\", 3.99, \"K\"), (\"Hai\", 3.98, \"K\")], \"K\", 3.985)",
+    "expected": "['Hoa']"
+   },
+   {
+    "setup": "",
+    "call": "filter_by_class([(\"A\", 3.0, \"C1\"), (\"B\", 3.1, \"C2\"), (\"C\", 3.2, \"C1\"), (\"D\", 3.3, \"C2\")], \"C2\", 3.0)",
+    "expected": "['B', 'D']"
    }
   ],
   "hint": "Sử dụng list comprehension với điều kiện `if` để lọc lớp và điểm, sau đó dùng hàm `sorted()` để sắp xếp kết quả.",
@@ -691,6 +1276,46 @@
    {
     "input": "2\n3\n0 0 1\n1 1 1",
     "expected": "Dong 0 (tong = 1)\nDong 1 (tong = 3)"
+   },
+   {
+    "input": "1\n1\n5",
+    "expected": "Dong 0 (tong = 5)"
+   },
+   {
+    "input": "1\n1\n4",
+    "expected": "Khong co"
+   },
+   {
+    "input": "1\n1\n-3",
+    "expected": "Dong 0 (tong = -3)"
+   },
+   {
+    "input": "2\n2\n1 2\n3 4",
+    "expected": "Dong 0 (tong = 3)\nDong 1 (tong = 7)"
+   },
+   {
+    "input": "2\n2\n1 1\n1 1",
+    "expected": "Khong co"
+   },
+   {
+    "input": "3\n3\n1 2 3\n4 5 6\n7 8 9",
+    "expected": "Dong 1 (tong = 15)"
+   },
+   {
+    "input": "1\n5\n1 1 1 1 1",
+    "expected": "Dong 0 (tong = 5)"
+   },
+   {
+    "input": "4\n1\n1\n2\n-3\n-4",
+    "expected": "Dong 0 (tong = 1)\nDong 2 (tong = -3)"
+   },
+   {
+    "input": "2\n3\n-1 -2 -4\n2 2 2",
+    "expected": "Dong 0 (tong = -7)"
+   },
+   {
+    "input": "3\n2\n0 0\n0 1\n100 -1",
+    "expected": "Dong 1 (tong = 1)\nDong 2 (tong = 99)"
    }
   ],
   "hint": "Đọc từng dòng bằng input().split() rồi đổi sang int. Dùng enumerate để có chỉ số dòng. Số lẻ: s % 2 == 1 (đúng cả với số âm trong Python). Cần một biến cờ để biết có in dòng nào không.",
@@ -746,6 +1371,56 @@
     "setup": "",
     "call": "filter_even([0, -2, -3])",
     "expected": "[0, -2]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([2])",
+    "expected": "[2]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([1])",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([0])",
+    "expected": "[0]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([-4, -3, -2, -1])",
+    "expected": "[-4, -2]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([2, 2, 2, 3, 3])",
+    "expected": "[2, 2, 2]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([100, 99, 98, 97])",
+    "expected": "[100, 98]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([7, 8, 9, 10, 11, 12])",
+    "expected": "[8, 10, 12]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even(list(range(10)))",
+    "expected": "[0, 2, 4, 6, 8]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([1000000, 1000001])",
+    "expected": "[1000000]"
+   },
+   {
+    "setup": "",
+    "call": "filter_even([-1, -3, -5, -7])",
+    "expected": "[]"
    }
   ],
   "hint": "Sử dụng list comprehension hoặc vòng lặp for kết hợp với toán tử chia lấy dư % 2.",
@@ -794,6 +1469,46 @@
    {
     "input": "100",
     "expected": "None"
+   },
+   {
+    "input": "5",
+    "expected": "None"
+   },
+   {
+    "input": "5 3",
+    "expected": "3"
+   },
+   {
+    "input": "3 5",
+    "expected": "3"
+   },
+   {
+    "input": "-1 -2",
+    "expected": "-2"
+   },
+   {
+    "input": "0 0 1",
+    "expected": "0"
+   },
+   {
+    "input": "7 7 7 6",
+    "expected": "6"
+   },
+   {
+    "input": "1 2 2 3 3 3",
+    "expected": "2"
+   },
+   {
+    "input": "100 99 100 98 99",
+    "expected": "99"
+   },
+   {
+    "input": "-5 -5 -4",
+    "expected": "-5"
+   },
+   {
+    "input": "1000000 -1000000",
+    "expected": "-1000000"
    }
   ],
   "hint": "Chuyển chuỗi nhập vào thành set để loại bỏ các giá trị trùng nhau, sau đó sắp xếp và tìm phần tử kế cuối.",
@@ -847,6 +1562,56 @@
     "setup": "",
     "call": "unique_stable([5, 4, 3, 2, 1])",
     "expected": "[5, 4, 3, 2, 1]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable(['x'])",
+    "expected": "['x']"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([1, 1, 2, 2, 3, 3])",
+    "expected": "[1, 2, 3]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable(['b', 'a', 'b', 'a', 'c'])",
+    "expected": "['b', 'a', 'c']"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([3, 3, 3, 2, 2, 1])",
+    "expected": "[3, 2, 1]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([0, 0, -1, -1])",
+    "expected": "[0, -1]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable(['a', 'A', 'a'])",
+    "expected": "['a', 'A']"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([1, 2, 3, 4])",
+    "expected": "[1, 2, 3, 4]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable(['hello', 'world', 'hello'])",
+    "expected": "['hello', 'world']"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([7, 8, 7, 9, 8, 7])",
+    "expected": "[7, 8, 9]"
+   },
+   {
+    "setup": "",
+    "call": "unique_stable([10, 20, 10, 30, 20, 40])",
+    "expected": "[10, 20, 30, 40]"
    }
   ],
   "hint": "Sử dụng một list phụ hoặc một set để đánh dấu các phần tử đã xuất hiện trong khi duyệt.",
@@ -894,6 +1659,46 @@
    },
    {
     "input": "10",
+    "expected": "1"
+   },
+   {
+    "input": "1 2",
+    "expected": "1"
+   },
+   {
+    "input": "2 1",
+    "expected": "1"
+   },
+   {
+    "input": "3 3",
+    "expected": "0"
+   },
+   {
+    "input": "1 3 1",
+    "expected": "1"
+   },
+   {
+    "input": "1 2 1 2 1",
+    "expected": "2"
+   },
+   {
+    "input": "5 4 3 2 1",
+    "expected": "1"
+   },
+   {
+    "input": "1 2 3 2 1",
+    "expected": "1"
+   },
+   {
+    "input": "-1 -2 -1",
+    "expected": "2"
+   },
+   {
+    "input": "7 7 8",
+    "expected": "1"
+   },
+   {
+    "input": "8 7 7",
     "expected": "1"
    }
   ],
@@ -948,6 +1753,56 @@
     "setup": "",
     "call": "rotate_left([10, 20], 1)",
     "expected": "[20, 10]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1], 3)",
+    "expected": "[1]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3], 3)",
+    "expected": "[1, 2, 3]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3], 1)",
+    "expected": "[2, 3, 1]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3, 4], 100)",
+    "expected": "[1, 2, 3, 4]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2, 3, 4, 5], 7)",
+    "expected": "[3, 4, 5, 1, 2]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left(['a', 'b', 'c'], 2)",
+    "expected": "['c', 'a', 'b']"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 2], 2)",
+    "expected": "[1, 2]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([5, 6, 7, 8], 3)",
+    "expected": "[8, 5, 6, 7]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([1, 1, 2], 1)",
+    "expected": "[1, 2, 1]"
+   },
+   {
+    "setup": "",
+    "call": "rotate_left([], 0)",
+    "expected": "[]"
    }
   ],
   "hint": "Sử dụng slicing: phần tử từ index k đến hết cộng với phần tử từ đầu đến index k.",
@@ -996,6 +1851,46 @@
    {
     "input": "2 3\n5 5 5\n10 10 10",
     "expected": "15\n30"
+   },
+   {
+    "input": "1 1\n5",
+    "expected": "5"
+   },
+   {
+    "input": "1 1\n-5",
+    "expected": "-5"
+   },
+   {
+    "input": "3 3\n1 2 3\n4 5 6\n7 8 9",
+    "expected": "6\n15\n24"
+   },
+   {
+    "input": "2 1\n7\n-7",
+    "expected": "7\n-7"
+   },
+   {
+    "input": "1 5\n1 2 3 4 5",
+    "expected": "15"
+   },
+   {
+    "input": "3 2\n0 0\n0 0\n0 0",
+    "expected": "0\n0\n0"
+   },
+   {
+    "input": "2 2\n1000000 1000000\n-1000000 -1000000",
+    "expected": "2000000\n-2000000"
+   },
+   {
+    "input": "4 2\n1 -1\n2 -2\n3 -3\n4 -4",
+    "expected": "0\n0\n0\n0"
+   },
+   {
+    "input": "2 3\n-1 -2 -3\n-4 -5 -6",
+    "expected": "-6\n-15"
+   },
+   {
+    "input": "1 3\n100 200 300",
+    "expected": "600"
    }
   ],
   "hint": "Dùng vòng lặp chạy M lần, mỗi lần đọc một dòng, chuyển thành list số nguyên rồi dùng hàm sum().",
@@ -1049,6 +1944,56 @@
     "setup": "",
     "call": "sort_students([('Dung', 3.2), ('Dung', 3.1)])",
     "expected": "[('Dung', 3.2), ('Dung', 3.1)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('A', 1.0)])",
+    "expected": "[('A', 1.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('B', 3.0), ('A', 3.0), ('C', 3.0)])",
+    "expected": "[('A', 3.0), ('B', 3.0), ('C', 3.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('C', 1.0), ('B', 2.0), ('A', 3.0)])",
+    "expected": "[('A', 3.0), ('B', 2.0), ('C', 1.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('A', 1.0), ('B', 2.0), ('C', 3.0)])",
+    "expected": "[('C', 3.0), ('B', 2.0), ('A', 1.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Mai', 3.5), ('Lan', 3.5), ('Hoa', 3.9), ('An', 2.5)])",
+    "expected": "[('Hoa', 3.9), ('Lan', 3.5), ('Mai', 3.5), ('An', 2.5)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('X', 0.0), ('Y', 4.0)])",
+    "expected": "[('Y', 4.0), ('X', 0.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Bao', 3.25), ('Ba', 3.25), ('Bao', 3.5)])",
+    "expected": "[('Bao', 3.5), ('Ba', 3.25), ('Bao', 3.25)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('P', 2.0), ('Q', 2.0), ('R', 2.0), ('S', 2.0)])",
+    "expected": "[('P', 2.0), ('Q', 2.0), ('R', 2.0), ('S', 2.0)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Nam', 3.6), ('Nam', 3.6)])",
+    "expected": "[('Nam', 3.6), ('Nam', 3.6)]"
+   },
+   {
+    "setup": "",
+    "call": "sort_students([('Z', 3.99), ('Y', 3.98), ('X', 3.97)])",
+    "expected": "[('Z', 3.99), ('Y', 3.98), ('X', 3.97)]"
    }
   ],
   "hint": "Sử dụng hàm sorted() với tham số key là một lambda trả về tuple: (-điểm, tên).",
@@ -1098,6 +2043,46 @@
    {
     "input": "6\n3 1 5",
     "expected": "(1, 5)"
+   },
+   {
+    "input": "3\n1 2",
+    "expected": "(1, 2)"
+   },
+   {
+    "input": "3\n1 2 3 4",
+    "expected": "(1, 2)"
+   },
+   {
+    "input": "0\n1 2 3",
+    "expected": ""
+   },
+   {
+    "input": "0\n0",
+    "expected": ""
+   },
+   {
+    "input": "4\n2",
+    "expected": ""
+   },
+   {
+    "input": "2\n1",
+    "expected": ""
+   },
+   {
+    "input": "7\n1 6 2 5 3 4",
+    "expected": "(1, 6)\n(2, 5)\n(3, 4)"
+   },
+   {
+    "input": "-5\n-1 -4 -2 -3 -9",
+    "expected": "(-4, -1)\n(-3, -2)"
+   },
+   {
+    "input": "100\n50 60 40 30 70",
+    "expected": "(30, 70)\n(40, 60)"
+   },
+   {
+    "input": "1\n-1 2 0 1 3",
+    "expected": "(-1, 2)\n(0, 1)"
    }
   ],
   "hint": "Sắp xếp dãy số trước, sau đó dùng hai vòng lặp lồng nhau hoặc dùng tập hợp để kiểm tra sự tồn tại của (X - a).",
@@ -1155,6 +2140,56 @@
     "setup": "",
     "call": "sell_fc('USD', 0.5)",
     "expected": "12860.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('USD', 1)",
+    "expected": "25720.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('EUR', 1)",
+    "expected": "27500.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('JPY', 1)",
+    "expected": "162.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('usd', 100)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('', 10)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('USD', 1000000)",
+    "expected": "25720000000.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('EUR', 0.25)",
+    "expected": "6875.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('JPY', 0.5)",
+    "expected": "81.0"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('GBP', 1)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "sell_fc('USD', 2.5)",
+    "expected": "64300.0"
    }
   ],
   "hint": "Sử dụng phương thức get() hoặc toán tử in để kiểm tra sự tồn tại của khóa trước khi truy cập lồng nhau.",
@@ -1208,6 +2243,56 @@
    {
     "setup": "",
     "call": "get_high_freq_words('', 1)",
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('a', 1)",
+    "expected": "{'a': 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('a a a', 3)",
+    "expected": "{'a': 3}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('a a a', 4)",
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('Cat cat CAT dog Dog bird', 2)",
+    "expected": "{'cat': 3, 'dog': 2}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('x y z', 1)",
+    "expected": "{'x': 1, 'y': 1, 'z': 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('  spaced   out   spaced  ', 2)",
+    "expected": "{'spaced': 2}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('b a b a c', 2)",
+    "expected": "{'b': 2, 'a': 2}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('to be or not to be', 2)",
+    "expected": "{'to': 2, 'be': 2}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('go go go go stop', 4)",
+    "expected": "{'go': 4}"
+   },
+   {
+    "setup": "",
+    "call": "get_high_freq_words('   ', 1)",
     "expected": "{}"
    }
   ],
@@ -1264,6 +2349,56 @@
     "setup": "from math import isclose",
     "call": "cross_convert('USD', 'USD', 100)",
     "expected": "98.51"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('USD', 'JPY', 1)",
+    "expected": "153.1"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('JPY', 'EUR', 5000)",
+    "expected": "28.72"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('EUR', 'USD', 10)",
+    "expected": "10.53"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('EUR', 'EUR', 1)",
+    "expected": "0.98"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('JPY', 'JPY', 1000)",
+    "expected": "964.29"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('USD', 'XYZ', 100)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('XYZ', 'ABC', 100)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('EUR', 'USD', 0.01)",
+    "expected": "0.01"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('USD', 'EUR', 123.45)",
+    "expected": "112.59"
+   },
+   {
+    "setup": "",
+    "call": "cross_convert('JPY', 'USD', 1)",
+    "expected": "0.01"
    }
   ],
   "hint": "Chia bài toán làm 2 bước: Bước 1 tính VND = amount * rates[from_fc]['mua_vao']. Bước 2 tính Result = VND / rates[to_fc]['ban_ra']. Sử dụng round(val, 2).",
@@ -1319,6 +2454,56 @@
     "setup": "",
     "call": "char_analyzer('', 'abc')",
     "expected": "{'common': [], 'only_str1': []}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('', '')",
+    "expected": "{'common': [], 'only_str1': []}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('a', 'a')",
+    "expected": "{'common': ['a'], 'only_str1': []}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('a', 'b')",
+    "expected": "{'common': [], 'only_str1': ['a']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('aabbcc', 'abc')",
+    "expected": "{'common': ['a', 'b', 'c'], 'only_str1': []}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('a b c', 'cab')",
+    "expected": "{'common': ['a', 'b', 'c'], 'only_str1': [' ']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('Python', 'python')",
+    "expected": "{'common': ['h', 'n', 'o', 't', 'y'], 'only_str1': ['P']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('abc', '')",
+    "expected": "{'common': [], 'only_str1': ['a', 'b', 'c']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('123 456', '654')",
+    "expected": "{'common': ['4', '5', '6'], 'only_str1': [' ', '1', '2', '3']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('hello world', 'low')",
+    "expected": "{'common': ['l', 'o', 'w'], 'only_str1': [' ', 'd', 'e', 'h', 'r']}"
+   },
+   {
+    "setup": "",
+    "call": "char_analyzer('aaa', 'aab')",
+    "expected": "{'common': ['a'], 'only_str1': []}"
    }
   ],
   "hint": "Chuyển chuỗi sang set bằng set(string). Sử dụng toán tử & cho phép giao và - cho phép hiệu. Sử dụng sorted() để chuyển tập hợp thành danh sách đã sắp xếp.",
@@ -1378,6 +2563,51 @@
     "setup": "",
     "call": "type(buy_fc(\"USD\", 3)).__name__",
     "expected": "'float'"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc()",
+    "expected": "26110.0"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('EUR')",
+    "expected": "29848.73"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('JPY', 0)",
+    "expected": "0.0"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc(amount=10)",
+    "expected": "261100.0"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('EUR', amount=2)",
+    "expected": "59697.46"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc(fc='JPY', amount=100)",
+    "expected": "18330.0"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('USD', 0.5)",
+    "expected": "13055.0"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('usd', 1)",
+    "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "buy_fc('GBP')",
+    "expected": "None"
    }
   ],
   "hint": "Khi NGƯỜI DÙNG mua, ngân hàng BÁN ra, nên dùng giá nào? Truy cập dict lồng nhau bằng hai lần ngoặc vuông. Kiểm tra mã có tồn tại bằng toán tử in.",
@@ -1432,6 +2662,56 @@
     "setup": "",
     "call": "count_char_freq(\"Python 3.11\")",
     "expected": "{'P': 1, 'y': 1, 't': 1, 'h': 1, 'o': 1, 'n': 1, ' ': 1, '3': 1, '.': 1, '1': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('a')",
+    "expected": "{'a': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('ab')",
+    "expected": "{'a': 1, 'b': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('abcabc')",
+    "expected": "{'a': 2, 'b': 2, 'c': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('AaAa')",
+    "expected": "{'A': 2, 'a': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('  ')",
+    "expected": "{' ': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('a b a')",
+    "expected": "{'a': 2, ' ': 2, 'b': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('12321')",
+    "expected": "{'1': 2, '2': 2, '3': 1}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('mississippi')",
+    "expected": "{'m': 1, 'i': 4, 's': 4, 'p': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('!!??')",
+    "expected": "{'!': 2, '?': 2}"
+   },
+   {
+    "setup": "",
+    "call": "count_char_freq('Hello, World!')",
+    "expected": "{'H': 1, 'e': 1, 'l': 3, 'o': 2, ',': 1, ' ': 1, 'W': 1, 'r': 1, 'd': 1, '!': 1}"
    }
   ],
   "hint": "Sử dụng vòng lặp duyệt qua từng ký tự, kiểm tra ký tự đã có trong dict chưa bằng toán tử 'in' hoặc phương thức .get().",
@@ -1481,6 +2761,46 @@
    {
     "input": "x:10\ny:20",
     "expected": "x: 10\ny: 20"
+   },
+   {
+    "input": "a:1\nb:1",
+    "expected": "a: 1\nb: 1"
+   },
+   {
+    "input": "a:1 a:1 a:1\na:1",
+    "expected": "a: 4"
+   },
+   {
+    "input": "apple:5\nbanana:3 apple:2",
+    "expected": "apple: 7\nbanana: 3"
+   },
+   {
+    "input": "z:1 y:2 x:3\nx:4 y:5 z:6",
+    "expected": "x: 7\ny: 7\nz: 7"
+   },
+   {
+    "input": "item:100\nitem:200",
+    "expected": "item: 300"
+   },
+   {
+    "input": "pen:1 pen:2 pen:3\nbook:1",
+    "expected": "book: 1\npen: 6"
+   },
+   {
+    "input": "a:999999 b:1\na:1 b:999999",
+    "expected": "a: 1000000\nb: 1000000"
+   },
+   {
+    "input": "cat:3\ndog:4",
+    "expected": "cat: 3\ndog: 4"
+   },
+   {
+    "input": "milk:2 bread:1 egg:12\negg:6 milk:3 rice:7",
+    "expected": "bread: 1\negg: 18\nmilk: 5\nrice: 7"
+   },
+   {
+    "input": "ab:1 abc:2 a:3\na:1 abc:1",
+    "expected": "a: 4\nab: 1\nabc: 3"
    }
   ],
   "hint": "Dùng .split() để tách các cặp, sau đó dùng .split(':') để lấy tên và số lượng. Chuyển số lượng sang kiểu int trước khi cộng.",
@@ -1535,6 +2855,56 @@
     "setup": "",
     "call": "calculate_total({'coke': 1.5, 'pepsi': 1.5}, {'coke': 2, 'pepsi': 2})",
     "expected": "6.0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 1}, {'a': 1})",
+    "expected": "1"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 1}, {'a': 0})",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 0, 'b': 5}, {'a': 10, 'b': 2})",
+    "expected": "10"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 2, 'b': 3, 'c': 4}, {'a': 1, 'b': 2, 'c': 3})",
+    "expected": "20"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({}, {})",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'x': 2.5}, {'x': 4})",
+    "expected": "10.0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'x': 10}, {'y': 3, 'z': 4})",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'tea': 12.5, 'cake': 30}, {'tea': 2, 'cake': 1, 'pie': 9})",
+    "expected": "55.0"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 100, 'b': 200}, {'b': 3})",
+    "expected": "600"
+   },
+   {
+    "setup": "",
+    "call": "calculate_total({'a': 0.1, 'b': 0.2}, {'a': 1, 'b': 1})",
+    "expected": "0.30000000000000004"
    }
   ],
   "hint": "Duyệt qua các khóa trong dict `order`, kiểm tra xem khóa đó có trong `prices` không bằng toán tử `in`.",
@@ -1583,6 +2953,46 @@
    {
     "input": "3\n1,A,X\n2,B,X\n3,C,X",
     "expected": "X: ['A', 'B', 'C']"
+   },
+   {
+    "input": "1\n1,A,X",
+    "expected": "X: ['A']"
+   },
+   {
+    "input": "2\n1,A,X\n2,B,Y",
+    "expected": "X: ['A']\nY: ['B']"
+   },
+   {
+    "input": "3\n1,A,X\n2,B,Y\n3,C,X",
+    "expected": "X: ['A', 'C']\nY: ['B']"
+   },
+   {
+    "input": "4\n1,A,Y\n2,B,X\n3,C,Y\n4,D,X",
+    "expected": "Y: ['A', 'C']\nX: ['B', 'D']"
+   },
+   {
+    "input": "3\n10,Nguyen Van A,D21\n11,Tran B,D22\n12,Le C,D21",
+    "expected": "D21: ['Nguyen Van A', 'Le C']\nD22: ['Tran B']"
+   },
+   {
+    "input": "5\n1,A,L1\n2,B,L2\n3,C,L3\n4,D,L2\n5,E,L1",
+    "expected": "L1: ['A', 'E']\nL2: ['B', 'D']\nL3: ['C']"
+   },
+   {
+    "input": "2\n1,Same,X\n2,Same,X",
+    "expected": "X: ['Same', 'Same']"
+   },
+   {
+    "input": "3\n1,A,x\n2,B,X\n3,C,x",
+    "expected": "x: ['A', 'C']\nX: ['B']"
+   },
+   {
+    "input": "4\n1,Z,K\n2,Y,K\n3,X,K\n4,W,K",
+    "expected": "K: ['Z', 'Y', 'X', 'W']"
+   },
+   {
+    "input": "2\n1,A,Q\n2,B,P",
+    "expected": "Q: ['A']\nP: ['B']"
    }
   ],
   "hint": "Sử dụng một dictionary với key là mã lớp, value là một list chứa tên sinh viên. Sử dụng list.append() để thêm tên mới vào lớp.",
@@ -1637,6 +3047,56 @@
     "setup": "",
     "call": "invert_dict({'apple': 'fruit', 'carrot': 'veg', 'banana': 'fruit'})",
     "expected": "{'fruit': ['apple', 'banana'], 'veg': ['carrot']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'a': 1})",
+    "expected": "{1: ['a']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'a': 1, 'b': 1, 'c': 1})",
+    "expected": "{1: ['a', 'b', 'c']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'a': 1, 'b': 2, 'c': 3})",
+    "expected": "{1: ['a'], 2: ['b'], 3: ['c']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'c': 'x', 'b': 'x', 'a': 'x'})",
+    "expected": "{'x': ['a', 'b', 'c']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({3: 'p', 1: 'p', 2: 'q'})",
+    "expected": "{'p': [1, 3], 'q': [2]}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'a': 0, 'b': 0})",
+    "expected": "{0: ['a', 'b']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'z': 1.5, 'y': 1.5, 'x': 2.5})",
+    "expected": "{1.5: ['y', 'z'], 2.5: ['x']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'b': 'v', 'a': 'w', 'c': 'v', 'd': 'w'})",
+    "expected": "{'v': ['b', 'c'], 'w': ['a', 'd']}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({10: 'a', 5: 'a', 7: 'b', 1: 'b'})",
+    "expected": "{'a': [5, 10], 'b': [1, 7]}"
+   },
+   {
+    "setup": "",
+    "call": "invert_dict({'x': (1, 2), 'y': (1, 2)})",
+    "expected": "{(1, 2): ['x', 'y']}"
    }
   ],
   "hint": "Duyệt qua d.items(), lấy key và value cũ. Gán value cũ làm key mới cho dict kết quả, và append key cũ vào list tương ứng.",
@@ -1686,6 +3146,46 @@
    {
     "input": "3\nGOLD 7500 8000\nSILVER 500 600\nPLATINUM 7500 8500",
     "expected": "GOLD"
+   },
+   {
+    "input": "1\nUSD 1 2",
+    "expected": "USD"
+   },
+   {
+    "input": "2\nA 5 6\nB 5 7",
+    "expected": "A"
+   },
+   {
+    "input": "2\nA 7 8\nB 5 9",
+    "expected": "A"
+   },
+   {
+    "input": "3\nA 1 2\nB 2 3\nC 3 4",
+    "expected": "C"
+   },
+   {
+    "input": "3\nC 3 4\nB 2 3\nA 1 2",
+    "expected": "C"
+   },
+   {
+    "input": "3\nX 10 1\nY 10 2\nZ 10 3",
+    "expected": "X"
+   },
+   {
+    "input": "2\nEUR 27000 28000\nUSD 25000 26000",
+    "expected": "EUR"
+   },
+   {
+    "input": "4\nJPY 160 170\nCAD 18000 19000\nAUD 16500 17000\nGBP 32000 33000",
+    "expected": "GBP"
+   },
+   {
+    "input": "2\nA 0 1\nB 1 2",
+    "expected": "B"
+   },
+   {
+    "input": "1\nVND 1 1",
+    "expected": "VND"
    }
   ],
   "hint": "Lưu dữ liệu vào dict lồng nhau hoặc dùng biến theo dõi max_mua và max_ten ngay khi đọc dữ liệu.",
@@ -1740,6 +3240,56 @@
     "setup": "",
     "call": "filter_students({'Z': 0, 'A': 0.1}, 0)",
     "expected": "['A', 'Z']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'A': 3.0}, 3.0)",
+    "expected": "['A']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'A': 2.99}, 3.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'B2': 3.0, 'B1': 3.5, 'B3': 2.0}, 2.5)",
+    "expected": "['B1', 'B2']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'x': 4.0, 'y': 0.0}, 0.0)",
+    "expected": "['x', 'y']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'x': 4.0, 'y': 0.0}, 4.0)",
+    "expected": "['x']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'B10': 3.0, 'B2': 3.0}, 3.0)",
+    "expected": "['B10', 'B2']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'S1': 3.5, 'S2': 3.4, 'S3': 3.3}, 3.4)",
+    "expected": "['S1', 'S2']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'Z9': 1.0, 'A1': 2.0, 'M5': 3.0}, 0.5)",
+    "expected": "['A1', 'M5', 'Z9']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'a': 1, 'b': 2, 'c': 3}, 2)",
+    "expected": "['b', 'c']"
+   },
+   {
+    "setup": "",
+    "call": "filter_students({'only': 3.7}, 3.8)",
+    "expected": "[]"
    }
   ],
   "hint": "Sử dụng dict comprehension hoặc vòng lặp for kết hợp điều kiện if, sau đó dùng hàm sorted() cho kết quả.",
@@ -1789,6 +3339,46 @@
    {
     "input": "3\nNHAP a 1\nNHAP a 2\nNHAP a 3",
     "expected": "a: 6"
+   },
+   {
+    "input": "1\nXUAT a 5",
+    "expected": "a: -5"
+   },
+   {
+    "input": "1\nNHAP a 1",
+    "expected": "a: 1"
+   },
+   {
+    "input": "2\nNHAP a 5\nXUAT a 3",
+    "expected": "a: 2"
+   },
+   {
+    "input": "3\nNHAP b 1\nNHAP a 2\nNHAP c 3",
+    "expected": "a: 2\nb: 1\nc: 3"
+   },
+   {
+    "input": "3\nXUAT x 1\nXUAT x 2\nXUAT x 3",
+    "expected": "x: -6"
+   },
+   {
+    "input": "4\nNHAP pen 10\nXUAT pen 4\nNHAP pen 1\nXUAT pen 7",
+    "expected": "pen: 0"
+   },
+   {
+    "input": "5\nNHAP x 100\nXUAT y 50\nNHAP z 25\nXUAT x 60\nNHAP y 70",
+    "expected": "x: 40\ny: 20\nz: 25"
+   },
+   {
+    "input": "3\nNHAP Item1 1000000\nNHAP Item1 1000000\nXUAT Item1 1",
+    "expected": "Item1: 1999999"
+   },
+   {
+    "input": "4\nNHAP m 3\nXUAT m 3\nNHAP n 1\nXUAT n 2",
+    "expected": "m: 0\nn: -1"
+   },
+   {
+    "input": "2\nNHAP apple 5\nNHAP apples 7",
+    "expected": "apple: 5\napples: 7"
    }
   ],
   "hint": "Sử dụng dict để lưu trữ số lượng hiện tại. Nếu là 'NHAP' thì cộng, 'XUAT' thì trừ. Dùng sorted() trên các key để in.",
@@ -1845,6 +3435,56 @@
     "setup": "",
     "call": "tinh_tien_nuoc(0, 5)",
     "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(0)",
+    "expected": "0"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(4)",
+    "expected": "36824"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(6)",
+    "expected": "72274"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(7)",
+    "expected": "92060"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(10)",
+    "expected": "151418"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(8, 2)",
+    "expected": "73648"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(12, 2)",
+    "expected": "144548"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(13, 2)",
+    "expected": "164334"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(12, 3)",
+    "expected": "110472"
+   },
+   {
+    "setup": "",
+    "call": "tinh_tien_nuoc(30, 5)",
+    "expected": "361370"
    }
   ],
   "hint": "Tính các mốc định mức dựa trên số người: limit1 = 4 * so_nguoi, limit2 = 6 * so_nguoi. Sau đó dùng cấu trúc if-elif để tách các phần khối lượng nước vào từng bậc.",
@@ -1900,6 +3540,56 @@
     "setup": "ds = [{'ten': 'Z', 'gpa': 3.5}, {'ten': 'A', 'gpa': 3.5}]",
     "call": "loc_sinh_vien(ds, 3.5)",
     "expected": "['A', 'Z']"
+   },
+   {
+    "setup": "ds = [{'ten': 'A', 'gpa': 5.0}]",
+    "call": "loc_sinh_vien(ds, 5.0)",
+    "expected": "['A']"
+   },
+   {
+    "setup": "ds = [{'ten': 'A', 'gpa': 4.9}]",
+    "call": "loc_sinh_vien(ds, 5.0)",
+    "expected": "[]"
+   },
+   {
+    "setup": "ds = [{'ten': 'B', 'gpa': 7.0}, {'ten': 'A', 'gpa': 9.0}, {'ten': 'C', 'gpa': 8.0}]",
+    "call": "loc_sinh_vien(ds, 7.5)",
+    "expected": "['A', 'C']"
+   },
+   {
+    "setup": "ds = [{'ten': 'B', 'gpa': 7.0}, {'ten': 'A', 'gpa': 7.0}, {'ten': 'C', 'gpa': 7.0}]",
+    "call": "loc_sinh_vien(ds, 7.0)",
+    "expected": "['A', 'B', 'C']"
+   },
+   {
+    "setup": "ds = [{'ten': 'An', 'gpa': 3.5}, {'ten': 'Binh', 'gpa': 3.9}, {'ten': 'Cuong', 'gpa': 3.5}, {'ten': 'Dung', 'gpa': 3.0}]",
+    "call": "loc_sinh_vien(ds, 3.5)",
+    "expected": "['Binh', 'An', 'Cuong']"
+   },
+   {
+    "setup": "ds = [{'ten': 'X', 'gpa': 0.0}, {'ten': 'Y', 'gpa': 0.0}]",
+    "call": "loc_sinh_vien(ds, 0.0)",
+    "expected": "['X', 'Y']"
+   },
+   {
+    "setup": "ds = [{'ten': 'Lan', 'gpa': 10.0}, {'ten': 'Mai', 'gpa': 9.99}]",
+    "call": "loc_sinh_vien(ds, 10.0)",
+    "expected": "['Lan']"
+   },
+   {
+    "setup": "ds = [{'ten': 'P', 'gpa': 6.5}, {'ten': 'Q', 'gpa': 6.6}, {'ten': 'R', 'gpa': 6.4}]",
+    "call": "loc_sinh_vien(ds, 6.5)",
+    "expected": "['Q', 'P']"
+   },
+   {
+    "setup": "ds = [{'ten': 'Nam', 'gpa': 4.0}, {'ten': 'Hai', 'gpa': 3.99}, {'ten': 'Ba', 'gpa': 3.98}]",
+    "call": "loc_sinh_vien(ds, 3.0)",
+    "expected": "['Nam', 'Hai', 'Ba']"
+   },
+   {
+    "setup": "ds = [{'ten': 'Z', 'gpa': 2.0}, {'ten': 'Y', 'gpa': 2.0}, {'ten': 'X', 'gpa': 3.0}, {'ten': 'W', 'gpa': 3.0}]",
+    "call": "loc_sinh_vien(ds, 2.5)",
+    "expected": "['W', 'X']"
    }
   ],
   "hint": "Sử dụng hàm filter() để lọc, sau đó dùng sorted() với tham số key là một lambda function trả về tuple: (-x['gpa'], x['ten']).",
@@ -1956,6 +3646,56 @@
     "setup": "a = [5]\nthem_vao(6, a)",
     "call": "a",
     "expected": "[5, 6]"
+   },
+   {
+    "setup": "",
+    "call": "them_vao(None)",
+    "expected": "[None]"
+   },
+   {
+    "setup": "",
+    "call": "them_vao('x', [])",
+    "expected": "['x']"
+   },
+   {
+    "setup": "",
+    "call": "them_vao(1, [1])",
+    "expected": "[1, 1]"
+   },
+   {
+    "setup": "a = them_vao(1)\nb = them_vao(2)",
+    "call": "(a, b)",
+    "expected": "([1], [2])"
+   },
+   {
+    "setup": "a = them_vao(1)\nb = them_vao(2)",
+    "call": "a is b",
+    "expected": "False"
+   },
+   {
+    "setup": "a = [1]\nb = them_vao(2, a)",
+    "call": "b is a",
+    "expected": "True"
+   },
+   {
+    "setup": "a = []\nthem_vao(1, a)\nthem_vao(2, a)",
+    "call": "a",
+    "expected": "[1, 2]"
+   },
+   {
+    "setup": "them_vao(9)\nthem_vao(9, [])",
+    "call": "them_vao(5)",
+    "expected": "[5]"
+   },
+   {
+    "setup": "x = them_vao('p')\nthem_vao('q')",
+    "call": "x",
+    "expected": "['p']"
+   },
+   {
+    "setup": "",
+    "call": "them_vao([1], [2])",
+    "expected": "[2, [1]]"
    }
   ],
   "hint": "Giá trị mặc định chỉ được tạo một lần khi định nghĩa hàm. Dùng None làm giá trị mặc định rồi kiểm tra bên trong hàm.",
@@ -2012,6 +3752,56 @@
     "setup": "data = [{'ten': 'X', 'gia': 10, 'sl': 5}, {'ten': 'Y', 'gia': 10, 'sl': 5}]",
     "call": "sap_xep_kho(data)",
     "expected": "[{'ten': 'X', 'gia': 10, 'sl': 5}, {'ten': 'Y', 'gia': 10, 'sl': 5}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'B', 'gia': 5, 'sl': 2}, {'ten': 'C', 'gia': 20, 'sl': 3}]",
+    "call": "sap_xep_kho(data)",
+    "expected": "[{'ten': 'B', 'gia': 5, 'sl': 2}, {'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'C', 'gia': 20, 'sl': 3}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'B', 'gia': 5, 'sl': 2}, {'ten': 'C', 'gia': 20, 'sl': 3}]",
+    "call": "sap_xep_kho(data, True)",
+    "expected": "[{'ten': 'C', 'gia': 20, 'sl': 3}, {'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'B', 'gia': 5, 'sl': 2}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'B', 'gia': 10, 'sl': 9}, {'ten': 'C', 'gia': 10, 'sl': 5}]",
+    "call": "sap_xep_kho(data)",
+    "expected": "[{'ten': 'B', 'gia': 10, 'sl': 9}, {'ten': 'C', 'gia': 10, 'sl': 5}, {'ten': 'A', 'gia': 10, 'sl': 1}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 10, 'sl': 1}, {'ten': 'B', 'gia': 10, 'sl': 9}, {'ten': 'C', 'gia': 10, 'sl': 5}]",
+    "call": "sap_xep_kho(data, sap_xep_nguoc=True)",
+    "expected": "[{'ten': 'B', 'gia': 10, 'sl': 9}, {'ten': 'C', 'gia': 10, 'sl': 5}, {'ten': 'A', 'gia': 10, 'sl': 1}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 10, 'sl': 0}, {'ten': 'B', 'gia': 10, 'sl': 0}]",
+    "call": "sap_xep_kho(data, True)",
+    "expected": "[{'ten': 'A', 'gia': 10, 'sl': 0}, {'ten': 'B', 'gia': 10, 'sl': 0}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 30, 'sl': 5}, {'ten': 'B', 'gia': 10, 'sl': 5}, {'ten': 'C', 'gia': 30, 'sl': 7}, {'ten': 'D', 'gia': 10, 'sl': 9}]",
+    "call": "sap_xep_kho(data)",
+    "expected": "[{'ten': 'D', 'gia': 10, 'sl': 9}, {'ten': 'B', 'gia': 10, 'sl': 5}, {'ten': 'C', 'gia': 30, 'sl': 7}, {'ten': 'A', 'gia': 30, 'sl': 5}]"
+   },
+   {
+    "setup": "data = [{'ten': 'A', 'gia': 30, 'sl': 5}, {'ten': 'B', 'gia': 10, 'sl': 5}, {'ten': 'C', 'gia': 30, 'sl': 7}, {'ten': 'D', 'gia': 10, 'sl': 9}]",
+    "call": "sap_xep_kho(data, True)",
+    "expected": "[{'ten': 'C', 'gia': 30, 'sl': 7}, {'ten': 'A', 'gia': 30, 'sl': 5}, {'ten': 'D', 'gia': 10, 'sl': 9}, {'ten': 'B', 'gia': 10, 'sl': 5}]"
+   },
+   {
+    "setup": "data = [{'ten': 'X', 'gia': 1.5, 'sl': 3}, {'ten': 'Y', 'gia': 1.25, 'sl': 4}]",
+    "call": "sap_xep_kho(data)",
+    "expected": "[{'ten': 'Y', 'gia': 1.25, 'sl': 4}, {'ten': 'X', 'gia': 1.5, 'sl': 3}]"
+   },
+   {
+    "setup": "data = [{'ten': 'X', 'gia': 1.5, 'sl': 3}, {'ten': 'Y', 'gia': 1.25, 'sl': 4}]",
+    "call": "sap_xep_kho(data, True)",
+    "expected": "[{'ten': 'X', 'gia': 1.5, 'sl': 3}, {'ten': 'Y', 'gia': 1.25, 'sl': 4}]"
+   },
+   {
+    "setup": "data = [{'ten': 'Q', 'gia': 100, 'sl': 0}]",
+    "call": "sap_xep_kho(data, True)",
+    "expected": "[{'ten': 'Q', 'gia': 100, 'sl': 0}]"
    }
   ],
   "hint": "Sử dụng sorted() với key là lambda trả về một tuple. Nếu cần đảo ngược một tiêu chí trong khi tiêu chí kia giữ nguyên, hãy dùng dấu trừ (-) cho số.",
@@ -2067,6 +3857,56 @@
     "setup": "",
     "call": "safe_divide(0, 5)",
     "expected": "0.0"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(1, 2)",
+    "expected": "0.5"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(-6, 3)",
+    "expected": "-2.0"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(5.5, 0)",
+    "expected": "'Error: Division by zero'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(0, 0)",
+    "expected": "'Error: Division by zero'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(7, 2.0)",
+    "expected": "3.5"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(None, 3)",
+    "expected": "'Error: Invalid type'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(3, None)",
+    "expected": "'Error: Invalid type'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide('a', 'b')",
+    "expected": "'Error: Invalid type'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide([1], 2)",
+    "expected": "'Error: Invalid type'"
+   },
+   {
+    "setup": "",
+    "call": "safe_divide(10, -4)",
+    "expected": "-2.5"
    }
   ],
   "hint": "Sử dụng cấu trúc try...except với các khối ngoại lệ cụ thể (ZeroDivisionError, TypeError).",
@@ -2127,6 +3967,86 @@
     "setup": "",
     "call": "get_prime_frequency('data1.txt').get(13)",
     "expected": "3"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "2 3 5 7 11 13 17 19 23 29"
+    },
+    "expected": "{2: 1, 3: 1, 5: 1, 7: 1, 11: 1, 13: 1, 17: 1, 19: 1, 23: 1, 29: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "2\n2\n2\n3\n3"
+    },
+    "expected": "{2: 3, 3: 2}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "0 1 -3 -5 1.5 4 9 15"
+    },
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "hello 97 world 97 x2 7y 101"
+    },
+    "expected": "{97: 2, 101: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "1\n1\n1"
+    },
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "  \n\n  "
+    },
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "7919 7919 7918 100 997"
+    },
+    "expected": "{7919: 2, 997: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "2 4 6 8 10 12\n3 9 15 21\n5 25 35"
+    },
+    "expected": "{2: 1, 3: 1, 5: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "#2 3# 5, 7. 11"
+    },
+    "expected": "{11: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_prime_frequency('a.txt')",
+    "files": {
+     "a.txt": "13 13 13\n13 13"
+    },
+    "expected": "{13: 5}"
    }
   ],
   "hint": "Dùng `with open(path, 'r', encoding='utf-8')` để mở file. Đọc toàn bộ nội dung bằng `read()` hoặc duyệt từng dòng, sau đó dùng `split()` để lấy danh sách các token. Kiểm tra từng token bằng `isdigit()` trước khi kiểm tra tính nguyên tố.",
@@ -2189,6 +4109,86 @@
     "setup": "with open('temp.txt', 'w') as f: f.write('SV1 5\\nSV2 6')",
     "call": "process_scores('temp.txt')",
     "expected": "5.5"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An 10"
+    },
+    "expected": "10.0"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An 0\nBinh 10"
+    },
+    "expected": "5.0"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An 7\nBinh 8\nCuong 9"
+    },
+    "expected": "8.0"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An 8.25\nBinh 7.5"
+    },
+    "expected": "7.88"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An\nBinh\nCuong"
+    },
+    "expected": "0.0"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An x\nBinh 5"
+    },
+    "expected": "5.0"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "An 6\n\nBinh 7\n\n"
+    },
+    "expected": "6.5"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "A 1\nB 2\nC 2"
+    },
+    "expected": "1.67"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "A 3.333\nB 3.333\nC 3.334"
+    },
+    "expected": "3.33"
+   },
+   {
+    "setup": "",
+    "call": "process_scores('s.txt')",
+    "files": {
+     "s.txt": "A 9.5\nB oops\nC\nD 8.5"
+    },
+    "expected": "9.0"
    }
   ],
   "hint": "Sử dụng cấu trúc lồng nhau: Một khối try-except bao quanh việc mở file (FileNotFoundError), và một khối try-except bên trong vòng lặp duyệt từng dòng (IndexError, ValueError).",
@@ -2249,6 +4249,86 @@
     "setup": "",
     "call": "get_harshad_frequency('harshad.txt').get(13)",
     "expected": "None"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "1 2 3"
+    },
+    "expected": "{1: 1, 2: 1, 3: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "11 13 17 19 23"
+    },
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "12 12 12\n18"
+    },
+    "expected": "{12: 3, 18: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": ""
+    },
+    "expected": "{}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "100 1000 101"
+    },
+    "expected": "{100: 1, 1000: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "abc 20 x30 30 -18 4.5 27"
+    },
+    "expected": "{20: 1, 30: 1, 27: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "24 24\n24 25 26"
+    },
+    "expected": "{24: 3}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "1729 1730 1731"
+    },
+    "expected": "{1729: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "110 111 112 120"
+    },
+    "expected": "{110: 1, 111: 1, 112: 1, 120: 1}"
+   },
+   {
+    "setup": "",
+    "call": "get_harshad_frequency('h.txt')",
+    "files": {
+     "h.txt": "7 7 7 7 8"
+    },
+    "expected": "{7: 4, 8: 1}"
    }
   ],
   "hint": "Để tính tổng các chữ số của n, có thể chuyển n thành string và duyệt từng ký tự `sum(int(digit) for digit in str(n))`. Sau đó kiểm tra `n % tong == 0`.",
@@ -2306,6 +4386,56 @@
     "setup": "p3 = Product('Freebie', 0, 100)",
     "call": "p3.get_total_value()",
     "expected": "0"
+   },
+   {
+    "setup": "p = Product('A', 1, 1)",
+    "call": "p.get_total_value()",
+    "expected": "1"
+   },
+   {
+    "setup": "p = Product('A', 1, 1)",
+    "call": "str(p)",
+    "expected": "'Product(A, 1)'"
+   },
+   {
+    "setup": "p = Product('B', 0, 0)",
+    "call": "p.get_total_value()",
+    "expected": "0"
+   },
+   {
+    "setup": "p = Product('B', 0, 0)",
+    "call": "str(p)",
+    "expected": "'Product(B, 0)'"
+   },
+   {
+    "setup": "p = Product('C', 2.5, 4)",
+    "call": "p.get_total_value()",
+    "expected": "10.0"
+   },
+   {
+    "setup": "p = Product('C', 2.5, 4)",
+    "call": "str(p)",
+    "expected": "'Product(C, 10.0)'"
+   },
+   {
+    "setup": "p = Product('D', 100, 0)",
+    "call": "p.get_total_value()",
+    "expected": "0"
+   },
+   {
+    "setup": "p = Product('D', 100, 0)",
+    "call": "str(p)",
+    "expected": "'Product(D, 0)'"
+   },
+   {
+    "setup": "p = Product('E', 3, 3)",
+    "call": "p.get_total_value()",
+    "expected": "9"
+   },
+   {
+    "setup": "p = Product('E', 3, 3)",
+    "call": "str(p)",
+    "expected": "'Product(E, 9)'"
    }
   ],
   "hint": "Sử dụng self để truy cập các thuộc tính trong phương thức. Phương thức __str__ phải trả về một string (dùng f-string hoặc format).",
@@ -2363,6 +4493,51 @@
     "setup": "s1=Student('B','X',6.0); s2=Student('A','Y',6.0); ds=[s1,s2]",
     "call": "[s.first_name for s in filter_students(ds, 6.0)]",
     "expected": "['A', 'B']"
+   },
+   {
+    "setup": "s1=Student('A','x',5.0); ds=[s1]",
+    "call": "[s.first_name for s in filter_students(ds, 5.0)]",
+    "expected": "['A']"
+   },
+   {
+    "setup": "s1=Student('A','x',4.9); ds=[s1]",
+    "call": "[s.first_name for s in filter_students(ds, 5.0)]",
+    "expected": "[]"
+   },
+   {
+    "setup": "s1=Student('C','a',7.0); s2=Student('B','b',8.0); s3=Student('A','c',9.0); ds=[s1,s2,s3]",
+    "call": "[s.first_name for s in filter_students(ds, 7.5)]",
+    "expected": "['A', 'B']"
+   },
+   {
+    "setup": "s1=Student('C','a',7.0); s2=Student('B','b',8.0); s3=Student('A','c',9.0); ds=[s1,s2,s3]",
+    "call": "[s.first_name for s in filter_students(ds, 0.0)]",
+    "expected": "['A', 'B', 'C']"
+   },
+   {
+    "setup": "s1=Student('C','a',7.0); s2=Student('B','b',8.0); s3=Student('A','c',9.0); ds=[s1,s2,s3]",
+    "call": "[s.first_name for s in filter_students(ds, 10.0)]",
+    "expected": "[]"
+   },
+   {
+    "setup": "s1=Student('Hoa','Le',3.0); s2=Student('Tuan','Pham',4.0); ds=[s1,s2]",
+    "call": "[s.last_name for s in filter_students(ds, 3.5)]",
+    "expected": "['Pham']"
+   },
+   {
+    "setup": "s1=Student('M','N',6.0); s2=Student('K','L',6.0); ds=[s1,s2]",
+    "call": "[s.gpa for s in filter_students(ds, 6.0)]",
+    "expected": "[6.0, 6.0]"
+   },
+   {
+    "setup": "s1=Student('Z','z',10.0); s2=Student('Y','y',0.0); ds=[s1,s2]",
+    "call": "len(filter_students(ds, 0.0))",
+    "expected": "2"
+   },
+   {
+    "setup": "s1=Student('Q','q',5.5); s2=Student('P','p',5.4); ds=[s1,s2]",
+    "call": "filter_students(ds, 5.5)[0].last_name",
+    "expected": "'q'"
    }
   ],
   "hint": "Sử dụng List Comprehension để lọc. Sau đó dùng phương thức sort() hoặc hàm sorted() với tham số key=lambda x: x.first_name.",
@@ -2419,6 +4594,56 @@
     "setup": "staff = [Employee(str(i), 10) for i in range(5)]",
     "call": "get_total_payroll(staff)",
     "expected": "50"
+   },
+   {
+    "setup": "e1=Employee('A', 0)",
+    "call": "get_total_payroll([e1])",
+    "expected": "0"
+   },
+   {
+    "setup": "m1=Manager('M', 0, 0)",
+    "call": "get_total_payroll([m1])",
+    "expected": "0"
+   },
+   {
+    "setup": "m1=Manager('M', 100, 0)",
+    "call": "m1.get_salary()",
+    "expected": "100"
+   },
+   {
+    "setup": "m1=Manager('M', 0, 80)",
+    "call": "m1.get_salary()",
+    "expected": "80"
+   },
+   {
+    "setup": "e1=Employee('A', 10.5); m1=Manager('M', 20, 0.5)",
+    "call": "get_total_payroll([e1, m1])",
+    "expected": "31.0"
+   },
+   {
+    "setup": "e1=Employee('A', 100); e2=Employee('B', 200); e3=Employee('C', 300)",
+    "call": "get_total_payroll([e1, e2, e3])",
+    "expected": "600"
+   },
+   {
+    "setup": "m1=Manager('M', 1000, 500)",
+    "call": "get_total_payroll([m1, m1])",
+    "expected": "3000"
+   },
+   {
+    "setup": "e1=Employee('A', 100); m1=Manager('M', 300, 100); e2=Employee('B', 50)",
+    "call": "get_total_payroll([m1, e1, e2])",
+    "expected": "550"
+   },
+   {
+    "setup": "m1=Manager('M', 100, 20)",
+    "call": "(m1.name, m1.base_salary, m1.bonus)",
+    "expected": "('M', 100, 20)"
+   },
+   {
+    "setup": "m1=Manager('M', 100, 20)",
+    "call": "isinstance(m1, Employee)",
+    "expected": "True"
    }
   ],
   "hint": "Trong Manager.__init__, hãy gọi super().__init__(name, base_salary). Tính đa hình (polymorphism) cho phép gọi obj.get_salary() mà không cần kiểm tra kiểu dữ liệu.",
@@ -2475,6 +4700,56 @@
     "setup": "ds=[Book('New', 'A', 2023)]",
     "call": "find_old_books(ds, 2000)",
     "expected": "[]"
+   },
+   {
+    "setup": "b1=Book('A','x',1999); ds=[b1]",
+    "call": "find_old_books(ds, 2000)",
+    "expected": "['A']"
+   },
+   {
+    "setup": "b1=Book('A','x',2000); ds=[b1]",
+    "call": "find_old_books(ds, 2000)",
+    "expected": "[]"
+   },
+   {
+    "setup": "b1=Book('A','x',2001); ds=[b1]",
+    "call": "find_old_books(ds, 2000)",
+    "expected": "[]"
+   },
+   {
+    "setup": "b1=Book('C','x',1800); b2=Book('B','y',1700); b3=Book('A','z',1900); ds=[b1,b2,b3]",
+    "call": "find_old_books(ds, 2000)",
+    "expected": "['A', 'B', 'C']"
+   },
+   {
+    "setup": "b1=Book('C','x',1800); b2=Book('B','y',1700); b3=Book('A','z',1900); ds=[b1,b2,b3]",
+    "call": "find_old_books(ds, 1800)",
+    "expected": "['B']"
+   },
+   {
+    "setup": "b1=Book('C','x',1800); b2=Book('B','y',1700); b3=Book('A','z',1900); ds=[b1,b2,b3]",
+    "call": "find_old_books(ds, 1701)",
+    "expected": "['B']"
+   },
+   {
+    "setup": "b1=Book('Dune','H',1965); b2=Book('Emma','A',1815); b3=Book('Ulysses','J',1922); b4=Book('Hamlet','S',1603); ds=[b1,b2,b3,b4]",
+    "call": "find_old_books(ds, 1950)",
+    "expected": "['Emma', 'Hamlet', 'Ulysses']"
+   },
+   {
+    "setup": "b1=Book('Same','x',1500); b2=Book('Same','y',1600); ds=[b1,b2]",
+    "call": "find_old_books(ds, 1700)",
+    "expected": "['Same', 'Same']"
+   },
+   {
+    "setup": "b1=Book('X','x',1); b2=Book('Y','y',2); ds=[b1,b2]",
+    "call": "find_old_books(ds, 2)",
+    "expected": "['X']"
+   },
+   {
+    "setup": "b1=Book('Zeta','a',1990); b2=Book('Alpha','b',1991); b3=Book('Mid','c',1992); ds=[b1,b2,b3]",
+    "call": "find_old_books(ds, 2025)",
+    "expected": "['Alpha', 'Mid', 'Zeta']"
    }
   ],
   "hint": "Lọc các đối tượng thỏa mãn điều kiện year < target_year, sau đó trích xuất thuộc tính title và thực hiện sắp xếp danh sách các chuỗi đó.",
@@ -2531,6 +4806,56 @@
     "setup": "",
     "call": "calculate_math(24, 36)",
     "expected": "(12, 1)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(1, 1)",
+    "expected": "(1, 1)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(1, 10)",
+    "expected": "(1, 1)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(10, 1)",
+    "expected": "(1, 10)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(5, 5)",
+    "expected": "(5, 1)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(9, 6)",
+    "expected": "(3, 2)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(6, 9)",
+    "expected": "(3, 1)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(13, 5)",
+    "expected": "(1, 3)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(1000, 7)",
+    "expected": "(1, 143)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(48, 18)",
+    "expected": "(6, 3)"
+   },
+   {
+    "setup": "",
+    "call": "calculate_math(2, 4)",
+    "expected": "(2, 1)"
    }
   ],
   "hint": "Sử dụng 'import math as m' để gọi các hàm m.gcd() và m.ceil().",
@@ -2591,6 +4916,51 @@
     "setup": "",
     "call": "thong_ke_diem([4.99, 5.0])",
     "expected": "{'tb': 5.0, 'trung_vi': 4.995, 'cao_nhat': 5.0, 'so_dat': 1}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([0])",
+    "expected": "{'tb': 0, 'trung_vi': 0, 'cao_nhat': 0, 'so_dat': 0}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([10, 10, 10])",
+    "expected": "{'tb': 10, 'trung_vi': 10, 'cao_nhat': 10, 'so_dat': 3}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([5, 5])",
+    "expected": "{'tb': 5, 'trung_vi': 5.0, 'cao_nhat': 5, 'so_dat': 2}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([4.9, 5.1])",
+    "expected": "{'tb': 5.0, 'trung_vi': 5.0, 'cao_nhat': 5.1, 'so_dat': 1}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([0, 10])",
+    "expected": "{'tb': 5, 'trung_vi': 5.0, 'cao_nhat': 10, 'so_dat': 1}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([1, 2, 3, 4, 5])",
+    "expected": "{'tb': 3, 'trung_vi': 3, 'cao_nhat': 5, 'so_dat': 1}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([9, 1, 5])",
+    "expected": "{'tb': 5, 'trung_vi': 5, 'cao_nhat': 9, 'so_dat': 2}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([2.5, 7.5, 5.0, 5.0])",
+    "expected": "{'tb': 5.0, 'trung_vi': 5.0, 'cao_nhat': 7.5, 'so_dat': 3}"
+   },
+   {
+    "setup": "",
+    "call": "thong_ke_diem([0, 0, 0, 5])",
+    "expected": "{'tb': 1.25, 'trung_vi': 0.0, 'cao_nhat': 5, 'so_dat': 1}"
    }
   ],
   "hint": "Kiểm tra list rỗng trước tiên vì statistics.mean([]) gây lỗi StatisticsError. Đếm số bài đạt bằng vòng lặp hoặc sum với điều kiện.",
@@ -2646,6 +5016,51 @@
     "setup": "",
     "call": "verify_age_property('2020-02-29', '2024-02-28')",
     "expected": "(3, False)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-06-15', '2004-06-15')",
+    "expected": "(4, True)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-06-15', '2004-06-14')",
+    "expected": "(3, False)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-06-15', '2009-06-15')",
+    "expected": "(9, True)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-06-15', '2016-06-15')",
+    "expected": "(16, True)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('1999-12-31', '2024-01-01')",
+    "expected": "(24, False)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-02-29', '2001-03-01')",
+    "expected": "(1, True)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('2000-02-29', '2004-02-29')",
+    "expected": "(4, True)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('1950-03-10', '2024-03-09')",
+    "expected": "(73, False)"
+   },
+   {
+    "setup": "",
+    "call": "verify_age_property('1900-01-01', '2000-01-01')",
+    "expected": "(100, True)"
    }
   ],
   "hint": "Dùng date.fromisoformat để chuyển chuỗi thành đối tượng date. Tính tuổi bằng cách so sánh (tháng, ngày). Một số n là số chính phương nếu math.isqrt(n)**2 == n.",
@@ -2700,6 +5115,56 @@
     "setup": "",
     "call": "score_analysis([1.1, 2.2, 3.3])",
     "expected": "{'mean_floor': 2, 'mode': 1.1}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([5])",
+    "expected": "{'mean_floor': 5, 'mode': 5}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([1, 1, 2, 2])",
+    "expected": "{'mean_floor': 1, 'mode': 1}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([2, 2, 1, 1])",
+    "expected": "{'mean_floor': 1, 'mode': 2}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([9.9, 9.9, 9.9])",
+    "expected": "{'mean_floor': 9, 'mode': 9.9}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([0, 0, 10])",
+    "expected": "{'mean_floor': 3, 'mode': 0}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([4, 5, 6, 7])",
+    "expected": "{'mean_floor': 5, 'mode': 4}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([3.5, 3.5, 4.5, 4.5, 9.0])",
+    "expected": "{'mean_floor': 5, 'mode': 3.5}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([10, 10])",
+    "expected": "{'mean_floor': 10, 'mode': 10}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([6.1, 6.2, 6.3, 6.1])",
+    "expected": "{'mean_floor': 6, 'mode': 6.1}"
+   },
+   {
+    "setup": "",
+    "call": "score_analysis([7, 8, 8, 7, 9])",
+    "expected": "{'mean_floor': 7, 'mode': 7}"
    }
   ],
   "hint": "Sử dụng statistics.mean() để tính trung bình, math.floor() để làm tròn xuống, và statistics.mode() để tìm giá trị phổ biến nhất.",
