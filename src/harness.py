@@ -1,8 +1,12 @@
-import sys, io, math, builtins, traceback, linecache
+import sys, io, math, re, builtins, traceback, linecache
 
 USER_FILE = '<bai_lam>'
 TEST_FILE = '<kiem_thu>'
 MAX_OUT = 20000
+VALUE_WORDS = {'true', 'false', 'none', 'yes', 'no', 'có', 'không', 'đúng', 'sai'}
+_TOKEN_RE = re.compile(r'-?\d+(?:\.\d+)?|[^\W\d_]+')
+_NUM_RE = re.compile(r'-?\d+(?:\.\d+)?\Z')
+_CALL_RE = re.compile(r'^\s*([A-Za-z_]\w*)\s*\(')
 
 
 def _cmp(a, b):
@@ -17,6 +21,60 @@ def _cmp(a, b):
     if isinstance(a, dict) and isinstance(b, dict):
         return a.keys() == b.keys() and all(_cmp(a[k], b[k]) for k in a)
     return a == b
+
+
+def _cmp_loose(a, b):
+    if isinstance(a, bool) or isinstance(b, bool):
+        return type(a) is type(b) and a == b
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        return _cmp(a, b)
+    if isinstance(a, (list, tuple)) and isinstance(b, (list, tuple)):
+        return len(a) == len(b) and all(_cmp_loose(x, y) for x, y in zip(a, b))
+    if isinstance(a, str) and isinstance(b, str):
+        return a == b or _tokens(a) == _tokens(b)
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(_cmp_loose(a[k], b[k]) for k in a)
+    if isinstance(a, (set, frozenset)) and isinstance(b, (set, frozenset)):
+        return a == b
+    return a == b
+
+
+def _tokens(s):
+    return _TOKEN_RE.findall(s.lower())
+
+
+def _tok_eq(a, b):
+    if _NUM_RE.match(a) and _NUM_RE.match(b):
+        return math.isclose(float(a), float(b), rel_tol=1e-9, abs_tol=1e-6)
+    return a == b
+
+
+def _toks_eq(xs, ys):
+    return len(xs) == len(ys) and all(_tok_eq(x, y) for x, y in zip(xs, ys))
+
+
+def _match_stdout(got, expected):
+    if _norm(got) == _norm(expected):
+        return True, None
+    gt, et = _tokens(got), _tokens(expected)
+    if _toks_eq(gt, et):
+        return True, 'Đúng giá trị; khác cách trình bày (khoảng trắng/dấu câu/hoa thường).'
+    g_lines = [l for l in _norm(got).split(chr(10)) if l.strip()]
+    e_lines = [l for l in _norm(expected).split(chr(10)) if l.strip()]
+    if not e_lines or len(g_lines) != len(e_lines):
+        return False, None
+    e_all = set(et)
+    for gl, el in zip(g_lines, e_lines):
+        g, e = _tokens(gl), _tokens(el)
+        if _toks_eq(g, e):
+            continue
+        k = len(g) - len(e)
+        if k <= 0 or not _toks_eq(g[k:], e):
+            return False, None
+        prefix = g[:k]
+        if any(_NUM_RE.match(w) or w in VALUE_WORDS or w in e_all for w in prefix):
+            return False, None
+    return True, 'Đúng giá trị; có thêm chữ mô tả trước kết quả.'
 
 
 def _norm(s):
@@ -81,26 +139,52 @@ def run_tests(src, ex):
     results = []
     for t in ex['tests']:
         _prep_files(ex.get('files'))
+        _prep_files(t.get('files'))
         if ex['mode'] == 'stdio':
             out, err = _exec(src, USER_FILE, {'__name__': '__main__'}, t.get('input', ''))
-            ok = err is None and _norm(out) == _norm(t['expected'])
-            results.append({'ok': ok, 'got': out, 'error': err[1] if err else None, 'errType': err[0] if err else None})
+            match_ok, note = _match_stdout(out, t['expected'])
+            ok = err is None and match_ok
+            results.append({'ok': ok, 'got': out, 'error': err[1] if err else None, 'errType': err[0] if err else None,
+                            'note': note if ok else None})
             continue
         ns = {'__name__': '__bai_lam__'}
         out, err = _exec(src, USER_FILE, ns)
         if err and err[0] != 'EOFError':
-            results.append({'ok': False, 'got': '', 'printed': out, 'error': err[1], 'errType': err[0]})
+            results.append({'ok': False, 'got': '', 'printed': out, 'error': err[1], 'errType': err[0], 'note': None})
             continue
+        notes = []
+        alias = None
+        m = _CALL_RE.match(t['call'])
+        if m and m.group(1) not in ns and not hasattr(builtins, m.group(1)):
+            want = m.group(1)
+            mine = [(k, v) for k, v in ns.items()
+                    if isinstance(v, type(_cmp)) and v.__code__.co_filename == USER_FILE]
+            if len(mine) == 1:
+                alias = (want, mine[0][0], mine[0][1])
+                ns[want] = mine[0][1]
         code = (t.get('setup') or '') + '\n__ket_qua__ = (' + t['call'] + ')\n'
         out2, err2 = _exec(code, TEST_FILE, ns)
         if err2:
-            results.append({'ok': False, 'got': '', 'printed': out2, 'error': err2[1], 'errType': err2[0]})
+            results.append({'ok': False, 'got': '', 'printed': out2, 'error': err2[1], 'errType': err2[0], 'note': None})
             continue
+        if alias and ns.get(alias[0]) is alias[2]:
+            notes.append(f'Tên hàm khác đề (đề yêu cầu `{alias[0]}`), đã chấm bằng hàm `{alias[1]}`.')
         got = ns.get('__ket_qua__')
+        ok = False
         try:
             exp = eval(t['expected'], {})
-            ok = _cmp(got, exp)
-        except Exception as e:
+            if _cmp(got, exp):
+                ok = True
+            elif _cmp_loose(got, exp):
+                ok = True
+                notes.append('Đúng giá trị; khác kiểu list/tuple hoặc cách viết chuỗi.')
+            elif got is None and exp is not None:
+                pt = _tokens(out2)
+                if _toks_eq(pt, _tokens(str(exp))) or _toks_eq(pt, _tokens(repr(exp))):
+                    ok = True
+                    notes.append('Hàm dùng print thay vì return; được chấp nhận, nhưng đề yêu cầu trả về (return) giá trị.')
+        except Exception:
             ok = False
-        results.append({'ok': ok, 'got': repr(got), 'printed': out2, 'error': None, 'errType': None})
+        note = ' '.join(notes) if ok and notes else None
+        results.append({'ok': ok, 'got': repr(got), 'printed': out2, 'error': None, 'errType': None, 'note': note})
     return results
